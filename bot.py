@@ -1,6 +1,7 @@
 import discord
 import socket
 import psutil
+import ram
 from config import settings
 from discord.ext import tasks,commands
 from datetime import datetime
