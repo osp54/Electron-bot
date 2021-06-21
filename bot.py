@@ -37,6 +37,7 @@ async def ping():
     msg = await channel.fetch_message(856174885292998657)
     emb = discord.Embed( title = "Status")
     emb.add_field( name = "CPU", value = f"CPU Usage = {psutil.cpu_percent()}% ", inline = False)
+    emb.add_field( name = "RAM", value = f"В разработке...", inline = True)
     emb.add_field( name = "Servers", value = f"‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍Статус обновляется каждые 15 секунд.\nПоследнее обновление статуса: \n{datetime.now()}", inline = False)
     if server_mobile: 
         emb.add_field( name = "Mobile", value = "35.202.253.94:7777    :green_circle: ", inline = False)
