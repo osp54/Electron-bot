@@ -16,6 +16,7 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+#test webhook
 tot_m, used_m, free_m = map(int, os.popen('free -t -m').readlines()[-1].split()[1:])
 client = commands.Bot(command_prefix = settings['prefix'])
 async def status_task():
