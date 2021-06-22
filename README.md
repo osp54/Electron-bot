@@ -1,1 +1,1 @@
-# StatusServers-bot
+# StatusServers
