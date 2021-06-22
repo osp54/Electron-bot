@@ -1,7 +1,7 @@
 import discord
 import socket
 import psutil
-import ram
+import os
 from config import settings
 from discord.ext import tasks,commands
 from datetime import datetime
@@ -15,6 +15,7 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+tot_m, used_m, free_m = map(int, os.popen('free -t -m').readlines()[-1].split()[1:])
 client = commands.Bot(command_prefix = settings['prefix'])
 @client.command()
 async def status(ctx):
@@ -38,7 +39,7 @@ async def ping():
     msg = await channel.fetch_message(856174885292998657)
     emb = discord.Embed( title = "Status")
     emb.add_field( name = "CPU", value = f"CPU Usage = {psutil.cpu_percent()}% ", inline = False)
-    emb.add_field( name = "RAM", value = f"RAM Usage = {mem_T}MB/{mem_U}MB", inline = True)
+    emb.add_field( name = "RAM", value = f"RAM Usage = {used_m}MB/{tot_m}MB", inline = True)
     emb.add_field( name = "Servers", value = f"‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍Статус обновляется каждые 15 секунд.\nПоследнее обновление статуса: \n{datetime.now()}", inline = False)
     if server_mobile: 
         emb.add_field( name = "Mobile", value = "35.202.253.94:7777    :green_circle: ", inline = False)
