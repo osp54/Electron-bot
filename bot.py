@@ -1,3 +1,4 @@
+import cmds
 import discord
 import socket
 import psutil
