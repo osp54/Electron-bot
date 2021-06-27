@@ -31,6 +31,13 @@ async def on_ready():
     sping.start()
     client.loop.create_task(status_task())
 
+async def on_member_join(self, member):
+    guild = member.guild
+    if guild.system_channel is not None:
+        emb2 = discord.Embed( title = "Yes!", description = "Приветствуем тебя на нашем сервере {member.mention}!\nРекомендуем прочитать правила.", color = 0x00A725)
+        embed.set_footer(text=f"Теперь нас {ctx.guild.member_count}!")
+        await guild.system_channel.send(embed=emb2)
+
 @tasks.loop(seconds=settings['updateSts'])
 async def sping():
     def isOpen(ip,port):
