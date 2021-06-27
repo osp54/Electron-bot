@@ -1,0 +1,7 @@
+discord
+socket
+psutil
+asyncio
+os
+random
+time
