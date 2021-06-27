@@ -1,3 +1,2 @@
 discord.py
-psutil
-os
+psutil==5.8.0
