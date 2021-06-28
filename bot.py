@@ -111,4 +111,9 @@ async def unban(ctx, *, member):
             await ctx.send(f'Unbanned {user.mention}')
             return
 
+@bot.command()
+async def file(ctx):
+    attachment_url = ctx.message.attachments[0].url
+    file_request = requests.get(attachment_url)
+    ctx.send(file_request.content)
 client.run(settings['token'])
