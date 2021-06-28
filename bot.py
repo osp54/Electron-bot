@@ -69,10 +69,10 @@ async def sping():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Напишите больше подробностей...')
-    if isinstance(error, commands.MissingPermissions):
+    elif isinstance(error, commands.MissingPermissions):
         await ctx.send("У тебя нет прав на эту команду.")
     if isinstance(error, commands.CommandNotFound ):
-        emb4 = discord.Embed( title = "Ошибка...", description = f"{user.mention}, команда не найдена!", color = 0xF0000)
+        emb4 = discord.Embed( title = "Ошибка...", description = f" команда не найдена!", color = 0xF0000)
         await ctx.send(embed = emb4)
 @client.remove_command("help")
 @client.command()
