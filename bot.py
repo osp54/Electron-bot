@@ -72,7 +72,7 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send("У тебя нет прав на эту команду.")
     if isinstance(error, commands.CommandNotFound ):
-        emb4 = discord.Embed( title = "Ошибка...", description = "{user.mention}, команда не найдена!", color = 0xF0000)
+        emb4 = discord.Embed( title = "Ошибка...", description = f"{user.mention}, команда не найдена!", color = 0xF0000)
         await ctx.send(embed = emb4)
 @client.remove_command("help")
 @client.command()
