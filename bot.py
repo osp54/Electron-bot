@@ -3,6 +3,7 @@ import socket
 import psutil
 import asyncio
 import os
+import pydustry
 import random
 import time
 from config import settings
@@ -49,12 +50,14 @@ async def sping():
         except:
             return False
     server_siege = isOpen("35.202.253.94", 6567)
+    server_siege2 = pydustry.Server(35.202.253.94, int(6567))
+    online_siege = server_siege2.get_status()["players"]
     server_comm = isOpen("35.202.253.94", 0000)
     channel = client.get_channel(settings['channelid'])
     msg = await channel.fetch_message(settings['msgid'])
     emb = discord.Embed( title = "Status", description = f"Статус обновляется каждые 15 секунд.\nПоследнее обновление статуса: \n{datetime.now()}", color = 0x00A725)
     if server_siege: 
-        emb.add_field( name = "The Siege", value = "35.202.253.94  :green_circle: ", inline = False)
+        emb.add_field( name = "The Siege", value = f"35.202.253.94  :green_circle:\nИгроков: {online_siege} ", inline = False)
     else:
         emb.add_field( name = "The Siege", value = "35.202.253.94  :red_circle: ", inline = False)
     if server_comm:
