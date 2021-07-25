@@ -18,7 +18,7 @@ async def on_ready():
 
 @client.command()
 @commands.has_permissions(administrator=True)
-async def say(ctx, message=None):
+async def say(ctx,*, message=None):
     if message == 'None':
         return
     while True:
