@@ -1,5 +1,4 @@
 import discord
-from config import settings
 from discord.ext import tasks,commands
 
 client = discord.Client()
