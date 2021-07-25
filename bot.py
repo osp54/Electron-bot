@@ -25,7 +25,7 @@ async def mention(ctx, message=None):
 @client.command()
 @commands.has_permissions(administrator=True)
 async def stop(ctx):
-    mention.stop
+    exit()
 @client.remove_command("help")
 
 @client.command(pass_context=True)
