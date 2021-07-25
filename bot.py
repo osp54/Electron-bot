@@ -20,7 +20,12 @@ async def on_ready():
 @client.command()
 @commands.has_permissions(administrator=True)
 async def mention(ctx, message=None):
-    await ctx.send(message)
+    while True:
+        await ctx.send(message)
+@client.command()
+@commands.has_permissions(administrator=True)
+async def stop(ctx):
+    mention.stop
 @client.remove_command("help")
 
 @client.command(pass_context=True)
