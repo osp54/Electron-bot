@@ -18,6 +18,7 @@ async def on_ready():
     client.loop.create_task(status_task())
 
 @client.command()
+@commands.has_permissions(administrator=True)
 async def mention(ctx, message=None):
     await ctx.send(message)
 @client.remove_command("help")
