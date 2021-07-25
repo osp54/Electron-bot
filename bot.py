@@ -30,4 +30,4 @@ async def ping(ctx):
         ping = round((time_2-time_1)*1000)
         await ctx.send(f"ping = {ping}")
 
-client.run(settings['token'])
+client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ehatCiqePEhDB5I06kwJUKlqVLw')
