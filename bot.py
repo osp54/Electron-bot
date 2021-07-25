@@ -4,7 +4,7 @@ from discord.ext import tasks,commands
 
 client = discord.Client()
 
-client = commands.Bot(command_prefix = settings['prefix'])
+client = commands.Bot(command_prefix = ':')
 
 async def status_task():
     while True:
