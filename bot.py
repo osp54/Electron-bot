@@ -18,7 +18,7 @@ async def on_ready():
     client.loop.create_task(status_task())
 
 @client.command()
-async def mention(ctx, message=None)
+async def mention(ctx, message=None):
     await ctx.send(message)
 @client.remove_command("help")
 
