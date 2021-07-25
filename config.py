@@ -1,4 +1,4 @@
 settings = {
-    'token': 'ODI0MzUwMjk3MTQ4NDg5NzM4.YFuGCg.IWi9Ynam2-sBktw5t5JNHZ3Qsds',
+    'token': 'ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ehatCiqePEhDB5I06kwJUKlqVLw',
     'prefix': 'шиз.'
 }
