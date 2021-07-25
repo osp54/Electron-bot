@@ -19,7 +19,9 @@ async def on_ready():
 
 @client.command()
 @commands.has_permissions(administrator=True)
-async def mention(ctx, message=None):
+async def say(ctx, message=None):
+    if message == 'None':
+        return
     while True:
         await ctx.send(message)
 @client.command()
