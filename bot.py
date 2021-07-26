@@ -30,10 +30,15 @@ async def dm(ctx, userid,*, message = None):
     user=await client.get_user("userid")
     await user.send(message)
 
+def restart_bot(): 
+  os.execv(sys.executable, ['python'] + sys.argv)
+
 @client.command()
 @commands.has_permissions(administrator=True)
 async def stop(ctx):
-    exit()
+  await ctx.send("Stopped.")
+  restart_bot()
+
 @client.remove_command("help")
 
 @client.command(pass_context=True)
