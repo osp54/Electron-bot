@@ -84,17 +84,11 @@ async def server(ctx, server):
         servernotwork = discord.Embed()
         servernotwork.add_field(name="Ошибка", value="Сервер офлайн, или его не существует.")
         await ctx.send(embed=servernotwork)
-@client.command()
-async def aserver(ctx, ip, port):
-    aserver = pydustry.Server(ip, int(port))
-    try:
-        aemb = discord.Embed(color=0x00A725)
-        aemb.add_field(name="Статус другого сервера", value=f"Имя сервера: {aserver.get_status()['name']}\nВерсия игры: {aserver.get_status()['version']}\nИгроков: {aserver.get_status()['players']}\nКарта: {aserver.get_status()['map']}")
-        ctx.send(embed=aemb)
-    except:
-        aservernotwork = discord.Embed()
-        aservernotwork.add_field(name="Ошибка", value="Сервер офлайн, или его не существует.")
-        await ctx.send(embed=aservernotwork)
+aserver = pydustry.Server('easyplay.su', int(6567))
+try:
+    print(f"Имя сервера: {aserver.get_status()['name']}\nВерсия игры: {aserver.get_status()['version']}\nИгроков: {aserver.get_status()['players']}\nКарта: {aserver.get_status()['map']}")
+except:
+    print("Ошибка, Сервер офлайн, или его не существует.")
 @client.remove_command("help")
 
 @client.command(pass_context=True)
