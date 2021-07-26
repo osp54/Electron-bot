@@ -85,7 +85,7 @@ async def server(ctx, server):
         servernotwork.add_field(name="Ошибка", value="Сервер офлайн, или его не существует.")
         await ctx.send(embed=servernotwork)
 @client.command()
-async def aserver(ctx, ip = google.com, port = 6567):
+async def aserver(ctx, ip = 'google.com', port = 6567):
     aserver = pydustry.Server(ip, int(port))
     try:
         aemb = discord.Embed(color=0x00A725)
