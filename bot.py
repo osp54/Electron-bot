@@ -41,6 +41,13 @@ async def stop(ctx):
   await ctx.send("Stopped.")
   restart_bot()
 
+@cloent.command()
+@commands.has_permissions(administrator=True)
+async def embed(ctx,*, message = Default Description)
+embed=discord.Embed()
+embed.add_field(name="Embed", value=f"{message}", inline=False)
+await ctx.send(embed=embed)
+
 @client.remove_command("help")
 
 @client.command(pass_context=True)
