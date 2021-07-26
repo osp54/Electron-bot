@@ -60,8 +60,8 @@ siege = pydustry.Server(darkdustry.ml, int(8000))
 async def server(ctx, server):
     if server == 'hub':
         embhub = discord.Embed()
-        embhub.add_field(name="Статус сервера HUB", value="Игроков:{hub.get_status()['players']}\nКарта:{hub.get_status()['map']}")
-        embhub.add_fielf(name="Сервера", value=""```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>)
+        embhub.add_field(name="Статус сервера HUB", value=f"Игроков:{hub.get_status()['players']}\nКарта:{hub.get_status()['map']}")
+        embhub.add_fielf(name="Сервера", value=f"```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embhub)
     elif server == 'survival':
         embsurv = discord.Embed()
