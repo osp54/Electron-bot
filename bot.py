@@ -67,6 +67,7 @@ async def server(ctx, server):
     except ConnectionRefusedError:
         servernotwork = discord.Embed()
         servernotwork.add_field(name="Ошибка", value="Сервер офлайн, или его не существует.")
+        await ctx.send(embed=servernotwork)
     elif server == 'survival':
         embsurv = discord.Embed(color = 0x00A725)
         embsurv.add_field(name="Статус сервера Survival", value=f"Игроков:{surv.get_status()['players']}\nКарта:{surv.get_status()['map']}")
