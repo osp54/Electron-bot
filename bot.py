@@ -1,5 +1,6 @@
 import discord
 import os
+import sys
 import asyncio
 from discord.ext import tasks,commands
 
