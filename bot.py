@@ -1,4 +1,5 @@
 import discord
+import asyncio
 from discord.ext import tasks,commands
 
 client = discord.Client()
@@ -23,10 +24,11 @@ async def say(ctx,*, message=None):
         return
     while True:
         await ctx.send(message)
-@client.command(pass_context=True)
+        asyncio.sleep(0.5)
+@client.command()
 async def dm(ctx, userid,*, message = None):
-    user=await client.get_user_info("userid")
-    await client.send_message(user, f"{message}")
+    user=await client.get_user("userid")
+    await user.send(message)
 
 @client.command()
 @commands.has_permissions(administrator=True)
