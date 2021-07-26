@@ -64,7 +64,7 @@ async def server(ctx, server):
         embhub.add_field(name="Статус сервера HUB", value=f"Игроков:{hub.get_status()['players']}\nКарта:{hub.get_status()['map']}")
         embhub.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embhub)
-    except ConnectionRefusedError:
+    except:
         servernotwork = discord.Embed()
         servernotwork.add_field(name="Ошибка", value="Сервер офлайн, или его не существует.")
         await ctx.send(embed=servernotwork)
