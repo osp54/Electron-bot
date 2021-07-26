@@ -1,2 +1,2 @@
 discord.py
-https://github.com/ado1928/pydustry.git
+https://github.com/ado1928/pydustry/archive/refs/heads/master.zip
