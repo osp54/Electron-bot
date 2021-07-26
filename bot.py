@@ -62,12 +62,12 @@ async def server(ctx, server):
     if server == 'hub':
         embhub = discord.Embed()
         embhub.add_field(name="Статус сервера HUB", value=f"Игроков:{hub.get_status()['players']}\nКарта:{hub.get_status()['map']}")
-        embhub.add_fielf(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
+        embhub.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embhub)
     elif server == 'survival':
         embsurv = discord.Embed()
         embsurv.add_field(name="Статус сервера HUB", value=f"Игроков:{surv.get_status()['players']}\nКарта:{surv.get_status()['map']}")
-        embsurv.add_fielf(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
+        embsurv.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embsurv)
 @client.remove_command("help")
 
