@@ -47,7 +47,27 @@ async def embed(ctx,*, message):
     embed=discord.Embed()
     embed.add_field(name="Embed", value=f"{message}", inline=False)
     await ctx.send(embed=embed)
-
+#переменные
+hub = pydustry.Server(darkdustry.ml, int(6567))
+surv = pydustry.Server(darkdustry.ml, int(6000))
+attack = pydustry.Server(darkdustry.ml, int(1000))
+sand = pydustry.Server(darkdustry.ml, int(2000))
+pvp = pydustry.Server(darkdustry.ml, int(4000))
+hexed = pydustry.Server(darkdustry.ml, int(3000))
+towerdef = pydustry.Server(darkdustry.ml, int(7000))
+siege = pydustry.Server(darkdustry.ml, int(8000))
+@client.command()
+async def server(ctx, server):
+    if server == 'hub':
+        embhub = discord.Embed()
+        embhub.add_field(name="Статус сервера HUB", value="Игроков:{hub.get_status()['players']}\nКарта:{hub.get_status()['map']}")
+        embhub.add_fielf(name="Сервера", value=""```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>)
+        await ctx.send(embed=embhub)
+    elif server == 'survival':
+        embsurv = discord.Embed()
+        embsurv.add_field(name="Статус сервера HUB", value="Игроков:{surv.get_status()['players']}\nКарта:{surv.get_status()['map']}")
+        embsurv.add_fielf(name="Сервера", value=""```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>)
+        await ctx.send(embed=embsurv)
 @client.remove_command("help")
 
 @client.command(pass_context=True)
