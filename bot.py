@@ -49,14 +49,14 @@ async def embed(ctx,*, message):
     embed.add_field(name="Embed", value=f"{message}", inline=False)
     await ctx.send(embed=embed)
 #переменные
-hub = pydustry.Server(darkdustry.ml, int(6567))
-surv = pydustry.Server(darkdustry.ml, int(6000))
-attack = pydustry.Server(darkdustry.ml, int(1000))
-sand = pydustry.Server(darkdustry.ml, int(2000))
-pvp = pydustry.Server(darkdustry.ml, int(4000))
-hexed = pydustry.Server(darkdustry.ml, int(3000))
-towerdef = pydustry.Server(darkdustry.ml, int(7000))
-siege = pydustry.Server(darkdustry.ml, int(8000))
+hub = pydustry.Server('darkdustry.ml', int(6567))
+surv = pydustry.Server('darkdustry.ml', int(6000))
+attack = pydustry.Server('darkdustry.ml', int(1000))
+sand = pydustry.Server('darkdustry.ml', int(2000))
+pvp = pydustry.Server('darkdustry.ml', int(4000))
+hexed = pydustry.Server('darkdustry.ml', int(3000))
+towerdef = pydustry.Server('darkdustry.ml', int(7000))
+siege = pydustry.Server('darkdustry.ml', int(8000))
 @client.command()
 async def server(ctx, server):
     if server == 'hub':
