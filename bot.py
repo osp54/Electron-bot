@@ -60,22 +60,22 @@ siege = pydustry.Server('darkdustry.ml', int(8000))
 @client.command()
 async def server(ctx, server):
     if server == 'hub':
-        embhub = discord.Embed()
+        embhub = discord.Embed(color = 0x00A725)
         embhub.add_field(name="Статус сервера HUB", value=f"Игроков:{hub.get_status()['players']}\nКарта:{hub.get_status()['map']}")
         embhub.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embhub)
     elif server == 'survival':
-        embsurv = discord.Embed()
+        embsurv = discord.Embed(color = 0x00A725)
         embsurv.add_field(name="Статус сервера Survival", value=f"Игроков:{surv.get_status()['players']}\nКарта:{surv.get_status()['map']}")
         embsurv.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embsurv)
     elif server == 'attack':
-        embatk = discord.Embed()
+        embatk = discord.Embed(color = 0x00A725)
         embatk.add_field(name="Статус сервера Attack", value=f"Игроков:{attack.get_status()['players']}\nКарта:{attack.get_status()['map']}")
         embatk.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embatk)
     elif server == 'sandbox':
-        embsand = discord.Embed()
+        embsand = discord.Embed(color = 0x00A725)
         embsand.add_field(name="Статус сервера Sandbox", value=f"Игроков:{sand.get_status()['players']}\nКарта:{sand.get_status()['map']}")
         embsand.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
         await ctx.send(embed=embsand)
