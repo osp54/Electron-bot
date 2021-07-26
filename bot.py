@@ -2,6 +2,7 @@ import discord
 import os
 import sys
 import asyncio
+import pydustry
 from discord.ext import tasks,commands
 
 client = discord.Client()
