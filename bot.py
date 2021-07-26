@@ -23,6 +23,11 @@ async def say(ctx,*, message=None):
         return
     while True:
         await ctx.send(message)
+@client.command(pass_context=True)
+async def dm(ctx, userid,*, message = None):
+    user=await client.get_user_info("userid")
+    await client.send_message(user, f"{message}")
+
 @client.command()
 @commands.has_permissions(administrator=True)
 async def stop(ctx):
