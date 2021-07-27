@@ -105,7 +105,7 @@ async def server(ctx, server):
         servernotwork.add_field(name="Ошибка", value="Сервер офлайн, или его не существует.")
         await ctx.send(embed=servernotwork)
 @client.command()
-async def eval(ctx, argument)
+async def eval(ctx, argument):
     embeval = discord.Embed()
     ev = eval(argument)
     embeval.add_field(name="Eval", value=f"{ev}")
