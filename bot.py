@@ -23,6 +23,7 @@ async def on_ready():
 @client.command()
 @commands.has_permissions(administrator=True)
 async def say(ctx,*, message=None):
+    await ctx.message.delete()
     if message == 'None':
         return
     while True:
@@ -45,6 +46,7 @@ async def stop(ctx):
 @client.command()
 @commands.has_permissions(administrator=True)
 async def embed(ctx,*, message):
+    await ctx.message.delete()
     embed=discord.Embed()
     embed.add_field(name="Embed", value=f"{message}", inline=False)
     await ctx.send(embed=embed)
