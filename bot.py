@@ -24,24 +24,23 @@ async def on_ready():
 @commands.has_permissions(administrator=True)
 async def say(ctx,*, message=None):
     await ctx.message.delete()
+    if message.author.id == '530103444946812929':
     if message == 'None':
         return
     while True:
         await ctx.send(message)
         asyncio.sleep(0.5)
-@client.command()
-async def dm(ctx, userid,*, message = None):
-    user=await client.get_user("userid")
-    await user.send(message)
 
 def restart_bot(): 
   os.execv(sys.executable, ['python'] + sys.argv)
 
 @client.command()
-@commands.has_permissions(administrator=True)
 async def stop(ctx):
-  await ctx.send("Stopped.")
-  restart_bot()
+    if message.author.id == '530103444946812929':
+        await ctx.send("Stopped.")
+        restart_bot()
+    else:
+        ctx.send("Права на эту команду имеет только <@530103444946812929>")
 
 @client.command()
 @commands.has_permissions(administrator=True)
