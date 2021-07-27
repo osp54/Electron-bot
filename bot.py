@@ -63,12 +63,12 @@ async def server(ctx, server):
         if server == 'hub':
             embhub = discord.Embed(color = 0x00A725)
             embhub.add_field(name="Статус сервера HUB", value=f"Игроков: {hub.get_status()['players']}\nКарта: {hub.get_status()['map']}")
-            embhub.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
+            embhub.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```")
             await ctx.send(embed=embhub)
         elif server == 'survival':
             embsurv = discord.Embed(color = 0x00A725)
             embsurv.add_field(name="Статус сервера Survival", value=f"Игроков: {surv.get_status()['players']}\nКарта: {surv.get_status()['map']}")
-            embsurv.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
+            embsurv.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```")
             await ctx.send(embed=embsurv)
         elif server == 'attack':
             embatk = discord.Embed(color = 0x00A725)
@@ -78,17 +78,32 @@ async def server(ctx, server):
         elif server == 'sandbox':
             embsand = discord.Embed(color = 0x00A725)
             embsand.add_field(name="Статус сервера Sandbox", value=f"Игроков: {sand.get_status()['players']}\nКарта: {sand.get_status()['map']}")
-            embsand.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```\n:server <server>")
+            embsand.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```")
             await ctx.send(embed=embsand)
+        elif server == 'pvp':
+            embpvp = discord.Embed(color = 0x00A725)
+            embpvp.add_field(name="Статус сервера PvP", value=f"Игроков: {pvp.get_status()['players']}\nКарта: {pvp.get_status()['map']}")
+            embpvp.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```")
+            await ctx.send(embed=embpvp)
+        elif server == 'hexed':
+            embhex = discord.Embed(color = 0x00A725)
+            embhex.add_field(name="Статус сервера Hexed", value=f"Игроков: {hexed.get_status()['players']}\nКарта: {hexed.get_status()['map']}")
+            embhex.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```")
+            await ctx.send(embed=embhex)
+        elif server == 'td':
+            embtd = discord.Embed(color = 0x00A725)
+            embtd.add_field(name="Статус сервера Tower Defence", value=f"Игроков: {towerdef.get_status()['players']}\nКарта: {towerdef.get_status()['map']}")
+            embtd.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```")
+            await ctx.send(embed=embtd)
+        elif server == 'siege':
+            embsi = discord.Embed(color = 0x00A725)
+            embsi.add_field(name="Статус сервера The Siege", value=f"Игроков: {siege.get_status()['players']}\nКарта: {siege.get_status()['map']}")
+            embsi.add_field(name="Сервера", value="```hub, survival, attack, sandbox, pvp, hexed, td, siege```")
+            await ctx.send(embed=embsi)
     except:
         servernotwork = discord.Embed()
         servernotwork.add_field(name="Ошибка", value="Сервер офлайн, или его не существует.")
         await ctx.send(embed=servernotwork)
-aserver = pydustry.Server('easyplay.su', int(6567))
-try:
-    print(f"Имя сервера: {aserver.get_status()['name']}\nВерсия игры: {aserver.get_status()['version']}\nИгроков: {aserver.get_status()['players']}\nКарта: {aserver.get_status()['map']}")
-except:
-    print("Ошибка, Сервер офлайн, или его не существует.")
 @client.remove_command("help")
 
 @client.command(pass_context=True)
