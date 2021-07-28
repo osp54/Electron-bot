@@ -25,11 +25,9 @@ async def on_ready():
 async def say(ctx,*, message=None):
     await ctx.message.delete()
     if message.author.id == '530103444946812929':
-    if message == 'None':
-        return
-    while True:
-        await ctx.send(message)
-        asyncio.sleep(0.5)
+        while True:
+            await ctx.send(message)
+            asyncio.sleep(0.7)
 
 def restart_bot(): 
   os.execv(sys.executable, ['python'] + sys.argv)
