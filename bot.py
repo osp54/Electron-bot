@@ -108,7 +108,7 @@ async def eval(ctx, argument):
     embeval = discord.Embed()
     ev = eval(argument)
     embeval.add_field(name="Eval", value=f"{ev}")
-    ctx.send(embed=embeval)
+    await ctx.send(embed=embeval)
     
 @client.remove_command("help")
 
