@@ -14,7 +14,7 @@ if __name__ == "__main__":
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                bot.load_extension(f"cogs.{extension}")
+                client.load_extension(f"cogs.{extension}")
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
