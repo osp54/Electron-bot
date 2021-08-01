@@ -6,8 +6,7 @@ import asyncio
 from discord.ext import tasks,commands
 
 client = discord.Client()
-client = commands.Bot(command_prefix = ':')
-tot_m, used_m, free_m = map(int, os.popen('free -t -m').readlines()[-1].split()[1:])
+client = commands.Bot(command_prefix = '$')
 
 if __name__ == "__main__":
     for file in os.listdir("./cogs"):
@@ -37,15 +36,9 @@ def restart_bot():
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def restart(ctx):
-    await ctx.send("Restart...")
+    await ctx.send("Restarting...")
     restart_bot()
     
 @client.remove_command("help")
 
-@client.command(pass_context=True)
-async def hostinfo(ctx):
-    embh=discord.Embed(title = "Hostinfo(heroku)", description = "Характеристики хоста heroku", color = 0x00A725)
-    embh.add_field(name="RAM", value=f"{used_m}MB/{tot_m}MB")
-    embh.add_field(name="CPU", value=f"Used: {psutil.cpu_percent()}%")
-    await ctx.send(embed=embh)
 client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ehatCiqePEhDB5I06kwJUKlqVLw')
