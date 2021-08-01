@@ -37,7 +37,7 @@ async def on_ready():
     client.loop.create_task(status_task())
 
 @client.command(name="help")
-async def help(self,ctx):
+async def help(ctx):
     prefix = '$'
     if not isinstance(prefix, str):
         prefix = prefix[0]
