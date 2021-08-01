@@ -36,21 +36,6 @@ async def on_ready():
     print("-------------------")
     client.loop.create_task(status_task())
 
-@client.command(name="help")
-async def help(ctx):
-    prefix = '$'
-    if not isinstance(prefix, str):
-        prefix = prefix[0]
-    embhelp = discord.Embed(title="Help", description="Список всех команд.", color=0x42F56C)
-    for i in self.bot.cogs:
-        cog = self.bot.get_cog(i.lower())
-        commands = cog.get_commands()
-        command_list = [command.name for command in commands]
-        command_description = [command.help for command in commands]
-        help_text = '\n'.join(f'{prefix}{n} - {h}' for n, h in zip(command_list, command_description))
-        embhelp.add_field(name=i.capitalize(), value=f'```{help_text}```', inline=False)
-    await ctx.send(embed=embhelp)
-
 def restart_bot(): 
   os.execv(sys.executable, ['python'] + sys.argv)
 
