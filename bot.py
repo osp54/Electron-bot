@@ -1,13 +1,14 @@
 import discord
 import os
 import sys
+import psutil
 import asyncio
 import pydustry
 from discord.ext import tasks,commands
 
 client = discord.Client()
-
 client = commands.Bot(command_prefix = ':')
+tot_m, used_m, free_m = map(int, os.popen('free -t -m').readlines()[-1].split()[1:])
 
 async def status_task():
     while True:
@@ -48,10 +49,8 @@ async def embed(ctx,*, message):
 
 @client.command(pass_context=True)
 async def ping(ctx):
-        time_1 = time.perf_counter()
-        await ctx.trigger_typing()
-        time_2 = time.perf_counter()
-        ping = round((time_2-time_1)*1000)
-        await ctx.send(f"ping = {ping}")
-
+    embh=discord.Embed(title = "Hostinfo(heroku)", description = "Характеристики хоста heroku", color = 0x00A725)
+    embh.add_field(name="RAM", value=f"{used_m}MB/{tot_m}")
+    embh.add_field(name="CPU", value=f"Used: {psutil.cpu_percent()}%")
+    await ctx.send(embed=embh)
 client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ehatCiqePEhDB5I06kwJUKlqVLw')
