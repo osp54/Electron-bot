@@ -33,9 +33,10 @@ async def on_ready():
 def restart_bot(): 
   os.execv(sys.executable, ['python'] + sys.argv)
 
+@client.remove_command("help")
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def restart(ctx):
     await ctx.send("Restarting...")
     restart_bot()
-@client.remove_command("help")
+client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.Ja9sfwWISOUKDVdtcIsboP8JZ3k')
