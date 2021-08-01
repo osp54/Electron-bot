@@ -48,9 +48,9 @@ async def embed(ctx,*, message):
 @client.remove_command("help")
 
 @client.command(pass_context=True)
-async def ping(ctx):
+async def hostinfo(ctx):
     embh=discord.Embed(title = "Hostinfo(heroku)", description = "Характеристики хоста heroku", color = 0x00A725)
-    embh.add_field(name="RAM", value=f"{used_m}MB/{tot_m}")
+    embh.add_field(name="RAM", value=f"{used_m}MB/{tot_m}MB")
     embh.add_field(name="CPU", value=f"Used: {psutil.cpu_percent()}%")
     await ctx.send(embed=embh)
 client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ehatCiqePEhDB5I06kwJUKlqVLw')
