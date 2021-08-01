@@ -4,8 +4,6 @@ from discord.ext import commands
 class fun(commands.Cog, name="fun"):
     def __init__(self, bot):
         self.bot = bot
-        client = discord.Client()
-        client = commands.Bot(command_prefix = '$')
     @commands.command(name='embed')
     @commands.has_permissions(manage_messages=True)
     async def embed(self, ctx,*, message):
@@ -24,8 +22,11 @@ class fun(commands.Cog, name="fun"):
         """
         await ctx.message.delete()
         await ctx.send(message)
-    @client.command(name="help")
+    @commands.command(name="help")
     async def help(self, context):
+        """
+        Список всех команд
+        """
         prefix = '$'
         if not isinstance(prefix, str):
             prefix = prefix[0]
