@@ -3,12 +3,22 @@ import os
 import sys
 import psutil
 import asyncio
-import pydustry
 from discord.ext import tasks,commands
 
 client = discord.Client()
 client = commands.Bot(command_prefix = ':')
 tot_m, used_m, free_m = map(int, os.popen('free -t -m').readlines()[-1].split()[1:])
+
+if __name__ == "__main__":
+    for file in os.listdir("./cogs"):
+        if file.endswith(".py"):
+            extension = file[:-3]
+            try:
+                bot.load_extension(f"cogs.{extension}")
+                print(f"Loaded extension '{extension}'")
+            except Exception as e:
+                exception = f"{type(e).__name__}: {e}"
+                print(f"Failed to load extension {extension}\n{exception}")
 
 async def status_task():
     while True:
