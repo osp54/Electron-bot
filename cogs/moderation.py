@@ -6,7 +6,7 @@ class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
     @commands.command(name='test')
-    async def test(ctx):
-        await ctx.send("test")
+    async def test(self, context):
+        await context.send("test")
 def setup(bot):
     bot.add_cog(moderation(bot))
