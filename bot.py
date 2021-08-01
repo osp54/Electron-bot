@@ -27,7 +27,6 @@ async def status_task():
         await asyncio.sleep(30)
         await client.change_presence(activity=discord.Game(name="Пока дарк делает плагины, я страдаю фигней"))
         await asyncio.sleep(30)
-@client.remove_command("help")
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user.name}")
