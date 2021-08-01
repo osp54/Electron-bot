@@ -31,29 +31,14 @@ async def status_task():
 async def on_ready():
     client.loop.create_task(status_task())
 
-@client.command()
-@commands.has_permissions(manage_messages=True)
-async def say(ctx,*, message=None):
-    await ctx.message.delete()
-    while True:
-        await ctx.send(message)
-
 def restart_bot(): 
   os.execv(sys.executable, ['python'] + sys.argv)
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
-async def stop(ctx):
-    await ctx.send("Stopped.")
+async def restart(ctx):
+    await ctx.send("Restart...")
     restart_bot()
-
-@client.command()
-@commands.has_permissions(manage_messages=True)
-async def embed(ctx,*, message):
-    await ctx.message.delete()
-    embed=discord.Embed()
-    embed.add_field(name="Embed", value=f"{message}", inline=False)
-    await ctx.send(embed=embed)
     
 @client.remove_command("help")
 
