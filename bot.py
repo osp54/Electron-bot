@@ -9,6 +9,8 @@ from discord.ext import tasks,commands
 client = discord.Client()
 client = commands.Bot(command_prefix = '$')
 
+@client.remove_command("help")
+
 if __name__ == "__main__":
     for file in os.listdir("./cogs"):
         if file.endswith(".py"):
@@ -39,7 +41,6 @@ async def on_ready():
 def restart_bot(): 
   os.execv(sys.executable, ['python'] + sys.argv)
 
-@client.remove_command("help")
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def restart(ctx):
