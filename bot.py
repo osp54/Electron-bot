@@ -21,24 +21,21 @@ async def on_ready():
     client.loop.create_task(status_task())
 
 @client.command()
-@commands.has_permissions(administrator=True)
+@commands.has_permissions(manage_messages=True)
 async def say(ctx,*, message=None):
     await ctx.message.delete()
-    if message.author.id == '530103444946812929':
-        while True:
-            await ctx.send(message)
-            asyncio.sleep(0.7)
+    while True:
+        await ctx.send(message)
+        asyncio.sleep(0.7)
 
 def restart_bot(): 
   os.execv(sys.executable, ['python'] + sys.argv)
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def stop(ctx):
-    if message.author.id == '530103444946812929':
-        await ctx.send("Stopped.")
-        restart_bot()
-    else:
-        ctx.send("Права на эту команду имеет только <@530103444946812929>")
+    await ctx.send("Stopped.")
+    restart_bot()
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
