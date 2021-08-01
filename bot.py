@@ -9,8 +9,6 @@ from discord.ext import tasks,commands
 client = discord.Client()
 client = commands.Bot(command_prefix = '$')
 
-@client.remove_command("help")
-
 if __name__ == "__main__":
     for file in os.listdir("./cogs"):
         if file.endswith(".py"):
@@ -28,7 +26,7 @@ async def status_task():
         await asyncio.sleep(30)
         await client.change_presence(activity=discord.Game(name="Пока дарк делает плагины, я страдаю фигней"))
         await asyncio.sleep(30)
-
+@client.remove_command("help")
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user.name}")
