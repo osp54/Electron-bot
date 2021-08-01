@@ -28,7 +28,7 @@ async def status_task():
 
 @client.event
 async def on_ready():
-    print(f"Logged in as {bot.user.name}")
+    print(f"Logged in as {client.user.name}")
     print(f"Discord.py API version: {discord.__version__}")
     print(f"Python version: {platform.python_version()}")
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
