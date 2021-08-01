@@ -39,5 +39,3 @@ async def restart(ctx):
     await ctx.send("Restarting...")
     restart_bot()
 @client.remove_command("help")
-
-client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.Ja9sfwWISOUKDVdtcIsboP8JZ3k')
