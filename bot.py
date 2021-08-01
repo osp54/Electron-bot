@@ -41,7 +41,7 @@ async def stop(ctx):
         ctx.send("Права на эту команду имеет только <@530103444946812929>")
 
 @client.command()
-@commands.has_permissions(manage-messages=True)
+@commands.has_permissions(manage_messages=True)
 async def embed(ctx,*, message):
     await ctx.message.delete()
     embed=discord.Embed()
