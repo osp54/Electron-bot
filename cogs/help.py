@@ -9,7 +9,7 @@ class Help(commands.Cog, name="help"):
         """
         Список всех комманд, и их описаний
         """
-        prefix = $
+        prefix = '$'
         if not isinstance(prefix, str):
             prefix = prefix[0]
         embed = discord.Embed(title="Help", description="List of available commands:", color=0x42F56C)
