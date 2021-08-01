@@ -5,6 +5,7 @@ from discord.ext import commands
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
+
    @commands.command(name='mute')
    @commands.has_permissions(kick_members=True)
    async def mute(ctx, member: discord.Member):
