@@ -1,5 +1,6 @@
 import discord
 import os
+import platform
 import sys
 import psutil
 import asyncio
