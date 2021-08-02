@@ -28,6 +28,12 @@ async def status_task():
         await client.change_presence(activity=discord.Game(name="Пока дарк делает плагины, я страдаю фигней"))
         await asyncio.sleep(30)
 @client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound ):
+        await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, Команда не найдена!', color=0xFF0000))
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000)
+@client.event
 async def on_ready():
     print(f"Logged in as {client.user.name}")
     print(f"Discord.py API version: {discord.__version__}")
@@ -35,11 +41,5 @@ async def on_ready():
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
     print("-------------------")
     client.loop.create_task(status_task())
-@client.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound ):
-        await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, Команда не найдена!', color=0xFF0000))
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000)
 
 client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.Ja9sfwWISOUKDVdtcIsboP8JZ3k')
