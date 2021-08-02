@@ -1,4 +1,4 @@
-
+import asyncio
 import discord
 from discord.ext import commands
 
@@ -26,6 +26,7 @@ class moderation(commands.Cog, name="moderation"):
                 description="Некорректное время мьюта! Либо неизвестная ошибка.",
                 color=0xE02B2B
             )
+            await ctx.send(embed=embed)
         try:
             await member.add_roles(muted_role)
             embed = discord.Embed(description= f"**{member.display_name}#{member.discriminator}** был замьючен модератором **{context.message.author}**!", color=discord.Color.green())
@@ -38,6 +39,7 @@ class moderation(commands.Cog, name="moderation"):
                 description="Похоже на то, что у человека которого вы хотите замьютить, выше роль чем у меня.",
                 color=0xE02B2B
             )
+            await ctx.send(embed=embed)
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
     async def kick(self, context, member: discord.Member, *, reason="Причина не написана."):
