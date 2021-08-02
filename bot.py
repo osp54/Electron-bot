@@ -38,7 +38,7 @@ async def on_command_error(ctx, error):
 async def on_message(ctx):
     if message.content == 'Ня':
         await ctx.send("Ня")
-    if message.content == 'ня'
+    if message.content == 'ня':
         await ctx.send("Ня")
 @client.event
 async def on_ready():
