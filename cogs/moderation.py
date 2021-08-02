@@ -128,7 +128,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.guild.ban(discord.Object(id=user_id), reason=reason)
         embed = discord.Embed(
               title="Пользователь забанен!",
-              description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{context.message.author}**!",
+              description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{ctx.message.author}**!",
               color=0x42F56C
         )
         embed.add_field(
