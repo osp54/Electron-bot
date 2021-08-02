@@ -32,12 +32,12 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed, delete_after=15)
             await asyncio.sleep(tempmute)
             await member.remove_roles(muted_role)
-       except:
-           embed = discord.Embed(
-               title="Ошибка",
-               description="Похоже на то, что у человека которого вы хотите замьютить, выше роль чем у меня.",
-               color=0xE02B2B
-           )
+        except:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="Похоже на то, что у человека которого вы хотите замьютить, выше роль чем у меня.",
+                color=0xE02B2B
+            )
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
     async def kick(self, context, member: discord.Member, *, reason="Причина не написана."):
