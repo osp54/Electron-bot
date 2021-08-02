@@ -36,16 +36,16 @@ class moderation(commands.Cog, name="moderation"):
                 description="У пользователя есть права администратора.",
                 color=0xE02B2B
             )
-       mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
+        mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 
-       await member.remove_roles(mutedRole)
-       await member.send(f"Ты был размьючен в: - {ctx.guild.name}")
-       embed = discord.Embed(
-           title="Размьючен!",
-           description=f"**{member.name}** был размьючен модератором **{ctx.message.author}**",
-           colour=discord.Colour.light_gray()
-       )
-       await ctx.send(embed=embed)
+        await member.remove_roles(mutedRole)
+        await member.send(f"Ты был размьючен в: - {ctx.guild.name}")
+        embed = discord.Embed(
+            title="Размьючен!",
+            description=f"**{member.name}** был размьючен модератором **{ctx.message.author}**",
+            colour=discord.Colour.light_gray()
+        )
+        await ctx.send(embed=embed)
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
     async def kick(self, context, member: discord.Member, *, reason="None"):
