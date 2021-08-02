@@ -23,16 +23,18 @@ if __name__ == "__main__":
 
 async def status_task():
     while True:
-        await client.change_presence(activity=discord.Game(name="Я шизоид.(Копия дарка)"))
+        await client.change_presence(activity=discord.Game(name="$help"))
         await asyncio.sleep(30)
-        await client.change_presence(activity=discord.Game(name="Пока дарк делает плагины, я страдаю фигней"))
+        await client.change_presence(activity=discord.Game(name="I'm love Discord!"))
         await asyncio.sleep(30)
+
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound ):
         await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, Команда не найдена!', color=0xFF0000))
     if isinstance(error, commands.MissingPermissions):
         await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000)
+
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user.name}")
