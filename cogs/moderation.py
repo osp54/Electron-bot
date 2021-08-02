@@ -5,22 +5,22 @@ from discord.ext import commands
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
-@commands.command()
-@commands.has_permissions(manage_roles=True)
-async def mute(self,ctx, member: discord.Member, *, reason=None):
-    guild = ctx.guild
-    mutedRole = discord.utils.get(guild.roles, name="Muted")
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def mute(self,ctx, member: discord.Member, *, reason=None):
+        guild = ctx.guild
+        mutedRole = discord.utils.get(guild.roles, name="Muted")
 
-    if not mutedRole:
-        mutedRole = await guild.create_role(name="Muted")
+        if not mutedRole:
+            mutedRole = await guild.create_role(name="Muted")
 
-        for channel in guild.channels:
-            await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-    embed = discord.Embed(title="Замьючен", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
-    embed.add_field(name="Причина:", value=reason, inline=False)
-    await ctx.send(embed=embed)
-    await member.add_roles(mutedRole, reason=reason)
-    await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
+            for channel in guild.channels:
+                await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
+        embed = discord.Embed(title="Замьючен", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
+        embed.add_field(name="Причина:", value=reason, inline=False)
+        await ctx.send(embed=embed)
+        await member.add_roles(mutedRole, reason=reason)
+        await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
 
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
