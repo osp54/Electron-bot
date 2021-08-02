@@ -22,7 +22,7 @@ class main(commands.Cog, name="main"):
             )
             await ctx.send(embed=embed)
             restart_bot()
-        except MissingPermissions:
+        except discord.ext.commands.errors.MissingPermissions:
             embed = discord.Embed(
                 title="Ошибка",
                 description="На эту команду право имеют только люди с правом администратор!",
