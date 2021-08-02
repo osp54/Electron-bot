@@ -136,6 +136,17 @@ class moderation(commands.Cog, name="moderation"):
             value=reason
         )
         await ctx.send(embed=embed)
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def unban(self, ctx, name_or_id, *, reason=None):
+        """
+        Разбанить пользователя на сервере.
+        """
+        ban = await ctx.get_ban(name_or_id)
+        if not ban:
+            return await ctx.send('Пользователь не найден.')
+        await ctx.guild.unban(ban.user, reason=reason)
+        await ctx.send(embed = discord.Embed(title='Разбанен!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
     @commands.command(name="clear")
     @commands.has_permissions(manage_messages=True, manage_channels=True)
     async def clear(self, context, amount):
