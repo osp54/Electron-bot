@@ -89,5 +89,34 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await context.send(embed=embed)
+    @commands.command(name="clear")
+    @commands.has_permissions(manage_messages=True, manage_channels=True)
+    async def clear(self, context, amount):
+        """
+        Удалить несколько сообщений.
+        """
+        try:
+            amount = int(amount)
+        except:
+            embed = discord.Embed(
+                title="Ошибка",
+                description=f"`{amount}` не действительное число.",
+                color=0xE02B2B
+            )
+            await context.send(embed=embed)
+            return
+        if amount < 1:
+            embed = discord.Embed(
+                title="Error!",
+                description=f"`{amount}` не действительное число.",
+                color=0xE02B2B
+            )
+            await context.send(embed=embed)
+            return
+        purged_messages = await context.message.channel.purge(limit=amount)
+        embed = discord.Embed(
+            title="Чат очищен!",
+            description=f"**{context.message.author}** очищено **{len(purged_messages)}** сообщений!",
+            color=0x42F56C
 def setup(bot):
     bot.add_cog(moderation(bot))
