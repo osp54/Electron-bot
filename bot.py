@@ -35,5 +35,8 @@ async def on_ready():
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
     print("-------------------")
     client.loop.create_task(status_task())
-
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound ):
+        await ctx.send(embed = discord.Embed(description = f'**{ctx.author.name}**, Команда не найдена!', color=0x0c0c0c))
 client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.Ja9sfwWISOUKDVdtcIsboP8JZ3k')
