@@ -1,9 +1,34 @@
 import discord
+import os
+import sys
 from discord.ext import commands
 
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
+    def restart_bot(): 
+        os.execv(sys.executable, ['python'] + sys.argv)
+    @commands.has_permissions(administrator=True)
+    @commands.command(name="restart")
+    async def restart(ctx):
+        """
+        Перезапустить бота.
+        """
+        try:
+            embed = discord.Embed(
+                title="Restarting...",
+                description="Бот перезарускается...",
+                color=0x42F56C
+            )
+            await ctx.send(embed=embed)
+            restart_bot()
+        except:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="На эту команду право имеют только люди с правом администратор!",
+                color=0xFFFFF
+            )
+            ctx.send(embed=embed)
     @commands.command(name="poll")
     async def poll(self, context, *, title):
         """
