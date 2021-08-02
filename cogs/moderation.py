@@ -8,6 +8,9 @@ class moderation(commands.Cog, name="moderation"):
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def mute(self,ctx, member: discord.Member, *, reason=None):
+        """
+        Замьютить пользователя на сервере.
+        """
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
 
@@ -21,10 +24,31 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed=embed)
         await member.add_roles(mutedRole, reason=reason)
         await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def unmute(self,ctx, member: discord.Member):
+        """
+        Размьютить пользователя на сервере.
+        """
+        if member.guild_permissions.administrator:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="У пользователя есть права администратора.",
+                color=0xE02B2B
+            )
+       mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 
+       await member.remove_roles(mutedRole)
+       await member.send(f"Ты был размьючен в: - {ctx.guild.name}")
+       embed = discord.Embed(
+           title="Размьючен!",
+           description=f"**{member.name}** был размьючен модератором **{ctx.message.author}**",
+           colour=discord.Colour.light_gray()
+       )
+       await ctx.send(embed=embed)
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
-    async def kick(self, context, member: discord.Member, *, reason="Причина не написана."):
+    async def kick(self, context, member: discord.Member, *, reason="None"):
         """
         Кикнуть пользователя из сервера.
         """
