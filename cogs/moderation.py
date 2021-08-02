@@ -6,39 +6,6 @@ class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='mute')
-    @commands.has_permissions(kick_members=True)
-    async def mute(self,ctx, member: discord.Member, time: int, d, *, reason=None):
-        guild = ctx.guild
-
-        for role in guild.roles:
-            if role.name == "Muted":
-                await member.add_roles(role)
-
-                embed = discord.Embed(title="muted!", description=f"{member.mention} был замьючен модератором **{context.message.author}**!", colour=discord.Colour.light_gray())
-                embed.add_field(name="Причина:", value=reason, inline=False)
-                embed.add_field(name="Time:", value=f"{time}{d}", inline=False)
-                await ctx.send(embed=embed)
-
-                if d == "s":
-                    await asyncio.sleep(time)
-
-                if d == "m":
-                    await asyncio.sleep(time*60)
-
-                if d == "h":
-                    await asyncio.sleep(time*60*60)
-
-                if d == "d":
-                    await asyncio.sleep(time*60*60*24)
-
-                await member.remove_roles(role)
-
-                embed = discord.Embed(title="unmute (temp) ", description=f"unmuted -{member.mention} ", colour=discord.Colour.light_gray())
-                await ctx.send(embed=embed)
-
-            return
-
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
     async def kick(self, context, member: discord.Member, *, reason="Причина не написана."):
