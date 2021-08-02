@@ -118,5 +118,7 @@ class moderation(commands.Cog, name="moderation"):
             title="Чат очищен!",
             description=f"**{context.message.author}** очищено **{len(purged_messages)}** сообщений!",
             color=0x42F56C
+        )
+        await context.send(embed=embed)
 def setup(bot):
     bot.add_cog(moderation(bot))
