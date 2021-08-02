@@ -41,4 +41,5 @@ async def on_command_error(ctx, error):
         await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, Команда не найдена!', color=0xFF0000))
     if isinstance(error, commands.MissingPermissions):
         await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000)
+
 client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.Ja9sfwWISOUKDVdtcIsboP8JZ3k')
