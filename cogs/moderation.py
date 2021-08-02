@@ -119,23 +119,23 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await context.send(embed=embed)
-        @commands.command(name="idban")
-        @commands.has_permissions(ban_members=True)
-        async def idban(self, ctx, user_id: int, *, reason=None):
-            """
-            Забанить пользователя по айди.
-            """
-            await ctx.guild.ban(discord.Object(id=user_id), reason=reason)
-            embed = discord.Embed(
-                  title="Пользователь забанен!",
-                  description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{context.message.author}**!",
-                  color=0x42F56C
-            )
-            embed.add_field(
-                name="Причина:",
-                value=reason
-            )
-            await ctx.send(embed=embed)
+    @commands.command(name="idban")
+    @commands.has_permissions(ban_members=True)
+    async def idban(self, ctx, user_id: int, *, reason=None):
+        """
+        Забанить пользователя по айди.
+        """
+        await ctx.guild.ban(discord.Object(id=user_id), reason=reason)
+        embed = discord.Embed(
+              title="Пользователь забанен!",
+              description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{context.message.author}**!",
+              color=0x42F56C
+        )
+        embed.add_field(
+            name="Причина:",
+            value=reason
+        )
+        await ctx.send(embed=embed)
     @commands.command(name="clear")
     @commands.has_permissions(manage_messages=True, manage_channels=True)
     async def clear(self, context, amount):
