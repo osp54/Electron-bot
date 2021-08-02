@@ -6,7 +6,7 @@ class fun(commands.Cog, name="fun"):
         self.bot = bot
     @commands.command(name='embed')
     @commands.has_permissions(manage_messages=True)
-    async def embed(self, ctx,*, message):
+    async def embed(self, ctx,*, message="No Arguments"):
         """
         Отправить эмбед сообщение
         """
