@@ -18,7 +18,7 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send("У вас недостаточно прав для этой команды.")
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
-    async def kick(self, context, member: discord.Member, *, reason="Not specified"):
+    async def kick(self, context, member: discord.Member, *, reason="Причина не написана."):
         """
         Кикнуть пользователя из сервера.
         """
@@ -55,5 +55,39 @@ class moderation(commands.Cog, name="moderation"):
                     color=0xE02B2B
                 )
                 await context.message.channel.send(embed=embed)
+    @commands.command(name="ban")
+    @commands.has_permissions(ban_members=True)
+    async def ban(self, context, member: discord.Member, *, reason="Причина не написана."):
+        """
+        Забанить пользователя на сервере.
+        """
+        try:
+            if member.guild_permissions.administrator:
+                embed = discord.Embed(
+                    title="Ошибка",
+                    description="У пользователя есть права администратора.",
+                    color=0xE02B2B
+                )
+                await context.send(embed=embed)
+            else:
+                await member.ban(reason=reason)
+                embed = discord.Embed(
+                    title="Пользователь забанен!",
+                    description=f"**{member}** был забанен модератором **{context.message.author}**!",
+                    color=0x42F56C
+                )
+                embed.add_field(
+                    name="Причина:",
+                    value=reason
+                )
+                await context.send(embed=embed)
+                await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
+        except:
+            embed = discord.Embed(
+                title="Ошибка!",
+                description="Произошла ошибка при попытке забанить пользователя. Убедитесь, что моя роль выше роли пользователя, которого вы хотите забанить.",
+                color=0xE02B2B
+            )
+            await context.send(embed=embed)
 def setup(bot):
     bot.add_cog(moderation(bot))
