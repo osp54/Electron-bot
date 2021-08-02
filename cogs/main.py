@@ -17,12 +17,12 @@ class main(commands.Cog, name="main"):
         try:
             embed = discord.Embed(
                 title="Restarting...",
-                description="Бот перезарускается...",
+                description="Бот перезапускается...",
                 color=0x42F56C
             )
             await ctx.send(embed=embed)
             restart_bot()
-        except:
+        except MissingPermissions:
             embed = discord.Embed(
                 title="Ошибка",
                 description="На эту команду право имеют только люди с правом администратор!",
