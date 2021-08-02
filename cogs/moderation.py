@@ -43,7 +43,7 @@ class moderation(commands.Cog, name="moderation"):
         embed = discord.Embed(
             title="Размьючен!",
             description=f"**{member.name}** был размьючен модератором **{ctx.message.author}**",
-            colour=discord.Colour.light_gray()
+            color=0x42F56C
         )
         await ctx.send(embed=embed)
     @commands.command(name='kick')
