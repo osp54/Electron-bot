@@ -64,8 +64,8 @@ class main(commands.Cog, name="main"):
         em.add_field(name='Ролей', value=len(guild.roles))
         em.add_field(name='Создатель', value=guild.owner)
 
-        em.set_thumbnail(url=None or guild.icon_url)
-        em.set_author(name=guild.name, icon_url=None or guild.icon_url)
+        em.set_thumbnail(url=guild.icon_url)
+        em.set_author(name=guild.name, icon_url=guild.icon_url)
         await ctx.send(embed=em)
 def setup(bot):
     bot.add_cog(main(bot))
