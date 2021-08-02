@@ -36,7 +36,9 @@ async def on_command_error(ctx, error):
         await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
 @client.event
 async def on_message(ctx):
-    if message.content.startswith('Ня', 'ня'):
+    if message.content == 'Ня':
+        await ctx.send("Ня")
+    if message.content == 'ня'
         await ctx.send("Ня")
 @client.event
 async def on_ready():
