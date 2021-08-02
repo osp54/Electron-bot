@@ -8,7 +8,7 @@ class moderation(commands.Cog, name="moderation"):
 
     @commands.command(name='mute')
     @commands.has_permissions(kick_members=True)
-    async def tempmute(ctx, member: discord.Member, time: int, d, *, reason=None):
+    async def mute(self,ctx, member: discord.Member, time: int, d, *, reason=None):
         guild = ctx.guild
 
         for role in guild.roles:
