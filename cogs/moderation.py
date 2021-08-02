@@ -15,31 +15,15 @@ class moderation(commands.Cog, name="moderation"):
                 description="У пользователя есть права администратора.",
                 color=0xE02B2B
             )
-            await ctx.send(embed=embed)
-        try:
-            muted_role=discord.utils.get(ctx.guild.roles, name="Muted")
-            time_convert = {"s":1, "m":60, "h":3600,"d":86400}
-            tempmute= int(time[0]) * time_convert[time[-1]]
-        except:
-            embed = discord.Embed(
-                title="Ошибка",
-                description="Некорректное время мьюта! Либо неизвестная ошибка.",
-                color=0xE02B2B
-            )
-            await ctx.send(embed=embed)
-        try:
-            await member.add_roles(muted_role)
-            embed = discord.Embed(description= f"**{member.display_name}#{member.discriminator}** был замьючен модератором **{context.message.author}**!", color=discord.Color.green())
-            await ctx.send(embed=embed, delete_after=15)
-            await asyncio.sleep(tempmute)
-            await member.remove_roles(muted_role)
-        except:
-            embed = discord.Embed(
-                title="Ошибка",
-                description="Похоже на то, что у человека которого вы хотите замьютить, выше роль чем у меня.",
-                color=0xE02B2B
-            )
-            await ctx.send(embed=embed)
+        await ctx.send(embed=embed)
+        muted_role=discord.utils.get(ctx.guild.roles, name="Muted")
+        time_convert = {"s":1, "m":60, "h":3600,"d":86400}
+        tempmute= int(time[0]) * time_convert[time[-1]]
+        await member.add_roles(muted_role)
+        embed = discord.Embed(description= f"**{member.display_name}#{member.discriminator}** был замьючен модератором **{context.message.author}**!", color=discord.Color.green())
+        await ctx.send(embed=embed, delete_after=15)
+        await asyncio.sleep(tempmute)
+        await member.remove_roles(muted_role)
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
     async def kick(self, context, member: discord.Member, *, reason="Причина не написана."):
