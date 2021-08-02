@@ -10,7 +10,7 @@ class main(commands.Cog, name="main"):
         os.execv(sys.executable, ['python'] + sys.argv)
     @commands.has_permissions(administrator=True)
     @commands.command(name="restart")
-    async def restart(ctx):
+    async def restart(self,ctx):
         """
         Перезапустить бота.
         """
