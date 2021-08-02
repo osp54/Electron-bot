@@ -46,5 +46,26 @@ class main(commands.Cog, name="main"):
         await embed_message.add_reaction("👍")
         await embed_message.add_reaction("👎")
         await embed_message.add_reaction("🤷")
+    @commands.command(name="serverinfo",aliases=['server'])
+    async def serverinfo(self, ctx):
+        """
+        Информация о сервере.
+        """
+        guild = ctx.guild
+        guild_age = (ctx.message.created_at - guild.created_at).days
+        created_at = f"Сервер создан {guild.created_at.strftime('%b %d %Y at %H:%M')}. Это больше {guild_age} дней назад!"
+        color = discord.Color.green()
+
+        em = discord.Embed(description=created_at, color=color)
+        em.add_field(name='Участников онлайн', value=len({m.id for m in guild.members if m.status is not discord.Status.offline}))
+        em.add_field(name='Всего участников', value=len(guild.members))
+        em.add_field(name='Текстовых каналов', value=len(guild.text_channels))
+        em.add_field(name='Голосовые каналов', value=len(guild.voice_channels))
+        em.add_field(name='Ролей', value=len(guild.roles))
+        em.add_field(name='Создатель', value=guild.owner)
+
+        em.set_thumbnail(url=None or guild.icon_url)
+        em.set_author(name=guild.name, icon_url=None or guild.icon_url)
+        await ctx.send(embed=em)
 def setup(bot):
     bot.add_cog(main(bot))
