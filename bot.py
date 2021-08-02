@@ -36,12 +36,4 @@ async def on_ready():
     print("-------------------")
     client.loop.create_task(status_task())
 
-def restart_bot(): 
-  os.execv(sys.executable, ['python'] + sys.argv)
-
-@client.command()
-@commands.has_permissions(manage_messages=True)
-async def restart(ctx):
-    await ctx.send("Restarting...")
-    restart_bot()
 client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.Ja9sfwWISOUKDVdtcIsboP8JZ3k')
