@@ -29,15 +29,6 @@ async def status_task():
         await asyncio.sleep(30)
 
 @client.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound ):
-        await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, Команда не найдена!', color=0xFF0000))
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
-    if isinstance(error, commands.CommandOnCooldown):
-        await ctx.send(embed = discord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
-
-@client.event
 async def on_ready():
     print(f"Logged in as {client.user.name}")
     print(f"Discord.py API version: {discord.__version__}")
