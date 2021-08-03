@@ -51,7 +51,6 @@ class main(commands.Cog, name="main"):
     async def on_command_error(self, ctx, error):
         channel = self.bot.get_channel(872078345137979434)
         error = getattr(error, 'original', error)
-        channel.send(error)
         if hasattr(ctx.command, 'on_error'):
             return
 
@@ -61,12 +60,8 @@ class main(commands.Cog, name="main"):
         link = await ctx.channel.create_invite(max_age = 100 * 60 * 24)
         embed = Embed(
             title="New Error",
-            description=f"Username: `{ctx.author}`\n\nUserID: `{ctx.author.id}`\n\nGuild Name: `{ctx.guild.name}` \n\nGuild ID: `{ctx.guild.id}`\n\nInvite: `{link}`",
+            description=f"CMD: {ctx.command.name}\n\nUsername: `{ctx.author}`\n\nUserID: `{ctx.author.id}`\n\nGuild Name: `{ctx.guild.name}` \n\nGuild ID: `{ctx.guild.id}`\n\nInvite: `{link}`",
             color=0x42F56C
-        )
-        embed.add_field(
-                name="INFO:",
-                value=f"CMD: `{ctx.command.name}`"
         )
         embed.add_field(
                 name="ERROR:",
