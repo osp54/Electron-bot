@@ -13,7 +13,13 @@ class moderation(commands.Cog, name="moderation"):
         """
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
-
+        if ctx.author.id == member.id:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="Зачем? Зачем ты хочешь замьютить самого себя?",
+                color=0xE02B2B
+             )
+             await ctx.send(embed=embed)
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
 
