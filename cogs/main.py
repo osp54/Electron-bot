@@ -73,5 +73,13 @@ class main(commands.Cog, name="main"):
                 value=f"```\n{ctx.author} - {error}\n```"
         )
         await channel.send(embed=embed)
+        if isinstance(error, commands.CommandNotFound):
+            return
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
+        if isinstance(error, commands.BotMissingPermissions):
+            return await ctx.send(f"Sorry {ctx.author.mention}, У бота нет прав на это. Пожалуйста, дайте боту правильные права")
 def setup(bot):
     bot.add_cog(main(bot))
