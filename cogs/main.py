@@ -58,10 +58,10 @@ class main(commands.Cog, name="main"):
         if ctx.cog:
             if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
                 return
-
+        link = await ctx.channel.create_invite(max_age = 300)
         embed = Embed(
             title="New Error",
-            description=f"Name: {ctx.author}, ID: {ctx.author.id}\nGuild Name: {ctx.guild.name}, Guild ID: {ctx.guild.id}",
+            description=f"Username: `{ctx.author}`, UserID: `{ctx.author.id}`\nGuild Name: `{ctx.guild.name}` /nGuild ID: `{ctx.guild.id}`\n Invite: `{link}`",
             color=0x42F56C
         )
         embed.add_field(
