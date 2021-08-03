@@ -67,7 +67,7 @@ class moderation(commands.Cog, name="moderation"):
         """
         Кикнуть пользователя из сервера.
         """
-       if ctx.author.id == member.id:
+        if ctx.author.id == member.id:
             embed = discord.Embed(
                 title="Ошибка",
                 description="Зачем? Зачем ты хочешь кикнуть самого себя?",
