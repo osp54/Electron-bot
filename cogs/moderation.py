@@ -37,9 +37,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
         mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
-
         await member.remove_roles(mutedRole)
-        await member.send(f"Ты был размьючен в: - {ctx.guild.name}")
         embed = discord.Embed(
             title="Размьючен!",
             description=f"**{member.name}** был размьючен модератором **{ctx.message.author}**",
