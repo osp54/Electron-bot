@@ -18,8 +18,8 @@ class moderation(commands.Cog, name="moderation"):
                 title="Ошибка",
                 description="Зачем? Зачем ты хочешь замьютить самого себя?",
                 color=0xE02B2B
-             )
-             await ctx.send(embed=embed)
+            )
+            await ctx.send(embed=embed)
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
 
