@@ -1,6 +1,7 @@
 import discord
 import os
 import sys
+from discord import Embed
 from discord.ext import commands
 
 class main(commands.Cog, name="main"):
