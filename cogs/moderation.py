@@ -132,19 +132,19 @@ class moderation(commands.Cog, name="moderation"):
                )
                await context.send(embed=embed)
                return
-            else:
-                await member.ban(reason=reason)
-                embed = discord.Embed(
-                    title="Успешно!",
-                    description=f"**{member}** был забанен модератором **{context.message.author}**!",
-                    color=0x42F56C
-                )
-                embed.add_field(
-                    name="Причина:",
-                    value=reason
-                )
-                await context.send(embed=embed)
-                await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
+           else:
+               await member.ban(reason=reason)
+               embed = discord.Embed(
+                   title="Успешно!",
+                   description=f"**{member}** был забанен модератором **{context.message.author}**!",
+                   color=0x42F56C
+               )
+               embed.add_field(
+                   name="Причина:",
+                   value=reason
+               )
+               await context.send(embed=embed)
+               await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
         except:
             embed = discord.Embed(
                 title="Ошибка!",
