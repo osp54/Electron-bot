@@ -84,11 +84,15 @@ class main(commands.Cog, name="main"):
             title="New error",
             description=f"Name: {ctx.author}, ID: {ctx.author.id}",
             color=0x42F56C
-            ).add_field(
-                name="info:",
+        )
+        embed.add_field(
+                name="INFO:",
                 value=f"CMD: `{ctx.command.name}`"
-            )
+        )
+        embed.add_field(
+                name="ERROR:",
+                value=f"```\n{ctx.author} - {error}\n```"
+        )
         await channel.send(embed=embed)
-        await channel.send(f"```\n{ctx.author} - {error}\n```")
 def setup(bot):
     bot.add_cog(main(bot))
