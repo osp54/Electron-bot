@@ -83,7 +83,7 @@ class main(commands.Cog, name="main"):
         embed = Embed(
             title="New error",
             description=f"Name: {ctx.author}, ID: {ctx.author.id}",
-            color=self.bot.color
+            color=0x42F56C
             ).add_field(
                 name="info:",
                 value=f"CMD: `{ctx.command.name}`"
