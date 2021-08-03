@@ -58,11 +58,10 @@ class main(commands.Cog, name="main"):
         if ctx.cog:
             if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
                 return
-        guild = str(ctx.guild.name)
-        guildid = int(ctx.guild.id)
+
         embed = Embed(
             title="New Error",
-            description=f"Name: {ctx.author}, ID: {ctx.author.id}\nGuild Name: {guild}, Guild ID: {guildid)",
+            description=f"Name: {ctx.author}, ID: {ctx.author.id}\nGuild Name: {ctx.guild.name}, Guild ID: {ctx.guild.id)",
             color=0x42F56C
         )
         embed.add_field(
