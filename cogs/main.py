@@ -67,5 +67,27 @@ class main(commands.Cog, name="main"):
         em.set_thumbnail(url=guild.icon_url)
         em.set_author(name=guild.name, icon_url=guild.icon_url)
         await ctx.send(embed=em)
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        channel = self.bot.get_channel(872078345137979434)
+        error = getattr(error, 'original', error)
+        channel.send(error)
+        if hasattr(ctx.command, 'on_error'):
+            return
+
+        if ctx.cog:
+            if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
+                return
+
+        embed = Embed(
+            title="New error",
+            description=f"Name: {ctx.author}, ID: {ctx.author.id}",
+            color=self.bot.color
+            ).add_field(
+                name="info:",
+                value=f"CMD: `{ctx.command.name}`"
+            )
+        await channel.send(embed=embed)
+        await channel.send(f"```\n{ctx.author} - {error}\n```")
 def setup(bot):
     bot.add_cog(main(bot))
