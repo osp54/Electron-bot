@@ -124,14 +124,14 @@ class moderation(commands.Cog, name="moderation"):
                 )
                 await ctx.send(embed=embed)
                 return
-            if member.guild_permissions.administrator:
-                embed = discord.Embed(
-                    title="Ошибка",
-                    description="У пользователя есть права администратора.",
-                    color=0xE02B2B
-                )
-                await context.send(embed=embed)
-                return
+           if member.guild_permissions.administrator:
+               embed = discord.Embed(
+                   title="Ошибка",
+                   description="У пользователя есть права администратора.",
+                   color=0xE02B2B
+               )
+               await context.send(embed=embed)
+               return
             else:
                 await member.ban(reason=reason)
                 embed = discord.Embed(
