@@ -64,9 +64,9 @@ class main(commands.Cog, name="main"):
         em.add_field(name='Голосовые каналов', value=len(guild.voice_channels))
         em.add_field(name='Ролей', value=len(guild.roles))
         em.add_field(name='Создатель', value=guild.owner)
-
-        em.set_thumbnail(url=guild.icon_url)
-        em.set_author(name=guild.name, icon_url=guild.icon_url)
+        icon = str(ctx.guild.icon_url)
+        em.set_thumbnail(url=icon)
+        em.set_author(name=guild.name, icon_url=icon)
         await ctx.send(embed=em)
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
