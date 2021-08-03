@@ -20,6 +20,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            return
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
 
