@@ -26,7 +26,7 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-        embed = discord.Embed(title="Замьючен", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
+        embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
         embed.add_field(name="Причина:", value=reason, inline=False)
         await ctx.send(embed=embed)
         await member.add_roles(mutedRole, reason=reason)
@@ -37,38 +37,57 @@ class moderation(commands.Cog, name="moderation"):
         """
         Размьютить пользователя на сервере.
         """
+        if ctx.author.id == member.id:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="Размьютить самого себя не получится.",
+                color=0xE02B2B
+            )
+            await ctx.send(embed=embed)
+            return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
                 title="Ошибка",
                 description="У пользователя есть права администратора.",
                 color=0xE02B2B
             )
+            await ctx.send(embed=embed)
+            return
         mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
         await member.remove_roles(mutedRole)
         embed = discord.Embed(
-            title="Размьючен!",
+            title="Успешно!",
             description=f"**{member.name}** был размьючен модератором **{ctx.message.author}**",
             color=0x42F56C
         )
         await ctx.send(embed=embed)
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
-    async def kick(self, context, member: discord.Member, *, reason="None"):
+    async def kick(self, ctx, member: discord.Member, *, reason="None"):
         """
         Кикнуть пользователя из сервера.
         """
+       if ctx.author.id == member.id:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="Зачем? Зачем ты хочешь кикнуть самого себя?",
+                color=0xE02B2B
+            )
+            await ctx.send(embed=embed)
+            return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
                 title="Ошибка",
                 description="У пользователя есть права администратора.",
                 color=0xE02B2B
             )
-            await context.send(embed=embed)
+            await ctx.send(embed=embed)
+            return
         else:
             try:
                 await member.kick(reason=reason)
                 embed = discord.Embed(
-                    title="User Kicked!",
+                    title="Успешно!",
                     description=f"**{member}** был кикнут модератором **{context.message.author}**!",
                     color=0x42F56C
                 )
@@ -76,7 +95,7 @@ class moderation(commands.Cog, name="moderation"):
                     name="Причина:",
                     value=reason
                 )
-                await context.send(embed=embed)
+                await ctx.send(embed=embed)
                 try:
                     await member.send(
                         f"Вас кикнул **{context.message.author}**!\nПричина: {reason}"
@@ -89,7 +108,7 @@ class moderation(commands.Cog, name="moderation"):
                     description="Произошла ошибка при попытке кикнуть пользователя. Убедитесь, что моя роль выше роли пользователя, которого вы хотите кикнуть.",
                     color=0xE02B2B
                 )
-                await context.message.channel.send(embed=embed)
+                await ctx.message.channel.send(embed=embed)
     @commands.command(name="ban")
     @commands.has_permissions(ban_members=True)
     async def ban(self, context, member: discord.Member, *, reason="Причина не написана."):
@@ -97,6 +116,14 @@ class moderation(commands.Cog, name="moderation"):
         Забанить пользователя на сервере.
         """
         try:
+           if ctx.author.id == member.id:
+                embed = discord.Embed(
+                    title="Ошибка",
+                    description="Зачем? Зачем ты хочешь забанить самого себя?",
+                    color=0xE02B2B
+                )
+                await ctx.send(embed=embed)
+                return
             if member.guild_permissions.administrator:
                 embed = discord.Embed(
                     title="Ошибка",
@@ -104,10 +131,11 @@ class moderation(commands.Cog, name="moderation"):
                     color=0xE02B2B
                 )
                 await context.send(embed=embed)
+                return
             else:
                 await member.ban(reason=reason)
                 embed = discord.Embed(
-                    title="Пользователь забанен!",
+                    title="Успешно!",
                     description=f"**{member}** был забанен модератором **{context.message.author}**!",
                     color=0x42F56C
                 )
@@ -130,9 +158,25 @@ class moderation(commands.Cog, name="moderation"):
         """
         Забанить пользователя по айди.
         """
+        if ctx.author.id == user_id:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="Зачем? Зачем ты хочешь забанить самого себя?",
+                color=0xE02B2B
+            )
+            await ctx.send(embed=embed)
+            return
+        if member.guild_permissions.administrator:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="У пользователя есть права администратора.",
+                color=0xE02B2B
+            )
+            await ctx.send(embed=embed)
+            return
         await ctx.guild.ban(discord.Object(id=user_id), reason=reason)
         embed = discord.Embed(
-              title="Пользователь забанен!",
+              title="Успешно!",
               description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{ctx.message.author}**!",
               color=0x42F56C
         )
@@ -151,7 +195,7 @@ class moderation(commands.Cog, name="moderation"):
         if not ban:
             return await ctx.send('Пользователь не найден.')
         await ctx.guild.unban(ban.user, reason=reason)
-        await ctx.send(embed = discord.Embed(title='Разбанен!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
+        await ctx.send(embed = discord.Embed(title='Успешно!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
     @commands.command(name="clear")
     @commands.has_permissions(manage_messages=True, manage_channels=True)
     async def clear(self, context, amount):
