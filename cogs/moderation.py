@@ -84,74 +84,52 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             return
         else:
-            try:
-                await member.kick(reason=reason)
-                embed = discord.Embed(
-                    title="Успешно!",
-                    description=f"**{member}** был кикнут модератором **{context.message.author}**!",
-                    color=0x42F56C
-                )
-                embed.add_field(
-                    name="Причина:",
-                    value=reason
-                )
-                await ctx.send(embed=embed)
-                try:
-                    await member.send(
-                        f"Вас кикнул **{context.message.author}**!\nПричина: {reason}"
-                    )
-                except:
-                    pass
-            except:
-                embed = discord.Embed(
-                    title="Ошибка!",
-                    description="Произошла ошибка при попытке кикнуть пользователя. Убедитесь, что моя роль выше роли пользователя, которого вы хотите кикнуть.",
-                    color=0xE02B2B
-                )
-                await ctx.message.channel.send(embed=embed)
+            await member.kick(reason=reason)
+            embed = discord.Embed(
+                title="Успешно!",
+                description=f"**{member}** был кикнут модератором **{context.message.author}**!",
+                color=0x42F56C
+            )
+            embed.add_field(
+                name="Причина:",
+                value=reason
+            )
+            await ctx.send(embed=embed)
     @commands.command(name="ban")
     @commands.has_permissions(ban_members=True)
     async def ban(self, context, member: discord.Member, *, reason="Причина не написана."):
         """
         Забанить пользователя на сервере.
         """
-        try:
-           if ctx.author.id == member.id:
-                embed = discord.Embed(
-                    title="Ошибка",
-                    description="Зачем? Зачем ты хочешь забанить самого себя?",
-                    color=0xE02B2B
-                )
-                await ctx.send(embed=embed)
-                return
-           if member.guild_permissions.administrator:
-               embed = discord.Embed(
-                   title="Ошибка",
-                   description="У пользователя есть права администратора.",
-                   color=0xE02B2B
-               )
-               await context.send(embed=embed)
-               return
-           else:
-               await member.ban(reason=reason)
-               embed = discord.Embed(
-                   title="Успешно!",
-                   description=f"**{member}** был забанен модератором **{context.message.author}**!",
-                   color=0x42F56C
-               )
-               embed.add_field(
-                   name="Причина:",
-                   value=reason
-               )
-               await context.send(embed=embed)
-               await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
-        except:
+        if ctx.author.id == member.id:
             embed = discord.Embed(
-                title="Ошибка!",
-                description="Произошла ошибка при попытке забанить пользователя. Убедитесь, что моя роль выше роли пользователя, которого вы хотите забанить.",
+                title="Ошибка",
+                description="Зачем? Зачем ты хочешь забанить самого себя?",
                 color=0xE02B2B
             )
+            await ctx.send(embed=embed)
+            return
+        if member.guild_permissions.administrator:
+            embed = discord.Embed(
+            title="Ошибка",
+            description="У пользователя есть права администратора.",
+            color=0xE02B2B
+            )
             await context.send(embed=embed)
+            return
+        else:
+            await member.ban(reason=reason)
+            embed = discord.Embed(
+                title="Успешно!",
+                description=f"**{member}** был забанен модератором **{context.message.author}**!",
+                color=0x42F56C
+            )
+            embed.add_field(
+                name="Причина:",
+                value=reason
+            )
+            await context.send(embed=embed)
+            await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
     @commands.command(name="idban")
     @commands.has_permissions(ban_members=True)
     async def idban(self, ctx, user_id: int, *, reason=None):
@@ -214,7 +192,7 @@ class moderation(commands.Cog, name="moderation"):
             return
         if amount < 1:
             embed = discord.Embed(
-                title="Error!",
+                title="Ошибка",
                 description=f"`{amount}` не действительное число.",
                 color=0xE02B2B
             )
