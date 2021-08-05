@@ -20,26 +20,28 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
+            return
+        if member.guild_permissions.administrator:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="У пользователя есть права администратора.",
+                color=0xE02B2B
+            )
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-        try:
-            embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
-            embed.add_field(name="Причина:", value=reason, inline=False)
-            await ctx.send(embed=embed)
-            await ctx.message.add_reaction('✅')
-            await member.add_roles(mutedRole, reason=reason)
-            await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
-        except:
-            embed = discord.Embed(
-                title="Ошибка",
-                description="У меня нету прав на это действие.",
-                color=0xE02B2B
-            )
-            ctx.send(embed=embed)
+        embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
+        embed.add_field(name="Причина:", value=reason, inline=False)
+        await ctx.send(embed=embed)
+        await ctx.message.add_reaction('✅')
+        await member.add_roles(mutedRole, reason=reason)
+        await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def unmute(self,ctx, member: discord.Member):
@@ -53,6 +55,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
@@ -61,6 +64,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
         await member.remove_roles(mutedRole)
@@ -84,6 +88,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
@@ -92,6 +97,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         else:
             await member.kick(reason=reason)
@@ -119,6 +125,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
@@ -127,6 +134,7 @@ class moderation(commands.Cog, name="moderation"):
             color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         else:
             await member.ban(reason=reason)
@@ -155,6 +163,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
@@ -163,6 +172,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         await ctx.guild.ban(discord.Object(id=user_id), reason=reason)
         embed = discord.Embed(
@@ -203,6 +213,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await context.send(embed=embed)
+            await context.message.add_reaction('❌')
             return
         if amount < 1:
             embed = discord.Embed(
@@ -211,6 +222,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await context.send(embed=embed)
+            await context.message.add_reaction('❌')
             return
         purged_messages = await context.message.channel.purge(limit=amount)
         embed = discord.Embed(
