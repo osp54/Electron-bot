@@ -63,20 +63,20 @@ class main(commands.Cog, name="main"):
            if hasattr(ctx.command, 'on_error'):
                 return
 
-            if ctx.cog:
-                if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
-                    return
-            link = await ctx.channel.create_invite(max_age = 100 * 60 * 24)
-            embed = Embed(
-                title="New Error",
-                description=f"CMD: {ctx.command.name}\n\nUsername: `{ctx.author}`\n\nUserID: `{ctx.author.id}`\n\nGuild Name: `{ctx.guild.name}` \n\nGuild ID: `{ctx.guild.id}`\n\nInvite: `{link}`",
-                color=0x42F56C
-            )
-            embed.add_field(
-                    name="ERROR:",
-                    value=f"```\n{ctx.author} - {error}\n```"
-            )
-            await channel.send(embed=embed)
+           if ctx.cog:
+               if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
+                   return
+           link = await ctx.channel.create_invite(max_age = 100 * 60 * 24)
+           embed = Embed(
+               title="New Error",
+               description=f"CMD: {ctx.command.name}\n\nUsername: `{ctx.author}`\n\nUserID: `{ctx.author.id}`\n\nGuild Name: `{ctx.guild.name}` \n\nGuild ID: `{ctx.guild.id}`\n\nInvite: `{link}`",
+               color=0x42F56C
+           )
+           embed.add_field(
+                   name="ERROR:",
+                   value=f"```\n{ctx.author} - {error}\n```"
+           )
+           await channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(main(bot))
