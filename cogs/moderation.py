@@ -29,6 +29,7 @@ class moderation(commands.Cog, name="moderation"):
         embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
         embed.add_field(name="Причина:", value=reason, inline=False)
         await ctx.send(embed=embed)
+        await ctx.message.add_reaction('✅')
         await member.add_roles(mutedRole, reason=reason)
         await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
     @commands.command()
