@@ -51,11 +51,11 @@ class main(commands.Cog, name="main"):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
             return
-        if isinstance(error, commands.MissingPermissions):
+        elif isinstance(error, commands.MissingPermissions):
             await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
-        if isinstance(error, commands.CommandOnCooldown):
+        elif isinstance(error, commands.CommandOnCooldown):
             await ctx.send(embed = discord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
-        if isinstance(error, commands.BotMissingPermissions):
+        elif isinstance(error, commands.BotMissingPermissions):
             return await ctx.send(f"{ctx.author.mention}, У бота нет прав на это. Пожалуйста, дайте боту правильные права")
         else:
            channel = self.bot.get_channel(872078345137979434)
