@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+from config import settings
 class fun(commands.Cog, name="fun"):
     def __init__(self, bot):
         self.bot = bot
@@ -27,7 +27,7 @@ class fun(commands.Cog, name="fun"):
         """
         Список всех команд
         """
-        prefix = '$'
+        prefix = settings['prefix']
         if not isinstance(prefix, str):
             prefix = prefix[0]
         embed = discord.Embed(title="Help", description="List of available commands:", color=0x42F56C)
