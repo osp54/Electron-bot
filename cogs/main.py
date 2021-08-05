@@ -49,6 +49,14 @@ class main(commands.Cog, name="main"):
         await embed_message.add_reaction("🤷")
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandNotFound):
+            return
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
+        if isinstance(error, commands.BotMissingPermissions):
+            return await ctx.send(f"{ctx.author.mention}, У бота нет прав на это. Пожалуйста, дайте боту правильные права")
         channel = self.bot.get_channel(872078345137979434)
         error = getattr(error, 'original', error)
         if hasattr(ctx.command, 'on_error'):
@@ -68,13 +76,6 @@ class main(commands.Cog, name="main"):
                 value=f"```\n{ctx.author} - {error}\n```"
         )
         await channel.send(embed=embed)
-        if isinstance(error, commands.CommandNotFound):
-            return
-        if isinstance(error, commands.MissingPermissions):
-            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
-        if isinstance(error, commands.CommandOnCooldown):
-            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
-        if isinstance(error, commands.BotMissingPermissions):
-            return await ctx.send(f"{ctx.author.mention}, У бота нет прав на это. Пожалуйста, дайте боту правильные права")
+
 def setup(bot):
     bot.add_cog(main(bot))
