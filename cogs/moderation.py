@@ -26,12 +26,20 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-        embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
-        embed.add_field(name="Причина:", value=reason, inline=False)
-        await ctx.send(embed=embed)
-        await ctx.message.add_reaction('✅')
-        await member.add_roles(mutedRole, reason=reason)
-        await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
+        try:
+            embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
+            embed.add_field(name="Причина:", value=reason, inline=False)
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('✅')
+            await member.add_roles(mutedRole, reason=reason)
+            await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
+        except:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="У меня нету прав на это действие.",
+                color=0xE02B2B
+            )
+            ctx.send(embed=embed)
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def unmute(self,ctx, member: discord.Member):
