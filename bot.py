@@ -4,10 +4,11 @@ import platform
 import sys
 import psutil
 import asyncio
+from config import settings
 from discord.ext import tasks,commands
 
 client = discord.Client()
-client = commands.Bot(command_prefix = '$')
+client = commands.Bot(command_prefix = settings['prefix'])
 client.remove_command('help')
 
 if __name__ == "__main__":
@@ -37,4 +38,4 @@ async def on_ready():
     print("-------------------")
     client.loop.create_task(status_task())
 
-client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.Ja9sfwWISOUKDVdtcIsboP8JZ3k')
+client.run(settings['token'])
