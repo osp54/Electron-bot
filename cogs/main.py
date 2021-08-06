@@ -2,6 +2,7 @@ import discord
 import os
 import sys
 from discord import Embed
+from config import settings
 from discord.ext import commands
 
 class main(commands.Cog, name="main"):
