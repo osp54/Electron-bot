@@ -7,7 +7,7 @@ class moderation(commands.Cog, name="moderation"):
         self.bot = bot
     @commands.command()
     @commands.has_permissions(manage_roles=True)
-    async def mute(self,ctx, member: discord.Member, *, time=Permanent, reason=None):
+    async def mute(self,ctx, member: discord.Member, *, time="Permanent", reason=None):
         """
         Замьютить пользователя на сервере.
         """
