@@ -68,7 +68,7 @@ class main(commands.Cog, name="main"):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
-            return
+            pass
         elif isinstance(error, commands.MissingPermissions):
             await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
         elif isinstance(error, commands.CommandOnCooldown):
@@ -102,7 +102,10 @@ class main(commands.Cog, name="main"):
         """
         if member is None:
             member = ctx.author
-        embed = discord.Embed(title=f"Аватар пользователя {member.name}", color=0x42F56C)
+        embed = discord.Embed(
+            title=f"Аватар пользователя {member.name}",
+            color=0x42F56C
+        )
         embed.set_image(url=member.avatar_url)
         await ctx.send(embed=embed) 
 
