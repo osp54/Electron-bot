@@ -7,7 +7,7 @@ class moderation(commands.Cog, name="moderation"):
         self.bot = bot
     @commands.command()
     @commands.has_permissions(manage_roles=True)
-    async def mute(self,ctx, member: discord.Member, *, reason=None):
+    async def mute(self,ctx, member: discord.Member, *, time=Permanent, reason=None):
         """
         Замьютить пользователя на сервере.
         """
@@ -36,12 +36,18 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
+        time_convert = {"s":1, "m":60, "h":3600,"d":86400}
+        tempmute= int(time[0]) * time_convert[time[-1]]
         embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
         embed.add_field(name="Причина:", value=reason, inline=False)
+        embed.add_field(name="Время мьюта:", value=time, inline=False)
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
         await member.add_roles(mutedRole, reason=reason)
         await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
+        if time != 'Permanent':
+            await asyncio.sleep(tempmute)
+            await member.remove_roles(mutedRole)
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def unmute(self,ctx, member: discord.Member):
