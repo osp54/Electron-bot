@@ -48,6 +48,19 @@ class main(commands.Cog, name="main"):
                 color=0xFFFFF
             )
             ctx.send(embed=embed)
+    @commands.command()
+    async def avatar(self, ctx, member: discord.Member = None):
+        """
+        Получить аватар пользователя
+        """
+        if member is None:
+            member = ctx.author
+        embed = discord.Embed(
+            title=f"Аватар пользователя {member.name}",
+            color=0x42F56C
+        )
+        embed.set_image(url=member.avatar_url)
+        await ctx.send(embed=embed) 
     @commands.command(name="poll")
     async def poll(self, context, *, title):
         """
@@ -95,19 +108,6 @@ class main(commands.Cog, name="main"):
                    value=f"```\n{ctx.author} - {error}\n```"
            )
            await channel.send(embed=embed)
-    @commands.command()
-    async def avatar(self, ctx, member: discord.Member = None):
-        """
-        Получить аватар пользователя
-        """
-        if member is None:
-            member = ctx.author
-        embed = discord.Embed(
-            title=f"Аватар пользователя {member.name}",
-            color=0x42F56C
-        )
-        embed.set_image(url=member.avatar_url)
-        await ctx.send(embed=embed) 
 
 def setup(bot):
     bot.add_cog(main(bot))
