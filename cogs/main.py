@@ -56,7 +56,7 @@ class main(commands.Cog, name="main"):
         if member == 'None':
             member = ctx.author
         embed = discord.Embed(
-            title=f"Аватар пользователя {member.name}",
+            title=f"Аватар пользователя {member}",
             color=0x42F56C
         )
         embed.set_image(url=member.avatar_url)
