@@ -59,7 +59,8 @@ class main(commands.Cog, name="main"):
             title=f"Аватар пользователя {member}",
             color=0x42F56C
         )
-        embed.set_image(url=member.avatar_url)
+        memberavatar = member.avatar_url or ctx.author.avatar_url
+        embed.set_image(url=memberavatar)
         await ctx.send(embed=embed)
     @commands.command(name="poll")
     async def poll(self, ctx, *, title):
