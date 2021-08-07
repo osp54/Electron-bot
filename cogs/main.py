@@ -53,14 +53,13 @@ class main(commands.Cog, name="main"):
         """
         Получить аватар пользователя
         """
-        if member == 'None':
-            member = ctx.author
+        if not member:
+            member = ctx.message.author
         embed = discord.Embed(
             title=f"Аватар пользователя {member}",
             color=0x42F56C
         )
-        memberavatar = member.avatar_url or ctx.author.avatar_url
-        embed.set_image(url=memberavatar)
+        embed.set_image(url=member.avatar_url)
         await ctx.send(embed=embed)
     @commands.command(name="poll")
     async def poll(self, ctx, *, title):
