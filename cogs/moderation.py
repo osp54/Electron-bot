@@ -36,7 +36,8 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-        embed = discord.Embed(title="Успешно!", description=f"{member.mention} замьючен ", colour=discord.Colour.light_gray())
+        embed = discord.Embed(title="Успешно!", description=f"**{member.name}** замьючен модератором **{ctx.message.author}**", color=0x42F56C
+        )
         embed.add_field(name="Причина:", value=reason, inline=False)
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
@@ -70,7 +71,7 @@ class moderation(commands.Cog, name="moderation"):
         await member.remove_roles(mutedRole)
         embed = discord.Embed(
             title="Успешно!",
-            description=f"**{member.name}** был размьючен модератором **{ctx.message.author}**",
+            description=f"**{member.name}** размьючен модератором **{ctx.message.author}**",
             color=0x42F56C
         )
         await ctx.send(embed=embed)
@@ -103,7 +104,7 @@ class moderation(commands.Cog, name="moderation"):
             await member.kick(reason=reason)
             embed = discord.Embed(
                 title="Успешно!",
-                description=f"**{member}** был кикнут модератором **{context.message.author}**!",
+                description=f"**{member}** кикнут модератором **{ctx.message.author}**!",
                 color=0x42F56C
             )
             embed.add_field(
@@ -140,7 +141,7 @@ class moderation(commands.Cog, name="moderation"):
             await member.ban(reason=reason)
             embed = discord.Embed(
                 title="Успешно!",
-                description=f"**{member}** был забанен модератором **{context.message.author}**!",
+                description=f"**{member}** был забанен модератором **{ctx.message.author}**!",
                 color=0x42F56C
             )
             embed.add_field(
@@ -200,7 +201,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.message.add_reaction('✅')
     @commands.command(name="clear")
     @commands.has_permissions(manage_messages=True, manage_channels=True)
-    async def clear(self, context, amount):
+    async def clear(self, ctx, amount):
         """
         Удалить несколько сообщений.
         """
@@ -212,8 +213,8 @@ class moderation(commands.Cog, name="moderation"):
                 description=f"`{amount}` не действительное число.",
                 color=0xE02B2B
             )
-            await context.send(embed=embed)
-            await context.message.add_reaction('❌')
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
         if amount < 1:
             embed = discord.Embed(
@@ -221,16 +222,16 @@ class moderation(commands.Cog, name="moderation"):
                 description=f"`{amount}` не действительное число.",
                 color=0xE02B2B
             )
-            await context.send(embed=embed)
-            await context.message.add_reaction('❌')
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('❌')
             return
-        purged_messages = await context.message.channel.purge(limit=amount)
+        purged_messages = await ctx.message.channel.purge(limit=amount)
         embed = discord.Embed(
             title="Чат очищен!",
-            description=f"**{context.message.author}** очищено **{len(purged_messages)}** сообщений!",
+            description=f"**{ctx.message.author}** очищено **{len(purged_messages)}** сообщений!",
             color=0x42F56C
         )
-        await context.send(embed=embed)
+        await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
 def setup(bot):
     bot.add_cog(moderation(bot))
