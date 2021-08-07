@@ -2,7 +2,6 @@ import discord
 import os
 import platform
 import sys
-import psutil
 import asyncio
 from config import settings
 from discord.ext import tasks,commands
