@@ -12,8 +12,7 @@ class owner(commands.Cog, name="owner"):
     async def embed(self, ctx,*, message):
         if ctx.message.author.id in owners["owners"]:
             await ctx.message.delete()
-            embed=discord.Embed()
-            embed.add_field(value=f"{message}", inline=False)
+            embed=discord.Embed(description=message, color=0xFF0000)
             await ctx.send(embed=embed)
     @commands.command(name='say')
     async def say(self, ctx,*, message=None):
