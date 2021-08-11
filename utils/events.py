@@ -23,7 +23,7 @@ class events(commands.Cog):
            if ctx.cog:
                if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
                    return
-           embed = Embed(
+           embed = discord.Embed(
                title="New Error",
                description=f"Command: {ctx.command.name}\n\nUsername: `{ctx.author}`\n\nUserID: `{ctx.author.id}`\n\nGuild Name: `{ctx.guild.name}`",
                color=0x42F56C
