@@ -6,7 +6,9 @@ class anti_scam(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_message(self, ctx, message):
-        #TODO
+    async def on_message(self, message):
+         if "steamcommunity.link" in message.content:
+             await message.delete()
+         #TODO: больше скам ссылок
 def setup(bot):
     bot.add_cog(anti_scam(bot))
