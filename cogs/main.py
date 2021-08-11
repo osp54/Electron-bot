@@ -19,7 +19,8 @@ class main(commands.Cog, name="main"):
         if not isinstance(prefix, str):
             prefix = prefix[0]
         embed = discord.Embed(title="Help", description="Список доступных команд:", color=0x42F56C)
-        for i in self.bot.cogs:
+        cogs = ("Main", "Fun", "Moderation")
+        for i in cogs:
             cog = self.bot.get_cog(i.lower())
             commands = cog.get_commands()
             command_list = [command.name for command in commands]
