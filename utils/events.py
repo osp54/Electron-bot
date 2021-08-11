@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class main(commands.Cog, name="main"):
+class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.Cog.listener()
@@ -34,4 +34,4 @@ class main(commands.Cog, name="main"):
            )
            await channel.send(embed=embed)
 def setup(bot):
-    bot.add_cog(anti_scam(bot))
+    bot.add_cog(events(bot))
