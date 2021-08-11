@@ -60,7 +60,7 @@ class main(commands.Cog, name="main"):
             title=f"Аватар пользователя {member}",
             color=0x42F56C
         )
-        embed.set_image(url=member.avatar_url)
+        embed.set_image(url=member.avatar.url)
         await ctx.send(embed=embed)
     @commands.command(name="poll")
     async def poll(self, ctx, *, title):
@@ -73,7 +73,7 @@ class main(commands.Cog, name="main"):
             color=0x42F56C
         )
         embed.set_footer(
-            text=f"Опрос создан: {context.message.author} • Жми на реакции!"
+            text=f"Опрос создан: {ctx.message.author} • Жми на реакции!"
         )
         embed_message = await ctx.send(embed=embed)
         await embed_message.add_reaction("👍")
