@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class anti_scam(commands.Cog, name="anti_scam"):
+class anti_scam(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
