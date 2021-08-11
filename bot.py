@@ -9,13 +9,24 @@ from discord.ext import tasks,commands
 client = discord.Client()
 client = commands.Bot(command_prefix = settings['prefix'])
 client.remove_command('help')
-
+#когсы комманд
 if __name__ == "__main__":
     for file in os.listdir("./cogs"):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
                 client.load_extension(f"cogs.{extension}")
+                print(f"Loaded extension '{extension}'")
+            except Exception as e:
+                exception = f"{type(e).__name__}: {e}"
+                print(f"Failed to load extension {extension}\n{exception}")
+#когсы утилит/ивентов
+if __name__ == "__main__":
+    for file in os.listdir("./utils"):
+        if file.endswith(".py"):
+            extension = file[:-3]
+            try:
+                client.load_extension(f"utils.{extension}")
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
