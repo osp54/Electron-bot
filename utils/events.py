@@ -33,3 +33,5 @@ class main(commands.Cog, name="main"):
                    value=f"```\n{ctx.author} - {error}\n```"
            )
            await channel.send(embed=embed)
+def setup(bot):
+    bot.add_cog(anti_scam(bot))
