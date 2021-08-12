@@ -8,8 +8,6 @@ from discord.ext import commands
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-    def restart_bot(): 
-        os.execv(sys.executable, ['python'] + sys.argv)
     @commands.command(name="help")
     async def help(self, context):
         """
@@ -28,27 +26,6 @@ class main(commands.Cog, name="main"):
             help_text = '\n'.join(f'{prefix}{n} - {h}' for n, h in zip(command_list, command_description))
             embed.add_field(name=i.capitalize(), value=f'```{help_text}```', inline=False)
         await context.send(embed=embed)
-    @commands.has_permissions(administrator=True)
-    @commands.command(name="restart")
-    async def restart(self,ctx):
-        """
-        Перезапустить бота.
-        """
-        try:
-            embed = discord.Embed(
-                title="Restarting...",
-                description="Бот перезапускается...",
-                color=0x42F56C
-            )
-            await ctx.send(embed=embed)
-            restart_bot()
-        except discord.ext.commands.errors.MissingPermissions:
-            embed = discord.Embed(
-                title="Ошибка",
-                description="На эту команду право имеют только люди с правом администратор!",
-                color=0xFFFFF
-            )
-            ctx.send(embed=embed)
     @commands.command()
     async def avatar(self, ctx, member: discord.Member = None):
         """
