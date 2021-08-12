@@ -8,6 +8,18 @@ with open("owners.json") as file:
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
+    def restart_bot(): 
+        os.execv(sys.executable, ['python'] + sys.argv)
+    @commands.command(name="restart")
+    async def restart(self,ctx):
+        if ctx.message.author.id in owners["owners"]:
+            embed = discord.Embed(
+                title="Restarting...",
+                description="Бот перезапускается...",
+                color=0x42F56C
+            )
+            await ctx.send(embed=embed)
+            restart_bot()
     @commands.command(name='embed')
     async def embed(self, ctx,*, message):
         if ctx.message.author.id in owners["owners"]:
