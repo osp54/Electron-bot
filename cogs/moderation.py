@@ -6,6 +6,7 @@ class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
     @commands.command()
+    @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
     async def mute(self,ctx, member: discord.Member, *, reason=None):
         """
@@ -44,6 +45,7 @@ class moderation(commands.Cog, name="moderation"):
         await member.add_roles(mutedRole, reason=reason)
         await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
     @commands.command()
+    @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
     async def unmute(self,ctx, member: discord.Member):
         """
@@ -77,6 +79,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
     @commands.command(name='kick')
+    @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason="None"):
         """
@@ -114,6 +117,7 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('✅')
     @commands.command(name="ban")
+    @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member, *, reason="Причина не написана."):
         """
@@ -152,6 +156,7 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.message.add_reaction('✅')
             await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
     @commands.command(name="idban")
+    @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def idban(self, ctx, user_id: int, *, reason=None):
         """
@@ -188,6 +193,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
     @commands.command()
+    @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, name_or_id, *, reason=None):
         """
@@ -200,6 +206,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed = discord.Embed(title='Успешно!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
         await ctx.message.add_reaction('✅')
     @commands.command(name="clear")
+        @commands.bot_has_permissions(manage_messages=True)
     @commands.has_permissions(manage_messages=True, manage_channels=True)
     async def clear(self, ctx, amount):
         """
