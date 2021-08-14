@@ -21,7 +21,7 @@ class owner(commands.Cog, name="owner"):
                     exec(code)
             except Exception as e:
                 return await ctx.send(f"```{e.__class__.__name__}: {e}```")
-    await ctx.send(f'```{str_obj.getvalue()}```')
+            await ctx.send(f'```{str_obj.getvalue()}```')
     @commands.command(name="restart")
     async def restart(self,ctx):
         if ctx.message.author.id in owners["owners"]:
