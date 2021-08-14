@@ -12,7 +12,7 @@ class events(commands.Cog):
             await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
         elif isinstance(error, commands.CommandOnCooldown):
             await ctx.send(embed = discord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
-        elif isinstance(error, Forbidden):
+        elif isinstance(error, commands.BotMissingPermissions):
             return await ctx.send(f"{ctx.author.mention}, У бота нет прав на это. Пожалуйста, дайте боту правильные права")
         else:
            channel = self.bot.get_channel(872078345137979434)
