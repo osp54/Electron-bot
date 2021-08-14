@@ -206,7 +206,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed = discord.Embed(title='Успешно!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
         await ctx.message.add_reaction('✅')
     @commands.command(name="clear")
-        @commands.bot_has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
     @commands.has_permissions(manage_messages=True, manage_channels=True)
     async def clear(self, ctx, amount):
         """
