@@ -3,6 +3,7 @@ import os
 import platform
 import sys
 import asyncio
+import jishaku
 from config import settings
 from discord.ext import tasks,commands
 
@@ -17,6 +18,7 @@ if __name__ == "__main__":
             extension = file[:-3]
             try:
                 client.load_extension(f"cogs.{extension}")
+                client.load_extension('jishaku')
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
