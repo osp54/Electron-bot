@@ -37,12 +37,15 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
+        try:
+            await member.add_roles(mutedRole, reason=reason)
+        except:
+            return
         embed = discord.Embed(title="Успешно!", description=f"**{member.name}** замьючен модератором **{ctx.message.author}**", color=0x42F56C
         )
         embed.add_field(name="Причина:", value=reason, inline=False)
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
-        await member.add_roles(mutedRole, reason=reason)
         await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
     @commands.command()
     @commands.bot_has_permissions(manage_roles=True)
