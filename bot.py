@@ -4,8 +4,12 @@ import platform
 import sys
 import asyncio
 import jishaku
+import colorama
+from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
+
+init()
 
 client = discord.Client()
 owners = [580631356485402639, 530103444946812929]
@@ -44,11 +48,12 @@ async def status_task():
 
 @client.event
 async def on_ready():
-    print(f"Logged in as {client.user.name}")
-    print(f"Discord.py API version: {discord.__version__}")
-    print(f"Python version: {platform.python_version()}")
-    print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
-    print("-------------------")
+    print(f"                             {Fore.CYAN}--------------------------------------------------------------------------")
+    print(f"                             {Fore.BLUE}Logged in as {client.user.name}")
+    print(f"                             {Fore.BLUE}Discord.py API version: {discord.__version__}")
+    print(f"                             {Fore.BLUE}Python version: {platform.python_version()}")
+    print(f"                             {Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
+    print(f"                             {Fore.CYAN}--------------------------------------------------------------------------")
     client.loop.create_task(status_task())
 
 client.run(settings['token'])
