@@ -2,7 +2,6 @@ import discord
 import os
 import sys
 import json
-from bot import get_prefix
 from discord import Embed
 from config import settings
 from discord.ext import commands
@@ -10,6 +9,10 @@ from discord.ext import commands
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
+    def get_prefix(client, message):
+        with open("prefixes.json", "r") as f:
+            prefixes = json.load(f)
+        return prefixes[str(message.guild.id)]
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, prefix):
