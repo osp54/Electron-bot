@@ -11,8 +11,8 @@ class main(commands.Cog, name="main"):
         self.bot = bot
     def get_prefix(client, message):
         with open("prefixes.json", "r") as f:
-            prefixes = json.load(f)
-        return prefixes[str(message.guild.id)]
+            fprefixes = json.load(f)
+        return fprefixes[str(message.guild.id)]
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, prefix):
