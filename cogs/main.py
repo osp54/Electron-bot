@@ -8,7 +8,7 @@ from discord.ext import commands
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-    @commands.command(name="help")
+    @commands.command(name="help", aliases=['хелп', 'помощь'])
     async def help(self, context):
         """
         Список всех команд
@@ -26,7 +26,7 @@ class main(commands.Cog, name="main"):
             help_text = '\n'.join(f'{prefix}{n} - {h}' for n, h in zip(command_list, command_description))
             embed.add_field(name=i.capitalize(), value=f'```{help_text}```', inline=False)
         await context.send(embed=embed)
-    @commands.command()
+    @commands.command(name="avatar", aliases=['аватар'])
     async def avatar(self, ctx, member: discord.Member = None):
         """
         Получить аватар пользователя
@@ -39,7 +39,7 @@ class main(commands.Cog, name="main"):
         )
         embed.set_image(url=member.avatar.url)
         await ctx.send(embed=embed)
-    @commands.command(name="poll")
+    @commands.command(name="poll", aliases=['опрос'])
     async def poll(self, ctx, *, title):
         """
         Создайте опрос, в котором участники могут голосовать.
