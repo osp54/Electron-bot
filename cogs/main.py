@@ -1,7 +1,6 @@
 import discord
 import os
 import sys
-import bot
 import json
 from discord import Embed
 from config import settings
@@ -24,7 +23,7 @@ class main(commands.Cog, name="main"):
         """
         Список всех команд
         """
-        prefix = bot.get_prefix()
+        prefix = !
         if not isinstance(prefix, str):
             prefix = prefix[0]
         embed = discord.Embed(title="Help", description="Список доступных команд:", color=0x42F56C)
