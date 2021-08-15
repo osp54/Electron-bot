@@ -3,16 +3,11 @@ import os
 import sys
 import json
 from discord import Embed
-from config import settings
 from discord.ext import commands
 
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-    def get_prefix(client, message):
-        with open("prefixes.json", "r") as f:
-            fprefixes = json.load(f)
-        return fprefixes[str(message.guild.id)]
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, prefix):
@@ -27,9 +22,6 @@ class main(commands.Cog, name="main"):
         """
         Список всех команд
         """
-        prefix = get_prefix()
-        if not isinstance(prefix, str):
-            prefix = prefix[0]
         embed = discord.Embed(title="Help", description="Список доступных команд:", color=0x42F56C)
         cogs = ("Main", "Moderation")
         for i in cogs:
@@ -37,7 +29,7 @@ class main(commands.Cog, name="main"):
             commands = cog.get_commands()
             command_list = [command.name for command in commands]
             command_description = [command.help for command in commands]
-            help_text = '\n'.join(f'{prefix}{n} - {h}' for n, h in zip(command_list, command_description))
+            help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
             embed.add_field(name=i.capitalize(), value=f'```{help_text}```', inline=False)
         await context.send(embed=embed)
     @commands.command(name="avatar", aliases=['аватар'])
