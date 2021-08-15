@@ -10,7 +10,7 @@ class events(commands.Cog):
         with open("prefixes.json", "r") as f:
             prefixes = json.load(f)
 
-        prefixes[str(guild.id)] = "m!"
+        prefixes[str(guild.id)] = "$"
         with open("prefixes.json", "w") as f:
             json.dump(prefixes, f, indent=4)
 
