@@ -23,7 +23,7 @@ class main(commands.Cog, name="main"):
         """
         Список всех команд
         """
-        prefix = !
+        prefix = bot.get_prefix()
         if not isinstance(prefix, str):
             prefix = prefix[0]
         embed = discord.Embed(title="Help", description="Список доступных команд:", color=0x42F56C)
