@@ -9,11 +9,16 @@ from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
 
+def get_prefix(client, message):
+    with open("prefixes.json", "r") as f:
+        prefixes = json.load(f)
+    return prefixes[str(message.guild.id)]
+
 init()
 
 client = discord.Client()
 owners = [580631356485402639, 530103444946812929]
-client = commands.Bot(command_prefix = settings['prefix'], owner_ids = set(owners))
+client = commands.Bot(command_prefix = get_prefix, owner_ids = set(owners))
 client.remove_command('help')
 #когсы комманд
 if __name__ == "__main__":
