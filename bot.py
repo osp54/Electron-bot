@@ -48,12 +48,12 @@ async def status_task():
 
 @client.event
 async def on_ready():
-    print(f"                             {Fore.CYAN}--------------------------------------------------------------------------")
-    print(f"                             {Fore.BLUE}Logged in as {client.user.name}")
-    print(f"                             {Fore.BLUE}Discord.py API version: {discord.__version__}")
-    print(f"                             {Fore.BLUE}Python version: {platform.python_version()}")
-    print(f"                             {Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
-    print(f"                             {Fore.CYAN}--------------------------------------------------------------------------")
+    print(f"                   {Fore.CYAN}------------------------------------------------------------")
+    print(f"                   {Fore.BLUE}Logged in as {client.user.name}")
+    print(f"                   {Fore.BLUE}Discord.py API version: {discord.__version__}")
+    print(f"                   {Fore.BLUE}Python version: {platform.python_version()}")
+    print(f"                   {Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
+    print(f"                   {Fore.CYAN}-------------------------------------------------------------")
     client.loop.create_task(status_task())
 
 client.run(settings['token'])
