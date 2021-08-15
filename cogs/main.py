@@ -1,6 +1,7 @@
 import discord
 import os
 import sys
+import json
 from discord import Embed
 from config import settings
 from discord.ext import commands
@@ -8,6 +9,15 @@ from discord.ext import commands
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def setprefix(self, ctx, prefix):
+        with open("prefixes.json", "r") as f:
+            prefixes = json.load(f)
+        prefixes[str(ctx.guild.id)] = prefix
+        with open("prefixes.json", "w") as f:
+            json.dump(prefixes, f, indent=4)
+        await ctx.send(f"Prefix changed to: {prefix}")
     @commands.command(name="help", aliases=['хелп', 'помощь'])
     async def help(self, context):
         """
