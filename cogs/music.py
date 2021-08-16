@@ -66,8 +66,8 @@ class Music(commands.Cog, name="Music"):
     @commands.command()
     async def history(self, ctx):
         embeds = discordSuperUtils.generate_embeds(await MusicManager.history(ctx),
-                                                   "История песен",
-                                                   "Показывает все проигранные песни...",
+                                                   "Song History",
+                                                   "Shows all played songs",
                                                    25,
                                                    string_format="Title: {}")
 
