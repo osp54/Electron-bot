@@ -26,7 +26,7 @@ class Music(commands.Cog, name="Music"):
 
     @commands.command()
     async def np(ctx):
-        if player := await MusicManager.now_playing(ctx):
+        if player == await MusicManager.now_playing(ctx):
             await ctx.send(f"Сейчас играет: {player}")
 
 
