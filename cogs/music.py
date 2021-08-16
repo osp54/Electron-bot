@@ -19,25 +19,25 @@ class Music(commands.Cog, name="Music"):
         await ctx.send(f"Играет {player}")
 
     @commands.command()
-    async def leave(ctx):
+    async def leave(self, ctx):
         if await MusicManager.leave(ctx):
             await ctx.send("Вышел из голосового канала.")
 
 
     @commands.command()
-    async def np(ctx):
+    async def np(self, ctx):
         if player == await MusicManager.now_playing(ctx):
             await ctx.send(f"Сейчас играет: {player}")
 
 
     @commands.command()
-    async def join(ctx):
+    async def join(self, ctx):
         if await MusicManager.join(ctx):
             await ctx.send("Присоединился к голосовому каналу.")
 
 
     @commands.command()
-    async def play(ctx, *, query: str):
+    async def play(self, ctx, *, query: str):
         player = await MusicManager.create_player(query)
         if player:
             await MusicManager.queue_add(player=player, ctx=ctx)
@@ -48,39 +48,39 @@ class Music(commands.Cog, name="Music"):
             await ctx.send("Запрос не найден.")
 
     @commands.command()
-    async def volume(ctx, volume: int):
+    async def volume(self, ctx, volume: int):
         await MusicManager.volume(ctx, volume)
 
 
     @commands.command()
-    async def loop(ctx):
+    async def loop(self, ctx):
         is_loop = await MusicManager.loop(ctx)
         await ctx.send(f"Looping toggled to {is_loop}")
 
 
     @commands.command()
-    async def queueloop(ctx):
+    async def queueloop(self, ctx):
         is_loop = await MusicManager.queueloop(ctx)
         await ctx.send(f"Queue looping toggled to {is_loop}")
 
     @commands.command()
-    async def history(ctx):
+    async def history(self, ctx):
         embeds = discordSuperUtils.generate_embeds(await MusicManager.history(ctx),
                                                    "История песен",
                                                    "Показывает все проигранные песни...",
                                                    25,
                                                    string_format="Title: {}")
 
-    page_manager = PageManager(ctx, embeds, public=True)
-    await page_manager.run()
+        page_manager = PageManager(ctx, embeds, public=True)
+        await page_manager.run() 
 
     @commands.command()
-    async def skip(ctx, index: int = None):
+    async def skip(self, ctx, index: int = None):
         await MusicManager.skip(ctx, index)
         ctx.send("Пропущено...")
 
     @commands.command()
-    async def queue(ctx):
+    async def queue(self, ctx):
         embeds = discordSuperUtils.generate_embeds(await MusicManager.get_queue(ctx),
                                                    "Очередь",
                                                    f"Сейчас играет: {await MusicManager.now_playing(ctx)}",
