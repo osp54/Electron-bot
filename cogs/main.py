@@ -8,6 +8,10 @@ from discord.ext import commands
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
+    def get_prefix(client, message):
+        with open("prefixes.json", "r") as f:
+            prefixes = json.load(f)
+        return prefixes[str(message.guild.id)]
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, prefix):
@@ -22,7 +26,7 @@ class main(commands.Cog, name="main"):
         """
         Список всех команд
         """
-        embed = discord.Embed(title="Help", description="Список доступных команд:", color=0x42F56C)
+        embed = discord.Embed(title="Help", description=f"Префикс: {get_prefix}", color=0x42F56C)
         cogs = ("Main", "Moderation")
         for i in cogs:
             cog = self.bot.get_cog(i.lower())
