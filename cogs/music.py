@@ -72,7 +72,7 @@ class Music(commands.Cog, name="Music"):
                                                    string_format="Title: {}")
 
         page_manager = PageManager(ctx, embeds, public=True)
-        await page_manager.run() 
+        await page_manager.run()
 
     @commands.command()
     async def skip(self, ctx, index: int = None):
