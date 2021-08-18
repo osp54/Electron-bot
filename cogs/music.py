@@ -40,7 +40,7 @@ class Music(commands.Cog, name="Music"):
     @commands.command()
     async def play(self, ctx, *, query: str):
         async with ctx.typing():
-            player = await MusicManager.create_player(query)
+            player = await MusicManager.create_player(self, query)
         if player:
             await MusicManager.queue_add(player=player, ctx=ctx)
 
