@@ -20,7 +20,7 @@ init()
 intents = discord.Intents.all()
 client = discord.Client()
 owners = [580631356485402639, 530103444946812929]
-client = commands.Bot(command_prefix = when_mentioned_or(get_prefix), intents=intents, owner_ids = set(owners))
+client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
 client.remove_command('help')
 #когсы комманд
 if __name__ == "__main__":
