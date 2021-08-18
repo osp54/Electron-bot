@@ -18,7 +18,7 @@ class main(commands.Cog, name="main"):
             embed = discord.Embed(
                 title="Ошибка",
                 description="У этого сервера уже установлен такой префикс!",
-                color=
+                color=0xE02B2B
             )
             await ctx.send(embed=embed)
             return
