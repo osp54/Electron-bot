@@ -92,4 +92,4 @@ class Music(commands.Cog, name="Music"):
         page_manager = PageManager(self, ctx, embeds, public=True)
         await page_manager.run()
 def setup(bot):
-    bot.add_cog(Music(bot)) 
+    bot.add_cog(Music(bot))
