@@ -8,6 +8,7 @@ class Music(commands.Cog, name="Music"):
         self.bot = bot
     client_id = 861541287161102376
     client_secret = 'FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04'
+    client = discord.Client()
     MusicManager = MusicManager(client, client_id=client_id, client_secret=client_secret)
 
     @MusicManager.event()
