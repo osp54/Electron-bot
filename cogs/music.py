@@ -33,7 +33,7 @@ class Music(commands.Cog, name="Music"):
 
     @commands.command()
     async def join(self, ctx):
-        if await MusicManager.join(ctx):
+        if await MusicManager.join(self, ctx):
             await ctx.send("Присоединился к голосовому каналу.")
 
 
