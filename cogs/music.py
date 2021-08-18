@@ -12,7 +12,7 @@ class Music(commands.Cog, name="Music"):
 
             self.MusicManager = MusicManager(self.bot, client_id=self.client_id, client_secret=self.client_secret)
             self.MusicManager.add_event(self.on_music_error, 'on_music_error')
-            self.MusicManager.add_event(self.on_play, 'on_play') 
+            self.MusicManager.add_event(self.on_play, 'on_play')
 
     async def on_music_error(self, ctx, error):
         pass
