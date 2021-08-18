@@ -3,13 +3,14 @@ import discordSuperUtils
 from discord.ext import commands
 from discordSuperUtils import MusicManager, PageManager
 
+
 class Music(commands.Cog, name="Music"):
     def __init__(self, bot):
-        self.bot = bot
-    client_id = 861541287161102376
-    client_secret = 'FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04'
-    client = discord.Client()
-    self.MusicManager = MusicManager(client, client_id=client_id, client_secret=client_secret)
+            self.client_id = 861541287161102376
+            self.client_secret = 'FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04'
+            self.bot = bot
+
+            self.MusicManager = MusicManager(self.bot, client_id=self.client_id, client_secret=self.client_secret)
 
     @MusicManager.event()
     async def on_music_error(self, ctx, error):
@@ -91,4 +92,4 @@ class Music(commands.Cog, name="Music"):
         page_manager = PageManager(self, ctx, embeds, public=True)
         await page_manager.run()
 def setup(bot):
-    bot.add_cog(Music(bot))
+    bot.add_cog(Music(bot)) 
