@@ -9,7 +9,7 @@ class Music(commands.Cog, name="Music"):
     client_id = 861541287161102376
     client_secret = 'FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04'
     client = discord.Client()
-    self.MusicManager = MusicManager(bot, client_id=client_id, client_secret=client_secret)
+    self.MusicManager = MusicManager(client, client_id=client_id, client_secret=client_secret)
 
     @MusicManager.event()
     async def on_music_error(self, ctx, error):
