@@ -12,11 +12,11 @@ class Music(commands.Cog, name="Music"):
     MusicManager = MusicManager(client, client_id=client_id, client_secret=client_secret)
 
     @MusicManager.event()
-    async def on_music_error(ctx, error):
+    async def on_music_error(self, ctx, error):
         pass
 
     @MusicManager.event()
-    async def on_play(ctx, player):
+    async def on_play(self, ctx, player):
         await ctx.send(f"Играет {player}")
 
     @commands.command()
