@@ -8,9 +8,20 @@ from discord.ext import commands
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-    @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.command(aliases=['префикс'])
+    @commands.has_permissions(manage_server=True)
     async def setprefix(self, ctx, prefix):
+        """
+        Изменить префикс.
+        """
+        if ctx.prefix == prefix:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="У этого сервера уже установлен такой префикс!",
+                color=
+            )
+            await ctx.send(embed=embed)
+            return
         with open("prefixes.json", "r") as f:
             prefixes = json.load(f)
         prefixes[str(ctx.guild.id)] = prefix
