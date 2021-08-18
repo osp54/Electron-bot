@@ -9,7 +9,7 @@ class Music(commands.Cog, name="Music"):
     client_id = 861541287161102376
     client_secret = 'FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04'
     client = discord.Client()
-    MusicManager = MusicManager(client, client_id=client_id, client_secret=client_secret)
+    self.MusicManager = MusicManager(bot, client_id=client_id, client_secret=client_secret)
 
     @MusicManager.event()
     async def on_music_error(self, ctx, error):
@@ -21,48 +21,48 @@ class Music(commands.Cog, name="Music"):
 
     @commands.command()
     async def leave(self, ctx):
-        if await MusicManager.leave(self, ctx):
+        if await self.MusicManager.leave(ctx):
             await ctx.send("Вышел из голосового канала.")
 
 
     @commands.command()
     async def np(self, ctx):
-        if player == await MusicManager.now_playing(self, ctx):
+        if player == await self.MusicManager.now_playing(ctx):
             await ctx.send(f"Сейчас играет: {player}")
 
 
     @commands.command()
     async def join(self, ctx):
-        if await MusicManager.join(self, ctx):
+        if await self.MusicManager.join(ctx):
             await ctx.send("Присоединился к голосовому каналу.")
 
 
     @commands.command()
     async def play(self, ctx, *, query: str):
         async with ctx.typing():
-            player = await MusicManager.create_player(self, query)
+            player = await self.MusicManager.create_player(query)
         if player:
-            await MusicManager.queue_add(player=player, ctx=ctx)
+            await self.MusicManager.queue_add(player=player, ctx=ctx)
 
-            if not await MusicManager.play(ctx):
+            if not await self.MusicManager.play(ctx):
                 await ctx.send("Добавлено в очередь")
         else:
             await ctx.send("Запрос не найден.")
 
     @commands.command()
     async def volume(self, ctx, volume: int):
-        await MusicManager.volume(self, ctx, volume)
+        await self.MusicManager.volume(ctx, volume)
 
 
     @commands.command()
     async def loop(self, ctx):
-        is_loop = await MusicManager.loop(self, ctx)
+        is_loop = await self.MusicManager.loop(ctx)
         await ctx.send(f"Looping toggled to {is_loop}")
 
 
     @commands.command()
     async def queueloop(self, ctx):
-        is_loop = await MusicManager.queueloop(self, ctx)
+        is_loop = await self.MusicManager.queueloop(ctx)
         await ctx.send(f"Queue looping toggled to {is_loop}")
 
     @commands.command()
@@ -78,7 +78,7 @@ class Music(commands.Cog, name="Music"):
 
     @commands.command()
     async def skip(self, ctx, index: int = None):
-        await MusicManager.skip(self, ctx, index)
+        await self.MusicManager.skip(ctx, index)
         ctx.send("Пропущено...")
 
     @commands.command()
