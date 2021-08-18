@@ -7,7 +7,7 @@ class Music(commands.Cog, name="Music"):
     def __init__(self, bot):
         self.bot = bot
     client_id = 861541287161102376
-    client_secret = FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04
+    client_secret = 'FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04'
     MusicManager = MusicManager(bot, client_id=client_id, client_secret=client_secret)
 
     @MusicManager.event()
