@@ -4,7 +4,7 @@ from discord.ext import commands
 from discordSuperUtils import MusicManager, PageManager
 
 
-class Music(commands.Cog, name="Music"):
+class music(commands.Cog, name="music"):
     def __init__(self, bot):
             self.client_id = 861541287161102376
             self.client_secret = 'FR8vHPfRkhnHPQpyIdXO_QN1yX80tB04'
