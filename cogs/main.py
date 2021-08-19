@@ -9,7 +9,7 @@ class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
     @commands.command(aliases=['префикс'])
-    @commands.has_permissions(manage_server=True)
+    @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, prefix):
         """
         Изменить префикс.
