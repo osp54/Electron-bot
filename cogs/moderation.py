@@ -1,6 +1,7 @@
 import asyncio
 import discord
 from discord.ext import commands
+from discord.ext.commands import cooldown, BucketType
 
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
