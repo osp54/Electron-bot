@@ -68,7 +68,7 @@ class Music(commands.Cog, name="Music"):
 
     @commands.command()
     async def history(self, ctx):
-        embeds = discordSuperUtils.generate_embeds(await MusicManager.history(self, ctx),
+        embeds = discordSuperUtils.generate_embeds(await self.MusicManager.history(ctx),
                                                    "Song History",
                                                    "Shows all played songs",
                                                    25,
@@ -84,7 +84,7 @@ class Music(commands.Cog, name="Music"):
 
     @commands.command()
     async def queue(self, ctx):
-        embeds = discordSuperUtils.generate_embeds(await MusicManager.get_queue(self, ctx),
+        embeds = discordSuperUtils.generate_embeds(await self.MusicManager.get_queue(ctx),
                                                    "Очередь",
                                                    f"Сейчас играет: {await MusicManager.now_playing(ctx)}",
                                                    25,
