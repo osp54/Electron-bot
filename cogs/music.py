@@ -21,6 +21,7 @@ class music(commands.Cog, name="music"):
         await ctx.send(f"Играет {player}")
 
     @commands.command(aliases=['выйти'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def leave(self, ctx):
         """
         Выйти из голосового канала.
@@ -30,6 +31,7 @@ class music(commands.Cog, name="music"):
 
 
     @commands.command(aliases=['си', 'сейчас играет', 'now playing'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def np(self, ctx):
         """
         Сейчас играет.
@@ -38,6 +40,7 @@ class music(commands.Cog, name="music"):
 
 
     @commands.command(aliases=['присоед.'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def join(self, ctx):
         """
         Присоединиться к голосовому каналу.
@@ -47,6 +50,7 @@ class music(commands.Cog, name="music"):
 
 
     @commands.command(aliases=['проиграть'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def play(self, ctx, *, query: str):
         """
         Проиграть песню.
@@ -62,21 +66,25 @@ class music(commands.Cog, name="music"):
             await ctx.send("Запрос не найден.")
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def volume(self, ctx, volume: int):
         await self.MusicManager.volume(ctx, volume)
 
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def loop(self, ctx):
         is_loop = await self.MusicManager.loop(ctx)
         await ctx.send(f"Looping toggled to {is_loop}")
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def queueloop(self, ctx):
         is_loop = await self.MusicManager.queueloop(ctx)
         await ctx.send(f"Queue looping toggled to {is_loop}")
 
     @commands.command(aliases=['история'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def history(self, ctx):
         """
         История проигравших песен.
@@ -91,6 +99,7 @@ class music(commands.Cog, name="music"):
         await page_manager.run()
 
     @commands.command(aliases=['скип'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def skip(self, ctx, index: int = None):
         """
         Пропустить текущую песню.
@@ -99,6 +108,7 @@ class music(commands.Cog, name="music"):
         ctx.send("Пропущено...")
 
     @commands.command(aliases=['очередь'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def queue(self, ctx):
         """
         Очередь песен.
