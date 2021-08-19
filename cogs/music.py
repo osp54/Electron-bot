@@ -19,7 +19,7 @@ class music(commands.Cog, name="music"):
         pass
 
     async def on_play(self, ctx, player):
-        await ctx.send(f"Играет {player}")
+        await ctx.send(f"Играет **{player}**\n{player.url}")
 
     @commands.command(aliases=['выйти'])
     @commands.cooldown(1, 2, commands.BucketType.user)
