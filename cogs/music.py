@@ -1,6 +1,7 @@
 import discord
 import discordSuperUtils
-from discord.ext import commands, cooldown, BucketType
+from discord.ext import commands
+from discord.ext.commands import cooldown, BucketType
 from discordSuperUtils import MusicManager, PageManager
 
 
