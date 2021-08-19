@@ -34,7 +34,7 @@ class main(commands.Cog, name="main"):
         Список всех команд
         """
         embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
-        cogs = ("cogs.Main", "cogs.Moderation", "cogs.Music")
+        cogs = ("Main", "Moderation", "music")
         for i in cogs:
             cog = self.bot.get_cog(i.lower())
             commands = cog.get_commands()
