@@ -20,26 +20,37 @@ class Music(commands.Cog, name="Music"):
     async def on_play(self, ctx, player):
         await ctx.send(f"Играет {player}")
 
-    @commands.command()
+    @commands.command(aliases=['выйти'])
     async def leave(self, ctx):
+        """
+        Выйти из голосового канала.
+        """
         if await self.MusicManager.leave(ctx):
             await ctx.send("Вышел из голосового канала.")
 
 
-    @commands.command()
+    @commands.command(aliases=['си', 'сейчас играет', 'now playing'])
     async def np(self, ctx):
-        if player == await self.MusicManager.now_playing(ctx):
-            await ctx.send(f"Сейчас играет: {player}")
+        """
+        Сейчас играет.
+        """
+        await ctx.send(f"Сейчас играет: {await self.MusicManager.now_playing(ctx)}")
 
 
-    @commands.command()
+    @commands.command(aliases=['присоед.'])
     async def join(self, ctx):
+        """
+        Присоединиться к голосовому каналу.
+        """
         if await self.MusicManager.join(ctx):
             await ctx.send("Присоединился к голосовому каналу.")
 
 
-    @commands.command()
+    @commands.command(aliases=['проиграть'])
     async def play(self, ctx, *, query: str):
+        """
+        Проиграть песню.
+        """
         async with ctx.typing():
             player = await self.MusicManager.create_player(query)
         if player:
@@ -60,14 +71,16 @@ class Music(commands.Cog, name="Music"):
         is_loop = await self.MusicManager.loop(ctx)
         await ctx.send(f"Looping toggled to {is_loop}")
 
-
     @commands.command()
     async def queueloop(self, ctx):
         is_loop = await self.MusicManager.queueloop(ctx)
         await ctx.send(f"Queue looping toggled to {is_loop}")
 
-    @commands.command()
+    @commands.command(aliases=['история'])
     async def history(self, ctx):
+        """
+        История проигравших песен.
+        """
         embeds = discordSuperUtils.generate_embeds(await self.MusicManager.history(ctx),
                                                    "Song History",
                                                    "Shows all played songs",
@@ -77,13 +90,19 @@ class Music(commands.Cog, name="Music"):
         page_manager = PageManager(self, ctx, embeds, public=True)
         await page_manager.run()
 
-    @commands.command()
+    @commands.command(aliases=['скип'])
     async def skip(self, ctx, index: int = None):
+        """
+        Пропустить текущую песню.
+        """
         await self.MusicManager.skip(ctx, index)
         ctx.send("Пропущено...")
 
-    @commands.command()
+    @commands.command(aliases=['очередь'])
     async def queue(self, ctx):
+        """
+        Очередь песен.
+        """
         embeds = discordSuperUtils.generate_embeds(await self.MusicManager.get_queue(ctx),
                                                    "Очередь",
                                                    f"Сейчас играет: {await MusicManager.now_playing(ctx)}",
