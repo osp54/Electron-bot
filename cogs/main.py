@@ -3,7 +3,8 @@ import os
 import sys
 import json
 from discord import Embed
-from discord.ext import commands, cooldown, BucketType
+from discord.ext import commands
+from discord.ext.commands import cooldown, BucketType
 
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
