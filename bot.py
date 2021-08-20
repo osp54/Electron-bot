@@ -15,13 +15,12 @@ tStart = time.time()
 init(autoreset=True)
 intents = discord.Intents.all()
 owners = [580631356485402639, 530103444946812929]
-client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
-client.remove_command('help')
-
 def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
     return prefixes[str(message.guild.id)]
+client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
+client.remove_command('help')
 
 def info(desc):
     print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
