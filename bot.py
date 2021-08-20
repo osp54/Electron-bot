@@ -24,6 +24,11 @@ def get_prefix(client, message):
 
 init(autoreset=True)
 
+def info(desc):
+    print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
+def error(desc):
+    print(Fore.RED + f"[E] {Fore.RESET}" + desc)
+
 intents = discord.Intents.all()
 owners = [580631356485402639, 530103444946812929]
 client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
@@ -35,10 +40,10 @@ if __name__ == "__main__":
             extension = file[:-3]
             try:
                 client.load_extension(f"cogs.{extension}")
-                print(f"Loaded extension '{extension}'")
+                info(desc=f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                print(f"Failed to load extension {extension}\n{exception}")
+                error(desc=f"Failed to load extension {extension}\n{exception}")
 #когсы утилит/ивентов
 if __name__ == "__main__":
     for file in os.listdir("./utils"):
@@ -46,10 +51,10 @@ if __name__ == "__main__":
             extension = file[:-3]
             try:
                 client.load_extension(f"utils.{extension}")
-                print(f"Loaded extension '{extension}'")
+                info(desc=f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                print(f"Failed to load extension {extension}\n{exception}")
+                error(desc=f"Failed to load extension {extension}\n{exception}")
 
 async def status_task():
     while True:
@@ -67,6 +72,10 @@ async def on_ready():
     print(f"{Fore.BLUE}Python version: {platform.python_version()}")
     print(f"{Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
     print(f"{Fore.BLUE}Time elapsed: {tElapsed}")
+    info(desc=f"Logged in as {client.user.name}")
+    info(desc=f"Discord.py API version: {discord.__version__}")
+    info(desc=f"Python version: {platform.python_version()}")
+    info(desc=f"Running on: {platform.system()} {platform.release()} ({os.name})")
     client.loop.create_task(status_task())
 
 client.run(settings['token'])
