@@ -6,6 +6,7 @@ import asyncio
 import jishaku
 import colorama
 import json
+import Pendulum #аналог датетайма
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
@@ -23,9 +24,10 @@ client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix),
 client.remove_command('help')
 
 def info(desc):
-    print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
+    now = pendulum.now('Europe/Moscow')
+    print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
-    print(Fore.RED + f"[E] {Fore.RESET}" + desc)
+    print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.RED + f"[E] {Fore.RESET}" + desc)
 
 #загрузить все расширения из папки
 def load_extensions(dir):
