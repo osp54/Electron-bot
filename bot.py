@@ -9,7 +9,10 @@ import json
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
-
+def info(desc):
+    print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
+#test
+info(desc="hmmmm")
 def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
