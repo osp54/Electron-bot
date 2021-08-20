@@ -12,6 +12,11 @@ from discord.ext import tasks,commands
 import time
 
 tStart = time.time()
+init(autoreset=True)
+intents = discord.Intents.all()
+owners = [580631356485402639, 530103444946812929]
+client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
+client.remove_command('help')
 
 def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
@@ -53,11 +58,6 @@ async def on_ready():
     info(desc=f"{Fore.BLUE}Time elapsed: {tElapsed}")
     client.loop.create_task(status_task())
 
-init(autoreset=True)
-intents = discord.Intents.all()
-owners = [580631356485402639, 530103444946812929]
-client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
-client.remove_command('help')
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы команд
     load_extensions("./utils") #когсы утилит/ивентов
