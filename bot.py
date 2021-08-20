@@ -15,10 +15,9 @@ def get_prefix(client, message):
         prefixes = json.load(f)
     return prefixes[str(message.guild.id)]
 
-init()
+init(autoreset=True)
 
 intents = discord.Intents.all()
-client = discord.Client()
 owners = [580631356485402639, 530103444946812929]
 client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
 client.remove_command('help')
@@ -29,7 +28,6 @@ if __name__ == "__main__":
             extension = file[:-3]
             try:
                 client.load_extension(f"cogs.{extension}")
-                client.load_extension('jishaku')
                 print(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
@@ -48,19 +46,17 @@ if __name__ == "__main__":
 
 async def status_task():
     while True:
-        await client.change_presence(activity=discord.Game(name="$help"))
+        await client.change_presence(activity=discord.Game(name="$ my default prefix"))
         await asyncio.sleep(30)
         await client.change_presence(activity=discord.Game(name="I'm love Discord!"))
         await asyncio.sleep(30)
 
 @client.event
 async def on_ready():
-    print(f"                   {Fore.CYAN}------------------------------------------------------------")
-    print(f"                   {Fore.BLUE}Logged in as {client.user.name}")
-    print(f"                   {Fore.BLUE}Discord.py API version: {discord.__version__}")
-    print(f"                   {Fore.BLUE}Python version: {platform.python_version()}")
-    print(f"                   {Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
-    print(f"                   {Fore.CYAN}-------------------------------------------------------------")
+    print(f"{Fore.BLUE}Logged in as {client.user.name}")
+    print(f"{Fore.BLUE}Discord.py API version: {discord.__version__}")
+    print(f"{Fore.BLUE}Python version: {platform.python_version()}")
+    print(f"{Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
     client.loop.create_task(status_task())
 
 client.run(settings['token'])
