@@ -18,17 +18,11 @@ def get_prefix(client, message):
         prefixes = json.load(f)
     return prefixes[str(message.guild.id)]
 
-init(autoreset=True)
-
 def info(desc):
     print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
     print(Fore.RED + f"[E] {Fore.RESET}" + desc)
 
-intents = discord.Intents.all()
-owners = [580631356485402639, 530103444946812929]
-client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
-client.remove_command('help')
 #загрузить все расширения из папки
 def load_extensions(dir):
     for file in os.listdir(dir):
@@ -40,11 +34,6 @@ def load_extensions(dir):
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 error(desc=f"Failed to load extension {extension}\n{exception}")
-
-#когсы комманд
-if __name__ == "__main__":
-    load_extensions("./cogs")
-    load_extensions("./utils")
 
 async def status_task():
     while True:
@@ -63,5 +52,14 @@ async def on_ready():
     info(desc=f"Running on: {platform.system()} {platform.release()} ({os.name})")
     info(desc=f"{Fore.BLUE}Time elapsed: {tElapsed}")
     client.loop.create_task(status_task())
+
+init(autoreset=True)
+intents = discord.Intents.all()
+owners = [580631356485402639, 530103444946812929]
+client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
+client.remove_command('help')
+if __name__ == "__main__":
+    load_extensions("./cogs") #когсы команд
+    load_extensions("./utils") #когсы утилит/ивентов
 
 client.run(settings['token'])
