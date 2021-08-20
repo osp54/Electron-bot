@@ -6,22 +6,28 @@ import asyncio
 import jishaku
 import colorama
 import json
+import pendulum #аналог датетайма
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
 import time
 
 tStart = time.time()
-
+init(autoreset=True)
+intents = discord.Intents.all()
+owners = [580631356485402639, 530103444946812929]
 def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
     return prefixes[str(message.guild.id)]
+client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
+client.remove_command('help')
 
 def info(desc):
-    print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
+    now = pendulum.now('Europe/Moscow')
+    print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
-    print(Fore.RED + f"[E] {Fore.RESET}" + desc)
+    print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.RED + f"[E] {Fore.RESET}" + desc)
 
 #загрузить все расширения из папки
 def load_extensions(dir):
@@ -53,11 +59,6 @@ async def on_ready():
     info(desc=f"{Fore.BLUE}Time elapsed: {tElapsed}")
     client.loop.create_task(status_task())
 
-init(autoreset=True)
-intents = discord.Intents.all()
-owners = [580631356485402639, 530103444946812929]
-client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
-client.remove_command('help')
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы команд
     load_extensions("./utils") #когсы утилит/ивентов
