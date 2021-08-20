@@ -9,6 +9,10 @@ import json
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
+import time
+
+tStart = time.time()
+
 def info(desc):
     print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 #test
@@ -56,10 +60,13 @@ async def status_task():
 
 @client.event
 async def on_ready():
+    tEnd = time.time()
+    tElapsed = tEnd - tStart
     print(f"{Fore.BLUE}Logged in as {client.user.name}")
     print(f"{Fore.BLUE}Discord.py API version: {discord.__version__}")
     print(f"{Fore.BLUE}Python version: {platform.python_version()}")
     print(f"{Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
+    print(f"{Fore.BLUE}Time elapsed: {tElapsed}")
     client.loop.create_task(status_task())
 
 client.run(settings['token'])
