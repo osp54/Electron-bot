@@ -13,10 +13,6 @@ import time
 
 tStart = time.time()
 
-def info(desc):
-    print(Fore.BLUE + f"[I] {Fore.RESET}" + desc)
-#test
-info(desc="hmmmm")
 def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
@@ -67,15 +63,11 @@ async def status_task():
 async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
-    print(f"{Fore.BLUE}Logged in as {client.user.name}")
-    print(f"{Fore.BLUE}Discord.py API version: {discord.__version__}")
-    print(f"{Fore.BLUE}Python version: {platform.python_version()}")
-    print(f"{Fore.BLUE}Running on: {platform.system()} {platform.release()} ({os.name})")
-    print(f"{Fore.BLUE}Time elapsed: {tElapsed}")
     info(desc=f"Logged in as {client.user.name}")
     info(desc=f"Discord.py API version: {discord.__version__}")
     info(desc=f"Python version: {platform.python_version()}")
     info(desc=f"Running on: {platform.system()} {platform.release()} ({os.name})")
+    info(desc=f"{Fore.BLUE}Time elapsed: {tElapsed}")
     client.loop.create_task(status_task())
 
 client.run(settings['token'])
