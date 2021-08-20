@@ -29,28 +29,22 @@ intents = discord.Intents.all()
 owners = [580631356485402639, 530103444946812929]
 client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
 client.remove_command('help')
+#загрузить все расширения из папки
+def load_extensions(dir):
+    for file in os.listdir(dir):
+        if file.endswith(".py"):
+            extension = file[:-3]
+            try:
+                client.load_extension(f"{dir[2:]}.{extension}")
+                info(desc=f"Loaded extension '{extension}'")
+            except Exception as e:
+                exception = f"{type(e).__name__}: {e}"
+                error(desc=f"Failed to load extension {extension}\n{exception}")
+
 #когсы комманд
 if __name__ == "__main__":
-    for file in os.listdir("./cogs"):
-        if file.endswith(".py"):
-            extension = file[:-3]
-            try:
-                client.load_extension(f"cogs.{extension}")
-                info(desc=f"Loaded extension '{extension}'")
-            except Exception as e:
-                exception = f"{type(e).__name__}: {e}"
-                error(desc=f"Failed to load extension {extension}\n{exception}")
-#когсы утилит/ивентов
-if __name__ == "__main__":
-    for file in os.listdir("./utils"):
-        if file.endswith(".py"):
-            extension = file[:-3]
-            try:
-                client.load_extension(f"utils.{extension}")
-                info(desc=f"Loaded extension '{extension}'")
-            except Exception as e:
-                exception = f"{type(e).__name__}: {e}"
-                error(desc=f"Failed to load extension {extension}\n{exception}")
+    load_extensions("./cogs")
+    load_extensions("./utils")
 
 async def status_task():
     while True:
