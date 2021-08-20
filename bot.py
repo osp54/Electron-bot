@@ -6,7 +6,7 @@ import asyncio
 import jishaku
 import colorama
 import json
-import Pendulum #аналог датетайма
+import pendulum #аналог датетайма
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
