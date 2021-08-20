@@ -5,18 +5,7 @@ import sys
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
-    def restart_bot(): 
-        os.execv(sys.executable, ['python'] + sys.argv)
-    @commands.command(name="restart")
-    @commands.is_owner()
-    async def restart(self,ctx):
-        embed = discord.Embed(
-            title="Restarting...",
-            description="Бот перезапускается...",
-            color=0x42F56C
-        )
-        await ctx.send(embed=embed)
-        restart_bot()
+
     @commands.command(name='embed')
     @commands.is_owner()
     async def embed(self, ctx,*, message):
