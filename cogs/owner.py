@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import os
+import pendulum
 import sys
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
@@ -25,10 +26,7 @@ class owner(commands.Cog, name="owner"):
     @commands.command()
     @commands.is_owner()
     async def guilds(self, ctx):
-        guilds = ""
-        for guild in self.bot.guilds:
-             message += f"{guild.name}\n"
-        await ctx.send(message)
+        await ctx.send("\n".join(bot.guilds))
     @commands.command(name='embed')
     @commands.is_owner()
     async def embed(self, ctx,*, message):
