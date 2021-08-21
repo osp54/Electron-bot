@@ -7,7 +7,7 @@ class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
     @commands.command(name='load')
-    async def load(self, ctx, dir, cog)
+    async def load(self, ctx, dir, cog):
         try:
             self.bot.load_extension(f"{dir[2:]}.{cog}")
             info(f"Loaded extension {cog}")
