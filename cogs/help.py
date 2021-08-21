@@ -36,5 +36,6 @@ class help(commands.Cog, name="help"):
         help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
         embed.add_field(name='Main', value=f'```{help_text}```', inline=False)
         await context.send(embed=embed)
+
 def setup(bot)
     bot.add_cog(help(bot))
