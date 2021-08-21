@@ -16,15 +16,15 @@ class moderation(commands.Cog, name="moderation"):
         """
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
-        if ctx.author.id == member.id:
-            embed = discord.Embed(
-                title="Ошибка",
-                description="Зачем? Зачем ты хочешь замьютить самого себя?",
-                color=0xE02B2B
-            )
-            await ctx.send(embed=embed)
-            await ctx.message.add_reaction('❌')
-            return
+       # if ctx.author.id == member.id:
+       #     embed = discord.Embed(
+       #         title="Ошибка",
+       #         description="Зачем? Зачем ты хочешь замьютить самого себя?",
+       #         color=0xE02B2B
+       #     )
+       #     await ctx.send(embed=embed)
+       #     await ctx.message.add_reaction('❌')
+       #     return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
                 title="Ошибка",
@@ -40,16 +40,17 @@ class moderation(commands.Cog, name="moderation"):
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
         mute = await member.add_roles(mutedRole, reason=reason)
-        if mute:
-            embed = discord.Embed(
-                title="Успешно!",
-                description=f"**{member.name}** замьючен модератором **{ctx.message.author}**",
-                color=0x42F56C
-            )
-            embed.add_field(name="Причина:", value=reason, inline=False)
-            await ctx.send(embed=embed)
-            await ctx.message.add_reaction('✅')
-            await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
+        if not mute:
+            return
+        embed = discord.Embed(
+            title="Успешно!",
+            description=f"**{member.name}** замьючен модератором **{ctx.message.author}**",
+            color=0x42F56C
+        )
+        embed.add_field(name="Причина:", value=reason, inline=False)
+        await ctx.send(embed=embed)
+        await ctx.message.add_reaction('✅')
+        await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
     @commands.command(name="unmute", aliases=['размьют', 'размут'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
