@@ -39,18 +39,16 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-        mute = await member.add_roles(mutedRole, reason=reason)
-        if not mute:
-            return
-        embed = discord.Embed(
-            title="Успешно!",
-            description=f"**{member.name}** замьючен модератором **{ctx.message.author}**",
-            color=0x42F56C
-        )
-        embed.add_field(name="Причина:", value=reason, inline=False)
-        await ctx.send(embed=embed)
-        await ctx.message.add_reaction('✅')
-        await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
+        if await member.add_roles(mutedRole, reason=reason):
+            embed = discord.Embed(
+                title="Успешно!",
+                description=f"**{member.name}** замьючен модератором **{ctx.message.author}**",
+                color=0x42F56C
+            )
+            embed.add_field(name="Причина:", value=reason, inline=False)
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('✅')
+            await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
     @commands.command(name="unmute", aliases=['размьют', 'размут'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
