@@ -29,7 +29,7 @@ class main(commands.Cog, name="main"):
         prefixes[str(ctx.guild.id)] = prefix
         with open("prefixes.json", "w") as f:
             json.dump(prefixes, f, indent=4)
-        await ctx.guild.me.nick = f"[{prefix}] Electron Bot"
+        ctx.guild.me.nick = f"[{prefix}] Electron Bot"
         await ctx.send(f"Prefix changed to: {prefix}")
     @commands.command(name="help", aliases=['хелп', 'помощь'])
     @commands.cooldown(1, 2, commands.BucketType.user)
