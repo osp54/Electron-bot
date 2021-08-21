@@ -39,16 +39,17 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-        try:
-            await member.add_roles(mutedRole, reason=reason)
-        except:
-            return
-        embed = discord.Embed(title="Успешно!", description=f"**{member.name}** замьючен модератором **{ctx.message.author}**", color=0x42F56C
-        )
-        embed.add_field(name="Причина:", value=reason, inline=False)
-        await ctx.send(embed=embed)
-        await ctx.message.add_reaction('✅')
-        await member.send(f"Вы были замьючены в: {guild.name} причина: {reason}")
+        mute = await member.add_roles(mutedRole, reason=reason)
+        if mute:
+            embed = discord.Embed(
+                title="Успешно!",
+                description=f"**{member.name}** замьючен модератором **{ctx.message.author}**",
+                color=0x42F56C
+            )
+            embed.add_field(name="Причина:", value=reason, inline=False)
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('✅')
+            await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
     @commands.command(name="unmute", aliases=['размьют', 'размут'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
@@ -76,14 +77,18 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.message.add_reaction('❌')
             return
         mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
-        await member.remove_roles(mutedRole)
-        embed = discord.Embed(
-            title="Успешно!",
-            description=f"**{member.name}** размьючен модератором **{ctx.message.author}**",
-            color=0x42F56C
-        )
-        await ctx.send(embed=embed)
-        await ctx.message.add_reaction('✅')
+        if not mutedRole:
+            return await ctx.send("Пожалуйста, создайте роль **Muted**!")
+        unmute = await member.remove_roles(mutedRole)
+        if unmute:
+            embed = discord.Embed(
+                title="Успешно!",
+                description=f"**{member.name}** размьючен модератором **{ctx.message.author}**",
+                color=0x42F56C
+            )
+            await ctx.send(embed=embed)
+            await member.send(f"Вы были размьючены в {ctx.message.guild}!")
+            await ctx.message.add_reaction('✅')
     @commands.command(name='kick', aliases=['кикнуть', 'кик', 'вигнать'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(kick_members=True)
@@ -110,8 +115,8 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
             return
-        else:
-            await member.kick(reason=reason)
+        kick = await member.kick(reason=f"{reason}({ctx.message.author})")
+        if kick:
             embed = discord.Embed(
                 title="Успешно!",
                 description=f"**{member}** кикнут модератором **{ctx.message.author}**!",
@@ -122,6 +127,7 @@ class moderation(commands.Cog, name="moderation"):
                 value=reason
             )
             await ctx.send(embed=embed)
+            await member.send(f"Вы были кикнуты в {ctx.message.guild}, модератором {ctx.message.author}!")
             await ctx.message.add_reaction('✅')
     @commands.command(name="ban", aliases=['бан'])
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -149,8 +155,8 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
             return
-        else:
-            await member.ban(reason=reason)
+        ban = await member.ban(reason=f"{reason}({ctx.message.author})")
+        if ban:
             embed = discord.Embed(
                 title="Успешно!",
                 description=f"**{member}** был забанен модератором **{ctx.message.author}**!",
@@ -189,18 +195,19 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
             return
-        await ctx.guild.ban(discord.Object(id=user_id), reason=reason)
-        embed = discord.Embed(
-              title="Успешно!",
-              description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{ctx.message.author}**!",
-              color=0x42F56C
-        )
-        embed.add_field(
-            name="Причина:",
-            value=reason
-        )
-        await ctx.send(embed=embed)
-        await ctx.message.add_reaction('✅')
+        idban = await ctx.guild.ban(discord.Object(id=user_id), reason=f"{reason}({ctx.message.author})")
+        if idban:
+            embed = discord.Embed(
+                  title="Успешно!",
+                  description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{ctx.message.author}**!",
+                  color=0x42F56C
+            )
+            embed.add_field(
+                name="Причина:",
+                value=reason
+            )
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('✅')
     @commands.command(name="unban", aliases=['разбан'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(ban_members=True)
@@ -212,9 +219,10 @@ class moderation(commands.Cog, name="moderation"):
         ban = await ctx.get_ban(name_or_id)
         if not ban:
             return await ctx.send('Пользователь не найден.')
-        await ctx.guild.unban(ban.user, reason=reason)
-        await ctx.send(embed = discord.Embed(title='Успешно!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
-        await ctx.message.add_reaction('✅')
+        unban = await ctx.guild.unban(ban.user, reason=reason)
+        if unban:
+            await ctx.send(embed = discord.Embed(title='Успешно!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
+            await ctx.message.add_reaction('✅')
     @commands.command(name="clear", aliases=['очистить'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_messages=True)
