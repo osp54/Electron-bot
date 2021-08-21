@@ -14,6 +14,12 @@ class events(commands.Cog):
         with open("prefixes.json", "w") as f:
             json.dump(prefixes, f, indent=4)
 
+        with open("guildlang.json", "r") as f:
+            guildlang = json.load(f)
+
+        guildlang[str(guild.id)] = "English"
+        with open("guildlang.json", "w") as f:
+            json.dump(guildlang, f, indent=4)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
@@ -24,6 +30,12 @@ class events(commands.Cog):
         with open("prefixes.json", "w") as f:
             json.dump(prefixes, f, indent=4)
 
+        with open("guildlang.json", "r") as f:
+            guildlang = json.load(f)
+
+        guildlang.pop(str(guild.id))
+        with open("guildlang.json", "w") as f:
+            json.dump(prefixes, f, indent=4)
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
