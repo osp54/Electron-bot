@@ -31,6 +31,19 @@ class main(commands.Cog, name="main"):
             json.dump(prefixes, f, indent=4)
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
         await ctx.send(f"Prefix changed to: {prefix}")
+    @commands.command(aliases=['префикс'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.has_permissions(administrator=True)
+    async def setlang(self, ctx, lang):
+        """
+        Изменить префикс.
+        """
+        with open("guildlang.json", "r") as f:
+            guildlang = json.load(f)
+        guildlang[str(ctx.guild.id)] = lang
+        with open("guildlang.json", "w") as f:
+            json.dump(guildlang, f, indent=4)
+        await ctx.send(f"Prefix changed to: {lang}")
     @commands.command(name="help", aliases=['хелп', 'помощь'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def help(self, context):
