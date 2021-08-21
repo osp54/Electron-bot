@@ -31,6 +31,7 @@ def info(desc):
     now = pendulum.now('Europe/Moscow')
     print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
+    now = pendulum.now('Europe/Moscow')
     print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.RED + f"[E] {Fore.RESET}" + desc)
 
 #загрузить все расширения из папки
