@@ -13,6 +13,7 @@ class owner(commands.Cog, name="owner"):
         print(f"{Fore.RED}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.RED}] " + Fore.RED + f"[E] {Fore.RESET}" + desc)
 
     @commands.command(name='load')
+    @commands.is_owner()
     async def load(self, ctx, dir, cog):
         try:
             self.bot.load_extension(f"{dir[2:]}.{cog}")
@@ -21,6 +22,13 @@ class owner(commands.Cog, name="owner"):
         except Exception as e:
             exception = f"{type(e).__name__}: {e}"
             error(f"Failed to load extension {cog}\n{exception}")
+    @commands.command()
+    @commands.is_owner()
+    async def guilds(self, ctx):
+        guilds = ""
+        for guild in self.bot.guilds:
+             message += f"{guild.name}\n"
+        await ctx.send(message)
     @commands.command(name='embed')
     @commands.is_owner()
     async def embed(self, ctx,*, message):
