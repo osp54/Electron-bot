@@ -22,5 +22,19 @@ class help(commands.Cog, name="help"):
             help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
             embed.add_field(name=i.capitalize(), value=f'```{help_text}```', inline=False)
         await context.send(embed=embed)
+    @commands.command(name="testhelp")
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def testhelp(self, context):
+        """
+        Список всех команд
+        """
+        embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
+        main = self.bot.get_cog(main)
+        maincmds = main.get_commands()
+        command_list = [command.name for command in maincmds]
+        command_description = [command.help for command in maincmds]
+        help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
+        embed.add_field(name='Main', value=f'```{help_text}```', inline=False)
+        await context.send(embed=embed)
 def setup(bot)
     bot.add_cog(help(bot))
