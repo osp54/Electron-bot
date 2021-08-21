@@ -186,15 +186,6 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
             return
-        if member.guild_permissions.administrator:
-            embed = discord.Embed(
-                title="Ошибка",
-                description="У пользователя есть права администратора.",
-                color=0xE02B2B
-            )
-            await ctx.send(embed=embed)
-            await ctx.message.add_reaction('❌')
-            return
         idban = await ctx.guild.ban(discord.Object(id=user_id), reason=f"{reason}({ctx.message.author})")
         if idban:
             embed = discord.Embed(
