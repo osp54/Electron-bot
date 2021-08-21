@@ -26,7 +26,11 @@ class owner(commands.Cog, name="owner"):
     @commands.command()
     @commands.is_owner()
     async def guilds(self, ctx):
-        await ctx.send("\n".join(self.bot.guilds))
+        messages = []
+        for guild in self.bot.guilds:
+             messages.append(f"{guild.name}")
+        await ctx.send("\n".join(messages))
+
     @commands.command(name='embed')
     @commands.is_owner()
     async def embed(self, ctx,*, message):
