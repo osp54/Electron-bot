@@ -20,6 +20,7 @@ class help(commands.Cog, name="help"):
             command_description = [command.help for command in commands]
             help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
             embed.add_field(name=i.capitalize(), value=f'```\n{help_text}\n```', inline=False)
+            embed.set_footer(text='ElectronBot.tk | Все права защищены')
         await context.send(embed=embed)
 
 def setup(bot):
