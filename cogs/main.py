@@ -44,22 +44,6 @@ class main(commands.Cog, name="main"):
         with open("guildlang.json", "w") as f:
             json.dump(guildlang, f, indent=4)
         await ctx.send(f"Prefix changed to: {lang}")
-    @commands.command(name="help", aliases=['хелп', 'помощь'])
-    @commands.cooldown(1, 2, commands.BucketType.user)
-    async def help(self, context):
-        """
-        Список всех команд
-        """
-        embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
-        cogs = ("Main", "Moderation", "Music")
-        for i in cogs:
-            cog = self.bot.get_cog(i.lower())
-            commands = cog.get_commands()
-            command_list = [command.name for command in commands]
-            command_description = [command.help for command in commands]
-            help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
-            embed.add_field(name=i.capitalize(), value=f'```{help_text}```', inline=False)
-        await context.send(embed=embed)
     @commands.command(name="avatar", aliases=['аватар'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def avatar(self, ctx, member: discord.Member = None):
