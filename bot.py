@@ -6,6 +6,7 @@ import asyncio
 import jishaku
 import colorama
 import json
+import logging
 import pendulum #аналог датетайма
 from colorama import init, Fore, Back, Style
 from config import settings
@@ -22,6 +23,9 @@ def get_prefix(client, message):
     return prefixes[str(message.guild.id)]
 client = commands.Bot(command_prefix = commands.when_mentioned and (get_prefix), intents=intents, owner_ids = set(owners))
 client.remove_command('help')
+
+logger = logging.getLogger('discord')
+logger.setLevel(logging.WARNING)
 
 def info(desc):
     now = pendulum.now('Europe/Moscow')
