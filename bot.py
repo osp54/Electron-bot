@@ -17,7 +17,7 @@ from discord.ext import tasks,commands
 
 init(autoreset=True)
 intents = discord.Intents.all()
-owners = [580631356485402639, 530103444946812929]
+owners = [580631356485402639, 530103444946812929, 674647047831420975]
 def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
