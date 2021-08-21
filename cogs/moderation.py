@@ -39,7 +39,7 @@ class moderation(commands.Cog, name="moderation"):
 
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
-        await member.add_roles(mutedRole, reason=reason):
+        await member.add_roles(mutedRole, reason=reason)
         embed = discord.Embed(
             title="Успешно!",
             description=f"**{member.name}** замьючен модератором **{ctx.message.author}**",
