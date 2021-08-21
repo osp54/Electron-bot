@@ -37,5 +37,5 @@ class help(commands.Cog, name="help"):
         embed.add_field(name='Main', value=f'```{help_text}```', inline=False)
         await context.send(embed=embed)
 
-def setup(bot)
+def setup(bot):
     bot.add_cog(help(bot))
