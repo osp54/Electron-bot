@@ -1,3 +1,6 @@
+import time
+
+tStart = time.time()
 import discord
 import os
 import platform
@@ -11,9 +14,7 @@ import pendulum #аналог датетайма
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
-import time
 
-tStart = time.time()
 init(autoreset=True)
 intents = discord.Intents.all()
 owners = [580631356485402639, 530103444946812929]
@@ -29,10 +30,10 @@ logger.setLevel(logging.WARNING)
 
 def info(desc):
     now = pendulum.now('Europe/Moscow')
-    print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
+    print(f"{Fore.BLUE}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.BLUE}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
     now = pendulum.now('Europe/Moscow')
-    print(f"[{now.day}:{now.hour}:{now.minute}]" + Fore.RED + f"[E] {Fore.RESET}" + desc)
+    print(f"{Fore.BLUE}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.BLUE}] " + Fore.RED + f"[E] {Fore.RESET}" + desc)
 
 #загрузить все расширения из папки
 def load_extensions(dir):
@@ -61,7 +62,7 @@ async def on_ready():
     info(desc=f"Discord.py API version: {discord.__version__}")
     info(desc=f"Python version: {platform.python_version()}")
     info(desc=f"Running on: {platform.system()} {platform.release()} ({os.name})")
-    info(desc=f"{Fore.BLUE}Time elapsed: {tElapsed}")
+    info(desc=f"Time elapsed: {tElapsed}")
     client.loop.create_task(status_task())
 
 if __name__ == "__main__":
