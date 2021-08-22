@@ -2,7 +2,6 @@ import discord
 import os
 import sys
 import json
-from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
 
@@ -36,7 +35,7 @@ class main(commands.Cog, name="main"):
     @commands.has_permissions(administrator=True)
     async def setlang(self, ctx, lang):
         """
-        Изменить префикс.
+        Изменить язык бота.
         """
         with open("guildlang.json", "r") as f:
             guildlang = json.load(f)
@@ -58,6 +57,26 @@ class main(commands.Cog, name="main"):
         )
         embed.set_image(url=member.avatar.url)
         await ctx.send(embed=embed)
+    @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def emoji(self, ctx, emoji: discord.Emoji = None)
+        """
+        Получить изображение эмодзи.
+        """
+        if not emoji:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="Введите эмодзи!",
+                color=0xE02B2B
+            )
+            await ctx.send(embed=embed)
+            return
+        eembed = discord.Embed(
+            title=f"Эмодзи {emoji.name}",
+            color=0x42F56C
+        )
+        eembed.set_image(url=emoji.url)
+        await ctx.send(embed=eembed)
     @commands.command(name="poll", aliases=['опрос'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def poll(self, ctx, *, title):
