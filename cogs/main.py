@@ -1,4 +1,4 @@
-import discord
+Noimport discord
 import os
 import sys
 import json
@@ -59,7 +59,7 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed)
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def emoji(self, ctx, emoji: discord.Emoji = None)
+    async def emoji(self, ctx, emoji: discord.Emoji = None):
         """
         Получить изображение эмодзи.
         """
