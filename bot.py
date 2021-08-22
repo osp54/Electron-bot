@@ -33,7 +33,7 @@ def info(desc):
     print(f"{Fore.BLUE}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.BLUE}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
     now = pendulum.now('Europe/Moscow')
-    print(f"{Fore.RED}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.RED}] " + Fore.RED + f"[E] {Fore.RESET}" + desc)
+    print(f"{Fore.RED}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.RED}] " + Fore.RED + f"[E] " + desc)
 
 #загрузить все расширения из папки
 def load_extensions(dir):
@@ -42,10 +42,10 @@ def load_extensions(dir):
             extension = file[:-3]
             try:
                 client.load_extension(f"{dir[2:]}.{extension}")
-                info(desc=f"Loaded extension '{extension}'")
+                info(f"Loaded extension '{extension}'")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                error(desc=f"Failed to load extension {extension}\n{exception}")
+                error(f"Failed to load extension {extension}\n{exception}")
 
 async def status_task():
     while True:
@@ -58,15 +58,16 @@ async def status_task():
 async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
-    info(desc=f"Logged in as {client.user.name}")
-    info(desc=f"Discord.py API version: {discord.__version__}")
-    info(desc=f"Python version: {platform.python_version()}")
-    info(desc=f"Running on: {platform.system()} {platform.release()} ({os.name})")
-    info(desc=f"Time elapsed: {tElapsed}")
+    info(f"Logged in as {client.user.name}")
+    info(f"Discord.py API version: {discord.__version__}")
+    info(f"Python version: {platform.python_version()}")
+    info(f"Running on: {platform.system()} {platform.release()} ({os.name})")
+    info(f"Time elapsed: {tElapsed}")
     client.loop.create_task(status_task())
 
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы команд
+    info("Loaded all extensions from /cogs")
     load_extensions("./utils") #когсы утилит/ивентов
-
+    info("Loaded all extensions from /utils")
 client.run(settings['token'])
