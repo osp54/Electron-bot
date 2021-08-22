@@ -22,7 +22,7 @@ def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
     return prefixes[str(message.guild.id)]
-client = commands.Bot(command_prefix = commands.when_mentioned_or(get_prefix), intents=intents, owner_ids = set(owners))
+client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = set(owners))
 client.remove_command('help')
 
 logger = logging.getLogger('discord')
