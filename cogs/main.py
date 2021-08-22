@@ -1,4 +1,4 @@
-Noimport discord
+import discord
 import os
 import sys
 import json
