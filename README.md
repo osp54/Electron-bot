@@ -1,3 +1,3 @@
 # Shiza Bot
 ## TODO
-Анти скам
+- [ ] Bundles
