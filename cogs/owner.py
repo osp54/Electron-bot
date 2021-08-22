@@ -1,18 +1,11 @@
 import discord
 from discord.ext import commands
 import os
-import pendulum
 import sys
+from console import error, info
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
-    def info(desc):
-        now = pendulum.now('Europe/Moscow')
-        print(f"{Fore.BLUE}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.BLUE}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
-    def error(desc):
-        now = pendulum.now('Europe/Moscow')
-        print(f"{Fore.RED}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.RED}] " + Fore.RED + f"[E] {Fore.RESET}" + desc)
-
     @commands.command(name='load')
     @commands.is_owner()
     async def load(self, ctx, dir, cog):
