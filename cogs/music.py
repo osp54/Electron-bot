@@ -19,7 +19,7 @@ class music(commands.Cog, name="music"):
         pass
 
     async def on_play(self, ctx, player):
-        await ctx.send(f"Играет **{player}**\n{player.data['webpage_url']}")
+        await ctx.send(f"Играет `{player}`\n{player.data['webpage_url']}")
 
     @commands.command(aliases=['выйти'])
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -37,7 +37,7 @@ class music(commands.Cog, name="music"):
         """
         Сейчас играет.
         """
-        await ctx.send(f"Сейчас играет: {await self.MusicManager.now_playing(ctx)}")
+        await ctx.send(f"Сейчас играет: `{await self.MusicManager.now_playing(ctx)}`")
 
 
     @commands.command(aliases=['присоед.'])
@@ -69,6 +69,8 @@ class music(commands.Cog, name="music"):
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def volume(self, ctx, volume: int):
+        """
+        Сделать больше/меньше громкость звука
         await self.MusicManager.volume(ctx, volume)
 
 
@@ -76,13 +78,13 @@ class music(commands.Cog, name="music"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def loop(self, ctx):
         is_loop = await self.MusicManager.loop(ctx)
-        await ctx.send(f"Looping toggled to {is_loop}")
+        await ctx.send(f"Looping toggled to `{is_loop}`")
 
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def queueloop(self, ctx):
         is_loop = await self.MusicManager.queueloop(ctx)
-        await ctx.send(f"Queue looping toggled to {is_loop}")
+        await ctx.send(f"Queue looping toggled to `{is_loop}`")
 
     @commands.command(aliases=['история'])
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -94,7 +96,7 @@ class music(commands.Cog, name="music"):
                                                    "Song History",
                                                    "Shows all played songs",
                                                    25,
-                                                   string_format="Title: {}")
+                                                   string_format="Title: `{}`")
 
         page_manager = PageManager(self, ctx, embeds, public=True)
         await page_manager.run()
@@ -116,7 +118,7 @@ class music(commands.Cog, name="music"):
         """
         embeds = discordSuperUtils.generate_embeds(await self.MusicManager.get_queue(ctx),
                                                    "Очередь",
-                                                   f"Сейчас играет: {await MusicManager.now_playing(ctx)}",
+                                                   f"Сейчас играет: `{await self.MusicManager.now_playing(ctx)}`",
                                                    25,
                                                    string_format="Title: {}")
         page_manager = PageManager(self, ctx, embeds, public=True)
