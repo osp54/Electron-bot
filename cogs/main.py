@@ -1,6 +1,4 @@
 import discord
-import os
-import sys
 import json
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType
