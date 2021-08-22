@@ -4,7 +4,6 @@ tStart = time.time()
 import discord
 import os
 import platform
-import sys
 import colorama
 import json
 import logging
@@ -12,7 +11,7 @@ import asyncio
 from console import error, info
 from colorama import init, Fore, Back, Style
 from config import settings
-from discord.ext import tasks,commands
+from discord.ext import commands
 
 init(autoreset=True)
 intents = discord.Intents.all()
