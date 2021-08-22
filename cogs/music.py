@@ -71,6 +71,7 @@ class music(commands.Cog, name="music"):
     async def volume(self, ctx, volume: int):
         """
         Сделать больше/меньше громкость звука
+        """
         await self.MusicManager.volume(ctx, volume)
 
 
