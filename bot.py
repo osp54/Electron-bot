@@ -5,12 +5,10 @@ import discord
 import os
 import platform
 import sys
-import asyncio
-import jishaku
 import colorama
 import json
 import logging
-import pendulum #аналог датетайма
+from console import error, info
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import tasks,commands
@@ -27,13 +25,6 @@ client.remove_command('help')
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.WARNING)
-
-def info(desc):
-    now = pendulum.now('Europe/Moscow')
-    print(f"{Fore.BLUE}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.BLUE}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
-def error(desc):
-    now = pendulum.now('Europe/Moscow')
-    print(f"{Fore.RED}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.RED}] " + Fore.RED + f"[E] " + desc)
 
 #загрузить все расширения из папки
 def load_extensions(dir):
