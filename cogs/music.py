@@ -62,7 +62,7 @@ class music(commands.Cog, name="music"):
             await self.MusicManager.queue_add(player=player, ctx=ctx)
 
             if not await self.MusicManager.play(ctx):
-                await ctx.send("Добавлено в очередь")
+                await ctx.send("Добавлено в очередь({query.data['webpage_url']})")
         else:
             await ctx.send("Запрос не найден.")
 
@@ -99,7 +99,7 @@ class music(commands.Cog, name="music"):
                                                    25,
                                                    string_format="Title: `{}`")
 
-        page_manager = PageManager(self, ctx, embeds, public=True)
+        page_manager = PageManager(ctx, embeds, public=True)
         await page_manager.run()
 
     @commands.command(aliases=['скип'])
@@ -109,7 +109,6 @@ class music(commands.Cog, name="music"):
         Пропустить текущую песню.
         """
         await self.MusicManager.skip(ctx, index)
-        ctx.send("Пропущено...")
 
     @commands.command(aliases=['очередь'])
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -122,7 +121,7 @@ class music(commands.Cog, name="music"):
                                                    f"Сейчас играет: `{await self.MusicManager.now_playing(ctx)}`",
                                                    25,
                                                    string_format="Title: {}")
-        page_manager = PageManager(self, ctx, embeds, public=True)
+        page_manager = PageManager(ctx, embeds, public=True)
         await page_manager.run()
 def setup(bot):
     bot.add_cog(music(bot))
