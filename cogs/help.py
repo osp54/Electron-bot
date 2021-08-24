@@ -7,12 +7,12 @@ class help(commands.Cog, name="help"):
         self.bot = bot
     @commands.group(name="help", aliases=['хелп', 'помощь'])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def help(self, context):
+    async def help(self, ctx):
         """
         Список всех команд
         """
         if ctx.invoked_subcommand is None:
-            embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
+            embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
             cogs = ("Main", "Moderation", "Music")
             for i in cogs:
                 cog = self.bot.get_cog(i.lower())
@@ -22,12 +22,12 @@ class help(commands.Cog, name="help"):
                 help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
                 embed.add_field(name=i.capitalize(), value=f'```\n{help_text}\n```', inline=False)
                 embed.set_footer(text='ElectronBot.tk | Все права защищены')
-                embed.set_author(name=context.message.author, icon_url=context.message.author.avatar.url)
-            await context.send(embed=embed)
+                embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar.url)
+            await ctx.send(embed=embed)
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def main(self, ctx):
-       embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
+       embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
        cogs = ("Main")
        for i in cogs:
            cog = self.bot.get_cog(i.lower())
@@ -37,12 +37,12 @@ class help(commands.Cog, name="help"):
            help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
            embed.add_field(name=i.capitalize(), value=f'```\n{help_text}\n```', inline=False)
            embed.set_footer(text='ElectronBot.tk | Все права защищены')
-           embed.set_author(name=context.message.author, icon_url=context.message.author.avatar.url)
-       await context.send(embed=embed)
+           embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar.url)
+       await ctx.send(embed=embed)
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def moderation(self, ctx):
-       embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
+       embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
        cogs = ("Moderation")
        for i in cogs:
            cog = self.bot.get_cog(i.lower())
@@ -52,8 +52,8 @@ class help(commands.Cog, name="help"):
            help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
            embed.add_field(name=i.capitalize(), value=f'```\n{help_text}\n```', inline=False)
            embed.set_footer(text='ElectronBot.tk | Все права защищены')
-           embed.set_author(name=context.message.author, icon_url=context.message.author.avatar.url)
-       await context.send(embed=embed)
+           embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar.url)
+       await ctx.send(embed=embed)
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def music(self, ctx):
