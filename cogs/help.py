@@ -61,7 +61,7 @@ class help(commands.Cog, name="help"):
        help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
        embed.add_field(name='Music', value=f'```\n{help_text}\n```', inline=False)
        embed.set_footer(text='ElectronBot.tk | Все права защищены')
-       embed.set_author(name=context.message.author, icon_url=context.message.author.avatar.url)
+       embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar.url)
        await context.send(embed=embed)
 def setup(bot):
     bot.add_cog(help(bot))
