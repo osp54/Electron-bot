@@ -26,7 +26,7 @@ class help(commands.Cog, name="help"):
             await context.send(embed=embed)
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def main(self, ctx)
+    async def main(self, ctx):
        embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
        cogs = ("Main")
        for i in cogs:
@@ -41,7 +41,7 @@ class help(commands.Cog, name="help"):
        await context.send(embed=embed)
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def moderation(self, ctx)
+    async def moderation(self, ctx):
        embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
        cogs = ("Moderation")
        for i in cogs:
@@ -56,7 +56,7 @@ class help(commands.Cog, name="help"):
        await context.send(embed=embed)
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def music(self, ctx)
+    async def music(self, ctx):
        embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
        cogs = ("Music")
        for i in cogs:
