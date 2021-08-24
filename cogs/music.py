@@ -56,11 +56,10 @@ class music(commands.Cog, name="music"):
         """
         Проиграть песню.
         """
-        async with ctx.typing():
         voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice == None:
             await self.MusicManager.join(ctx)
-            player = await self.MusicManager.create_player(query)
+        player = await self.MusicManager.create_player(query)
         if player:
             await self.MusicManager.queue_add(player=player, ctx=ctx)
 
