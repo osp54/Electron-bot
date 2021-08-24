@@ -28,7 +28,7 @@ class help(commands.Cog, name="help"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def main(self, ctx):
        embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
-       cogs = Main
+       cogs = 'Main'
        for i in cogs:
            cog = self.bot.get_cog(i.lower())
            commands = cog.get_commands()
@@ -43,7 +43,7 @@ class help(commands.Cog, name="help"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def moderation(self, ctx):
        embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
-       cogs = Moderation
+       cogs = 'Moderation'
        for i in cogs:
            cog = self.bot.get_cog(i.lower())
            commands = cog.get_commands()
@@ -58,7 +58,7 @@ class help(commands.Cog, name="help"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def music(self, ctx):
        embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
-       cogs = Music
+       cogs = 'Music'
        for i in cogs:
            cog = self.bot.get_cog(i.lower())
            commands = cog.get_commands()
