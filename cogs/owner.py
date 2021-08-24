@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from console import error, info
+from functions import error, info
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
