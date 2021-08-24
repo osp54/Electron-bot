@@ -8,6 +8,7 @@ import colorama
 import json
 import logging
 import asyncio
+import jishaku
 from functions import error, info
 from colorama import init, Fore, Back, Style
 from config import settings
@@ -57,7 +58,8 @@ async def on_ready():
     client.loop.create_task(status_task())
 
 if __name__ == "__main__":
-    load_extensions("./cogs") #когсы команд
+    client.load_extension("jishaku")
+    load_extensions("./cogs") #когсы командc
     info("Loaded all extensions from /cogs")
     load_extensions("./utils") #когсы утилит/ивентов
     info("Loaded all extensions from /utils")
