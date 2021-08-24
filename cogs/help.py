@@ -46,14 +46,14 @@ class help(commands.Cog, name="help"):
        command_list = [command.name for command in commands]
        command_description = [command.help for command in commands]
        help_text = '\n'.join(f'{n} - {h}' for n, h in zip(command_list, command_description))
-       embed.add_field(name=Moderation, value=f'```\n{help_text}\n```', inline=False)
+       embed.add_field(name='Moderation', value=f'```\n{help_text}\n```', inline=False)
        embed.set_footer(text='ElectronBot.tk | Все права защищены')
        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar.url)
        await ctx.send(embed=embed)
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def music(self, ctx):
-       embed = discord.Embed(title="Help", description=f"Префикс: {context.prefix}", color=0x42F56C)
+       embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
        cog = self.bot.get_cog("music")
        commands = cog.get_commands()
        command_list = [command.name for command in commands]
