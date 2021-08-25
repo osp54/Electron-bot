@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-scam_links = ["steamcommunity.link", "discorcl.link"]
+scam_links = ["steamcommunity.link", "discorcl.link", "steamcommunity.com.ru", "steamcommunnity.ru", "steamccommunity.com.ru", "steamcommuunity.com.ru"]
 
 class anti_scam(commands.Cog):
     def __init__(self, bot):
