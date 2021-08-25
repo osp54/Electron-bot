@@ -21,18 +21,32 @@ class moderation(commands.Cog, name="moderation"):
                 description="Зачем? Зачем ты хочешь замьютить самого себя?",
                 color=0xE02B2B
             )
-            await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
-            return
+            return await ctx.send(embed=embed)
         if member.guild_permissions.administrator:
             embed = discord.Embed(
                 title="Ошибка",
                 description="У пользователя есть права администратора.",
                 color=0xE02B2B
             )
-            await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
-            return
+            return await ctx.send(embed=embed)
+        if member.top_role.position >= ctx.author.top_role.position:
+            embed = discord.Embed(
+                title='Ошибка',
+                description='Вы не можете замьютить этого пользователя, так как его роль выше или на равне с вашей.',
+                color=0xE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
+        if member.guild_permissions > ctx.author.guild_permissions:
+            embed = discord.Embed(
+                title='Ошибка',
+                description='Вы не можете замьютить этого пользователя, так как его права выше чем ваши',
+                color=pxE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
 
@@ -68,15 +82,6 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
             return
-        if member.guild_permissions.administrator:
-            embed = discord.Embed(
-                title="Ошибка",
-                description="У пользователя есть права администратора.",
-                color=0xE02B2B
-            )
-            await ctx.send(embed=embed)
-            await ctx.message.add_reaction('❌')
-            return
         mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
         try:
             await member.remove_roles(mutedRole)
@@ -104,18 +109,32 @@ class moderation(commands.Cog, name="moderation"):
                 description="Зачем? Зачем ты хочешь кикнуть самого себя?",
                 color=0xE02B2B
             )
-            await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
-            return
+            return await ctx.send(embed=embed)
         if member.guild_permissions.administrator:
             embed = discord.Embed(
                 title="Ошибка",
                 description="У пользователя есть права администратора.",
                 color=0xE02B2B
             )
-            await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
-            return
+            return await ctx.send(embed=embed)
+        if member.top_role.position >= ctx.author.top_role.position:
+            embed = discord.Embed(
+                title='Ошибка',
+                description='Вы не можете выгнать этого пользователя, так как его роль выше или на равне с вашей.',
+                color=0xE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
+        if member.guild_permissions > ctx.author.guild_permissions:
+            embed = discord.Embed(
+                title='Ошибка',
+                description='Вы не можете выгнать этого пользователя, так как его права выше чем ваши',
+                color=pxE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
         await member.kick(reason=f"{reason}({ctx.message.author})")
         embed = discord.Embed(
             title="Успешно!",
@@ -148,13 +167,28 @@ class moderation(commands.Cog, name="moderation"):
             return
         if member.guild_permissions.administrator:
             embed = discord.Embed(
-            title="Ошибка",
-            description="У пользователя есть права администратора.",
-            color=0xE02B2B
+                title="Ошибка",
+                description="У пользователя есть права администратора.",
+                color=0xE02B2B
             )
-            await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
-            return
+            return await ctx.send(embed=embed)
+        if member.top_role.position >= ctx.author.top_role.position:
+            embed = discord.Embed(
+                title='Ошибка',
+                description='Вы не можете забанить этого пользователя, так как его роль выше или на равне с вашей.',
+                color=0xE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
+        if member.guild_permissions > ctx.author.guild_permissions:
+            embed = discord.Embed(
+                title='Ошибка',
+                description='Вы не можете забанить этого пользователя, так как его права выше чем ваши',
+                color=pxE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
         try:
             await member.ban(reason=f"{reason}({ctx.message.author})")
         except:
