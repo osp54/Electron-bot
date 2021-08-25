@@ -64,7 +64,7 @@ class music(commands.Cog, name="music"):
             await self.MusicManager.queue_add(player=player, ctx=ctx)
 
             if not await self.MusicManager.play(ctx):
-                await ctx.send(f"Добавлено в очередь({player.data['webpage_url']})")
+                await ctx.send(f"Добавлено в очередь")
         else:
             await ctx.send("Запрос не найден.")
 
