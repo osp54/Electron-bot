@@ -22,7 +22,7 @@ class events(commands.Cog):
             json.dump(guildlang, f, indent=4)
 
         for channel in guild.text_channels:
-            if channel.permissions_for(self.guild.me).send_messages:
+            if channel.permissions_for(guild.me).send_messages:
                 embed = discord.Embed(
                     title="Hey!",
                     description="Thanks you for adding me to your server! If your server is in Russian, you can change the language of my messages with the command `$setlang Russian`, to view other my commands write $help.",
@@ -31,7 +31,7 @@ class events(commands.Cog):
                     title="Features",
                     value="Auto remove scam links like 'free nitro'! Music! And much more."
                 ).set_footer(text="All rights reserved | ElectronBot.tk")
-                channel.send(embed=embed)
+                await channel.send(embed=embed)
             break
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
