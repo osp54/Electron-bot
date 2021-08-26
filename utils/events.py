@@ -7,14 +7,14 @@ class events(commands.Cog):
         self.bot = bot
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        with open("prefixes.json", "r") as f:
+        with open("prefixes.json", "r", encoding="UTF-8") as f:
             prefixes = json.load(f)
 
         prefixes[str(guild.id)] = "$"
-        with open("prefixes.json", "w") as f:
+        with open("prefixes.json", "w", encoding="UTF-8") as f:
             json.dump(prefixes, f, indent=4)
 
-        with open("guildlang.json", "r") as f:
+        with open("guildlang.json", "r", encoding="UTF-8") as f:
             guildlang = json.load(f)
 
         guildlang[str(guild.id)] = "English"
@@ -35,18 +35,18 @@ class events(commands.Cog):
             break
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        with open("prefixes.json", "r") as f:
+        with open("prefixes.json", "r", encoding="UTF-8") as f:
             prefixes = json.load(f)
 
         prefixes.pop(str(guild.id))
-        with open("prefixes.json", "w") as f:
+        with open("prefixes.json", "w", encoding="UTF-8") as f:
             json.dump(prefixes, f, indent=4)
 
-        with open("guildlang.json", "r") as f:
+        with open("guildlang.json", "r", encoding="UTF-8") as f:
             guildlang = json.load(f)
 
         guildlang.pop(str(guild.id))
-        with open("guildlang.json", "w") as f:
+        with open("guildlang.json", "w", encoding="UTF-8") as f:
             json.dump(prefixes, f, indent=4)
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
