@@ -13,5 +13,10 @@ class anti_scam(commands.Cog):
             if link in message.content:
                 await message.delete()
         #TODO: больше скам ссылок
+    @commands.Cog.listener()
+    async def on_message_edit(before, after):
+        for link in scam_links:
+            if after == link:
+                await message.delete()
 def setup(bot):
     bot.add_cog(anti_scam(bot))
