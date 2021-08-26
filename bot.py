@@ -51,6 +51,7 @@ async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
     info(f"Logged in as {client.user.name}")
+    info(f"Guilds: {len(client.guilds)}")
     info(f"Discord.py API version: {discord.__version__}")
     info(f"Python version: {platform.python_version()}")
     info(f"Running on: {platform.system()} {platform.release()} ({os.name})")
