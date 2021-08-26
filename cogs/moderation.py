@@ -290,5 +290,32 @@ class moderation(commands.Cog, name="moderation"):
         )
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
+    @commands.command(alias=['слоумод'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.has_permissions(manage_channels=True)
+    @commands.bot_has_permissions(manage_channels=True)
+    async def slowmode(self, ctx, slowmode: int=None, channel:discord.TextChannel = None):
+        """
+        Установить слоумод текущему/другому каналу.
+        """
+        if channel is None:
+            channel = ctx.channel
+        slowmode = max(min(slowmode, 21600), 0)
+        if slowmode is None:
+            embed = discord.Embed(
+                title="Ошибка",
+                description="Вам нужно упомянуть текстовый канал, чтобы установить слоумод!",
+                color=0xE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
+        await channel.edit(slowmode_delay=slowmode)
+        embed = discord.Embed(
+            title="Успешно!",
+            description=f"Установлен слоумод {slowmode}с.",
+            color=0x00ff82
+        )
+        await ctx.send(embed=embed)
+        await ctx.message.add_reaction('✅')
 def setup(bot):
     bot.add_cog(moderation(bot))
