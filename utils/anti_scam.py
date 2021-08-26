@@ -14,7 +14,7 @@ class anti_scam(commands.Cog):
                 await message.delete()
         #TODO: больше скам ссылок
     @commands.Cog.listener()
-    async def on_message_edit(before, after):
+    async def on_message_edit(self, before, after):
         for link in scam_links:
             if link in after:
                 await message.delete()
