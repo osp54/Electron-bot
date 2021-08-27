@@ -116,7 +116,7 @@ class main(commands.Cog, name="main"):
         Информация о текущем/другом канале.
         """
         channel = channel or ctx.channel
-        embed = discord.Embed(title=f"Информация об {channel.name}, color=0x42F56C)
+        embed = discord.Embed(title=f"Информация об {channel.name}", color=0x42F56C)
         if channel.topic:
             embed.add_field(name="Описание", value=channel.topic, inline=False)
         embed.add_field(
