@@ -1,5 +1,6 @@
 import discord
 import json
+from functions import get_prefix
 from discord.ext import commands
 
 class events(commands.Cog):
@@ -8,7 +9,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if '<@861541287161102376>' == message.content:
-            prefix = self.bot.command_prefix
+            prefix = get_prefix
             await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
     @commands.Cog.listener()
     async def on_guild_join(self, guild):

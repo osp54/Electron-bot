@@ -5,11 +5,10 @@ import discord
 import os
 import platform
 import colorama
-import json
 import logging
 import asyncio
 import jishaku
-from functions import error, info
+from functions import error, info, get_prefix
 from colorama import init, Fore, Back, Style
 from config import settings
 from discord.ext import commands
@@ -17,10 +16,6 @@ from discord.ext import commands
 init(autoreset=True)
 intents = discord.Intents.all()
 owners = [580631356485402639, 530103444946812929, 674647047831420975]
-def get_prefix(client, message):
-    with open("prefixes.json", "r") as f:
-        prefixes = json.load(f)
-    return prefixes[str(message.guild.id)]
 client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = set(owners))
 client.remove_command('help')
 
