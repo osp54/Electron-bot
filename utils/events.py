@@ -7,7 +7,7 @@ class events(commands.Cog):
         self.bot = bot
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.guild.me.mention == message.content:
+        if '<@861541287161102376>' == message.content:
             prefix = self.bot.prefix
             await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
     @commands.Cog.listener()
