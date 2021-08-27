@@ -6,6 +6,11 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.guild.me.mention == message.content:
+            prefix = self.bot.prefix
+            await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
+    @commands.Cog.listener()
     async def on_guild_join(self, guild):
         with open("prefixes.json", "r", encoding="UTF-8") as f:
             prefixes = json.load(f)
