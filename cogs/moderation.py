@@ -290,6 +290,16 @@ class moderation(commands.Cog, name="moderation"):
         )
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
+    @commands.command(aliases=["cln"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.has_permissions(manage_channels=True)
+    @commands.bot_has_permissions(manage_channels=True)
+    async def clone(self, ctx, channel: discord.TextChannel = None):
+        """
+        Клонировать текущий/другой текстовый канал.
+        """
+        await channel.clone(reason=f"{channel.name}({ctx.author})")
+        await ctx.send("Канал <#{channel.id}> клонирован!")
     @commands.command(alias=['слоумод'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
