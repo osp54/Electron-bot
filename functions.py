@@ -12,3 +12,6 @@ def info(desc):
 def error(desc):
     now = pendulum.now('Europe/Moscow')
     print(f"{Fore.RED}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.RED}] " + Fore.RED + f"[E] " + desc)
+
+def format_name(name: str) -> str:
+    return name.replace("_", " ").title().strip()

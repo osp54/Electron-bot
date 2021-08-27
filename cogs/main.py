@@ -3,6 +3,7 @@ import json
 import datetime
 import humanize
 from discord.ext import commands
+from functions import format_name
 from discord.ext.commands import cooldown, BucketType
 
 class main(commands.Cog, name="main"):
