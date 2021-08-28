@@ -95,7 +95,7 @@ class main(commands.Cog, name="main"):
         embed.add_field(name="Регион", value=str(guild.region))
         embed.add_field(name="Уровень верификации", value=str(guild.verification_level))
         embed.add_field(name="Участников", value=len(guild.members))
-        embed.add_field(name="Уровень бустов", value=guild.premium_tier}
+        embed.add_field(name="Уровень бустов", value=guild.premium_tier)
         embed.add_field(name="Бустов", value=guild.premium_subscription_count)
         embed.add_field(name="Бустеров", value=len(guild.premium_subscribers))
         embed.add_field(name="Каналов", value=len(guild.channels))
