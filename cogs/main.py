@@ -88,7 +88,7 @@ class main(commands.Cog, name="main"):
 
         embed = discord.Embed(title=f"Сервер {guild.name}", color=0x42F56C)
         embed.add_field(name="Имя", value=guild.name)
-        embed.add_field(name"ID", value=int(guild.id))
+        embed.add_field(name="ID", value=int(guild.id))
         embed.add_field(name="Owner", value=guild_owner)
         embed.add_field(name="Icon URL", value=f"[click here]({guild.icon.url})")
         embed.add_field(name="Регион", value=str(guild.region))
