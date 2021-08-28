@@ -9,7 +9,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if '<@861541287161102376>' == message.content:
-            prefix = get_prefix(self.bot, message.guild.id)
+            prefix = get_prefix(self.bot, message)
             await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
