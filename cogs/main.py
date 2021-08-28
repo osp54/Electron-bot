@@ -64,7 +64,7 @@ class main(commands.Cog, name="main"):
         """
         Эмодзи.
         """
-        embed = discord.Embed(title=f"Эмодзи {emoji.name}", description="\\" + str(emoji))
+        embed = discord.Embed(title=f"Эмодзи {emoji.name}", color=0x42F56C)
         embed.set_thumbnail(url=emoji.url)
         embed.set_image(url=emoji.url)
         embed.add_field(name="ID", value=emoji.id)
@@ -86,29 +86,26 @@ class main(commands.Cog, name="main"):
 
         features = "\n".join(format_name(f) for f in guild.features)
 
-        embed = discord.Embed(
-            title=f"Сервер {guild.name}",
-            description=(
-                f"Имя: {guild.name}\n"
-                f"Создан: {discord.utils.format_dt(guild.created_at, 'F')} ({discord.utils.format_dt(guild.created_at, 'R')})"
-                f"ID: {guild.id}\nOwner: {guild_owner}\n"
-                f"Icon URL: [click here]({guild.icon.url})\n"
-                f"Регион: {str(guild.region)}\n"
-                f"Уровень верификации: {str(guild.verification_level)}\n"
-                f"Участников: {len(guild.members)}\n"
-                f"Уровень бустов: {guild.premium_tier}\n"
-                f"Бустов: {guild.premium_subscription_count}\n"
-                f"Бустеров: {len(guild.premium_subscribers)}\n"
-                f"Каналов: {len(guild.channels)}\n"
-                f"Текстовых каналов: {len(guild.text_channels)}\n"
-                f"Голосовых каналов: {len(guild.voice_channels)}\n"
-                f"Категорий: {len(guild.categories)}\n"
-                f"Ролей: {len(guild.roles)}\n"
-                f"Эмодзи: {len(guild.emojis)}/{guild.emoji_limit}\n"
-                f"Лимит отправки: {round(guild.filesize_limit / 1048576)} MB\n"
-                f"**Features:** {features}"
-            ),
-        )
+        embed = discord.Embed(title=f"Сервер {guild.name}", color=0x42F56C)
+        embed.add_field(name="Имя", value=guild.name)
+        embed.add_field(name="Создано", value=f"{discord.utils.format_dt(guild.created_at, 'F')} ({discord.utils.format_dt(guild.created_at, 'R')})")
+        embed.add_field(name"ID", value=guild.id)
+        embed.add_field(name="Owner", value=guild_owner)
+        embed.add_field(name="Icon URL", value=f"[click here]({guild.icon.url})")
+        embed.add_field(name="Регион", value=str(guild.region))
+        embed.add_field(name="Уровень верификации", value=str(guild.verification_level))
+        embed.add_field(name="Участников", value=len(guild.members))
+        embed.add_field(name="Уровень бустов", value=guild.premium_tier}
+        embed.add_field(name="Бустов", value=guild.premium_subscription_count)
+        embed.add_field(name="Бустеров", value=len(guild.premium_subscribers))
+        embed.add_field(name="Каналов", value=len(guild.channels))
+        embed.add_field(name="Текстовых каналов", value=len(guild.text_channels))
+        embed.add_field(name="Голосовых каналов", value=len(guild.voice_channels))
+        embed.add_field(name="Категорий", value=len(guild.categories))
+        embed.add_field(name="Ролей", value=len(guild.roles))
+        embed.add_field(name="Эмодзи", value=f"{len(guild.emojis)}/{guild.emoji_limit}")
+        embed.add_field(name="Лимит отправки", value="{round(guild.filesize_limit / 1048576)} MB")
+        embed.add_field(name="Features", value=features)
         embed.set_thumbnail(url=guild.icon.url)
         await ctx.send(embed=embed)
     @commands.command(aliases=['ci', 'канал'])
