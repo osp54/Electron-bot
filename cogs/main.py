@@ -87,8 +87,7 @@ class main(commands.Cog, name="main"):
         features = "\n".join(format_name(f) for f in guild.features)
 
         embed = discord.Embed(title=f"Сервер {guild.name}", color=0x42F56C)
-        embed.add_field(name="Имя", value=guild.name)[28:15:1:42] [E] Failed to load extension main
-        ExtensionFailed: Extension 'cogs.main' raised an error: SyntaxError: invalid syntax (main.py, line 92)
+        embed.add_field(name="Имя", value=guild.name)
         embed.add_field(name"ID", value=int(guild.id))
         embed.add_field(name="Owner", value=guild_owner)
         embed.add_field(name="Icon URL", value=f"[click here]({guild.icon.url})")
