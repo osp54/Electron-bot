@@ -34,7 +34,7 @@ class events(commands.Cog):
                     description="Thanks you for adding me to your server! If your server is in Russian, you can change the language of my messages with the command `$setlang Russian`, to view other my commands write $help.",
                     color=0x006EEF
                 ).add_field(
-                    title="Features",
+                    name="Features",
                     value="Auto remove scam links like 'free nitro'! Music! And much more."
                 ).set_footer(text="All rights reserved | ElectronBot.tk")
                 await channel.send(embed=embed)
