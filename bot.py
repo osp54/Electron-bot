@@ -56,4 +56,5 @@ if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
     load_extensions("./utils") #когсы утилит/ивентов
+    import cmds
 client.run(settings['token'])
