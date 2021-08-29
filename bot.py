@@ -46,7 +46,7 @@ async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
     info(f"Logged in as {Fore.CYAN}{client.user.name}{Fore.RESET}, Guilds: {Fore.CYAN}{len(client.guilds)}")
-    info(f"NextCord.py API version: {Fore.CYAN}{nextcord.__version__}")
+    info(f"NextCord.py version: {Fore.CYAN}{nextcord.__version__}")
     info(f"Python version: {Fore.CYAN}{platform.python_version()}")
     info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
@@ -56,5 +56,4 @@ if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
     load_extensions("./utils") #когсы утилит/ивентов
-    import cmds
 client.run(settings['token'])
