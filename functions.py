@@ -8,10 +8,10 @@ def get_prefix(client, message):
     return prefixes[str(message.guild.id)]
 def info(desc):
     now = pendulum.now('Europe/Moscow')
-    print(f"{Fore.BLUE}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.BLUE}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
+    print(f"{Fore.GRAY}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
     now = pendulum.now('Europe/Moscow')
-    print(f"{Fore.RED}[{Fore.RESET}{now.day}:{now.hour}:{now.minute}:{now.second}{Fore.RED}] " + Fore.RED + f"[E] " + desc)
+    print(f"{Fore.GRAY}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.RED + f"[E] " + desc)
 
 def format_name(name: str) -> str:
     return name.replace("_", " ").title().strip()
