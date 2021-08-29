@@ -29,34 +29,31 @@ def load_extensions(dir):
             extension = file[:-3]
             try:
                 client.load_extension(f"{dir[2:]}.{extension}")
-                info(f"Loaded extension '{extension}'")
+                info(f"Loaded extension {Fore.CYAN}{extension}")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to load extension {extension}\n{exception}")
+                error(f"Failed to load extension {Fore.CYAN}{extension}{Fore.RESET}\n{exception}")
 
 async def status_task():
     while True:
-        await client.change_presence(activity=nextcord.Game(name="$ my default prefix"))
+        await client.change_presence(activity=nextcord.Game(name="$help"))
         await asyncio.sleep(30)
-        await client.change_presence(activity=nextcord.Game(name="I'm love nextcord!"))
+        await client.change_presence(activity=nextcord.Game(name="I'm love discord!"))
         await asyncio.sleep(30)
 
 @client.event
 async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
-    info(f"Logged in as {client.user.name}")
-    info(f"Guilds: {len(client.guilds)}")
-    info(f"nextcord.py API version: {nextcord.__version__}")
-    info(f"Python version: {platform.python_version()}")
-    info(f"Running on: {platform.system()} {platform.release()} ({os.name})")
-    info(f"Time elapsed: {tElapsed}")
+    info(f"Logged in as {Fore.CYAN}{client.user.name}{Fore.RESET}, Guilds: {Fore.CYAN}{len(client.guilds)}")
+    info(f"NextCord.py API version: {Fore.CYAN}{nextcord.__version__}")
+    info(f"Python version: {Fore.CYAN}{platform.python_version()}")
+    info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
+    info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
     client.loop.create_task(status_task())
 
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
-    info("Loaded all extensions from /cogs")
     load_extensions("./utils") #когсы утилит/ивентов
-    info("Loaded all extensions from /utils")
 client.run(settings['token'])
