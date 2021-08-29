@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 from functions import error, info
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
@@ -26,7 +26,7 @@ class owner(commands.Cog, name="owner"):
     @commands.is_owner()
     async def embed(self, ctx,*, message):
         await ctx.message.delete()
-        embed=discord.Embed(description=message, color=0xFF0000)
+        embed=nextcord.Embed(description=message, color=0xFF0000)
         await ctx.send(embed=embed)
     @commands.command(name='say')
     @commands.is_owner()

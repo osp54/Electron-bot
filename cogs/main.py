@@ -1,10 +1,10 @@
-import discord
+import nextcord
 import json
 import datetime
 import humanize
-from discord.ext import commands
+from nextcord.ext import commands
 from functions import format_name
-from discord.ext.commands import cooldown, BucketType
+from nextcord.ext.commands import cooldown, BucketType
 
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
@@ -17,7 +17,7 @@ class main(commands.Cog, name="main"):
         Изменить префикс.
         """
         if ctx.prefix == prefix:
-            embed = discord.Embed(
+            embed = nextcord.Embed(
                 title="Ошибка",
                 description="У этого сервера уже установлен такой префикс!",
                 color=0xE02B2B
@@ -46,13 +46,13 @@ class main(commands.Cog, name="main"):
         await ctx.send(f"Prefix changed to: {lang}")
     @commands.command(name="avatar", aliases=['аватар'])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def avatar(self, ctx, member: discord.Member = None):
+    async def avatar(self, ctx, member: nextcord.Member = None):
         """
         Получить аватар пользователя
         """
         if not member:
             member = ctx.message.author
-        embed = discord.Embed(
+        embed = nextcord.Embed(
             title=f"Аватар пользователя {member}",
             color=0x42F56C
         )
@@ -60,11 +60,11 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed)
     @commands.command(aliases=["эмодзи_инфо", "emoteinfo"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def emoji(self, ctx, emoji: discord.Emoji):
+    async def emoji(self, ctx, emoji: nextcord.Emoji):
         """
         Эмодзи.
         """
-        embed = discord.Embed(title=f"Эмодзи {emoji.name}", color=0x42F56C)
+        embed = nextcord.Embed(title=f"Эмодзи {emoji.name}", color=0x42F56C)
         embed.set_thumbnail(url=emoji.url)
         embed.set_image(url=emoji.url)
         embed.add_field(name="ID", value=emoji.id)
@@ -73,7 +73,7 @@ class main(commands.Cog, name="main"):
         embed.add_field(name="Server", value=emoji.guild)
         embed.add_field(
             name="Создано",
-            value=f'{discord.utils.format_dt(emoji.created_at, "F")} ({discord.utils.format_dt(emoji.created_at, "R")})',
+            value=f'{nextcord.utils.format_dt(emoji.created_at, "F")} ({nextcord.utils.format_dt(emoji.created_at, "R")})',
         )
         embed.add_field(name="URL", value=f"[Здесь]({emoji.url})")
         await ctx.send(embed=embed)
@@ -86,7 +86,7 @@ class main(commands.Cog, name="main"):
 
         features = "\n".join(format_name(f) for f in guild.features)
 
-        embed = discord.Embed(title=f"Сервер {guild.name}", color=0x42F56C)
+        embed = nextcord.Embed(title=f"Сервер {guild.name}", color=0x42F56C)
         embed.add_field(name="Имя", value=guild.name)
         embed.add_field(name="ID", value=int(guild.id))
         embed.add_field(name="Owner", value=guild_owner)
@@ -108,17 +108,17 @@ class main(commands.Cog, name="main"):
         embed.set_thumbnail(url=guild.icon.url)
         await ctx.send(embed=embed)
     @commands.command(aliases=['ci', 'канал'])
-    async def channelinfo(self, ctx, channel: discord.TextChannel = None):
+    async def channelinfo(self, ctx, channel: nextcord.TextChannel = None):
         """
         Информация о текущем/другом канале.
         """
         channel = channel or ctx.channel
-        embed = discord.Embed(title=f"Информация об {channel.name}", color=0x42F56C)
+        embed = nextcord.Embed(title=f"Информация об {channel.name}", color=0x42F56C)
         if channel.topic:
             embed.add_field(name="Описание", value=channel.topic, inline=False)
         embed.add_field(
             name="Создано",
-            value=f'{discord.utils.format_dt(channel.created_at, "F")}  ({discord.utils.format_dt(channel.created_at, "R")})',
+            value=f'{nextcord.utils.format_dt(channel.created_at, "F")}  ({nextcord.utils.format_dt(channel.created_at, "R")})',
         )
         embed.add_field(name="ID", value=channel.id)
         embed.add_field(name="Тип", value=channel.type)
@@ -137,7 +137,7 @@ class main(commands.Cog, name="main"):
         """
         Создайте опрос, в котором участники могут голосовать.
         """
-        embed = discord.Embed(
+        embed = nextcord.Embed(
             title="Создан новый опрос!",
             description=f"{title}",
             color=0x42F56C

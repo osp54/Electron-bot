@@ -1,7 +1,7 @@
-import discord
+import nextcord
 import json
 from functions import get_prefix
-from discord.ext import commands
+from nextcord.ext import commands
 
 class events(commands.Cog):
     def __init__(self, bot):
@@ -29,7 +29,7 @@ class events(commands.Cog):
 
         for channel in guild.text_channels:
             if channel.permissions_for(guild.me).send_messages:
-                embed = discord.Embed(
+                embed = nextcord.Embed(
                     title="Hey!",
                     description="Thanks you for adding me to your server! If your server is in Russian, you can change the language of my messages with the command `$setlang Russian`, to view other my commands write $help.",
                     color=0x006EEF
@@ -59,9 +59,9 @@ class events(commands.Cog):
         if isinstance(error, commands.CommandNotFound):
             pass
         elif isinstance(error, commands.MissingPermissions):
-            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
+            await ctx.send(embed = nextcord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
         elif isinstance(error, commands.CommandOnCooldown):
-            await ctx.send(embed = discord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
+            await ctx.send(embed = nextcord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
         elif isinstance(error, commands.BotMissingPermissions):
             return await ctx.send(f"{ctx.author.mention}, У бота нет прав на это. Пожалуйста, дайте боту правильные права")
         else:
@@ -73,7 +73,7 @@ class events(commands.Cog):
            if ctx.cog:
                if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
                    return
-           embed = discord.Embed(
+           embed = nextcord.Embed(
                title="New Error",
                description=f"Command: {ctx.command.name}\n\nUsername: `{ctx.author}`\n\nUserID: `{ctx.author.id}`\n\nGuild Name: `{ctx.guild.name}`",
                color=0x42F56C

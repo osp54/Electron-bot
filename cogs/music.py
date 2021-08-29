@@ -1,7 +1,7 @@
-import discord
+import nextcord
 import discordSuperUtils
-from discord.ext import commands
-from discord.ext.commands import cooldown, BucketType
+from nextcord.ext import commands
+from nextcord.ext.commands import cooldown, BucketType
 from discordSuperUtils import MusicManager, PageManager
 
 
@@ -47,7 +47,7 @@ class music(commands.Cog, name="music"):
         """
         Проиграть песню.
         """
-        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice = nextcord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice == None:
             await self.MusicManager.join(ctx)
         player = await self.MusicManager.create_player(query)

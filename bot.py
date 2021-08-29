@@ -1,7 +1,7 @@
 import time
 
 tStart = time.time()
-import discord
+import nextcord
 import os
 import platform
 import colorama
@@ -11,15 +11,15 @@ import jishaku
 from functions import error, info, get_prefix
 from colorama import init, Fore, Back, Style
 from config import settings
-from discord.ext import commands
+from nextcord.ext import commands
 
 init(autoreset=True)
-intents = discord.Intents.all()
+intents = nextcord.Intents.all()
 owners = [580631356485402639, 530103444946812929, 674647047831420975]
 client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = set(owners))
 client.remove_command('help')
 
-logger = logging.getLogger('discord')
+logger = logging.getLogger('nextcord')
 logger.setLevel(logging.WARNING)
 
 #загрузить все расширения из папки
@@ -36,9 +36,9 @@ def load_extensions(dir):
 
 async def status_task():
     while True:
-        await client.change_presence(activity=discord.Game(name="$ my default prefix"))
+        await client.change_presence(activity=nextcord.Game(name="$ my default prefix"))
         await asyncio.sleep(30)
-        await client.change_presence(activity=discord.Game(name="I'm love Discord!"))
+        await client.change_presence(activity=nextcord.Game(name="I'm love nextcord!"))
         await asyncio.sleep(30)
 
 @client.event
@@ -47,7 +47,7 @@ async def on_ready():
     tElapsed = tEnd - tStart
     info(f"Logged in as {client.user.name}")
     info(f"Guilds: {len(client.guilds)}")
-    info(f"Discord.py API version: {discord.__version__}")
+    info(f"nextcord.py API version: {nextcord.__version__}")
     info(f"Python version: {platform.python_version()}")
     info(f"Running on: {platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {tElapsed}")

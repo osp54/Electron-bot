@@ -1,4 +1,4 @@
-https://github.com/Rapptz/discord.py/archive/refs/heads/master.zip
+https://github.com/Rapptz/nextcord.py/archive/refs/heads/master.zip
 https://github.com/ado1928/pydustry/archive/refs/heads/master.zip
 psutil==5.8.0
 https://github.com/Gorialis/jishaku/releases/download/2.2.0/jishaku-2.2.0.tar.gz

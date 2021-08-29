@@ -1,6 +1,6 @@
-import discord
-from discord.ext import commands
-from discord.ext.commands import cooldown, BucketType
+import nextcord
+from nextcord.ext import commands
+from nextcord.ext.commands import cooldown, BucketType
 
 class help(commands.Cog, name="help"):
     def __init__(self, bot):
@@ -12,7 +12,7 @@ class help(commands.Cog, name="help"):
         Список всех команд
         """
         if ctx.invoked_subcommand is None:
-            embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
+            embed = nextcord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
             cogs = ("Main", "Moderation", "Music")
             for i in cogs:
                 cog = self.bot.get_cog(i.lower())
@@ -27,7 +27,7 @@ class help(commands.Cog, name="help"):
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def main(self, ctx):
-       embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
+       embed = nextcord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
        cog = self.bot.get_cog("main")
        commands = cog.get_commands()
        command_list = [command.name for command in commands]
@@ -40,7 +40,7 @@ class help(commands.Cog, name="help"):
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def moderation(self, ctx):
-       embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
+       embed = nextcord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
        cog = self.bot.get_cog("moderation")
        commands = cog.get_commands()
        command_list = [command.name for command in commands]
@@ -53,7 +53,7 @@ class help(commands.Cog, name="help"):
     @help.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def music(self, ctx):
-       embed = discord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
+       embed = nextcord.Embed(title="Help", description=f"Префикс: {ctx.prefix}", color=0x42F56C)
        cog = self.bot.get_cog("music")
        commands = cog.get_commands()
        command_list = [command.name for command in commands]
