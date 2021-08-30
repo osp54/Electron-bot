@@ -61,14 +61,13 @@ async def on_ready():
     info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
     client.loop.create_task(status_task())
-
-def handler(signum, frame):
-    unload_extensions("./cogs")
-    unload_extensions("./utils")
-signal.signal(signal.SIGINT, handler)
-time.sleep(5)
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
     load_extensions("./utils") #когсы утилит/ивентов
+    try:
+        main()
+    except KeyboardInterrupt:
+        unload_extensions("./cogs")
+        unload_extensions("./utils")
 client.run(settings['token'])
