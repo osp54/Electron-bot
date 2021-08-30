@@ -61,15 +61,16 @@ async def on_ready():
     info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
     client.loop.create_task(status_task())
-try:
-    while 1:
-        x = input("Type something or press CTRL+C to end: ")
-        print(x)
-except KeyboardInterrupt:
-    unload_extensions("./cogs")
-    unload_extensions("./utils") 
+ 
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
     load_extensions("./utils") #когсы утилит/ивентов
+try:
+    while 10:
+        x = input(": ")
+        print(x)
+except KeyboardInterrupt:
+    unload_extensions("./cogs")
+    unload_extensions("./utils")
 client.run(settings['token'])
