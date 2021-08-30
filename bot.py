@@ -58,7 +58,7 @@ def ctrl_exit():
     except KeyboardInterrupt:
         unload_extensions("./cogs")
         unload_extensions("./utils")
-        exit(-3)
+        exit()
 @client.event
 async def on_ready():
     tEnd = time.time()
