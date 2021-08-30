@@ -10,7 +10,7 @@ class status(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @tasks.loop(seconds=30)
-    async def sping():
+    async def sping(self):
         channel = self.bot.get_channel(881924597472178176)
         msg = await channel.fetch_message(881924714073845760)
         embed = discord.Embed(
@@ -23,7 +23,7 @@ class status(commands.Cog):
         await msg.edit(embed = emb)
 
     @commands.Cog.listener()
-    async def on_ready():
+    async def on_ready(self):
         sping.start()
 
 def setup(bot):
