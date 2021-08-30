@@ -8,7 +8,6 @@ electron = ['Electron', 'electron', 'ELECTRON', 'Электрон', 'элект�
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    channel = self.bot.get_channel(872078345137979434)
     @commands.Cog.listener()
     async def on_message(self, message):
         if '<@861541287161102376>' == message.content:
@@ -91,6 +90,7 @@ class events(commands.Cog):
                 ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
             )
         else:
+           channel = self.bot.get_channel(872078345137979434)
            error = getattr(error, 'original', error)
            if hasattr(ctx.command, 'on_error'):
                 return
@@ -110,6 +110,7 @@ class events(commands.Cog):
            await channel.send(embed=embed)
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
-        await channel.send("This is working")
+        channel = self.bot.get_channel(872078345137979434)
+        await channel.send(ctx.command)
 def setup(bot):
     bot.add_cog(events(bot))
