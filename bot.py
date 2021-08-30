@@ -50,15 +50,6 @@ async def status_task():
         await asyncio.sleep(30)
         await client.change_presence(activity=nextcord.Game(name="I'm love discord!"))
         await asyncio.sleep(30)
-def ctrl_exit():
-    try:
-        for i in range(100):
-            x = input(": ")
-            print(x)
-    except KeyboardInterrupt:
-        unload_extensions("./cogs")
-        unload_extensions("./utils")
-        exit()
 @client.event
 async def on_ready():
     tEnd = time.time()
@@ -68,7 +59,6 @@ async def on_ready():
     info(f"Python version: {Fore.CYAN}{platform.python_version()}")
     info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
-    ctrl_exit()
     client.loop.create_task(status_task())
  
 if __name__ == "__main__":
