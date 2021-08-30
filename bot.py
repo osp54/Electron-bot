@@ -60,21 +60,12 @@ async def on_ready():
     info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
     client.loop.create_task(status_task())
-class SIGINT_handler():
-    def __init__(self):
-        self.SIGINT = False
 
-    def signal_handler(self, signal, frame):
-        print('You pressed Ctrl+C!')
-        self.SIGINT = True
-
-handler = SIGINT_handler()
-
-while True:
-    if handler.SIGINT:
-        unload_extensions("./cogs")
-        unload_extensions("./utils")
-        exit(-3)
+#while True:
+#    if handler.SIGINT:
+#        unload_extensions("./cogs")
+#        unload_extensions("./utils")
+#        exit(-3)
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
