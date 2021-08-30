@@ -33,7 +33,16 @@ def load_extensions(dir):
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 error(f"Failed to load extension {Fore.CYAN}{extension}{Fore.RESET}\n{exception}")
-
+def unload_extensions(dir):
+    for file in os.listdir(dir):
+        if file.endswith(".py"):
+            extension = file[:-3]
+            try:
+                client.unload_extension(f"{dir[2:]}.{extension}")
+                info(f"Unloaded extension {Fore.CYAN}{extension}")
+            except Exception as e:
+                exception = f"{type(e).__name__}: {e}"
+                error(f"Failed to unload extension {Fore.CYAN}{extension}{Fore.RESET}\n{exception}"
 async def status_task():
     while True:
         await client.change_presence(activity=nextcord.Game(name="$help"))
@@ -51,7 +60,11 @@ async def on_ready():
     info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
     client.loop.create_task(status_task())
-
+while True:
+    if handler.SIGINT:
+        unload_extensions("./cogs")
+        unload_extensions("./utils")
+        exit(-3)
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
