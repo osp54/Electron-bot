@@ -64,7 +64,7 @@ async def on_ready():
 try:
     while 1:
         x = raw_input("Type something or press CTRL+C to end: ")
-        print repr(x)
+        print(x)
 except KeyboardInterrupt:
     unload_extensions("./cogs")
     unload_extensions("./utils") 
