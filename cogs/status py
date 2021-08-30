@@ -15,7 +15,7 @@ class status(commands.Cog):
 
     @tasks.loop(seconds=30)
     async def sping():
-        channel = client.get_channel(881924597472178176)
+        channel = self.bot.get_channel(881924597472178176)
         msg = await channel.fetch_message(881924714073845760)
         embed = discord.Embed(
             title = "Статистика",
