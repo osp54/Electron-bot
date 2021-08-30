@@ -42,7 +42,7 @@ def unload_extensions(dir):
                 info(f"Unloaded extension {Fore.CYAN}{extension}")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to unload extension {Fore.CYAN}{extension}{Fore.RESET}\n{exception}"
+                error(f"Failed to unload extension {Fore.CYAN}{extension}{Fore.RESET}\n{exception}")
 async def status_task():
     while True:
         await client.change_presence(activity=nextcord.Game(name="$help"))
