@@ -8,6 +8,7 @@ import colorama
 import logging
 import asyncio
 import jishaku
+import signal
 from functions import error, info, get_prefix
 from colorama import init, Fore, Back, Style
 from config import settings
@@ -61,11 +62,11 @@ async def on_ready():
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
     client.loop.create_task(status_task())
 
-#while True:
-#    if handler.SIGINT:
-#        unload_extensions("./cogs")
-#        unload_extensions("./utils")
-#        exit(-3)
+def handler(signum, frame):
+    unload_extensions("./cogs")
+    unload_extensions("./utils")
+signal.signal(signal.SIGINT, handler)
+
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
