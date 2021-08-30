@@ -25,7 +25,7 @@ class status(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        sstatus()
+        sstatus.start()
 
 def setup(bot):
     bot.add_cog(status(bot))
