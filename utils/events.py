@@ -4,11 +4,11 @@ from functions import get_prefix
 from nextcord.ext import commands
 
 electron = ['Electron', 'electron', 'ELECTRON', 'Электрон', 'электрон', 'ЭЛЕКТРОН']
-channel = self.bot.get_channel(872078345137979434)
 
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    channel = self.bot.get_channel(872078345137979434)
     @commands.Cog.listener()
     async def on_message(self, message):
         if '<@861541287161102376>' == message.content:
