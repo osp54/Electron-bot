@@ -63,11 +63,31 @@ class events(commands.Cog):
         if isinstance(error, commands.CommandNotFound):
             pass
         elif isinstance(error, commands.MissingPermissions):
-            await ctx.send(embed = nextcord.Embed(title='Ошибка', description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.', color=0xFF0000))
+            missingperms = ""
+            for x in range(len(error.missing_perms)):
+                missingperms += f"`{error.missing_perms[x]}` "
+            missingperms = missingperms.upper()
+            return await ctx.send(
+                embed = nextcord.Embed(
+                    title='Ошибка',
+                    description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.',
+                    color=0xFF0000
+                ).add_field(name="Необходимые права", value=f"```\n{missingperms}\n```")
+            )
         elif isinstance(error, commands.CommandOnCooldown):
             await ctx.send(embed = nextcord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
         elif isinstance(error, commands.BotMissingPermissions):
-            return await ctx.send(f"{ctx.author.mention}, У бота нет прав на это. Пожалуйста, дайте боту правильные права")
+            botmissingperms = ""
+            for x in range(len(error.missing_perms)):
+                botmissingperms += f"`{error.missing_perms[x]}` "
+            botmissingperms = botmissingperms.upper()
+            return await ctx.send(
+                embed = nextcord.Embed(
+                    title='Ошибка',
+                    description=f'У бота нет прав для исполнения этой команды.',
+                    color=0xFF0000
+                ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
+            )
         else:
            channel = self.bot.get_channel(872078345137979434)
            error = getattr(error, 'original', error)
