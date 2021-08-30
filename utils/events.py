@@ -110,7 +110,7 @@ class events(commands.Cog):
            await channel.send(embed=embed)
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
-       if ctx.command == mute:
+       if ctx.command == 'mute':
            await channel.send("This is working")
 def setup(bot):
     bot.add_cog(events(bot))
