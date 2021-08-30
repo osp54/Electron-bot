@@ -66,7 +66,7 @@ def handler(signum, frame):
     unload_extensions("./cogs")
     unload_extensions("./utils")
 signal.signal(signal.SIGINT, handler)
-
+time.sleep(5)
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
