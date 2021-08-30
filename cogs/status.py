@@ -17,7 +17,7 @@ class status(commands.Cog):
         msg = await channel.fetch_message(881924714073845760)
         emb = discord.Embed(
             title = "Статистика",
-            description = f"Статистика нагрузки на хостинг бота.\nПоследнее обновление статуса: {discord.utils.format_dt(now, "F")}",
+            description = f"Статистика нагрузки на хостинг бота.\nПоследнее обновление статуса: {discord.utils.format_dt(now, 'F')}",
             color = 0x00A725
         )
         emb.add_field( name = "CPU", value = f"Нагрузка на процессор: {psutil.cpu_percent()}% ", inline = False)
