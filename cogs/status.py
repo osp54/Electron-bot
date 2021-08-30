@@ -25,5 +25,5 @@ class status(commands.Cog):
         emb.add_field( name = "CPU", value = f"Нагрузка на процессор: {psutil.cpu_percent()}% ", inline = False)
         emb.add_field( name = "RAM", value = f"ОЗУ: {used_m}MB/{tot_m}MB", inline = True)
         await msg.edit(embed = emb)
- def setup(bot):
-     bot.add_cog(status(bot))
+def setup(bot):
+    bot.add_cog(status(bot))
