@@ -11,7 +11,7 @@ class status(commands.Cog):
         self.bot = bot
 
     @tasks.loop(seconds=30)
-    def sping(self):
+    async def sstatus(self):
         channel = self.bot.get_channel(881924597472178176)
         msg = await channel.fetch_message(881924714073845760)
         emb = discord.Embed(
@@ -25,7 +25,7 @@ class status(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        sping()
+        sstatus()
 
 def setup(bot):
     bot.add_cog(status(bot))
