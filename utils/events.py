@@ -89,6 +89,7 @@ class events(commands.Cog):
                 ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
             )
         else:
+           global channel
            channel = self.bot.get_channel(872078345137979434)
            error = getattr(error, 'original', error)
            if hasattr(ctx.command, 'on_error'):
@@ -107,5 +108,9 @@ class events(commands.Cog):
                    value=f"```\n{ctx.author} - {error}\n```"
            )
            await channel.send(embed=embed)
+    @commands.Cog.listener()
+    async def on_command_completion(self, ctx):
+       if ctx.command == mute:
+           await channel.send("This is working")
 def setup(bot):
     bot.add_cog(events(bot))
