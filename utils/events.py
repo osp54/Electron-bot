@@ -64,8 +64,8 @@ class events(commands.Cog):
             pass
         elif isinstance(error, commands.MissingPermissions):
             missingperms = ""
-            for x in range(len(error.missing_perms)):
-                missingperms += f"`{error.missing_perms[x]}` "
+            for x in range(len(error.missing_permissions)):
+                missingperms += f"`{error.missing_permissions[x]}` "
             missingperms = missingperms.upper()
             return await ctx.send(
                 embed = nextcord.Embed(
@@ -78,8 +78,8 @@ class events(commands.Cog):
             await ctx.send(embed = nextcord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
         elif isinstance(error, commands.BotMissingPermissions):
             botmissingperms = ""
-            for x in range(len(error.missing_perms)):
-                botmissingperms += f"`{error.missing_perms[x]}` "
+            for x in range(len(error.missing_permissions)):
+                botmissingperms += f"`{error.missing_permissions[x]}` "
             botmissingperms = botmissingperms.upper()
             return await ctx.send(
                 embed = nextcord.Embed(
