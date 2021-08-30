@@ -63,7 +63,7 @@ async def on_ready():
     client.loop.create_task(status_task())
 try:
     while 1:
-        x = raw_input("Type something or press CTRL+C to end: ")
+        x = input("Type something or press CTRL+C to end: ")
         print(x)
 except KeyboardInterrupt:
     unload_extensions("./cogs")
