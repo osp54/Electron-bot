@@ -3,6 +3,7 @@ import json
 from functions import get_prefix
 from nextcord.ext import commands
 
+electron = ['Electron', 'electron', 'ELECTRON', 'Электрон', 'электрон', 'ЭЛЕКТРОН']
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -11,6 +12,9 @@ class events(commands.Cog):
         if '<@861541287161102376>' == message.content:
             prefix = get_prefix(self.bot, message)
             await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
+        for i in electron:
+            if i in message.content:
+                await message.add_reaction("⚡")
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         with open("prefixes.json", "r", encoding="UTF-8") as f:
