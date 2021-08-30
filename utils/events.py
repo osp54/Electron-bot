@@ -4,6 +4,8 @@ from functions import get_prefix
 from nextcord.ext import commands
 
 electron = ['Electron', 'electron', 'ELECTRON', 'Электрон', 'электрон', 'ЭЛЕКТРОН']
+channel = self.bot.get_channel(872078345137979434)
+
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -89,8 +91,6 @@ class events(commands.Cog):
                 ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
             )
         else:
-           global channel
-           channel = self.bot.get_channel(872078345137979434)
            error = getattr(error, 'original', error)
            if hasattr(ctx.command, 'on_error'):
                 return
