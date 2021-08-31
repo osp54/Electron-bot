@@ -91,7 +91,7 @@ class events(commands.Cog):
             )
         elif isinstance(error, commands.BadArgument):
             embed = nextcord.Embed(
-                title=f"{ctx.command.name.upper} - использование",
+                title=f"{ctx.command.name.upper()} - использование",
                 description=F'{ctx.command.usage}\n**•**\nЭсли, у вас есть какие-то вопросы, вы можете их спросить на нашем сервере [поддержки](https://comingsoon.gg).',
                 color=0xFF0000
             )
