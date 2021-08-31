@@ -90,7 +90,7 @@ class events(commands.Cog):
             )
         elif isinstance(error, commands.BadArgument) or isinstance(error, commands.MissingRequiredArgument):
             embed = nextcord.Embed(
-                title=ctx.command.name.upper(),
+                title=ctx.command.name.capitalize(),
                 color=0xFF0000
             ).add_field(
                 name="Использование",
