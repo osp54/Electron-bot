@@ -89,7 +89,7 @@ class events(commands.Cog):
                     color=0xFF0000
                 ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
             )
-       elif isinstance(error, commands.BadArgument):
+        elif isinstance(error, commands.BadArgument):
             embed = nextcord.Embed(
                 title=f"{ctx.command.name} - использование",
                 description='{ctx.command.usage}\nЭсли, у вас есть какие-то вопросы, вы можете их спросить на нашем сервере [поддержки](https://comingsoon.gg).',
