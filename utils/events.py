@@ -89,12 +89,13 @@ class events(commands.Cog):
                     color=0xFF0000
                 ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
             )
-        elif isinstance(error, commands.BadArgument):
+        elif isinstance(error, commands.BadArgument) or isinstance(error, commands.MissingRequiredArgument):
             embed = nextcord.Embed(
-                title=f"{ctx.command.name.upper()} - использование",
-                description=F'{ctx.command.usage}\n**•**\nЭсли, у вас есть какие-то вопросы, вы можете их спросить на нашем сервере [поддержки](https://comingsoon.gg).',
+                title=ctx.command.name.upper(),
                 color=0xFF0000
-            )
+            ).add_field(
+                name="Использование",
+                value=f'{ctx.command.usage}\n**•**\nЭсли, у вас есть какие-то вопросы, вы можете их спросить на нашем сервере [поддержки](https://comingsoon.gg).')
             return await ctx.send(embed=embed)
         else:
            channel = self.bot.get_channel(872078345137979434)
