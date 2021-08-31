@@ -5,7 +5,11 @@ from nextcord.ext.commands import cooldown, BucketType
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
-    @commands.command(name="mute", aliases=['мьют', 'мут'])
+    @commands.command(
+        name="mute",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`mute [участник] <причина>`",
+        aliases=['мьют', 'мут']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
@@ -65,7 +69,11 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
         await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
-    @commands.command(name="unmute", aliases=['размьют', 'размут'])
+    @commands.command(
+        name="unmute",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`unmute [участник]`",
+        aliases=['размьют', 'размут']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
@@ -95,7 +103,11 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed=embed)
         await member.send(f"Вы были размьючены в {ctx.message.guild}!")
         await ctx.message.add_reaction('✅')
-    @commands.command(name='kick', aliases=['кикнуть', 'кик', 'вигнать'])
+    @commands.command(
+        name='kick',
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`kick [участник] <причина>`",
+        aliases=['кикнуть', 'кик', 'вигнать']
+        )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
@@ -148,7 +160,11 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send(embed=embed)
         await member.send(f"Вы были кикнуты в {ctx.message.guild}, модератором {ctx.message.author}!")
         await ctx.message.add_reaction('✅')
-    @commands.command(name="ban", aliases=['бан'])
+    @commands.command(
+        name="ban",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`ban [участник] <причина>`",
+        aliases=['бан']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
@@ -205,7 +221,11 @@ class moderation(commands.Cog, name="moderation"):
         await context.send(embed=embed)
         await ctx.message.add_reaction('✅')
         await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
-    @commands.command(name="idban", aliases=['идбан', 'айдибан', 'idбан'])
+    @commands.command(
+        name="idban",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`idban [участник] <причина>`",
+        aliases=['идбан', 'айдибан', 'idбан']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
@@ -237,7 +257,11 @@ class moderation(commands.Cog, name="moderation"):
         )
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
-    @commands.command(name="unban", aliases=['разбан'])
+    @commands.command(
+        name="unban",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`unban [id забаненого]`",
+        aliases=['разбан']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
@@ -254,7 +278,11 @@ class moderation(commands.Cog, name="moderation"):
             return
         await ctx.send(embed = nextcord.Embed(title='Успешно!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
         await ctx.message.add_reaction('✅')
-    @commands.command(name="clear", aliases=['очистить'])
+    @commands.command(
+        name="clear",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`clear [число сообщений для удаления]`",
+        aliases=['очистить']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_messages=True)
     @commands.has_permissions(manage_messages=True, manage_channels=True)
@@ -290,7 +318,11 @@ class moderation(commands.Cog, name="moderation"):
         )
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
-    @commands.command(aliases=["cln"])
+    @commands.command(
+        name="clone",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`clone <канал>`",
+        aliases=["cln", "очистить"]
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
@@ -300,7 +332,11 @@ class moderation(commands.Cog, name="moderation"):
         """
         await channel.clone(reason=f"{channel.name}({ctx.author})")
         await ctx.send("Канал <#{channel.id}> клонирован!")
-    @commands.command(alias=['слоумод'])
+    @commands.command(
+        name="slowmode",
+        usage="[] - обязательный аргумент.\n<> - необязательный.\n`slowmode [частота слоумода] <канал>`",
+        alias=['слоумод']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
