@@ -60,7 +60,16 @@ async def on_ready():
     info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
     client.loop.create_task(status_task())
- 
+ import keyboard  # using module keyboard
+while True:  # making a loop
+    try:  # used try so that if user pressed other than the given key error will not be shown
+        if keyboard.is_pressed('q'):  # if key 'q' is pressed 
+            print('You Pressed A Key!')
+            break  # finishing the loop
+        else:
+            pass
+    except:
+        break  # if user 
 if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
