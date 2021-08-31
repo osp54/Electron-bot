@@ -95,7 +95,11 @@ class events(commands.Cog):
                 color=0xFF0000
             ).add_field(
                 name="Использование",
-                value=f'{ctx.command.usage}\n**•**\nЭсли, у вас есть какие-то вопросы, вы можете их спросить на нашем сервере [поддержки](https://comingsoon.gg).')
+                value=ctx.command.usage
+            ).add_field(
+                name="Алиасы(под-имена)",
+                value=ctx.command.aliases
+            )
             return await ctx.send(embed=embed)
         else:
            channel = self.bot.get_channel(872078345137979434)
@@ -118,7 +122,6 @@ class events(commands.Cog):
            await channel.send(embed=embed)
     @commands.Cog.listener()
     async def on_command_completion(self, ctx):
-        channel = self.bot.get_channel(872078345137979434)
-        await channel.send(ctx.command)
+        pass #TODO: Подсчёт вызванных команд.
 def setup(bot):
     bot.add_cog(events(bot))
