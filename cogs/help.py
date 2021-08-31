@@ -21,7 +21,7 @@ class help(commands.Cog, name="help"):
             command_description = [command.help for command in commands]
             help_text = '\n'.join(f'`{n}` - {h}' for n, h in zip(command_list, command_description))
             embed.add_field(name=i.capitalize(), value=f'{help_text}', inline=False)
-        embed.set_footer(text=f'Запрошено: {ctx.author.name}')
+        embed.set_footer(text=f'Запрошено: {ctx.author.display_name}')
         await ctx.send(embed=embed)
 def setup(bot):
     bot.add_cog(help(bot))
