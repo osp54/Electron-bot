@@ -321,7 +321,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.command(
         name="clone",
         usage="[] - обязательный аргумент.\n<> - необязательный.\n`clone <канал>`",
-        aliases=["cln", "очистить"]
+        aliases=["клон"]
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
