@@ -7,7 +7,7 @@ class moderation(commands.Cog, name="moderation"):
         self.bot = bot
     @commands.command(
         name="mute",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`mute [участник] <причина>`",
+        usage="`mute [участник] <причина>`",
         aliases=['мьют', 'мут']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -71,7 +71,7 @@ class moderation(commands.Cog, name="moderation"):
         await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
     @commands.command(
         name="unmute",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`unmute [участник]`",
+        usage="`unmute [участник]`",
         aliases=['размьют', 'размут']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -105,7 +105,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.message.add_reaction('✅')
     @commands.command(
         name='kick',
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`kick [участник] <причина>`",
+        usage="`kick [участник] <причина>`",
         aliases=['кикнуть', 'кик', 'вигнать']
         )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -162,7 +162,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.message.add_reaction('✅')
     @commands.command(
         name="ban",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`ban [участник] <причина>`",
+        usage="`ban [участник] <причина>`",
         aliases=['бан']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -223,7 +223,7 @@ class moderation(commands.Cog, name="moderation"):
         await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
     @commands.command(
         name="idban",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`idban [участник] <причина>`",
+        usage="`idban [участник] <причина>`",
         aliases=['идбан', 'айдибан', 'idбан']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -259,7 +259,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.message.add_reaction('✅')
     @commands.command(
         name="unban",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`unban [id забаненого]`",
+        usage="`unban [id забаненого]`",
         aliases=['разбан']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -280,7 +280,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.message.add_reaction('✅')
     @commands.command(
         name="clear",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`clear [число сообщений для удаления]`",
+        usage="`clear [число сообщений для удаления]`",
         aliases=['очистить']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -320,7 +320,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.message.add_reaction('✅')
     @commands.command(
         name="clone",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`clone <канал>`",
+        usage="`clone <канал>`",
         aliases=["клон"]
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -334,7 +334,7 @@ class moderation(commands.Cog, name="moderation"):
         await ctx.send("Канал <#{channel.id}> клонирован!")
     @commands.command(
         name="slowmode",
-        usage="[] - обязательный аргумент.\n<> - необязательный.\n`slowmode [частота слоумода] <канал>`",
+        usage="`slowmode [частота слоумода] <канал>`",
         alias=['слоумод']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
