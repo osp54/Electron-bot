@@ -40,9 +40,8 @@ class events(commands.Cog):
                     color=0x006EEF
                 ).add_field(
                     name="Features",
-                    value="Auto remove scam links like 'free nitro'! Music! And much more."
-                ).set_footer(text="All rights reserved | ElectronBot.tk")
-                await channel.send(embed=embed)
+                    value="Auto remove scam links like 'free nitro'! Music! And much more.")
+                await ctx.send(embed=embed)
             break
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
@@ -99,7 +98,7 @@ class events(commands.Cog):
             )
             aliase = '('
             for alias in ctx.command.aliases:
-                aliase += alias
+                aliase += alias + " "
             embed.add_field(
                 name="Алиасы(под-имена)",
                 value=f"{aliase})"
