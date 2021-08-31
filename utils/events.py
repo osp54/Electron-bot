@@ -96,9 +96,13 @@ class events(commands.Cog):
             ).add_field(
                 name="Использование",
                 value=ctx.command.usage
-            ).add_field(
+            )
+            aliase = '('
+            for alias in ctx.command.aliases:
+                aliase += alias
+            embed.add_field(
                 name="Алиасы(под-имена)",
-                value=ctx.command.aliases
+                value=f"{aliase})"
             )
             return await ctx.send(embed=embed)
         else:
