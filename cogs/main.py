@@ -9,7 +9,11 @@ from nextcord.ext.commands import cooldown, BucketType
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-    @commands.command(aliases=['префикс'])
+    @commands.command(
+        name="setprefix",
+        usage="`setprefix [новый префикс]`",
+        aliases=['префикс']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, prefix):
@@ -22,29 +26,47 @@ class main(commands.Cog, name="main"):
                 description="У этого сервера уже установлен такой префикс!",
                 color=0xE02B2B
             )
-            await ctx.send(embed=embed)
-            return
+            return await ctx.send(embed=embed)
         with open("prefixes.json", "r") as f:
             prefixes = json.load(f)
         prefixes[str(ctx.guild.id)] = prefix
         with open("prefixes.json", "w") as f:
             json.dump(prefixes, f, indent=4)
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
-        await ctx.send(f"Prefix changed to: {prefix}")
-    @commands.command(aliases=['язык'])
+        eembed = nexcord.Embed(
+            name="Успешно",
+            description=f"Префикс изменен на: {ctx.prefix}",
+            color=0x42F56C
+        ).set_footer(text="С каждым изменением префикса, я свой никнейм меняю на `[Новый префикс] Electron Bot`!")
+        await ctx.send(embed=eembed)
+    @commands.command(
+        name="setlang",
+        usage="`setlang [язык]`",
+        aliases=['язык']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def setlang(self, ctx, lang):
         """
         Изменить язык бота.
         """
+        
         with open("guildlang.json", "r") as f:
             guildlang = json.load(f)
         guildlang[str(ctx.guild.id)] = lang
         with open("guildlang.json", "w") as f:
             json.dump(guildlang, f, indent=4)
-        await ctx.send(f"Prefix changed to: {lang}")
-    @commands.command(name="avatar", aliases=['аватар'])
+        embed = nexcord.Embed(
+            name="Успешно",
+            description=f"Язык изменен на: {ctx.prefix}",
+            color=0x42F56C
+        )
+        await ctx.send(embed=embed)
+    @commands.command(
+        name="avatar",
+        usage="`avatar <участник>`",
+        aliases=['аватар']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def avatar(self, ctx, member: nextcord.Member = None):
         """
@@ -58,7 +80,11 @@ class main(commands.Cog, name="main"):
         )
         embed.set_image(url=member.avatar.url)
         await ctx.send(embed=embed)
-    @commands.command(aliases=["эмодзи_инфо", "emoteinfo"])
+    @commands.command(
+        name="emoji",
+        usage="`emoji [эмодзи]`",
+        aliases=["эмодзи_инфо", "эмодзи", "эмоция", "emoteinfo"]
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def emoji(self, ctx, emoji: nextcord.Emoji):
         """
@@ -77,9 +103,13 @@ class main(commands.Cog, name="main"):
         )
         embed.add_field(name="URL", value=f"[Здесь]({emoji.url})")
         await ctx.send(embed=embed)
-    @commands.command(aliases=["guildinfo", "сервер"])
+    @commands.command(
+        name="guild",
+        usage="`guild`",
+        aliases=["guildinfo", "guild", "сервер"]
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def serverinfo(self, ctx):
+    async def guild(self, ctx):
         """Информация об этом сервере."""
         guild = ctx.guild
         guild_owner = self.bot.get_user(guild.owner_id)
@@ -107,8 +137,12 @@ class main(commands.Cog, name="main"):
         embed.add_field(name="Features", value=features)
         embed.set_thumbnail(url=guild.icon.url)
         await ctx.send(embed=embed)
-    @commands.command(aliases=['ci', 'канал'])
-    async def channelinfo(self, ctx, channel: nextcord.TextChannel = None):
+    @commands.command(
+        name="channel",
+        usage="`channel <канал>`",
+        aliases=['канал', 'channelinfo']
+    )
+    async def channel(self, ctx, channel: nextcord.TextChannel = None):
         """
         Информация о текущем/другом канале.
         """
@@ -131,7 +165,11 @@ class main(commands.Cog, name="main"):
             )
         
         await ctx.send(embed=embed)
-    @commands.command(name="poll", aliases=['опрос'])
+    @commands.command(
+       name="poll",
+       usage="poll [заголовок]",
+       aliases=['опрос']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def poll(self, ctx, *, title):
         """
