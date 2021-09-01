@@ -21,16 +21,6 @@ class music(commands.Cog, name="music"):
     async def on_play(self, ctx, player):
         await ctx.send(f"Играет `{player}`\n{player.data['webpage_url']}")
 
-    @commands.command(aliases=['присоед.'])
-    @commands.cooldown(1, 2, commands.BucketType.user)
-    async def join(self, ctx):
-        """
-        Присоединиться к голосовому каналу.
-        """
-        if await self.MusicManager.join(ctx):
-            await ctx.send("Присоединился к голосовому каналу.")
-            await ctx.message.add_reaction('✅')
-
     @commands.command(aliases=['выйти'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def leave(self, ctx):
@@ -41,7 +31,10 @@ class music(commands.Cog, name="music"):
             await ctx.send("Вышел из голосового канала.")
             await ctx.message.add_reaction('✅')
 
-    @commands.command(aliases=['проиграть'])
+    @commands.command(
+        name="play",
+        usage="`play [название песни/ссылка]`",
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def play(self, ctx, *, query: str):
         """
@@ -60,7 +53,11 @@ class music(commands.Cog, name="music"):
         else:
             await ctx.send("Запрос не найден.")
 
-    @commands.command(aliases=['скип'])
+    @commands.command(
+        name="skip",
+        usage="skip",
+        aliases=['скип']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skip(self, ctx, index: int = None):
         """
@@ -69,7 +66,11 @@ class music(commands.Cog, name="music"):
         await self.MusicManager.skip(ctx, index)
         await ctx.message.add_reaction('✅')
 
-    @commands.command(aliases=['си', 'сейчас играет', 'now playing'])
+    @commands.command(
+        name="np",
+        usage="`np`",
+        aliases=['сейчас_играет', 'now_playing']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def np(self, ctx):
         """
@@ -77,7 +78,11 @@ class music(commands.Cog, name="music"):
         """
         await ctx.send(f"Сейчас играет: `{await self.MusicManager.now_playing(ctx)}`")
 
-    @commands.command()
+    @commands.command(
+        name="volume",
+        usage="`volume [частота звука]`",
+        aliases=['громкость']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def volume(self, ctx, volume: int):
         """
@@ -86,19 +91,37 @@ class music(commands.Cog, name="music"):
         await self.MusicManager.volume(ctx, volume)
         await ctx.message.add_reaction('✅')
 
-    @commands.command()
+    @commands.command(
+        name="loop",
+        usage="`loop`",
+        aliases=['зациклить']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def loop(self, ctx):
+        """
+        Зациклить текущую песню.
+        """
         is_loop = await self.MusicManager.loop(ctx)
         await ctx.send(f"Looping toggled to `{is_loop}`")
         await ctx.message.add_reaction('✅')
-    @commands.command()
+    @commands.command(
+        name="queueloop",
+        usage="`queueloop`",
+        aliases=['цикл_очередь']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def queueloop(self, ctx):
+        """
+        Зациклить текущую очередь.
+        """
         is_loop = await self.MusicManager.queueloop(ctx)
         await ctx.send(f"Queue looping toggled to `{is_loop}`")
         await ctx.message.add_reaction('✅')
-    @commands.command(aliases=['история'])
+    @commands.command(
+        name="history",
+        usage="`history`",
+        aliases=['история']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def history(self, ctx):
         """
@@ -113,7 +136,11 @@ class music(commands.Cog, name="music"):
         page_manager = PageManager(ctx, embeds, public=True)
         await page_manager.run()
 
-    @commands.command(aliases=['очередь'])
+    @commands.command(
+        name="queue",
+        usage="`queue`",
+        aliases=['очередь']
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def queue(self, ctx):
         """
