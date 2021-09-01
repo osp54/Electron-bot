@@ -1,9 +1,7 @@
 import nextcord
-import random
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
-colors = ['0xBADD02', '0x10DD02', '0x02DDDC', '0x1466E1', '0xFF0000', 'CA0EAC', 'CA770E']
-color = random.choice(colors)
+
 class help(commands.Cog, name="help"):
     def __init__(self, bot):
         self.bot = bot
@@ -14,7 +12,7 @@ class help(commands.Cog, name="help"):
         Список всех команд
         """
         if command is None:
-            embed = nextcord.Embed(title="Список доступных команд",  color=color)
+            embed = nextcord.Embed(title="Список доступных команд",  color=0x2B95FF)
             embed.add_field(name="Префикс", value=ctx.prefix)
             cogs = ("Main", "Moderation", "Music")
             for i in cogs:
@@ -37,7 +35,7 @@ class help(commands.Cog, name="help"):
             return await ctx.send(embed=eembed)
         cembed = nextcord.Embed(
             title=cmd.name.capitalize(),
-            color=color
+            color=0x2B95FF
         ).add_field(
             name="Использование",
             value=cmd.usage
