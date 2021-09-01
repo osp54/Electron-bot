@@ -106,7 +106,7 @@ class main(commands.Cog, name="main"):
     @commands.command(
         name="guild",
         usage="`guild`",
-        aliases=["guildinfo", "guild", "сервер"]
+        aliases=["guildinfo", "сервер"]
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def guild(self, ctx):
