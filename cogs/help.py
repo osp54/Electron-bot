@@ -24,29 +24,30 @@ class help(commands.Cog, name="help"):
                 embed.add_field(name=i.capitalize(), value=f'{help_text}', inline=False)
             embed.set_footer(text=f'Запрошено: {ctx.author.display_name}')
             await ctx.send(embed=embed)
-        try:
-            cmd = self.bot.get_command(command)
-        except:
-            eembed = nextcord.Embed(
-                title="Ошибка",
-                description="Команда не найдена 🧐",
-                color=0xFF0000
+        if command is not None:
+            try:
+                cmd = self.bot.get_command(command)
+            except:
+                eembed = nextcord.Embed(
+                    title="Ошибка",
+                    description="Команда не найдена 🧐",
+                    color=0xFF0000
+                )
+                return await ctx.send(embed=eembed)
+            cembed = nextcord.Embed(
+                title=cmd.name.capitalize(),
+                color=0x2B95FF
+            ).add_field(
+                name="Использование",
+                value=cmd.usage
             )
-            return await ctx.send(embed=eembed)
-        cembed = nextcord.Embed(
-            title=cmd.name.capitalize(),
-            color=0x2B95FF
-        ).add_field(
-            name="Использование",
-            value=cmd.usage
-        )
-        aliase = '('
-        for alias in cmd.aliases:
-            aliase += f" `{alias}` "
-        cembed.add_field(
-            name="Алиасы(под-имена)",
-            value=f"{aliase})"
-        )
-        await ctx.send(embed=cembed)
+            aliase = '('
+            for alias in cmd.aliases:
+                aliase += f" `{alias}` "
+            cembed.add_field(
+                name="Алиасы(под-имена)",
+                value=f"{aliase})"
+            )
+            await ctx.send(embed=cembed)
 def setup(bot):
     bot.add_cog(help(bot))
