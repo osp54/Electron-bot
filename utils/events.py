@@ -126,7 +126,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, old, new):
         try:
-            if new.startswith(get_prefix(self.bot, new)):
+            if new.content.startswith(get_prefix(self.bot, new)):
                 await self.bot.process_commands(new)
         except:
             return
