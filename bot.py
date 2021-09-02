@@ -64,5 +64,5 @@ if __name__ == "__main__":
     client.load_extension("jishaku")
     load_extensions("./cogs") #когсы командc
     load_extensions("./utils") #когсы утилит/ивентов
-    load_extensions("./cogs/slash")
+    load_extensions("./slash")
 client.run(settings['token'])
