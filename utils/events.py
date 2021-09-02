@@ -124,6 +124,12 @@ class events(commands.Cog):
            )
            await channel.send(embed=embed)
     @commands.Cog.listener()
+    async def on_message_edit(self, old, new):
+        try:
+            await self.bot.process_commands(new)
+        except:
+            return
+    @commands.Cog.listener()
     async def on_command_completion(self, ctx):
         pass #TODO: Подсчёт вызванных команд.
 def setup(bot):
