@@ -31,10 +31,6 @@ ffmpegopts = {
 
 ytdl = YoutubeDL(ytdlopts)
 
-if not discord.opus.is_loaded():
-    discord.opus.load_opus('libopus.so')
-
-
 class VoiceConnectionError(commands.CommandError):
     """Custom Exception class for connection errors."""
 
