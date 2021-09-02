@@ -8,7 +8,7 @@ import traceback
 from async_timeout import timeout
 from functools import partial
 from youtube_dl import YoutubeDL
-from discord.ext.commands.cooldowns import BucketType
+from discord.ext.commands.cooldown import BucketType
 
 ytdlopts = {
     'format': 'bestaudio/best',
