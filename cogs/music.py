@@ -56,7 +56,7 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def join(self, ctx, *, channel: nextcord.VoiceChannel):
+    async def join(self, ctx, *, channel: nextcord.VoiceChannel = None):
         """Joins a voice channel"""
 
         if ctx.voice_client is not None:
