@@ -244,7 +244,7 @@ class MusicPlayer:
                 self._guild.voice_client.play(source, after=lambda _: self.bot.loop.call_soon_threadsafe(self.next.set))
             except Exception:
                 continue
-            embednps = discord.Embed(color=self.bot.color)
+            embednps = discord.Embed(color=0x4000)
             embednps.add_field(name="Song title:", value=f"```fix\n{source.title}```", inline=False)
             embednps.add_field(name="Requested by:", value=f"**{source.requester}**", inline=True)
             embednps.add_field(name="Song URL:", value=f"**[URL]({source.web_url})**", inline=True)
