@@ -1,8 +1,6 @@
-
 import nextcord
 from dislash import slash_command, ActionRow
 from nextcord.ext import commands
-from nextcord.ext.commands import cooldown, BucketType
 
 class slashmoderation(commands.Cog):
     def __init__(self, bot):
