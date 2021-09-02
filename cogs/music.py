@@ -271,7 +271,7 @@ class MusicPlayer:
         """Disconnect and cleanup the player."""
         return self.bot.loop.create_task(self._cog.cleanup(guild))
 
-class Music(commands.Cog):
+class music(commands.Cog):
     """Music related commands."""
 
     __slots__ = ('bot', 'players', 'musictwo', 'music_controller')
@@ -439,4 +439,4 @@ class Music(commands.Cog):
         await ctx.send(embed=embed)
 
 def setup(bot):
-    bot.add_cog(Music(bot))
+    bot.add_cog(music(bot))
