@@ -1,5 +1,6 @@
 import colorama
 import pendulum
+import nextcord
 import json
 from colorama import init, Fore, Back, Style
 def get_prefix(client, message):
@@ -15,3 +16,20 @@ def error(desc):
 
 def format_name(name: str) -> str:
     return name.replace("_", " ").title().strip()
+
+class Confirm(nextcord.ui.View):
+    def __init__(self):
+        super().__init__()
+        self.value = None
+
+    @nextcord.ui.button(label='Confirm', style=nextcord.ButtonStyle.green)
+    async def confirm(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        await interaction.response.send_message('Готово.', ephemeral=True)
+        self.value = True
+        self.stop()
+
+    @nextcord.ui.button(label='Cancel', style=nextcord.ButtonStyle.grey)
+    async def cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        await interaction.response.send_message('Отклонено.', ephemeral=True)
+        self.value = False
+        self.stop()

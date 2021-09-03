@@ -33,6 +33,16 @@ class owner(commands.Cog, name="owner"):
     async def say(self, ctx,*, message=None):
         await ctx.message.delete()
         await ctx.send(message)
-
+@bot.command()
+async def ask(ctx):
+        view = functions.Confirm()
+        await ctx.send('Do you want to continue?', view=view)
+        await view.wait()
+       if view.value is None:
+            print('Timed out...')
+        elif view.value:
+            print('Confirmed...')
+        else:
+            print('Cancelled...')
 def setup(bot):
     bot.add_cog(owner(bot))
