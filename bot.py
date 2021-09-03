@@ -7,8 +7,7 @@ import platform
 import colorama
 import logging
 import asyncio
-import signal
-from functions import error, info, get_prefix
+from utils.misc import error, info, get_prefix
 from colorama import init, Fore, Back, Style
 from config import settings
 from nextcord.ext import commands
