@@ -277,7 +277,7 @@ class music(commands.Cog):
     __slots__ = ('bot', 'players', 'musictwo', 'music_controller')
 
     def __init__(self, bot):
-        self.bot = bot
+        self.bot = ctx.bot
         self.players = {}
 
     async def cleanup(self, guild):
