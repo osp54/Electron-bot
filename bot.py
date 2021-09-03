@@ -24,7 +24,7 @@ logger.setLevel(logging.WARNING)
 #загрузить все расширения из папки
 def load_extensions(dir):
     for file in os.listdir(dir):
-        if file.endswith(".py"):
+        if file.endswith(".py") and not file.startswith("misc"):
             extension = file[:-3]
             try:
                 client.load_extension(f"{dir[2:]}.{extension}")
