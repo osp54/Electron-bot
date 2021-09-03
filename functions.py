@@ -18,7 +18,7 @@ def format_name(name: str) -> str:
     return name.replace("_", " ").title().strip()
 
 class Confirm(nextcord.ui.View):
-    def __init__(self):
+    def __init__(self, user):
         super().__init__()
         self.value = None
         self.user = user
@@ -37,4 +37,4 @@ class Confirm(nextcord.ui.View):
             return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
         await interaction.response.send_message('Отклонено.', ephemeral=True)
         self.value = False
-        self.stop()
+        self.stop() 
