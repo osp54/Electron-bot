@@ -34,15 +34,13 @@ class owner(commands.Cog, name="owner"):
         await ctx.message.delete()
         await ctx.send(message)
     @commands.command()
-    async def ask(self, ctx):
+    @commands.is_owner()
+    async def shutdown(self, ctx):
         view = Confirm(ctx.message.author)
-        await ctx.send('Do you want to continue?', view=view)
+        await ctx.send('Точно?!', view=view)
         await view.wait()
-        if view.value is None:
-            print('Timed out...')
-        elif view.value:
-            print('Confirmed...')
-        else:
-            print('Cancelled...')
+        if view.value:
+            info(f'{ctx.message.author} off the bot!')
+            await self.bot.logout()
 def setup(bot):
     bot.add_cog(owner(bot))
