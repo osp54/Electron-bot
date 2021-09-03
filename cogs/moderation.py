@@ -31,7 +31,7 @@ class moderation(commands.Cog, name="moderation"):
             fordel = await ctx.send(embed=embed, view=view)
             await view.wait()
         if view.value:
-            fordel.delete()
+            await fordel.delete()
             return
         if member.guild_permissions.administrator:
             embed = nextcord.Embed(
