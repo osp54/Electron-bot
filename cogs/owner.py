@@ -35,7 +35,7 @@ class owner(commands.Cog, name="owner"):
         await ctx.send(message)
     @commands.command()
     async def ask(self, ctx):
-        view = Confirm(user)
+        view = Confirm(ctx.message.author)
         await ctx.send('Do you want to continue?', view=view)
         await view.wait()
         if view.value is None:
