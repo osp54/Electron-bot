@@ -37,4 +37,4 @@ class Confirm(nextcord.ui.View):
             return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
         await interaction.response.send_message('Отклонено.', ephemeral=True)
         self.value = False
-        self.stop() 
+        self.stop()
