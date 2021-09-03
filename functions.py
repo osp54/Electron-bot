@@ -21,6 +21,7 @@ class Confirm(nextcord.ui.View):
     def __init__(self):
         super().__init__()
         self.value = None
+        self.user = user
 
     @nextcord.ui.button(label='Confirm', style=nextcord.ButtonStyle.green)
     async def confirm(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
