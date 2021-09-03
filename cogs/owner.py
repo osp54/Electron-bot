@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from functions import error, info
+from functions import error, info, Confirm
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
