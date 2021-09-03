@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 from colorama import init, Fore, Back, Style
-from functions import error, info
+from utils.misc import error, info
 class logging(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
