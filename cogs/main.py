@@ -3,7 +3,7 @@ import json
 import datetime
 import humanize
 from nextcord.ext import commands
-from functions import format_name
+from utils.misc import format_name
 from nextcord.ext.commands import cooldown, BucketType
 
 class main(commands.Cog, name="main"):
