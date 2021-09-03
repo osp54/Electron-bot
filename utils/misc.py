@@ -32,7 +32,7 @@ class Confirm(nextcord.ui.View):
         self.value = True
         self.stop()
 
-    @nextcord.ui.button(emoji='❌', style=nextcord.ButtonStyle.red)
+    @nextcord.ui.button(emoji='❌', style=nextcord.ButtonStyle.gray)
     async def cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         if interaction.user.id != self.user.id:
             return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
