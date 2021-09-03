@@ -41,6 +41,6 @@ class owner(commands.Cog, name="owner"):
         await view.wait()
         if view.value:
             info(f'{ctx.message.author} off the bot!')
-            await self.bot.logout()
+            await exit(-1)
 def setup(bot):
     bot.add_cog(owner(bot))
