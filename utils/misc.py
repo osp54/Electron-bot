@@ -39,16 +39,3 @@ class Confirm(nextcord.ui.View):
         await interaction.response.send_message('Отклонено.', ephemeral=True)
         self.value = False
         self.stop()
-
-class Delete(nextcord.ui.View):
-    def __init__(self, user):
-        super().__init__()
-        self.value = None
-        self.user = user
-    @nextcord.ui.button(emoji='❌', style=nextcord.ButtonStyle.red)
-    async def cconfirm(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        if interaction.user.id != self.user.id:
-            return await interaction.response.send_message('Вы не автор данного сообщения.', ephemeral=True)
-        await interaction.response.send_message('Сообщение удалено.', ephemeral=True)
-        self.value = True
-        self.stop()
