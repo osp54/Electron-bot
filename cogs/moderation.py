@@ -1,4 +1,5 @@
 import nextcord
+from utils.misc import Delete
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
 
@@ -17,6 +18,7 @@ class moderation(commands.Cog, name="moderation"):
         """
         Замьютить пользователя на сервере.
         """
+        view = Delete(ctx.message.author)
         guild = ctx.guild
         mutedRole = nextcord.utils.get(guild.roles, name="Muted")
         if ctx.author.id == member.id:
@@ -26,7 +28,10 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.message.add_reaction('❌')
-            return await ctx.send(embed=embed)
+            fordel = await ctx.send(embed=embed, view=view)
+        if view.value:
+            fordel.delete()
+            return
         if member.guild_permissions.administrator:
             embed = nextcord.Embed(
                 title="Ошибка",
@@ -66,7 +71,7 @@ class moderation(commands.Cog, name="moderation"):
             color=0x42F56C
         )
         embed.add_field(name="Причина:", value=reason, inline=False)
-        await ctx.send(embed=embed)
+        eembed = await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
         await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
     @commands.command(
