@@ -28,11 +28,7 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.message.add_reaction('❌')
-            fordel = await ctx.send(embed=embed, view=view)
-            await view.wait()
-        if view.value:
-            await fordel.delete()
-            return
+            return await ctx.send(embed=embed)
         if member.guild_permissions.administrator:
             embed = nextcord.Embed(
                 title="Ошибка",
@@ -72,7 +68,7 @@ class moderation(commands.Cog, name="moderation"):
             color=0x42F56C
         )
         embed.add_field(name="Причина:", value=reason, inline=False)
-        eembed = await ctx.send(embed=embed)
+        await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
         await member.send(f"Вы были замьючены в: {ctx.message.guild} причина: {reason}")
     @commands.command(
