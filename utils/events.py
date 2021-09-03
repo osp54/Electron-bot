@@ -1,6 +1,6 @@
 import nextcord
 import json
-from functions import get_prefix
+from utils.misc import get_prefix
 from nextcord.ext import commands
 
 electron = ['Electron', 'electron', 'ELECTRON', 'Электрон', 'электрон', 'ЭЛЕКТРОН']
