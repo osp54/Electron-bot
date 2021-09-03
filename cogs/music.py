@@ -132,7 +132,7 @@ class MusicPlayer:
                         'ℹ': 'queue',
                         '❔': 'tutorial'}
 
-        self.bot = bot
+        self.bot = ctx.bot
         self._guild = ctx.guild
         self._ctxs = ctx
         self._channel = ctx.channel
@@ -277,7 +277,7 @@ class music(commands.Cog):
     __slots__ = ('bot', 'players', 'musictwo', 'music_controller')
 
     def __init__(self, bot):
-        self.bot = ctx.bot
+        self.bot = bot
         self.players = {}
 
     async def cleanup(self, guild):
