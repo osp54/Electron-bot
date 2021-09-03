@@ -38,7 +38,7 @@ class owner(commands.Cog, name="owner"):
         view = functions.Confirm()
         await ctx.send('Do you want to continue?', view=view)
         await view.wait()
-       if view.value is None:
+        if view.value is None:
             print('Timed out...')
         elif view.value:
             print('Confirmed...')
