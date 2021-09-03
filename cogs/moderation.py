@@ -29,6 +29,7 @@ class moderation(commands.Cog, name="moderation"):
             )
             await ctx.message.add_reaction('❌')
             fordel = await ctx.send(embed=embed, view=view)
+            await view.wait()
         if view.value:
             fordel.delete()
             return
