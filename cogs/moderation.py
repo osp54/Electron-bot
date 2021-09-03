@@ -1,5 +1,4 @@
 import nextcord
-from utils.misc import Delete
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
 
