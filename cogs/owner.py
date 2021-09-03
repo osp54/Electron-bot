@@ -33,8 +33,8 @@ class owner(commands.Cog, name="owner"):
     async def say(self, ctx,*, message=None):
         await ctx.message.delete()
         await ctx.send(message)
-@bot.command()
-async def ask(ctx):
+    @commands.command()
+    async def ask(self, ctx):
         view = functions.Confirm()
         await ctx.send('Do you want to continue?', view=view)
         await view.wait()
