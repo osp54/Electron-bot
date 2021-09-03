@@ -24,12 +24,16 @@ class Confirm(nextcord.ui.View):
 
     @nextcord.ui.button(label='Confirm', style=nextcord.ButtonStyle.green)
     async def confirm(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        if interaction.user.id != self.user.id:
+            return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
         await interaction.response.send_message('Готово.', ephemeral=True)
         self.value = True
         self.stop()
 
     @nextcord.ui.button(label='Cancel', style=nextcord.ButtonStyle.grey)
     async def cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        if interaction.user.id != self.user.id:
+            return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
         await interaction.response.send_message('Отклонено.', ephemeral=True)
         self.value = False
         self.stop()
