@@ -8,7 +8,7 @@ class darkdustry(commands.Cog):
         self.bot = bot
         self.server = pydustry.Server('mindurka.tk', server_port = 6567, socketinput_port = 6859)
     @commands.command()
-    @commands.has_permission(administrator=True)
+    @commands.has_permissions(administrator=True)
     async def restart(self, ctx):
         self.server.send_command('rr')
 def setup(bot):
