@@ -10,7 +10,7 @@ class darkdustry(commands.Cog):
     @commands.command()
     @commands.has_role(869879808216150057)
     async def restart (self, ctx):
-        server.send_command('rr')
+        self.server.send_command('rr')
         await ctx.send(f"Сервер `{self.server.get_status()['name']}` перезапущен!")
     @commands.command()
     @commands.has_role(869879808216150057)
