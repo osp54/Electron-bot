@@ -29,6 +29,6 @@ class darkdustry(commands.Cog):
             self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
         elif server == 'siege':
             self.server = pydustry.Server('localhost', server_port = 8000, socketinput_port = 8001)
-        await process_commands(command)¶
+        await process_commands(command)
 def setup(bot):
     bot.add_cog(darkdustry(bot))
