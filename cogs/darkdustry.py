@@ -6,14 +6,29 @@ from nextcord.ext.commands import cooldown, BucketType
 class darkdustry(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
-    @commands.group()
+        self.server = None
+    @commands.command()
     @commands.has_role(869879808216150057)
-    async def server(self, ctx):
-        pass
-    @server.command()
+    async def restart (self, ctx):
+        server.send_command('rr')
+        await ctx.send(f"Сервер `{self.server.get_status()['name']}` перезапущен!")
+    @commands.command()
     @commands.has_role(869879808216150057)
-    async def test(self, ctx):
-        self.server.send_command('rr')
+    async def server(self, ctx, server = None, command, *, args = None):
+        if server is None:
+            return await ctx.send("Сервера: `sand`, `attack`, `surv`, `pvp`, `td`, `hexed`, `siege`")
+        elif server == 'test':
+            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
+        elif server == 'attack':
+            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
+        elif server == 'surv':
+            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
+        elif server == 'pvp':
+            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
+        elif server == 'td':
+            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
+        elif server == 'siege':
+            self.server = pydustry.Server('localhost', server_port = 8000, socketinput_port = 8001)
+        await process_commands(command)¶
 def setup(bot):
     bot.add_cog(darkdustry(bot))
