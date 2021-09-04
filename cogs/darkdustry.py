@@ -14,7 +14,7 @@ class darkdustry(commands.Cog):
         await ctx.send(f"Сервер `{self.server.get_status()['name']}` перезапущен!")
     @commands.command()
     @commands.has_role(869879808216150057)
-    async def server(self, ctx, server = None, command, *, args = None):
+    async def server(self, ctx, server = None, command = None, *, args = None):
         if server is None:
             return await ctx.send("Сервера: `sand`, `attack`, `surv`, `pvp`, `td`, `hexed`, `siege`")
         elif server == 'test':
