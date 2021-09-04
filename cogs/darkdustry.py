@@ -16,7 +16,7 @@ class darkdustry(commands.Cog):
     @commands.has_role(869879808216150057)
     async def server(self, ctx, server = None, command = None, *, args = None):
         if server is None:
-            return await ctx.send("Сервера: `sand`, `attack`, `surv`, `pvp`, `td`, `hexed`, `siege`")
+            await ctx.send("Сервера: `sand`, `attack`, `surv`, `pvp`, `td`, `hexed`, `siege`")
         elif server == 'test':
             self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
         elif server == 'attack':
