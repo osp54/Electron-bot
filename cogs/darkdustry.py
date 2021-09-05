@@ -11,11 +11,10 @@ class darkdustry(commands.Cog):
     async def on_message(self, message):
         if '0000' in message.author.discriminator:
             return
-        message = message.content.replace('\n', '')
         channel = self.bot.get_channel(871410960986939473)
         self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
         if message.channel.id == channel.id:
-            self.server.send_command(f'say {message.author} -› {message.content}')
+            self.server.send_command(f'say {message.author} -› {message.content.replace('\n', '')}')
     @commands.command()
     @commands.has_role(869879808216150057)
     async def restart (self, ctx, server = None):
