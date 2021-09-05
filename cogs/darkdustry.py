@@ -22,7 +22,7 @@ class darkdustry(commands.Cog):
                 await message.add_reaction('✅')
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                await ctx.send(exception)
+                await channel.send(exception)
                 await message.add_reaction('❌')
     @commands.command()
     @commands.has_role(869879808216150057)
