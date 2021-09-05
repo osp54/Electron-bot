@@ -19,11 +19,11 @@ class darkdustry(commands.Cog):
                 return
             try:
                 self.server.send_command(f'say {message.author} -› {mmessage}')
+                await message.add_reaction('✅')
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 await ctx.send(exception)
-            finally:
-                await message.add_reaction('✅')
+                await message.add_reaction('❌')
     @commands.command()
     @commands.has_role(869879808216150057)
     async def restart (self, ctx, server = None):
