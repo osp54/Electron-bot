@@ -7,7 +7,7 @@ class darkdustry(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.server = None
-    @commamds.Cog.listener()
+    @commands.Cog.listener()
     async def on_message(self, message):
         channel = self.bot.get_channel(871410960986939473)
         self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
