@@ -9,8 +9,6 @@ class darkdustry(commands.Cog):
         self.server = None
     @commands.Cog.listener()
     async def on_message(self, message):
-        if isinstance(message.content, str):
-            return
         if message.author.discriminator == 0000:
             return
         channel = self.bot.get_channel(871410960986939473)
