@@ -9,12 +9,7 @@ class darkdustry(commands.Cog):
         self.server = None
     @commands.command()
     @commands.has_role(869879808216150057)
-    async def restart (self, ctx):
-        self.server.send_command('rr')
-        await ctx.send(f"Сервер `{self.server.get_status()['name']}` перезапущен!")
-    @commands.command()
-    @commands.has_role(869879808216150057)
-    async def server(self, ctx, server = None, command = None, *, args = None):
+    async def restart (self, ctx, server = None):
         if server is None:
             await ctx.send("Сервера: `sand`, `attack`, `surv`, `pvp`, `td`, `hexed`, `siege`")
         elif server == 'test':
@@ -29,6 +24,7 @@ class darkdustry(commands.Cog):
             self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
         elif server == 'siege':
             self.server = pydustry.Server('localhost', server_port = 8000, socketinput_port = 8001)
-        await self.bot.process_commands(command)
+        self.server.send_command('rr')
+        await ctx.send(f"Сервер `{self.server.get_status()['name']}` перезапущен!")
 def setup(bot):
     bot.add_cog(darkdustry(bot))
