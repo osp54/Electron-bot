@@ -17,7 +17,13 @@ class darkdustry(commands.Cog):
                 return
             if '<' in mmessage and '>' in mmessage:
                 return
-            self.server.send_command(f'say {message.author} -› {mmessage}')
+            try:
+                self.server.send_command(f'say {message.author} -› {mmessage}')
+            except Exception as e:
+                exception = f"{type(e).__name__}: {e}"
+                await ctx.send(exception)
+            finally:
+                await message.add_reaction('✅')
     @commands.command()
     @commands.has_role(869879808216150057)
     async def restart (self, ctx, server = None):
