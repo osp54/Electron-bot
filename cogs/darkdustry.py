@@ -11,6 +11,8 @@ class darkdustry(commands.Cog):
     async def on_message(self, message):
         channel = self.bot.get_channel(871410960986939473)
         self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
+        if message.author == self.bot.user:
+            return
         if message.channel.id == channel.id:
             mmessage = message.content.replace("\n", " ")
             if '0000' in message.author.discriminator:
