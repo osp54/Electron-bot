@@ -10,7 +10,7 @@ class darkdustry(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         author = message.author
-        if author.endswith('#0000'):
+        if '#0000' in author:
             return
         channel = self.bot.get_channel(871410960986939473)
         self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
