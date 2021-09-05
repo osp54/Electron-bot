@@ -11,6 +11,8 @@ class darkdustry(commands.Cog):
     async def on_message(self, message):
         if isinstance(message.content, str):
             return
+        if message.author.discriminator == 0000:
+            return
         channel = self.bot.get_channel(871410960986939473)
         self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
         if message.channel.id == channel.id:
