@@ -95,7 +95,7 @@ class main(commands.Cog, name="main"):
             color=0x42F56C
         )
         await ctx.send(embed=embed)
-    @commands.commands(
+    @commands.command(
         name="ping",
         usage="`ping`",
         aliases=['пинг']
