@@ -43,9 +43,9 @@ class main(commands.Cog, name="main"):
             }
         }
     @commands.command(
-        name = self.bundles[self.lang]['setPrefix']['name'],
-        usage = self.bundles[self.lang]['setPrefix']['usage']
-        #aliases=['префикс']
+        name = setprefix,
+        usage = "`setprefix [новый префикс]`",
+        aliases=['префикс']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
@@ -95,6 +95,14 @@ class main(commands.Cog, name="main"):
             color=0x42F56C
         )
         await ctx.send(embed=embed)
+    @commands.commands(
+        name="ping",
+        usage="`ping`",
+        aliases=['пинг']
+    )
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def ping(self, ctx):
+        await ctx.send(f'Понг! {round(self.bot.latency * 1000)}ms!')
     @commands.command(
         name="avatar",
         usage="`avatar <участник>`",
