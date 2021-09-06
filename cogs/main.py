@@ -43,7 +43,7 @@ class main(commands.Cog, name="main"):
             }
         }
     @commands.command(
-        name = setprefix,
+        name = "setprefix",
         usage = "`setprefix [новый префикс]`",
         aliases=['префикс']
     )
