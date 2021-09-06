@@ -8,11 +8,44 @@ from nextcord.ext.commands import cooldown, BucketType
 
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
+        self.lang = "en" #потом запилю как это получить
         self.bot = bot
+        self.bundles = {
+            'en' : {
+                'setPrefix' : {
+                    'name' : 'setprefix',
+                    'usage' : '`setprefix [new prefix]`',
+                    'samePrefixEmbed' : {
+                         'title' : 'Error',
+                         'description' : 'This server already has this prefix installed'
+                     },
+                     'SuccessfullyPrefixChangeEmbed' : {
+                         'title' : 'Succesfully',
+                         'description' : 'The prefix has been changed to: {prefix}',
+                         'footer' : 'With each prefix change, I change my nickname to `[New prefix] Electron Bot`!'
+                     }
+                }
+            },
+            'ru' : {
+                'setPrefix' : {
+                    'name' : 'префикс',
+                    'usage' : '`префикс [новый префикс]`',
+                    'samePrefixEmbed' : {
+                         'title' : 'Ошибка',
+                         'description' : 'У этого сервера уже установлен такой префикс'
+                     },
+                     'SuccessfullyPrefixChangeEmbed' : {
+                         'title' : 'Успешно',
+                         'description' : 'Префикс сменен на: {prefix}',
+                         'footer' : 'Каждый раз при изменении префикса я меню свой никнейм на `[New prefix] Electron Bot`!'
+                     }
+                }
+            }
+        }
     @commands.command(
-        name="setprefix",
-        usage="`setprefix [новый префикс]`",
-        aliases=['префикс']
+        name = self.bundles[self.lang]['setPrefix']['name'],
+        usage = self.bundles[self.lang]['setPrefix']['usage']
+        #aliases=['префикс']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
