@@ -12,7 +12,7 @@ from configparser import ConfigParser
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-    def get_lang(client, message):
+    def get_lang(self, client, message):
         with open("guildlang.json", "r") as f:
             guildlang = json.load(f)
         return guildlang[str(message.guild.id)]
