@@ -21,8 +21,7 @@ class help(commands.Cog, name="help"):
             cog = self.bot.get_cog('main')
             commands = cog.get_commands()
             for command in commands:
-                command_description = bundle.get("Bundle", f"{command}Description")
-                help_text += f'{command} - {command_description}\n'
+                help_text += f'{command} - {bundle.get("Bundle", f"{command}Description")}\n'
             embed.add_field(name='Main', value=f'{help_text}', inline=False)
             embed.set_footer(text=f'Запрошено: {ctx.author.display_name}')
             await ctx.send(embed=embed)
