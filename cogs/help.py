@@ -15,7 +15,7 @@ class help(commands.Cog, name="help"):
         if command is None:
             embed = nextcord.Embed(title="Список доступных команд",  color=0x2B95FF)
             embed.add_field(name="Префикс", value=ctx.prefix)
-            cogs = ("main")
+            cogs = ("Main")
             #"Moderation", "Music")
             for i in cogs:
                 cog = self.bot.get_cog(i.lower())
