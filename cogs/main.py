@@ -41,7 +41,7 @@ class main(commands.Cog, name="main"):
         with open("prefixes.json", "w") as f:
             json.dump(prefixes, f, indent=4)
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
-        eembed = nexcord.Embed(
+        eembed = nextcord.Embed(
             name="Успешно",
             description=f"Префикс изменен на: {ctx.prefix}",
             color=0x42F56C
@@ -64,7 +64,7 @@ class main(commands.Cog, name="main"):
         guildlang[str(ctx.guild.id)] = lang
         with open("guildlang.json", "w") as f:
             json.dump(guildlang, f, indent=4)
-        embed = nexcord.Embed(
+        embed = nextcord.Embed(
             name="Успешно",
             description=f"Язык изменен на: {ctx.prefix}",
             color=0x42F56C
