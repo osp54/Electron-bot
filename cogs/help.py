@@ -14,12 +14,15 @@ class help(commands.Cog, name="help"):
         if command is None:
             embed = nextcord.Embed(title="Список доступных команд",  color=0x2B95FF)
             embed.add_field(name="Префикс", value=ctx.prefix)
-            cogs = ("Main", "Moderation", "Music")
+            cogs = ("Main")
+            #"Moderation", "Music")
             for i in cogs:
                 cog = self.bot.get_cog(i.lower())
                 commands = cog.get_commands()
                 command_list = [command.name for command in commands]
-                command_description = [command.help for command in commands]
+                bundle = ConfigParser()
+                bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
+                command_description = bundle.get("Bundle", f"{command_list}Description")
                 help_text = '\n'.join(f'`{n}` - {h}' for n, h in zip(command_list, command_description))
                 embed.add_field(name=i.capitalize(), value=f'{help_text}', inline=False)
             embed.set_footer(text=f'Запрошено: {ctx.author.display_name}')
