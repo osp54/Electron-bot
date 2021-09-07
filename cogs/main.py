@@ -21,7 +21,7 @@ class main(commands.Cog, name="main"):
     async def test(self, ctx):
         bundle = ConfigParser()
         bundle.read("ru.ini")
-        await ctx.send(bundle.get("RU", embedTitle)
+        await ctx.send(bundle.get("RU", embedTitle))
     @commands.command(
         name = "setprefix",
         usage = "`setprefix [новый префикс]`",
