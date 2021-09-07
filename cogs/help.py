@@ -25,7 +25,7 @@ class help(commands.Cog, name="help"):
                 bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
                 for command in commands:
                     command_description = bundle.get("Bundle", f"{command}Description")
-                help_text = '\n'.join(f'`{n}` - {h}' for n, h in zip(command_list, command_description))
+                    help_text = '{command} - {command_description}'
                 embed.add_field(name=i.capitalize(), value=f'{help_text}', inline=False)
             embed.set_footer(text=f'Запрошено: {ctx.author.display_name}')
             await ctx.send(embed=embed)
