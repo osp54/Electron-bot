@@ -18,12 +18,8 @@ class help(commands.Cog, name="help"):
         if command is None:
             embed = nextcord.Embed(title="Список доступных команд",  color=0x2B95FF)
             embed.add_field(name="Префикс", value=ctx.prefix)
-            cogs = ("main", "moderation", "music")
-            for i in cogs:
-                cog = self.bot.get_cog(i)
-                commands = cog.get_commands()
             #bundle.get("Bundle", f"{command}Description")
-            for command in commands:
+            for command in self.bot.commands:
                 commands_list = '( '
                 commands_list += f'`{command}`, )'
             embed.add_field(name=bundle.get("Bundle", "helpCommandsEmbed"), value=commands_list, inline=False)
