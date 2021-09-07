@@ -8,7 +8,7 @@ def get_prefix(client, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
     return prefixes[str(message.guild.id)]
-def get_lang(self, client, message):
+def get_lang(client, message):
     with open("guildlang.json", "r") as f:
         guildlang = json.load(f)
     return guildlang[str(message.guild.id)]
