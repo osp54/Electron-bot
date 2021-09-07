@@ -22,10 +22,10 @@ class help(commands.Cog, name="help"):
             for i in cogs:
                 cog = self.bot.get_cog(i.lower())
                 commands = cog.get_commands()
-                for command in commands:
-                    command_list = [command.name for command in commands]
-                    command_description = bundle.get("Bundle", f"{command}Description")
-                    help_text = f'{command} - {command_description}\n'
+            for command in commands:
+                command_list = [command.name for command in commands]
+                command_description = bundle.get("Bundle", f"{command}Description")
+                help_text = f'{command} - {command_description}\n'
             embed.add_field(name=i.capitalize(), value=f'{help_text}', inline=False)
             embed.set_footer(text=f'Запрошено: {ctx.author.display_name}')
             await ctx.send(embed=embed)
