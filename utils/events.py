@@ -28,7 +28,7 @@ class events(commands.Cog):
         with open("guildlang.json", "r", encoding="UTF-8") as f:
             guildlang = json.load(f)
 
-        guildlang[str(guild.id)] = "English"
+        guildlang[str(guild.id)] = "EN"
         with open("guildlang.json", "w") as f:
             json.dump(guildlang, f, indent=4)
 
@@ -43,21 +43,7 @@ class events(commands.Cog):
                     value="Auto remove scam links like 'free nitro'! Music! And much more.")
                 await ctx.send(embed=embed)
             break
-    @commands.Cog.listener()
-    async def on_guild_remove(self, guild):
-        with open("prefixes.json", "r", encoding="UTF-8") as f:
-            prefixes = json.load(f)
 
-        prefixes.pop(str(guild.id))
-        with open("prefixes.json", "w", encoding="UTF-8") as f:
-            json.dump(prefixes, f, indent=4)
-
-        with open("guildlang.json", "r", encoding="UTF-8") as f:
-            guildlang = json.load(f)
-
-        guildlang.pop(str(guild.id))
-        with open("guildlang.json", "w", encoding="UTF-8") as f:
-            json.dump(prefixes, f, indent=4)
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
