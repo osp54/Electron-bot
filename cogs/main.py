@@ -9,7 +9,7 @@ from configparser import ConfigParser
 
 #print(bundle.get("RU", title))
 
-class main(commands.Cog):
+class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
     @commands.command()
