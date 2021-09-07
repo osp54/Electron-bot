@@ -15,7 +15,7 @@ class main(commands.Cog, name="main"):
     @commands.command()
     async def test(self, ctx):
         bundle = ConfigParser()
-        bundle.read(f"{get_lang(client=self.bot, message=ctx.message)}.ini")
+        bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
         await ctx.send(bundle.get("Bundle", "embedTitle"))
     @commands.command(
         name = "setprefix",
