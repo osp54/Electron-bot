@@ -21,7 +21,7 @@ class help(commands.Cog, name="help"):
             cogs = ("main", "moderation", "music")
             for i in cogs:
                 cog = self.bot.get_cog(i)
-            commands = cog.get_commands()
+                commands = cog.get_commands()
             #bundle.get("Bundle", f"{command}Description")
             for command in commands:
                 commands_list = '( '
