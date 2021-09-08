@@ -3,7 +3,7 @@ import json
 import datetime
 import humanize
 from nextcord.ext import commands
-from utils.misc import format_name, get_lang, bundled
+from utils.misc import format_name, get_lang
 from nextcord.ext.commands import cooldown, BucketType
 from configparser import ConfigParser
 
@@ -12,11 +12,12 @@ from configparser import ConfigParser
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
+        self.b = ConfigParser() # b - bundle
     @commands.command()
     async def test(self, ctx):
         #bundle = ConfigParser()
-        #bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
-        await ctx.send(bundled('embed.title', ctx, self).format(ctx.author, ctx.guild.name))
+        self.b.read(f"{get_lang(self.bot, ctx.message)}.ini")
+        await ctx.send(self.b.get('Bundle', 'embed.title',).format(ctx.author, ctx.guild.name))
     @commands.command(
         name = "setprefix",
         usage = "`setprefix [новый префикс]`",
