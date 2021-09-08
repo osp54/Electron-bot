@@ -13,7 +13,7 @@ def get_lang(client, message):
     with open("guildlang.json", "r") as f:
         guildlang = json.load(f)
     return guildlang[str(message.guild.id)]
-def bundled(bundle, type="Bundle"):
+def bundled(bundle, ctx, self, type="Bundle"):
     bundle = ConfigParser()
     bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
     return bundle.get(type, bundle)
