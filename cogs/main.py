@@ -31,17 +31,17 @@ class main(commands.Cog, name="main"):
         Изменить префикс.
         """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
-        if get_lang(self.bot, ctx.message) == prefix:
+        if get_prefix(self.bot, ctx.message) == prefix:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
                 description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
                 color=0xE02B2B
             )
             return await ctx.send(embed=embed)
-        if len(prefix) == self.maxcharsprefix:
+        if len(prefix) < self.maxcharsprefix:
             eeembed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.description'.format(self.maxcharsprefix)),
+                description=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.description').format(self.maxcharsprefix),
                 color=0xE02B2B
             )
             return await ctx.send(embed=eeembed)
