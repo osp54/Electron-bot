@@ -78,9 +78,9 @@ class main(commands.Cog, name="main"):
             )
             return await ctx.send(embed=eembed)
         if lang == 'RU'.lower() or lang == 'Russian'.lower():
-            lang = ru
+            lang = 'ru'
         if lang == 'EN'.lower() or lang == 'English'.lower():
-            lang = en
+            lang = 'en'
         with open("guildlang.json", "r") as f:
             guildlang = json.load(f)
         guildlang[str(ctx.guild.id)] = lang
