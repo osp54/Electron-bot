@@ -3,14 +3,14 @@ import json
 from utils.misc import get_prefix
 from nextcord.ext import commands
 
-electron = ['Electron', 'electron', 'ELECTRON', 'Электрон', 'электрон', 'ЭЛЕКТРОН']
+electron = ['electron', 'электрон']
 
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.Cog.listener()
     async def on_message(self, message):
-        if '<@861541287161102376>' == message.content:
+        if '<@861541287161102376>' in message.content.lower():
             prefix = get_prefix(self.bot, message)
             await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
         for i in electron:

@@ -6,6 +6,7 @@ scam_links = ["steamcommunity.link", "discorcl.link", "steamcommunity.com.ru", "
 class anti_scam(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        
 
     @commands.Cog.listener()
     async def on_message(self, message):
