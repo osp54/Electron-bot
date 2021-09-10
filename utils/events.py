@@ -14,7 +14,7 @@ class events(commands.Cog):
             prefix = get_prefix(self.bot, message)
             await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
         for i in electron:
-            if i in message.content:
+            if i in message.content.lower():
                 await message.add_reaction("⚡")
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
