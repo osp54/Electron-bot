@@ -3,7 +3,7 @@ import json
 import datetime
 import humanize
 from nextcord.ext import commands
-from utils.misc import format_name, get_lang
+from utils.misc import format_name, get_lang, get_prefix
 from nextcord.ext.commands import cooldown, BucketType
 from configparser import ConfigParser
 
