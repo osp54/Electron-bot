@@ -131,7 +131,7 @@ class main(commands.Cog, name="main"):
         Эмодзи.
         """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
-        embed = nextcord.Embed(title=self.b.get('Bundle', 'embed.emoji.title'), color=0x42F56C)
+        embed = nextcord.Embed(title=self.b.get('Bundle', 'embed.emoji.title').format(emoji.name), color=0x42F56C)
         embed.set_thumbnail(url=emoji.url)
         embed.set_image(url=emoji.url)
         embed.add_field(name="ID", value=emoji.id)
