@@ -73,7 +73,7 @@ class main(commands.Cog, name="main"):
         if lang not in self.languages:
             eembed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'embed.unknownlang.description'),
+                description=self.b.get('Bundle', 'error.embed.unknownlang.description'),
                 color=0xE02B2B
             )
             return await ctx.send(embed=eembed)
