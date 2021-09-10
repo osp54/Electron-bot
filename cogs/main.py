@@ -14,6 +14,7 @@ class main(commands.Cog, name="main"):
         self.bot = bot
         self.b = ConfigParser() # b - bundle
         self.maxcharsprefix = 4
+        self.languages = ['ru', 'RU', 'Russian'.lower(), 'en', 'EN', 'English'.lower()]
     @commands.command()
     async def test(self, ctx):
         #bundle = ConfigParser()
@@ -60,7 +61,7 @@ class main(commands.Cog, name="main"):
     @commands.command(
         name="setlang",
         usage="`setlang [язык]`",
-        aliases=['язык']
+        aliases=['язык', 'lang']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
@@ -68,15 +69,26 @@ class main(commands.Cog, name="main"):
         """
         Изменить язык бота.
         """
-        
+        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        if lang not in self.languages:
+            eembed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.unknownlang.description'),
+                color=0xE02B2B
+            )
+            return await ctx.send(embed=eembed)
+        if lang == 'RU'.lower() or lang == 'Russian'.lower():
+            lang = ru
+        if lang == 'EN'.lower() or lang == 'English'.lower():
+            lang = en
         with open("guildlang.json", "r") as f:
             guildlang = json.load(f)
         guildlang[str(ctx.guild.id)] = lang
         with open("guildlang.json", "w") as f:
             json.dump(guildlang, f, indent=4)
         embed = nextcord.Embed(
-            name="Успешно",
-            description=f"Язык изменен на: {ctx.prefix}",
+            name=self.b.get('Bundle', 'embed.succerfully'),
+            description=self.b.get('Bundle', 'embed.langchanged.description').format(lang),
             color=0x42F56C
         )
         await ctx.send(embed=embed)
@@ -87,7 +99,8 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def ping(self, ctx):
-        await ctx.send(f'Понг! {round(self.bot.latency * 1000)}ms!')
+        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        await ctx.send(self.b.get('Bundle', 'ping'))
     @commands.command(
         name="avatar",
         usage="`avatar <участник>`",
@@ -98,10 +111,11 @@ class main(commands.Cog, name="main"):
         """
         Получить аватар пользователя
         """
+        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if not member:
             member = ctx.message.author
         embed = nextcord.Embed(
-            title=f"Аватар пользователя {member}",
+            title=self.b.get('Bundle', 'embed.avatar.title').format(member),
             color=0x42F56C
         )
         embed.set_image(url=member.avatar.url)
@@ -116,6 +130,7 @@ class main(commands.Cog, name="main"):
         """
         Эмодзи.
         """
+        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         embed = nextcord.Embed(title=f"Эмодзи {emoji.name}", color=0x42F56C)
         embed.set_thumbnail(url=emoji.url)
         embed.set_image(url=emoji.url)
