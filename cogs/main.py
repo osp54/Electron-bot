@@ -87,7 +87,7 @@ class main(commands.Cog, name="main"):
         with open("guildlang.json", "w") as f:
             json.dump(guildlang, f, indent=4)
         embed = nextcord.Embed(
-            name=self.b.get('Bundle', 'embed.succerfully'),
+            title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.langchanged.description').format(lang),
             color=0x42F56C
         )
