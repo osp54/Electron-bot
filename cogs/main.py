@@ -13,6 +13,7 @@ class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
         self.b = ConfigParser() # b - bundle
+        self.maxcharsprefix = 4
     @commands.command()
     async def test(self, ctx):
         #bundle = ConfigParser()
@@ -29,13 +30,21 @@ class main(commands.Cog, name="main"):
         """
         Изменить префикс.
         """
-        if ctx.prefix == prefix:
+        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        if get_lang(self.bot, ctx.message) == prefix:
             embed = nextcord.Embed(
-                title="Ошибка",
-                description="У этого сервера уже установлен такой префикс!",
+                title=self.b.get('Bundle', 'error.embed.same.prefix.title'),
+                description="self.b.get('Bundle', 'error.embed.same.prefix.description'),
                 color=0xE02B2B
             )
             return await ctx.send(embed=embed)
+        if len(prefix) == self.maxcharsprefix:
+            eeembed = nextcord.Embed(
+                title=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.title'),
+                description=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.description'.format(self.maxcharsprefix)),
+                color=0xE02B2B
+            )
+            return await ctx.send(embed=eeembed)
         with open("prefixes.json", "r") as f:
             prefixes = json.load(f)
         prefixes[str(ctx.guild.id)] = prefix
@@ -43,10 +52,10 @@ class main(commands.Cog, name="main"):
             json.dump(prefixes, f, indent=4)
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
         eembed = nextcord.Embed(
-            name="Успешно",
-            description=f"Префикс изменен на: {ctx.prefix}",
+            title=self.b.get('Bundle', 'embed.succerfully'),
+            description=self.b.get('Bundle', 'embed.prefixchanged.description').format(get_prefix(self.bot, ctx.message)),
             color=0x42F56C
-        ).set_footer(text="С каждым изменением префикса, я свой никнейм меняю на `[Новый префикс] Electron Bot`!")
+        ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
         await ctx.send(embed=eembed)
     @commands.command(
         name="setlang",
