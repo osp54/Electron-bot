@@ -34,7 +34,7 @@ class main(commands.Cog, name="main"):
         if get_lang(self.bot, ctx.message) == prefix:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
-                description="self.b.get('Bundle', 'error.embed.same.prefix.description'),
+                description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
                 color=0xE02B2B
             )
             return await ctx.send(embed=embed)
