@@ -158,8 +158,7 @@ class main(commands.Cog, name="main"):
 
         features = "\n".join(format_name(f) for f in guild.features)
 
-        embed = nextcord.Embed(title=f"Сервер {guild.name}", color=0x42F56C)
-        embed.add_field(name=self.b.get('Bundle', 'embed.guild.name'), value=guild.name)
+        embed = nextcord.Embed(title=guild.name, color=0x42F56C)
         embed.add_field(name="ID", value=int(guild.id))
         embed.add_field(name=self.b.get('Bundle', 'embed.guild.owner'), value=guild_owner)
         embed.add_field(name="Icon URL", value=f"[here]({guild.icon.url})")
