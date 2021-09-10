@@ -38,7 +38,7 @@ class main(commands.Cog, name="main"):
                 color=0xE02B2B
             )
             return await ctx.send(embed=embed)
-        if len(prefix) => self.maxcharsprefix:
+        if len(prefix) >= self.maxcharsprefix:
             eeembed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
                 description=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.description').format(self.maxcharsprefix),
