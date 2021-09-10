@@ -10,7 +10,7 @@ class events(commands.Cog):
         self.bot = bot
     @commands.Cog.listener()
     async def on_message(self, message):
-        if '<@861541287161102376>' in message.content.lower():
+        if '<@861541287161102376>' == message.content:
             prefix = get_prefix(self.bot, message)
             await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
         for i in electron:
@@ -28,7 +28,7 @@ class events(commands.Cog):
         with open("guildlang.json", "r", encoding="UTF-8") as f:
             guildlang = json.load(f)
 
-        guildlang[str(guild.id)] = "EN"
+        guildlang[str(guild.id)] = "en"
         with open("guildlang.json", "w") as f:
             json.dump(guildlang, f, indent=4)
 
