@@ -16,15 +16,7 @@ class help(commands.Cog, name="help"):
         bundle = ConfigParser()
         bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
         if command is None:
-            embed = nextcord.Embed(title="Список доступных команд",  color=0x2B95FF)
-            embed.add_field(name="Префикс", value=ctx.prefix)
-            #bundle.get("Bundle", f"{command}Description")
-            for command in self.bot.commands:
-                commands_list = '( '
-                commands_list += f'`{command}`, )'
-            embed.add_field(name=bundle.get("Bundle", "helpCommandsEmbed"), value=commands_list, inline=False)
-            embed.set_footer(text=f'Запрошено: {ctx.author.display_name}')
-            await ctx.send(embed=embed)
+            await ctx.send(self.bot.commands)
         if command is not None:
             try:
                 cmd = self.bot.get_command(command)
