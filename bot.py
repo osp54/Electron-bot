@@ -7,10 +7,17 @@ import platform
 import colorama
 import logging
 import asyncio
+import signal
 from utils.misc import error, info, get_prefix
 from colorama import init, Fore, Back, Style
 from config import settings
 from nextcord.ext import commands
+
+def signal_handler(sig, frame):
+    print('Received signal {signal}'.format(signal=sig))
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.pause()
 
 init(autoreset=True)
 intents = nextcord.Intents.all()
