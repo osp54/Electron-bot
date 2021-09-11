@@ -7,7 +7,6 @@ import platform
 import colorama
 import logging
 import asyncio
-import signal
 from utils.misc import error, info, get_prefix
 from colorama import init, Fore, Back, Style
 from config import settings
@@ -62,10 +61,3 @@ if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
 
 client.run(settings['token'])
-
-def signal_handler(sig, frame):
-    unload_extensions("./cogs")
-    exit()
-
-signal.signal(signal.SIGINT, signal_handler)
-signal.pause()
