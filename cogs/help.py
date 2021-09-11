@@ -15,7 +15,7 @@ class help(commands.Cog, name="help"):
         Список всех команд
         """
         bundle = ConfigParser()
-        bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
+        bundle.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if command is None:
             text = ""
             for cmd in self.bot.commands:
