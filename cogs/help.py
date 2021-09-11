@@ -16,7 +16,10 @@ class help(commands.Cog, name="help"):
         bundle = ConfigParser()
         bundle.read(f"{get_lang(self.bot, ctx.message)}.ini")
         if command is None:
-            await ctx.send(self.bot.commands)
+            text = ""
+            for cmd in self.bot.commands:
+                text += cmd.name + "-" + cmd.description
+            await ctx.send(text)
         if command is not None:
             try:
                 cmd = self.bot.get_command(command)
