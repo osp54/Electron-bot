@@ -13,12 +13,6 @@ from colorama import init, Fore, Back, Style
 from config import settings
 from nextcord.ext import commands
 
-def signal_handler(sig, frame):
-    print('Received signal {signal}'.format(signal=sig))
-
-signal.signal(signal.SIGINT, signal_handler)
-signal.pause()
-
 init(autoreset=True)
 intents = nextcord.Intents.all()
 owners = [580631356485402639, 530103444946812929, 674647047831420975]
@@ -67,4 +61,12 @@ async def on_ready():
     client.loop.create_task(status_task())
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
+
+def signal_handler(sig, frame):
+    unload_extensions("./cogs")
+    await client.close()
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.pause()
+
 client.run(settings['token'])
