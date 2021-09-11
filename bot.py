@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
 def signal_handler(sig, frame):
     unload_extensions("./cogs")
-    await client.close()
+    client.close()
 
 signal.signal(signal.SIGINT, signal_handler)
 signal.pause()
