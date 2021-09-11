@@ -65,7 +65,7 @@ client.run(settings['token'])
 
 def signal_handler(sig, frame):
     unload_extensions("./cogs")
-    client.close()
+    exit()
 
 signal.signal(signal.SIGINT, signal_handler)
 signal.pause()
