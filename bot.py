@@ -18,7 +18,6 @@ intents = nextcord.Intents.all()
 owners = [580631356485402639, 530103444946812929, 674647047831420975]
 client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = set(owners))
 client.remove_command('help')
-
 logger = logging.getLogger('nextcord')
 logger.setLevel(logging.WARNING)
 
@@ -62,11 +61,11 @@ async def on_ready():
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
 
+client.run(settings['token'])
+
 def signal_handler(sig, frame):
     unload_extensions("./cogs")
     client.close()
 
 signal.signal(signal.SIGINT, signal_handler)
 signal.pause()
-
-client.run(settings['token'])
