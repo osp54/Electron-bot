@@ -18,7 +18,7 @@ class help(commands.Cog, name="help"):
         if command is None:
             text = ""
             ownercog = self.bot.get_cog("owner")
-            ownercogcmds = ownercogcmds.get_commands()
+            ownercogcmds = ownercog..get_commands()
             for cmd in self.bot.commands.replace(ownercogcmds, ""):
                 text += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
             await ctx.send(text)
