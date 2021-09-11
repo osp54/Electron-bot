@@ -9,7 +9,6 @@ import logging
 import asyncio
 from utils.misc import error, info, get_prefix
 from colorama import init, Fore, Back, Style
-from config import settings
 from nextcord.ext import commands
 
 init(autoreset=True)
