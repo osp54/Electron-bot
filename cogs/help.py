@@ -19,7 +19,7 @@ class help(commands.Cog, name="help"):
         if command is None:
             text = ""
             for cmd in self.bot.commands:
-                text += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") \n
+                text += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
             await ctx.send(text)
         if command is not None:
             try:
