@@ -25,7 +25,7 @@ class help(commands.Cog, name="help"):
             embed.add_field(name="Main", value=text)
             for cmd in modcog:
                 text2 += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
-                embed.add_field(name="Moderation", value=text2)
+            embed.add_field(name="Moderation", value=text2)
             await ctx.send(embed=embed) 
         if command is not None:
             try:
