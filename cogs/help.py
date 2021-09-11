@@ -17,7 +17,9 @@ class help(commands.Cog, name="help"):
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if command is None:
             text = ""
-            for cmd in self.bot.commands:
+            ownercog = self.bot.get_cog("owner")
+            ownercogcmds = ownercogcmds.get_commands()
+            for cmd in self.bot.commands.replace(ownercogcmds, ""):
                 text += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
             await ctx.send(text)
         if command is not None:
