@@ -56,10 +56,6 @@ async def on_ready():
     info(f"Python version: {Fore.BLUE}{platform.python_version()}")
     info(f"Running on: {Fore.BLUE}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.BLUE}{tElapsed}")
-    test = input()
-    if test == 'q':
-        unload_extensions("./cogs")
-        exit()
     client.loop.create_task(status_task())
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
