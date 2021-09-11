@@ -60,5 +60,4 @@ async def on_ready():
     client.loop.create_task(status_task())
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
-    load_extensions("./utils") #когсы утилит/ивентов
 client.run(settings['token'])
