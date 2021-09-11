@@ -24,24 +24,24 @@ logger.setLevel(logging.WARNING)
 #загрузить все расширения из папки
 def load_extensions(dir):
     for file in os.listdir(dir):
-        if file.endswith(".py") and not file.startswith("misc"):
+        if file.endswith(".py"):
             extension = file[:-3]
             try:
                 client.load_extension(f"{dir[2:]}.{extension}")
-                info(f"Loaded extension {Fore.CYAN}{extension}")
+                info(f"Loaded extension {Fore.BLUE}{extension}")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to load extension {Fore.CYAN}{extension}{Fore.RESET}\n{exception}")
+                error(f"Failed to load extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 def unload_extensions(dir):
     for file in os.listdir(dir):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
                 client.unload_extension(f"{dir[2:]}.{extension}")
-                info(f"Unloaded extension {Fore.CYAN}{extension}")
+                info(f"Unloaded extension {Fore.BLUE}{extension}")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to unload extension {Fore.CYAN}{extension}{Fore.RESET}\n{exception}")
+                error(f"Failed to unload extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 async def status_task():
     while True:
         await client.change_presence(activity=nextcord.Game(name="$help"))
@@ -52,11 +52,11 @@ async def status_task():
 async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
-    info(f"Logged in as {Fore.CYAN}{client.user.name}{Fore.RESET}, Guilds: {Fore.CYAN}{len(client.guilds)}")
-    info(f"NextCord.py version: {Fore.CYAN}{nextcord.__version__}")
-    info(f"Python version: {Fore.CYAN}{platform.python_version()}")
-    info(f"Running on: {Fore.CYAN}{platform.system()} {platform.release()} ({os.name})")
-    info(f"Time elapsed: {Fore.CYAN}{tElapsed}")
+    info(f"Logged in as {Fore.BLUE}{client.user.name}{Fore.RESET}, Guilds: {Fore.BLUE}{len(client.guilds)}")
+    info(f"NextCord.py version: {Fore.BLUE}{nextcord.__version__}")
+    info(f"Python version: {Fore.BLUE}{platform.python_version()}")
+    info(f"Running on: {Fore.BLUE}{platform.system()} {platform.release()} ({os.name})")
+    info(f"Time elapsed: {Fore.BLUE}{tElapsed}")
     client.loop.create_task(status_task())
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
