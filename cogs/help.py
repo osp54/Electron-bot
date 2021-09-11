@@ -16,7 +16,7 @@ class help(commands.Cog, name="help"):
         """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if command is None:
-            embed = nextcord.Embed(title="help", color=x2B95FF)
+            embed = nextcord.Embed(title="help", color=0x2B95FF)
             text = ""
             maincog = self.bot.get_cog("main").get_commands()
             modcog = self.bot.get_cog("moderation").get_commands()
