@@ -16,12 +16,17 @@ class help(commands.Cog, name="help"):
         """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if command is None:
+            embed = nextcord.Embed(title="help", color=x2B95FF)
             text = ""
-            ownercog = self.bot.get_cog("owner")
-            ownercogcmds = ownercog.get_commands()
-            for cmd in self.bot.commands.replace(ownercogcmds, ""):
+            maincog = self.bot.get_cog("main").get_commands()
+            modcog = self.bot.get_cog("moderation").get_commands()
+            for cmd in maincog:
                 text += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
-            await ctx.send(text)
+            embed.add_field(name="Main", value=text)
+            for cmd in modcog:
+                text2 += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
+                embed.add_field(name="Moderation", value=text2)
+            await ctx.send(embed=embed) 
         if command is not None:
             try:
                 cmd = self.bot.get_command(command)
