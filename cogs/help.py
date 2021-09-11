@@ -23,18 +23,18 @@ class help(commands.Cog, name="help"):
             modcog = self.bot.get_cog("moderation").get_commands()
             for cmd in maincog:
                 text += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
-            embed.add_field(name="Main", value=text)
+            embed.add_field(name=self.b.get("Bundle", "embed.help.main"), value=text)
             for cmd in modcog:
                 text2 += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
-            embed.add_field(name="Moderation", value=text2)
+            embed.add_field(name=self.b.get("Bundle", "embed.help.moderation"), value=text2)
             await ctx.send(embed=embed) 
         if command is not None:
             try:
                 cmd = self.bot.get_command(command)
             except:
                 eembed = nextcord.Embed(
-                    title="Ошибка",
-                    description="Команда не найдена 🧐",
+                    title=self.b.get("Bundle", "embed.error"),
+                    description=self.b.get("Bundle", "error.embed.command.not.found"),
                     color=0xFF0000
                 )
                 return await ctx.send(embed=eembed)
@@ -42,14 +42,14 @@ class help(commands.Cog, name="help"):
                 title=cmd.name.capitalize(),
                 color=0x2B95FF
             ).add_field(
-                name="Использование",
-                value=cmd.usage
+                name=self.b.get("Bundle", "embed.help.usage"),
+                value=self.b.get("Bundle", f"{cmd}.usage")
             )
             aliase = '('
             for alias in cmd.aliases:
                 aliase += f" `{alias}` "
             cembed.add_field(
-                name="Алиасы(под-имена)",
+                name=self.b.get("Bundle", "embed.help.aliases"),
                 value=f"{aliase})"
             )
             await ctx.send(embed=cembed)
