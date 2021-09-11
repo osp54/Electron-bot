@@ -7,6 +7,7 @@ from nextcord.ext.commands import cooldown, BucketType
 class help(commands.Cog, name="help"):
     def __init__(self, bot):
         self.bot = bot
+        self.b = ConfigParser()
     @commands.command(name="help", aliases=['хелп', 'помощь'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def help(self, ctx, command = None):
@@ -18,7 +19,7 @@ class help(commands.Cog, name="help"):
         if command is None:
             text = ""
             for cmd in self.bot.commands:
-                text += cmd.name + "-" + cmd.description
+                text += cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") \n
             await ctx.send(text)
         if command is not None:
             try:
