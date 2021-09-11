@@ -18,6 +18,7 @@ class help(commands.Cog, name="help"):
         if command is None:
             embed = nextcord.Embed(title="help", color=0x2B95FF)
             text = ""
+            text2 = ""
             maincog = self.bot.get_cog("main").get_commands()
             modcog = self.bot.get_cog("moderation").get_commands()
             for cmd in maincog:
