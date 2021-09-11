@@ -17,10 +17,10 @@ class events(commands.Cog):
             if i in message.content.lower():
                 await message.add_reaction("⚡")
     @commands.Cog.listener()
-    async def on_command_completion(self, ctx):
+    async def on_command(self, ctx):
         fullCommandName = ctx.command.qualified_name
-        split = fullCommandName.split(" ")
-        executedCommand = str(split[0])
+        cmdsplit = fullCommandName.split(" ")
+        executedCommand = str(cmdsplit[0])
         info(f"Executed {executedCommand} command in {ctx.guild.name} (ID: {ctx.message.guild.id}) by {ctx.message.author} (ID: {ctx.message.author.id})")
 
     @commands.Cog.listener()
