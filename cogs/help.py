@@ -16,17 +16,17 @@ class help(commands.Cog, name="help"):
         """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if command is None:
-            embed = nextcord.Embed(title="help", color=0x2B95FF)
+            embed = nextcord.Embed(title=self.b.get("Bundle", "embed.help.title"), description=self.b.get("Bundle", "embed.help.description"), color=0x2B95FF)
             prefix = get_prefix(self.bot, ctx.message)
             text = ""
             text2 = ""
             maincog = self.bot.get_cog("main").get_commands()
             modcog = self.bot.get_cog("moderation").get_commands()
             for cmd in maincog:
-                text += prefix + cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
+                text += prefix + cmd.name + " **-** " + self.b.get("Bundle", f"{cmd}.description") + "\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.main"), value=text)
             for cmd in modcog:
-                text2 += prefix + cmd.name + " - " + self.b.get("Bundle", f"{cmd}.description") + "\n"
+                text2 += prefix + cmd.name + " **-** " + self.b.get("Bundle", f"{cmd}.description") + "\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.moderation"), value=text2)
             await ctx.send(embed=embed) 
         if command is not None:
@@ -41,6 +41,7 @@ class help(commands.Cog, name="help"):
                 return await ctx.send(embed=eembed)
             cembed = nextcord.Embed(
                 title=cmd.name.capitalize(),
+                description=self.b.get("Bundle", f"{cmd}.description"),
                 color=0x2B95FF
             ).add_field(
                 name=self.b.get("Bundle", "embed.help.usage"),
