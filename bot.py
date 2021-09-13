@@ -13,14 +13,16 @@ from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 
 init(autoreset=True)
-
-conn = sqlite3.connect(r'db/electron.db')
-cur = conn.cursor()
-conn.execute("""CREATE TABLE IF NOT EXIST TABLE Guilds (
-   ID INTEGER PRIMARY KEY NOT NULL,
-   Lang TEXT NOT NULL,
-   Prefix TEXT NOT NULL
-  )""")
+try:
+  conn = sqlite3.connect(r'db/electron.db')
+  cur = conn.cursor()
+  conn.execute("""CREATE TABLE IF NOT EXIST TABLE Guilds (
+     ID INTEGER PRIMARY KEY NOT NULL,
+     Lang TEXT NOT NULL,
+     Prefix TEXT NOT NULL
+    )""")
+except Exception, e:
+  info("SQL not loaded")
 
 intents = nextcord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
