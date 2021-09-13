@@ -16,7 +16,7 @@ init(autoreset=True)
 
 conn = sqlite3.connect(r'db/electron.db')
 cur = conn.cursor()
-conn.execute("""CREATE TABLE IF NOT EXIST Guilds (
+conn.execute("""CREATE TABLE IF NOT EXIST TABLE Guilds (
    ID INTEGER PRIMARY KEY NOT NULL,
    Lang TEXT NOT NULL,
    Prefix TEXT NOT NULL
