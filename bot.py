@@ -7,17 +7,23 @@ import platform
 import colorama
 import logging
 import asyncio
+import sqlite3
 from utils.misc import error, info, get_prefix
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 
 init(autoreset=True)
+
+conn = sqlite3.connect(r'db/electron.db')
+cur = conn.cursor()
+
 intents = nextcord.Intents.all()
-owners = [580631356485402639, 530103444946812929, 674647047831420975]
-client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = set(owners))
+client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
 client.remove_command('help')
+
 logger = logging.getLogger('nextcord')
 logger.setLevel(logging.WARNING)
+
 
 #загрузить все расширения из папки
 def load_extensions(dir):
