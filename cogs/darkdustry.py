@@ -7,6 +7,14 @@ class darkdustry(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.server = None
+        self.servers = {
+          'test':6567,
+          'attack'6567,
+          'surv':6567,
+          'pvp':6567,
+          'td':6567,
+          'siege':6567,
+        }
     @commands.Cog.listener()
     async def on_message(self, message):
         channel = self.bot.get_channel(871410960986939473)
@@ -31,18 +39,12 @@ class darkdustry(commands.Cog):
     async def restart (self, ctx, server = None):
         if server is None:
             await ctx.send("Сервера: `sand`, `attack`, `surv`, `pvp`, `td`, `hexed`, `siege`")
-        elif server == 'test':
-            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
-        elif server == 'attack':
-            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
-        elif server == 'surv':
-            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
-        elif server == 'pvp':
-            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
-        elif server == 'td':
-            self.server = pydustry.Server('localhost', server_port = 6567, socketinput_port = 7777)
-        elif server == 'siege':
-            self.server = pydustry.Server('localhost', server_port = 8000, socketinput_port = 8001)
+            return
+        try:
+          self.server = pydustry.Server('localhost', server_port = self.servers[server], socketinput_port = 7777)
+        except Exception, e:
+          await ctx.send("Не правильно набранно название сервера")
+          return
         self.server.send_command('rr')
         await ctx.send(f"Сервер `{self.server.get_status()['name']}` перезапущен!")
 def setup(bot):
