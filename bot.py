@@ -23,6 +23,8 @@ try:
     )""")
 except Exception as e:
   info("SQL not loaded")
+  exception = f"{type(e).__name__}: {e}"
+  info(exception)
 
 intents = nextcord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
