@@ -21,7 +21,7 @@ try:
      Lang TEXT NOT NULL,
      Prefix TEXT NOT NULL
     )""")
-except Exception, e:
+except Exception as e:
   info("SQL not loaded")
 
 intents = nextcord.Intents.all()
