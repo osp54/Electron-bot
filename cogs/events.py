@@ -105,7 +105,12 @@ class events(commands.Cog):
            if ctx.cog:
                if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
                    return
-           embed = nextcord.Embed(title="Новая ошибка", description=''.join(traceback.format_exception(type(error), error, error.__traceback__), color=0xFF0000)
+           _error = ''.join(traceback.format_exception(type(error), error, error.__traceback__)
+           embed = nextcord.Embed(
+               title="Новая ошибка",
+               description=_error,
+               color=0xFF0000
+           )
            await channel.send(embed=embed)
     @commands.Cog.listener()
     async def on_message_edit(self, old, new):
