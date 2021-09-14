@@ -1,4 +1,5 @@
 import nextcord
+import traceback
 import json
 from utils.misc import get_prefix, info
 from nextcord.ext import commands
@@ -99,22 +100,12 @@ class events(commands.Cog):
             return await ctx.send(embed=embed)
         else:
            channel = self.bot.get_channel(872078345137979434)
-           error = getattr(error, 'original', error)
            if hasattr(ctx.command, 'on_error'):
                 return
-
            if ctx.cog:
                if ctx.cog._get_overridden_method(ctx.cog.cog_command_error) is not None:
                    return
-           embed = nextcord.Embed(
-               title="New Error",
-               description=f"Command: {ctx.command.name}\n\nUsername: `{ctx.author}`\n\nUserID: `{ctx.author.id}`\n\nGuild Name: `{ctx.guild.name}`",
-               color=0x42F56C
-           )
-           embed.add_field(
-                   name="Error:",
-                   value=f"```\n{ctx.author} - {error}\n```"
-           )
+           embed = nextcord.Embed(title="Новая ошибка", description=''.join(traceback.format_exception(type(error), error, error.__traceback__), color=0xFF0000)
            await channel.send(embed=embed)
     @commands.Cog.listener()
     async def on_message_edit(self, old, new):
