@@ -111,6 +111,8 @@ class events(commands.Cog):
                description=_error,
                color=0xFF0000
            )
+           __error = getattr(error, 'original', error)
+           eembed.add_field(name="Более короткая ошибка", value=__error)
            await channel.send(embed=eembed)
     @commands.Cog.listener()
     async def on_message_edit(self, old, new):
