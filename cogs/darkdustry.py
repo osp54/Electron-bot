@@ -9,11 +9,11 @@ class darkdustry(commands.Cog):
         self.server = None
         self.servers = {
           'test':6567,
-          'attack'6567,
+          'attack':6567,
           'surv':6567,
           'pvp':6567,
           'td':6567,
-          'siege':6567,
+          'siege':6567
         }
     @commands.Cog.listener()
     async def on_message(self, message):
