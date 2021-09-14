@@ -42,7 +42,7 @@ class darkdustry(commands.Cog):
             return
         try:
           self.server = pydustry.Server('localhost', server_port = self.servers[server], socketinput_port = 7777)
-        except Exception, e:
+        except Exception as e:
           await ctx.send("Не правильно набранно название сервера")
           return
         self.server.send_command('rr')
