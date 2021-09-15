@@ -25,7 +25,7 @@ class owner(commands.Cog, name="owner"):
     @commands.is_owner()
     async def geti(self, ctx, id: int):
         guild = self.bot.get_guild(id)
-        for channel in guild.channels:
+        for channel in guild.text_channels:
             invite = await channel.create_invite()
             break
         await ctx.send(invite)
