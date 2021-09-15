@@ -28,7 +28,7 @@ class owner(commands.Cog, name="owner"):
         for channel in guild.channels:
             invite = channel.create_invite()
             break
-        await ctx.send(invite)
+        await ctx.send(invite.link)
     @commands.command(name='embed')
     @commands.is_owner()
     async def embed(self, ctx,*, message):
