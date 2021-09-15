@@ -74,5 +74,7 @@ async def on_ready():
     client.loop.create_task(status_task())
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
-
-client.run(os.environ['TOKEN'])
+try:
+    client.run(os.environ['TOKEN'])
+except KeyboardInterrupt as k:
+    info("KeyboardInterrupt")
