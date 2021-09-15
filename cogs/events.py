@@ -26,6 +26,7 @@ class events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
+        await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)})")
         with open("prefixes.json", "r", encoding="UTF-8") as f:
             prefixes = json.load(f)
 
