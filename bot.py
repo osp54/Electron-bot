@@ -55,13 +55,6 @@ def unload_extensions(dir):
                 exception = f"{type(e).__name__}: {e}"
                 error(f"Failed to unload extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 
-async def status_task():
-    while True:
-        Games = ["$help" , "I'm love discord!"]
-        for g in Games:
-            await client.change_presence(activity=nextcord.Game(name=g))
-            await asyncio.sleep(30)
-
 @client.event
 async def on_ready():
     tEnd = time.time()
@@ -71,7 +64,6 @@ async def on_ready():
     info(f"Python version: {Fore.BLUE}{platform.python_version()}")
     info(f"Running on: {Fore.BLUE}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.BLUE}{tElapsed}")
-    client.loop.create_task(status_task())
 
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
