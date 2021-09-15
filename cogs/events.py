@@ -19,14 +19,12 @@ class events(commands.Cog):
                 await message.add_reaction("⚡")
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        fullCommandName = ctx.command.qualified_name
-        cmdsplit = fullCommandName.split(" ")
-        executedCommand = str(cmdsplit[0])
-        info(f"Executed {executedCommand} command in {ctx.guild.name} (ID: {ctx.message.guild.id}) by {ctx.message.author} (ID: {ctx.message.author.id})")
+        cmd = ctx.command.qualified_name
+        info(f"Executed {cmd} command in {ctx.guild.name} (ID: {ctx.message.guild.id}) by {ctx.message.author} (ID: {ctx.message.author.id})")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)})")
+        await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
         with open("prefixes.json", "r", encoding="UTF-8") as f:
             prefixes = json.load(f)
 
