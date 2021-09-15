@@ -29,6 +29,12 @@ class owner(commands.Cog, name="owner"):
             invite = await channel.create_invite()
             break
         await ctx.send(invite)
+    @commands.command()
+    @commands.is_owner()
+    async def gleave(self, ctx, id: int):
+        guild = self.bot.get_guild(id)
+        await guild.leave()
+        await ctx.send(f"Вышел из гильдии: {guild.name}")
     @commands.command(name='embed')
     @commands.is_owner()
     async def embed(self, ctx,*, message):
