@@ -26,9 +26,9 @@ class owner(commands.Cog, name="owner"):
     async def geti(self, ctx, id: int):
         guild = self.bot.get_guild(id)
         for channel in guild.channels:
-            invite = channel.create_invite()
+            invite = await channel.create_invite()
             break
-        await ctx.send(invite.link)
+        await ctx.send(invite)
     @commands.command(name='embed')
     @commands.is_owner()
     async def embed(self, ctx,*, message):
