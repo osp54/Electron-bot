@@ -8,7 +8,7 @@ import asyncio
 import sqlite3
 from utils.misc import error, info, get_prefix
 from colorama import init #, Fore, Back, Style
-#from nextcord.ext import commands
+from nextcord.ext import commands
 
 tStart = time.time()
 
