@@ -33,7 +33,6 @@ client.remove_command('help')
 logger = logging.getLogger('nextcord')
 logger.setLevel(logging.WARNING)
 
-
 #загрузить все расширения из папки
 def load_extensions(dir):
     for file in os.listdir(dir):
@@ -55,12 +54,14 @@ def unload_extensions(dir):
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 error(f"Failed to unload extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
+
 async def status_task():
     while True:
-        await client.change_presence(activity=nextcord.Game(name="$help"))
-        await asyncio.sleep(30)
-        await client.change_presence(activity=nextcord.Game(name="I'm love discord!"))
-        await asyncio.sleep(30)
+        Games = ["$help" , "I'm love discord!"]
+        for g in Games:
+            await client.change_presence(activity=nextcord.Game(name=g))
+            await asyncio.sleep(30)
+
 @client.event
 async def on_ready():
     tEnd = time.time()

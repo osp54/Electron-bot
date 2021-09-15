@@ -48,7 +48,7 @@ class moderation(commands.Cog, name="moderation"):
             embed = nextcord.Embed(
                 title='Ошибка',
                 description='Вы не можете замьютить этого пользователя, так как его права выше чем ваши',
-                color=pxE02B2B
+                color=0xE02B2B
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
