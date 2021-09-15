@@ -7,7 +7,7 @@ import logging
 import asyncio
 import sqlite3
 from utils.misc import error, info, get_prefix
-#from colorama import init, Fore, Back, Style
+from colorama import init #, Fore, Back, Style
 #from nextcord.ext import commands
 
 tStart = time.time()
@@ -72,6 +72,7 @@ async def on_ready():
     info(f"Running on: {Fore.BLUE}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.BLUE}{tElapsed}")
     client.loop.create_task(status_task())
+
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
 try:
