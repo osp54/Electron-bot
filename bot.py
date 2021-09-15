@@ -1,5 +1,5 @@
 import time
-#import nextcord
+import nextcord
 import os
 import platform
 #import colorama
