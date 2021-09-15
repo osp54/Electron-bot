@@ -59,7 +59,7 @@ def unload_extensions(dir):
 async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
-    await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)})")
+    await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
     info(f"Logged in as {Fore.BLUE}{client.user.name}{Fore.RESET}, Guilds: {Fore.BLUE}{len(client.guilds)}")
     info(f"NextCord.py version: {Fore.BLUE}{nextcord.__version__}")
     info(f"Python version: {Fore.BLUE}{platform.python_version()}")
