@@ -28,6 +28,12 @@ class owner(commands.Cog, name="owner"):
         if guild.id in blackguilds['ids']:
             return await ctx.send(f"Сервер {guild.name} уже в черном списке!")
         add_guild_to_BL(guild.id)
+        for guild in self.bot.guilds:
+            if guild.id in blackguilds['ids']:
+                for channel in guild.text_channels:
+                    if channel.permissions_for(guild.me).send_messages:
+                        await channel.send("This guild is blacklisted. Bye!")
+                break
         await ctx.send(f"Сервер {guild.name} добавлен в черный список.")
     @commands.command()
     @commands.is_owner()
