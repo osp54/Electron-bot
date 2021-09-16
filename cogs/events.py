@@ -21,9 +21,18 @@ class events(commands.Cog):
     async def on_command(self, ctx):
         cmd = ctx.command.qualified_name
         info(f"Executed {cmd} command in {ctx.guild.name} (ID: {ctx.message.guild.id}) by {ctx.message.author} (ID: {ctx.message.author.id})")
-
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
+        with open("blackguilds.json") as file:
+            blackguilds = json.load(file)
+        if guild.id in blackguilds["ids"]:
+            for channel in guild.text_channels:
+                if channel.permissions_for(guild.me).send_messages:
+                    channel = channel
+                break
+            await channel.send("This guild is blacklisted. Bye!")
+            return await guild.leave()
+
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
         with open("prefixes.json", "r", encoding="UTF-8") as f:
             prefixes = json.load(f)
@@ -48,9 +57,11 @@ class events(commands.Cog):
                 ).add_field(
                     name="Features",
                     value="Auto remove scam links like 'free nitro'! Music! And much more.")
-                await ctx.send(embed=embed)
+                await channel.send(embed=embed)
             break
-
+    @commands.Cog.listener()
+    async def on_guild_remove()
+        await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
