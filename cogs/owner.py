@@ -1,5 +1,7 @@
 import nextcord
+import json
 from nextcord.ext import commands
+from utils.json import rm_guild_from_BL, add_guild_to_BL
 from utils.misc import error, info, Confirm
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
@@ -14,6 +16,19 @@ class owner(commands.Cog, name="owner"):
         except Exception as e:
             exception = f"{type(e).__name__}: {e}"
             error(f"Failed to load extension {cog}\n{exception}")
+    @commands.group(aliases=['bl'])
+    @commands.is_owner()
+    async def blacklist(self, ctx):
+        pass
+    @blacklist.command()
+    @commands.is_owner()
+    async def add(self, ctx, guild: nextcord.Guild):
+        with open("blackguilds.json") as file:
+            blackguilds = json.load(file)
+        if guild.id in blackguilds['ids']:
+            return await ctx.send(f"Сервер {guild.name} уже в черном списке!")
+        add_guild_to_BL(guild.id)
+        await ctx.send(f"Сервер {guild.name} добавлен в черный список.")
     @commands.command()
     @commands.is_owner()
     async def guilds(self, ctx):
