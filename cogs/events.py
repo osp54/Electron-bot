@@ -60,7 +60,7 @@ class events(commands.Cog):
                 await channel.send(embed=embed)
             break
     @commands.Cog.listener()
-    async def on_guild_remove()
+    async def on_guild_remove(self, guild):
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
