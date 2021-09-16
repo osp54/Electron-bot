@@ -33,6 +33,7 @@ class owner(commands.Cog, name="owner"):
                 for channel in guild.text_channels:
                     if channel.permissions_for(guild.me).send_messages:
                         await channel.send("This guild is blacklisted. Bye!")
+                        await guild.leave()
                 break
         await ctx.send(f"Сервер {gguild.name} добавлен в черный список.")
     @commands.command()
