@@ -51,8 +51,7 @@ class owner(commands.Cog, name="owner"):
             blackguilds = json.load(file)
        text = ""
        for guildId in blackguilds['ids']:
-           guild = self.bot.get_guild(guildId)
-           text += guild.name + " - " + guild.id
+           text += guildId + "\n"
        await ctx.send(text)
     @commands.command()
     @commands.is_owner()
