@@ -37,13 +37,13 @@ class owner(commands.Cog, name="owner"):
         await ctx.send(f"Сервер {gguild.name} добавлен в черный список.")
     @blacklist.command(aliases=['rm'])
     @commands.is_owner()
-    async def remove(self, ctx, guild: nextcord.Guild):
+    async def remove(self, ctx, id: int):
        with open("blackguilds.json") as file:
             blackguilds = json.load(file)
        if guild.id not in blackguilds['ids']:
-           return await ctx.send(f"Сервера {guild.name} нету в черном списке.")
+           return await ctx.send(f"Сервера с id `{id}` нету в черном списке.")
        rm_guild_from_BL(guild.id)
-       await ctx.send("Сервер {guild.name} удалён из черного списка.")
+       await ctx.send("Сервер с id `{id}` удалён из черного списка.")
     @blacklist.command()
     @commands.is_owner()
     async def list(self, ctx):
@@ -51,8 +51,8 @@ class owner(commands.Cog, name="owner"):
             blackguilds = json.load(file)
        text = ""
        for guildId in blackguilds['ids']:
-           text += guildId + "\n"
-       await ctx.send(text)
+           text.append(guildId)
+       await ctx.send("\n".join(text))
     @commands.command()
     @commands.is_owner()
     async def guilds(self, ctx):
