@@ -49,7 +49,7 @@ class owner(commands.Cog, name="owner"):
     async def list(self, ctx):
        with open("blackguilds.json") as file:
             blackguilds = json.load(file)
-       text = ""
+       text = []
        for guildId in blackguilds['ids']:
            text.append(guildId)
        await ctx.send("\n".join(text))
