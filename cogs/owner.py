@@ -40,10 +40,10 @@ class owner(commands.Cog, name="owner"):
     async def remove(self, ctx, guild: nextcord.Guild):
        with open("blackguilds.json") as file:
             blackguilds = json.load(file)
-        if guild.id not in blackguilds['ids']:
-            return await ctx.send(f"Сервера {guild.name} нету в черном списке.")
-        rm_guild_from_BL(guild.id)
-        await ctx.send("Сервер {guild.name} удалён из черного списка.")
+       if guild.id not in blackguilds['ids']:
+           return await ctx.send(f"Сервера {guild.name} нету в черном списке.")
+       rm_guild_from_BL(guild.id)
+       await ctx.send("Сервер {guild.name} удалён из черного списка.")
     @blacklist.command()
     @commands.is_owner()
     async def list(self, ctx):
