@@ -57,7 +57,12 @@ class main(commands.Cog, name="main"):
         elif result is not None:
             sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
             val = (prefix, ctx.guild.id)
-            await ctx.send(embed=eembed)
+            eeembed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.succerfully'),
+                description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
+                color=0x42F56C
+            ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
+            await ctx.send(embed=eeembed)
         cursor.execute(sql, val)
         self.conn.commit()
         cursor.close()
