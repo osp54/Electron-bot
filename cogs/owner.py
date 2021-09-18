@@ -2,7 +2,8 @@ import nextcord
 import json
 from nextcord.ext import commands
 from utils.json import rm_guild_from_BL, add_guild_to_BL
-from utils.misc import error, info, Confirm
+from utils.misc import error, info
+from utils.button import ConfirmButton
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
@@ -88,7 +89,7 @@ class owner(commands.Cog, name="owner"):
     @commands.command()
     @commands.is_owner()
     async def shutdown(self, ctx):
-        view = Confirm(ctx.message.author)
+        view = ConfirmButton(ctx.message.author)
         await ctx.send('Точно?!', view=view)
         await view.wait()
         if view.value:
