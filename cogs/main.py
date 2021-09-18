@@ -64,15 +64,11 @@ class main(commands.Cog, name="main"):
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
     @commands.command(
         name="setlang",
-        usage="`setlang [язык]`",
         aliases=['язык', 'lang']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def setlang(self, ctx):
-        """
-        Изменить язык бота.
-        """
         cursor = self.conn.cursor()
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         embed = nextcord.Embed( 
@@ -80,8 +76,8 @@ class main(commands.Cog, name="main"):
             description=self.b.get('Bundle', 'embed.langchanged.description'),
             color=0x42F56C
         )
-        view = SetLangButton(guild.owner_id)
-        await channel.send(content="<@{guild.owner_id}> Read this", embed=embed, view=view)
+        view = SetLangButton(ctx.author.id)
+        await channel.send(embed=embed, view=view)
         if view.value:
             sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
             val = (guild.id, "en")
@@ -92,10 +88,8 @@ class main(commands.Cog, name="main"):
             val = (guild.id, "ru")
             cursor.execute(sql, val)
             self.conn.commit()
-        await ctx.send(embed=embed)
     @commands.command(
         name="ping",
-        usage="`ping`",
         aliases=['пинг']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -104,15 +98,11 @@ class main(commands.Cog, name="main"):
         await ctx.send(self.b.get('Bundle', 'ping').format(round(self.bot.latency * 1000)))
     @commands.command(
         name="avatar",
-        usage="`avatar <участник>`",
         aliases=['аватар']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def avatar(self, ctx, member: nextcord.Member = None):
-        """
-        Получить аватар пользователя
-        """
-        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        self.b.read(locales/{get_lang(self.bot, ctx.message)}.ini")
         if not member:
             member = ctx.message.author
         embed = nextcord.Embed(
@@ -123,14 +113,10 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed)
     @commands.command(
         name="emoji",
-        usage="`emoji [эмодзи]`",
         aliases=["эмодзи_инфо", "эмодзи", "эмоция", "emoteinfo"]
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def emoji(self, ctx, emoji: nextcord.Emoji):
-        """
-        Эмодзи.
-        """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         embed = nextcord.Embed(title=self.b.get('Bundle', 'embed.emoji.title').format(emoji.name), color=0x42F56C)
         embed.set_thumbnail(url=emoji.url)
@@ -147,12 +133,10 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed)
     @commands.command(
         name="guild",
-        usage="`guild`",
         aliases=["guildinfo", "сервер"]
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def guild(self, ctx):
-        """Информация об этом сервере."""
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         guild = ctx.guild
         guild_owner = self.bot.get_user(guild.owner_id)
@@ -181,13 +165,9 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed)
     @commands.command(
         name="channel",
-        usage="`channel <канал>`",
         aliases=['канал', 'channelinfo']
     )
     async def channel(self, ctx, channel: nextcord.TextChannel = None):
-        """
-        Информация о текущем/другом канале.
-        """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         channel = channel or ctx.channel
         embed = nextcord.Embed(title=self.b.get('Bundle', 'embed.channel').format(channel), color=0x42F56C)
@@ -210,14 +190,10 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed)
     @commands.command(
        name="poll",
-       usage="poll [заголовок]",
        aliases=['опрос']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def poll(self, ctx, *, title):
-        """
-        Создайте опрос, в котором участники могут голосовать.
-        """
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.poll.newpoll.title'),
