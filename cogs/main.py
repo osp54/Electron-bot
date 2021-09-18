@@ -22,47 +22,11 @@ class main(commands.Cog, name="main"):
         #bundle = ConfigParser()
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         await ctx.send(self.b.get('Bundle', 'embed.title',).format(ctx.author, ctx.guild.name))
-    @commands.command(
-        name = "setprefix",
-        usage = "`setprefix [новый префикс]`",
-        aliases=['префикс']
-    )
+
+    @commands.command(aliases=['префикс'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def setprefix(self, ctx, prefix):
-        """
-        Изменить префикс.
-        """
-        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
-        if get_prefix(self.bot, ctx.message) == prefix:
-            embed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
-                color=0xE02B2B
-            )
-            return await ctx.send(embed=embed)
-        if len(prefix) >= self.maxcharsprefix:
-            eeembed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.description').format(self.maxcharsprefix),
-                color=0xE02B2B
-            )
-            return await ctx.send(embed=eeembed)
-        with open("prefixes.json", "r") as f:
-            prefixes = json.load(f)
-        prefixes[str(ctx.guild.id)] = prefix
-        with open("prefixes.json", "w") as f:
-            json.dump(prefixes, f, indent=4)
-        await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
-        eembed = nextcord.Embed(
-            title=self.b.get('Bundle', 'embed.succerfully'),
-            description=self.b.get('Bundle', 'embed.prefixchanged.description').format(get_prefix(self.bot, ctx.message)),
-            color=0x42F56C
-        ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
-        await ctx.send(embed=eembed)
-    @commands.command()
-    @commands.has_permissions(administrator=True)
-    async def setprefix2(self, ctx, prefix):
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if get_prefix(self.bot, ctx.message) == prefix:
             embed = nextcord.Embed(
