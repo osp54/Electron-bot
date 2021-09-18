@@ -2,7 +2,6 @@ import time
 import nextcord
 import os
 import platform
-import jishaku
 #import colorama
 import logging
 import asyncio
