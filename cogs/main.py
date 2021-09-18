@@ -12,6 +12,7 @@ from configparser import ConfigParser
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
+        self.conn = sqlite3.connect(r'db/electron.db')
         self.b = ConfigParser() # b - bundle
         self.maxcharsprefix = 4
         self.languages = ['ru', 'RU', 'Russian'.lower(), 'en', 'EN', 'English'.lower()]
@@ -58,6 +59,25 @@ class main(commands.Cog, name="main"):
             color=0x42F56C
         ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
         await ctx.send(embed=eembed)
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def setprefix2(self, ctx, prefix):
+        cursor = self.conn.cursor()
+        cursor.execute(f"SELECT channel_id FROM guilds WHERE ID = {ctx.guild.id}")
+        result =  cursor.fetchone()
+        if result is None:
+            sql = ("INSERT INTO guilds(ID, prefix) VALUES(?,?)")
+            val = (ctx.guild.id, prefix)
+            await ctx.send(f"Prefix has be set to {prefix}")
+        elif result is not None:
+            sql = ("UPDATE guilds SET prefix = ? WHERE ID = ?")
+            val = (prefix, ctx.guild_id)
+            await ctx.send(f"Prefix has been updated to {prefix}")
+        cursor.execute(sql, val)
+        db.commit()
+        cursor.close()
+        db.close()
+    
     @commands.command(
         name="setlang",
         usage="`setlang [язык]`",
