@@ -4,6 +4,7 @@ import datetime
 import humanize
 import sqlite3
 from nextcord.ext import commands
+from utils.Button import SetLangButton
 from utils.misc import format_name, get_lang, get_prefix
 from nextcord.ext.commands import cooldown, BucketType
 from configparser import ConfigParser
@@ -16,13 +17,6 @@ class main(commands.Cog, name="main"):
         self.conn = sqlite3.connect(r'db/electron.db')
         self.b = ConfigParser() # b - bundle
         self.maxcharsprefix = 4
-        self.languages = ['ru', 'RU', 'Russian'.lower(), 'en', 'EN', 'English'.lower()]
-    @commands.command()
-    async def test(self, ctx):
-        #bundle = ConfigParser()
-        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
-        await ctx.send(self.b.get('Bundle', 'embed.title',).format(ctx.author, ctx.guild.name))
-
     @commands.command(aliases=['префикс'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
@@ -75,32 +69,29 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
-    async def setlang(self, ctx, lang):
+    async def setlang(self, ctx):
         """
         Изменить язык бота.
         """
+        cursor = self.conn.cursor()
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
-        if lang not in self.languages:
-            eembed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'error.embed.unknownlang.description'),
-                color=0xE02B2B
-            )
-            return await ctx.send(embed=eembed)
-        if lang == 'RU'.lower() or lang == 'Russian'.lower():
-            lang = 'ru'
-        if lang == 'EN'.lower() or lang == 'English'.lower():
-            lang = 'en'
-        with open("guildlang.json", "r") as f:
-            guildlang = json.load(f)
-        guildlang[str(ctx.guild.id)] = lang
-        with open("guildlang.json", "w") as f:
-            json.dump(guildlang, f, indent=4)
-        embed = nextcord.Embed(
+        embed = nextcord.Embed( 
             title=self.b.get('Bundle', 'embed.succerfully'),
-            description=self.b.get('Bundle', 'embed.langchanged.description').format(lang),
+            description=self.b.get('Bundle', 'embed.langchanged.description'),
             color=0x42F56C
         )
+        view = SetLangButton(guild.owner_id)
+        await channel.send(content="<@{guild.owner_id}> Read this", embed=embed, view=view)
+        if view.value:
+            sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
+            val = (guild.id, "en")
+            cursor.execute(sql, val)
+            self.conn.commit()
+        else:
+            sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
+            val = (guild.id, "ru")
+            cursor.execute(sql, val)
+            self.conn.commit()
         await ctx.send(embed=embed)
     @commands.command(
         name="ping",
