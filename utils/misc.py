@@ -17,8 +17,6 @@ def get_prefix(client, message):
 def get_prefix2(client, message):
     cur.execute(f"SELECT prefix FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
-    if "None" in result:
-        return "$"
     if result is None:
         return "$"
     if result is not None:
