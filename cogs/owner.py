@@ -1,5 +1,6 @@
 import nextcord
 import json
+import inspect
 from nextcord.ext import commands
 from utils.json import rm_guild_from_BL, add_guild_to_BL
 from utils.misc import error, info
@@ -95,5 +96,13 @@ class owner(commands.Cog, name="owner"):
         if view.value:
             info(f'{ctx.message.author} off the bot!')
             await exit()
+    @commands.command()
+    @commands.is_owner()
+    async def eval_(self, ctx, *, command):
+        res = eval(command)
+        if inspect.isawaitable(res):
+            await ctx.send(await res)
+        else:
+            await ctx.send(res)
 def setup(bot):
     bot.add_cog(owner(bot))
