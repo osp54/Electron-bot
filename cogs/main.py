@@ -75,9 +75,9 @@ class main(commands.Cog, name="main"):
             val = (prefix, ctx.guild_id)
             await ctx.send(f"Prefix has been updated to {prefix}")
         cursor.execute(sql, val)
-        db.commit()
+        self.conn.commit()
         cursor.close()
-        db.close()
+        self.conn.close()
     
     @commands.command(
         name="setlang",
