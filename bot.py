@@ -17,9 +17,9 @@ try:
   conn = sqlite3.connect(r'db/electron.db')
   cur = conn.cursor()
   conn.execute("""CREATE TABLE IF NOT EXISTS Guilds (
-     ID INTEGER PRIMARY KEY NOT NULL,
-     Lang TEXT NOT NULL,
-     Prefix TEXT NOT NULL
+     ID INTEGER PRIMARY KEY,
+     Lang TEXT,
+     Prefix TEXT
     )""")
 except Exception as e:
   info("SQL not loaded")
