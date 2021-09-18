@@ -15,7 +15,7 @@ def get_prefix(client, message):
         prefixes = json.load(f)
     return prefixes[str(message.guild.id)]
 def get_prefix2(client, message):
-    cur.execute(f"SELECT prefix FROM guilds WHERE ID = {message.guild.id}")
+    cur.execute(f"SELECT prefix FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
     if result is None:
         return "$"
