@@ -93,17 +93,12 @@ class main(commands.Cog, name="main"):
         elif result is not None:
             sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
             val = (prefix, ctx.guild_id)
-        eembed = nextcord.Embed(
-            title=self.b.get('Bundle', 'embed.succerfully'),
-            description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
-            color=0x42F56C
-        ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
-        await ctx.send(embed=eembed)
+            await ctx.send(embed=eembed)
         cursor.execute(sql, val)
         self.conn.commit()
         cursor.close()
         self.conn.close()
-    
+        await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
     @commands.command(
         name="setlang",
         usage="`setlang [язык]`",
