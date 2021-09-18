@@ -83,7 +83,7 @@ class main(commands.Cog, name="main"):
             result =  cursor.fetchone()
             if result is None:
                 sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-                val = (guild.id, "en")
+                val = (ctx.guild.id, "en")
                 cursor.execute(sql, val)
                 self.conn.commit()
             if result is not None:
@@ -96,7 +96,7 @@ class main(commands.Cog, name="main"):
             result = cursor.fetchone()
             if result is None:
                 sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-                val = (guild.id, "ru")
+                val = (ctx.guild.id, "ru")
                 cursor.execute(sql, val)
                 self.conn.commit()
             if result is not None:
