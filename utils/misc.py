@@ -17,11 +17,10 @@ def get_prefix(client, message):
 def get_prefix2(client, message):
     cur.execute(f"SELECT prefix FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
-    defaultprefix = ['$']
     if result is None:
-        return defaultprefix[0]
+        return str("en")
     if result is not None:
-        return result
+        return str(result)
 def get_lang(client, message):
     cur.execute(f"SELECT lang FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
