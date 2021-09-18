@@ -25,7 +25,7 @@ def get_lang(client, message):
     cur.execute(f"SELECT lang FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
     if result is None:
-        return "$"
+        return "en"
     if result is not None:
         return result
 
