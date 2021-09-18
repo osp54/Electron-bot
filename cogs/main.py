@@ -101,7 +101,7 @@ class main(commands.Cog, name="main"):
                 self.conn.commit()
             if result is not None:
                 sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
-                val = ("ru" ctx.guild.id)
+                val = ("ru", ctx.guild.id)
                 cursor.execute(sql, val)
                 self.conn.commit()
     @commands.command(
