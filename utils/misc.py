@@ -22,9 +22,12 @@ def get_prefix2(client, message):
     if result is not None:
         return result
 def get_lang(client, message):
-    with open("guildlang.json", "r") as f:
-        guildlang = json.load(f)
-    return guildlang[str(message.guild.id)]
+    cur.execute(f"SELECT lang FROM guild WHERE ID = {message.guild.id}")
+    result = cur.fetchone()
+    if result is None:
+        return "$"
+    if result is not None:
+        return result
 
 def info(desc):
     now = pendulum.now('Europe/Moscow')
