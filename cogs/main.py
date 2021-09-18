@@ -2,6 +2,7 @@ import nextcord
 import json
 import datetime
 import humanize
+import sqlite3
 from nextcord.ext import commands
 from utils.misc import format_name, get_lang, get_prefix
 from nextcord.ext.commands import cooldown, BucketType
