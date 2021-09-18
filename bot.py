@@ -16,11 +16,11 @@ init(autoreset=True)
 try:
   conn = sqlite3.connect(r'db/electron.db')
   cur = conn.cursor()
-  conn.execute("""CREATE TABLE IF NOT EXISTS Guilds (
-     ID INTEGER PRIMARY KEY,
-     Lang TEXT,
-     Prefix TEXT
-    )""")
+  conn.execute("""DELETE TABLE Guilds""")
+ #    ID INTEGER PRIMARY KEY,
+ #    Lang TEXT,
+ #     Prefix TEXT
+ #   )""")
 except Exception as e:
   info("SQL not loaded")
   exception = f"{type(e).__name__}: {e}"
