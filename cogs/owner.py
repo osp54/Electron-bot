@@ -99,10 +99,10 @@ class owner(commands.Cog, name="owner"):
     @commands.command()
     @commands.is_owner()
     async def eval_(self, ctx, *, command):
-        res = eval(command)
-        if inspect.isawaitable(res):
-            await ctx.send(await res)
-        else:
-            await ctx.send(res)
+        try:
+            result = exec(command)
+        except Exception as e:
+            await ctx.send(e)
+        await ctx.send(result)
 def setup(bot):
     bot.add_cog(owner(bot))
