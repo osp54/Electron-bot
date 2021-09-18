@@ -69,6 +69,7 @@ async def on_ready():
 
 if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
+    client.load_extension("jishaku")
 try:
     client.run(os.environ['TOKEN'])
 except KeyboardInterrupt as k:
