@@ -3,7 +3,7 @@ import traceback
 import json
 import sqlite3
 from utils.Button import SetLangButton
-from utils.misc import get_prefix, get_prefix2, info
+from utils.misc import get_prefix2, info
 from nextcord.ext import commands
 
 electron = ['electron', 'электрон']
