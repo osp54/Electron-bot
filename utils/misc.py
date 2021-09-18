@@ -10,18 +10,21 @@ conn = sqlite3.connect(r'db/electron.db')
 cur = conn.cursor()
 
 
-def get_prefix(client, message):
-    with open("prefixes.json", "r") as f:
-        prefixes = json.load(f)
-    return prefixes[str(message.guild.id)]
+#def get_prefix(client, message):
+#    with open("prefixes.json", "r") as f:
+#        prefixes = json.load(f)
+#    return prefixes[str(message.guild.id)]
 
 def get_prefix2(client, message):
     cur.execute(f"SELECT prefix FROM guild WHERE ID = {message.guild.id}")
-    result = cur.fetchone()[0]
-    if result is None:
-        return "$"
-    if result is not None:
-        return result
+    try:
+        result = cur.fetchone()[0]
+        if result is None:
+            return "$"
+        if result is not None:
+            return result
+    except:
+        return
 def get_lang(client, message):
     cur.execute(f"SELECT lang FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
