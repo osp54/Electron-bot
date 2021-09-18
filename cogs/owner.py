@@ -4,7 +4,7 @@ import inspect
 from nextcord.ext import commands
 from utils.json import rm_guild_from_BL, add_guild_to_BL
 from utils.misc import error, info
-from utils.button import ConfirmButton
+from utils.Button import ConfirmButton
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
