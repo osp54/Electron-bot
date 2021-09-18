@@ -5,7 +5,7 @@ import humanize
 import sqlite3
 from nextcord.ext import commands
 from utils.Button import SetLangButton
-from utils.misc import format_name, get_lang, get_prefix
+from utils.misc import format_name, get_lang, get_prefix2
 from nextcord.ext.commands import cooldown, BucketType
 from configparser import ConfigParser
 
