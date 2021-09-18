@@ -72,12 +72,12 @@ class main(commands.Cog, name="main"):
         cursor = self.conn.cursor()
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         embed = nextcord.Embed( 
-            title=self.b.get('Bundle', 'embed.succerfully'),
-            description=self.b.get('Bundle', 'embed.langchanged.description'),
+            title=self.b.get('Bundle', 'embed.setlang.title'),
+            description=self.b.get('Bundle', 'embed.choose-lang'),
             color=0x42F56C
         )
         view = SetLangButton(ctx.author.id)
-        await channel.send(embed=embed, view=view)
+        await ctx.send(embed=embed, view=view)
         if view.value:
             sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
             val = (guild.id, "en")
@@ -102,7 +102,7 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def avatar(self, ctx, member: nextcord.Member = None):
-        self.b.read(locales/{get_lang(self.bot, ctx.message)}.ini")
+        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if not member:
             member = ctx.message.author
         embed = nextcord.Embed(
