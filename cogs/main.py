@@ -63,17 +63,42 @@ class main(commands.Cog, name="main"):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def setprefix2(self, ctx, prefix):
+        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        if get_prefix(self.bot, ctx.message) == prefix:
+            embed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
+                color=0xE02B2B
+            )
+            return await ctx.send(embed=embed)
+        if len(prefix) >= self.maxcharsprefix:
+            eeembed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.description').format(self.maxcharsprefix),
+                color=0xE02B2B
+            )
+            return await ctx.send(embed=eeembed)
         cursor = self.conn.cursor()
         cursor.execute(f"SELECT prefix FROM guild WHERE ID = {ctx.guild.id}")
         result =  cursor.fetchone()
         if result is None:
             sql = ("INSERT INTO guild(ID, prefix) VALUES(?,?)")
             val = (ctx.guild.id, prefix)
-            await ctx.send(f"Prefix has be set to {prefix}")
+            eembed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.succerfully'),
+                description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
+                color=0x42F56C
+            ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
+            await ctx.send(embed=eembed)
         elif result is not None:
             sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
             val = (prefix, ctx.guild_id)
-            await ctx.send(f"Prefix has been updated to {prefix}")
+        eembed = nextcord.Embed(
+            title=self.b.get('Bundle', 'embed.succerfully'),
+            description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
+            color=0x42F56C
+        ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
+        await ctx.send(embed=eembed)
         cursor.execute(sql, val)
         self.conn.commit()
         cursor.close()
