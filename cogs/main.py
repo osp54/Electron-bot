@@ -64,14 +64,14 @@ class main(commands.Cog, name="main"):
     @commands.has_permissions(administrator=True)
     async def setprefix2(self, ctx, prefix):
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT prefix FROM guilds WHERE ID = {ctx.guild.id}")
+        cursor.execute(f"SELECT prefix FROM guild WHERE ID = {ctx.guild.id}")
         result =  cursor.fetchone()
         if result is None:
-            sql = ("INSERT INTO guilds(ID, prefix) VALUES(?,?)")
+            sql = ("INSERT INTO guild(ID, prefix) VALUES(?,?)")
             val = (ctx.guild.id, prefix)
             await ctx.send(f"Prefix has be set to {prefix}")
         elif result is not None:
-            sql = ("UPDATE guilds SET prefix = ? WHERE ID = ?")
+            sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
             val = (prefix, ctx.guild_id)
             await ctx.send(f"Prefix has been updated to {prefix}")
         cursor.execute(sql, val)
