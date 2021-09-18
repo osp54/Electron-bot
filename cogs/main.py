@@ -95,12 +95,12 @@ class main(commands.Cog, name="main"):
             cursor.execute(f"SELECT lang FROM guild WHERE ID = {ctx.guild.id}")
             result = cursor.fetchone()
             if result is None:
-                sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
+                sql = ("INSERT INTO guild(ID, prefix) VALUES(?,?)")
                 val = (ctx.guild.id, "ru")
                 cursor.execute(sql, val)
                 self.conn.commit()
             if result is not None:
-                sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
+                sql = ("UPDATE guild SET lang = ? WHERE ID = ?")
                 val = ("ru", ctx.guild.id)
                 cursor.execute(sql, val)
                 self.conn.commit()
