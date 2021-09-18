@@ -59,8 +59,6 @@ class main(commands.Cog, name="main"):
             await ctx.send(embed=eeembed)
         cursor.execute(sql, val)
         self.conn.commit()
-        cursor.close()
-        self.conn.close()
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
     @commands.command(
         name="setlang",
