@@ -79,15 +79,31 @@ class main(commands.Cog, name="main"):
         view = SetLangButton(ctx.author.id)
         await ctx.send(embed=embed, view=view)
         if view.value:
-            sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-            val = (guild.id, "en")
-            cursor.execute(sql, val)
-            self.conn.commit()
+            cursor.execute(f"SELECT lang FROM guild WHERE ID = {ctx.guild.id}")
+            result =  cursor.fetchone()
+            if result is None:
+                sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
+                val = (guild.id, "en")
+                cursor.execute(sql, val)
+                self.conn.commit()
+            if result is not None:
+                sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
+                val = ("en" ctx.guild.id)
+                cursor.execute(sql, val)
+                self.conn.commit()
         else:
-            sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-            val = (guild.id, "ru")
-            cursor.execute(sql, val)
-            self.conn.commit()
+            cursor.execute(f"SELECT lang FROM guild WHERE ID = {ctx.guild.id}")
+            result = cursor.fetchone()
+            if result is None:
+                sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
+                val = (guild.id, "ru")
+                cursor.execute(sql, val)
+                self.conn.commit()
+            if result is not None:
+                sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
+                val = ("ru" ctx.guild.id)
+                cursor.execute(sql, val)
+                self.conn.commit()
     @commands.command(
         name="ping",
         aliases=['пинг']
