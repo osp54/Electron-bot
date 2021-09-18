@@ -6,7 +6,7 @@ import platform
 import logging
 import asyncio
 import sqlite3
-from utils.misc import error, info, get_prefix, get_prefix2
+from utils.misc import error, info, get_prefix2
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 
