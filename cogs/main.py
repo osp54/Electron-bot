@@ -56,7 +56,7 @@ class main(commands.Cog, name="main"):
             await ctx.send(embed=eembed)
         elif result is not None:
             sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
-            val = (prefix, ctx.guild_id)
+            val = (prefix, ctx.guild.id)
             await ctx.send(embed=eembed)
         cursor.execute(sql, val)
         self.conn.commit()
