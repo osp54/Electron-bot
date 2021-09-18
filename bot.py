@@ -16,7 +16,7 @@ init(autoreset=True)
 try:
   conn = sqlite3.connect(r'db/electron.db')
   cur = conn.cursor()
-  conn.execute("""DELETE Guilds""")
+  conn.execute("""DELETE guilds""")
  #    ID INTEGER PRIMARY KEY,
  #    Lang TEXT,
  #     Prefix TEXT
