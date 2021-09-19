@@ -78,14 +78,14 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed, view=view)
         if view.value:
             cursor.execute(f"SELECT lang FROM guild WHERE ID = {ctx.guild.id}")
-            result =  cursor.fetchone()
+            result = cursor.fetchone()
             if result is None:
                 sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
                 val = (ctx.guild.id, "en")
                 cursor.execute(sql, val)
                 self.conn.commit()
             if result is not None:
-                sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
+                sql = ("UPDATE guild SET lang = ? WHERE ID = ?")
                 val = ("en", ctx.guild.id)
                 cursor.execute(sql, val)
                 self.conn.commit()
@@ -93,7 +93,7 @@ class main(commands.Cog, name="main"):
             cursor.execute(f"SELECT lang FROM guild WHERE ID = {ctx.guild.id}")
             result = cursor.fetchone()
             if result is None:
-                sql = ("INSERT INTO guild(ID, prefix) VALUES(?,?)")
+                sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
                 val = (ctx.guild.id, "ru")
                 cursor.execute(sql, val)
                 self.conn.commit()
