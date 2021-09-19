@@ -19,7 +19,10 @@ try:
   conn.execute("""CREATE TABLE IF NOT EXISTS guild (
      ID INTEGER PRIMARY KEY,
      Lang TEXT,
-     Prefix TEXT
+     Prefix TEXT,
+     WelcomeChannel INTEGER,
+     WelcomeMsg TEXT,
+     LogChannel INTEGER
     )""")
 except Exception as e:
   info("SQL not loaded")
