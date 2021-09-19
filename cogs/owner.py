@@ -96,12 +96,5 @@ class owner(commands.Cog, name="owner"):
         if view.value:
             info(f'{ctx.message.author} off the bot!')
             await exit()
-    @commands.command()
-    @commands.is_owner()
-    async def eval_(self, ctx, *, command):
-        try:
-            exec(command)
-        except Exception as e:
-            await ctx.send(e)
 def setup(bot):
     bot.add_cog(owner(bot))
