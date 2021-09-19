@@ -57,6 +57,5 @@ class EvalCommand(commands.Cog):
             await ctx.send(f"Error occurred:```\n{type(e).__name__}: {str(e)}```")
         
         del args, code, silent
-        
 def setup(bot):
-    bot.add_cog(EvalCommand())
+    bot.add_cog(EvalCommand(bot))
