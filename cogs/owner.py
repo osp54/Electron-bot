@@ -100,7 +100,8 @@ class owner(commands.Cog, name="owner"):
     @commands.is_owner()
     async def eval_(self, ctx, *, command):
         try:
-            result = exec(command)
+            result = exec("async def cmd(self, ctx):\n    {command}")
+            await cmd(self, ctx)
         except Exception as e:
             await ctx.send(e)
         await ctx.send(result)
