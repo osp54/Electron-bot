@@ -18,12 +18,9 @@ cur = conn.cursor()
 def get_prefix2(client, message):
     cur.execute(f"SELECT prefix FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
-    try:
-        if result is None:
-            return "$"
-        else:
-            return result[0]
-    except:
+    if instance(result, str):
+        return result[0]
+    else:
         return "$"
 def get_lang(client, message):
     cur.execute(f"SELECT lang FROM guild WHERE ID = {message.guild.id}")
