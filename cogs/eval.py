@@ -1,14 +1,14 @@
 from time import time
-from discord.ext import commands
+from nextcord.ext import commands
 from inspect import getsource
-import discord
+import nextcord as discord
 from inspect import getsource
 
 #Не мой код.
 
-class EvalCommand:
-    def __init__(self):
-        pass
+class EvalCommand(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
     
     def resolve_variable(self, variable):
         if hasattr(variable, "__iter__"):
