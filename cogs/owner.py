@@ -100,10 +100,8 @@ class owner(commands.Cog, name="owner"):
     @commands.is_owner()
     async def eval_(self, ctx, *, command):
         try:
-            result = exec("async def cmd(self, ctx):\n    {command}")
-            await cmd(self, ctx)
+            exec(f"async def cmd(self, ctx):\n    {command}\ncmd({self}, {ctx})")
         except Exception as e:
             await ctx.send(e)
-        await ctx.send(result)
 def setup(bot):
     bot.add_cog(owner(bot))
