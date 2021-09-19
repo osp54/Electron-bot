@@ -37,7 +37,7 @@ class EvalCommand(commands.Cog):
         
         code = self.prepare(code.replace("-s", ""))
         args = {
-            "nextcord": nextcord,
+            "nextcord": discord,
             "sauce": getsource,
             "sys": sys,
             "os": os,
