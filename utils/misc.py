@@ -28,11 +28,10 @@ def get_prefix2(client, message):
 def get_lang(client, message):
     cur.execute(f"SELECT lang FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
-    if result[0] is None:
+    if result is None:
         return "en"
     if result is not None:
         return result[0]
-
 def info(desc):
     now = pendulum.now('Europe/Moscow')
     print(f"{Fore.WHITE}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
