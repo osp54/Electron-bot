@@ -18,7 +18,7 @@ cur = conn.cursor()
 def get_prefix2(client, message):
     cur.execute(f"SELECT prefix FROM guild WHERE ID = {message.guild.id}")
     result = cur.fetchone()
-    if instance(result, str):
+    if isinstance(result, str):
         return result[0]
     else:
         return "$"
