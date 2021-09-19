@@ -2,6 +2,8 @@ from time import time
 from nextcord.ext import commands
 from inspect import getsource
 import nextcord as discord
+import sys
+import os
 from inspect import getsource
 
 #Не мой код.
@@ -35,7 +37,7 @@ class EvalCommand(commands.Cog):
         
         code = self.prepare(code.replace("-s", ""))
         args = {
-            "discord": discord,
+            "nextcord": nextcord,
             "sauce": getsource,
             "sys": sys,
             "os": os,
