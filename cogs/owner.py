@@ -99,6 +99,6 @@ class owner(commands.Cog, name="owner"):
     @commands.command()
     @commands.is_owner()
     async def ttest(self, ctx):
-        await ctx.send(localize(self, "test.test"))
+        await ctx.send(localize(ctx, self, "test.test"))
 def setup(bot):
     bot.add_cog(owner(bot))
