@@ -3,7 +3,7 @@ import nextcord
 import os
 import platform
 #import colorama
-from token import token
+import token
 import logging
 import asyncio
 import sqlite3
@@ -74,6 +74,6 @@ if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
     client.load_extension("jishaku")
 try:
-    client.run(token)
+    client.run(token.token)
 except KeyboardInterrupt as k:
     info("KeyboardInterrupt")
