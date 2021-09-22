@@ -8,6 +8,7 @@ from utils.Button import ConfirmButton
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
+        self.b = ConfigParser()
     @commands.command(name='load')
     @commands.is_owner()
     async def load(self, ctx, dir, cog):
