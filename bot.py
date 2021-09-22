@@ -30,7 +30,7 @@ except Exception as e:
   info(exception)
 
 intents = nextcord.Intents.all()
-client = commands.Bot(command_prefix = get_prefix2, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
+client = commands.Bot(command_prefix = commands.when_mentioned_or(get_prefix2), intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
 client.remove_command('help')
 
 logger = logging.getLogger('nextcord')
