@@ -29,6 +29,13 @@ def get_lang(client, message):
         return "en"
     if result is not None:
         return result[0]
+def localize(self, to_local, bundle="Bundle"):
+    bundles = self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+    en = self.b.read(f"locales/en.ini")
+    try:
+        return bundles.get(bundle, to_local)
+    except:
+        return en.get(bundle, to_local)
 def info(desc):
     now = pendulum.now('Europe/Moscow')
     print(f"{Fore.WHITE}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
