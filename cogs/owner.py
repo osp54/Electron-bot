@@ -3,7 +3,7 @@ import json
 import inspect
 from nextcord.ext import commands
 from utils.json import rm_guild_from_BL, add_guild_to_BL
-from utils.misc import error, info
+from utils.misc import error, info, localize
 from utils.Button import ConfirmButton
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
@@ -96,5 +96,9 @@ class owner(commands.Cog, name="owner"):
         if view.value:
             info(f'{ctx.message.author} off the bot!')
             await exit()
+    @commands.command()
+    @commands.is_owner()
+    async def ttest(self, ctx):
+        await ctx.send(localize(self, "test.test"))
 def setup(bot):
     bot.add_cog(owner(bot))
