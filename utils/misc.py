@@ -29,7 +29,7 @@ def get_lang(client, message):
         return "en"
     if result is not None:
         return result[0]
-def localize(self, to_local, bundle="Bundle"):
+def localize(ctx, self, to_local, bundle="Bundle"):
     bundles = self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
     en = self.b.read(f"locales/en.ini")
     try:
