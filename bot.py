@@ -74,6 +74,6 @@ if __name__ == "__main__":
     load_extensions("./cogs") #когсы командc
     client.load_extension("jishaku")
 try:
-    client.run(token.token)
+    client.run(token.ttoken)
 except KeyboardInterrupt as k:
     info("KeyboardInterrupt")
