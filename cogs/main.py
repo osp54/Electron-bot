@@ -22,7 +22,7 @@ class main(commands.Cog, name="main"):
     @commands.has_permissions(manage_messages=True)
     async def setprefix(self, ctx, prefix):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        if get_prefix2(ctx.message) == prefix:
+        if get_prefix2(self.bot, ctx.message) == prefix:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
                 description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
