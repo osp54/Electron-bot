@@ -23,7 +23,7 @@ def get_prefix2(client, message):
     else:
         return "$"
 def get_lang(client, message):
-    cur.execute(f"SELECT lang FROM guild WHERE ID = {message.guild.id}")
+    cur.execute("""SELECT lang FROM guild WHERE ID = ?""", (message.guild.id))
     result = cur.fetchone()
     if result is None:
         return "en"
