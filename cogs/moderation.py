@@ -1,4 +1,5 @@
 import nextcord
+import sqlite3
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
 
