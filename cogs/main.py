@@ -19,7 +19,7 @@ class main(commands.Cog, name="main"):
         self.maxcharsprefix = 4
     @commands.command(aliases=['префикс'])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    @commands.has_permissions(manage-messages=True)
+    @commands.has_permissions(manage_messages=True)
     async def setprefix(self, ctx, prefix):
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if get_prefix2(self.bot, ctx.message) == prefix:
