@@ -98,7 +98,7 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def ping(self, ctx):
-        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        self.b.read(f"locales/{get_lang( ctx.message)}.ini")
         await ctx.send(self.b.get('Bundle', 'ping').format(round(self.bot.latency * 1000)))
     @commands.command(
         name="avatar",

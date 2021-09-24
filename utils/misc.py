@@ -31,7 +31,7 @@ def get_lang(message):
     if result is not None:
         return result[0]
 def localize(ctx, self, to_local, bundle="Bundle"):
-    self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+    self.b.read(f"locales/{get_lang( ctx.message)}.ini")
     try:
         return self.b.get(bundle, to_local)
     except:
