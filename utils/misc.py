@@ -3,6 +3,7 @@ import pendulum
 import nextcord
 import sqlite3
 import json
+from nextcord.ext.commands import when_mentioned_or
 from configparser import ConfigParser
 from colorama import init, Fore, Back, Style
 
@@ -15,14 +16,14 @@ cur = conn.cursor()
 #        prefixes = json.load(f)
 #    return prefixes[str(message.guild.id)]
 
-def get_prefix2(client, message):
+def get_prefix2(message):
     cur.execute("""SELECT prefix FROM guild WHERE ID = ?""", (message.guild.id,))
     result = cur.fetchone()
     if result is not None:
-        return result[0]
+        return when_mentioned_or(result[0])
     else:
-        return "$"
-def get_lang(client, message):
+        return when_mentioned_or("$")
+def get_lang(message):
     cur.execute("""SELECT lang FROM guild WHERE ID = ?""", (message.guild.id,))
     result = cur.fetchone()
     if result is None:
