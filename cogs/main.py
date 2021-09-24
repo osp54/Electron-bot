@@ -37,7 +37,7 @@ class main(commands.Cog, name="main"):
             )
             return await ctx.send(embed=eeembed)
         cursor = self.conn.cursor()
-        cursor.execute("""SELECT prefix FROM guild WHERE ID = ?""", (ctx.guild.id))
+        cursor.execute("""SELECT prefix FROM guild WHERE ID = ?""", (ctx.guild.id,))
         result =  cursor.fetchone()
         if result is None:
             cursor.execute("""INSERT INTO guild(ID, prefix) VALUES(?,?)""", (ctx.guild.id, prefix,))
