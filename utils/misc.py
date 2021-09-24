@@ -28,7 +28,7 @@ def get_lang(message):
     result = cur.fetchone()
     if result is not None:
         return result[0]
-    else:
+    if result is None:
         return "en"
 def localize(ctx, self, to_local, bundle="Bundle"):
     self.b.read(f"locales/{get_lang( ctx.message)}.ini")
