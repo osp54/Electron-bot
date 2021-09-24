@@ -20,9 +20,9 @@ def get_prefix2(message):
     cur.execute("""SELECT prefix FROM guild WHERE ID = ?""", (message.guild.id,))
     result = cur.fetchone()
     if result is not None:
-        return when_mentioned_or(result[0])
+        return result[0]
     else:
-        return when_mentioned_or("$")
+        return "$"
 def get_lang(message):
     cur.execute("""SELECT lang FROM guild WHERE ID = ?""", (message.guild.id,))
     result = cur.fetchone()
