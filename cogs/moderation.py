@@ -17,7 +17,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.has_permissions(manage_roles=True)
     async def mute(self,ctx, member: nextcord.Member, *, reason=None):
         guild = ctx.guild
-        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         mutedRole = nextcord.utils.get(guild.roles, name="Muted")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
@@ -78,7 +78,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
     async def unmute(self,ctx, member: nextcord.Member):
-        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -109,7 +109,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: nextcord.Member, *, reason="None"):
-        self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
