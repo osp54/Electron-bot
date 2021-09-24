@@ -19,7 +19,7 @@ class main(commands.Cog, name="main"):
         self.maxcharsprefix = 4
     @commands.command(aliases=['префикс'])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    @commands.has_permissions(administrator=True)
+    @commands.has_permissions(manage-messages=True)
     async def setprefix(self, ctx, prefix):
         self.b.read(f"locales/{get_lang(self.bot, ctx.message)}.ini")
         if get_prefix2(self.bot, ctx.message) == prefix:
@@ -37,11 +37,11 @@ class main(commands.Cog, name="main"):
             )
             return await ctx.send(embed=eeembed)
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT prefix FROM guild WHERE ID = {ctx.guild.id}")
+        cursor.execute("""SELECT prefix FROM guild WHERE ID = ?""", (ctx.guild.id))
         result =  cursor.fetchone()
         if result is None:
-            sql = ("INSERT INTO guild(ID, prefix) VALUES(?,?)")
-            val = (ctx.guild.id, prefix)
+            cursor.execute("""INSERT INTO guild(ID, prefix) VALUES(?,?)""", (ctx.guild.id, prefix))
+            self.conn.commit()
             eembed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.succerfully'),
                 description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
@@ -49,16 +49,14 @@ class main(commands.Cog, name="main"):
             ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
             await ctx.send(embed=eembed)
         elif result is not None:
-            sql = ("UPDATE guild SET prefix = ? WHERE ID = ?")
-            val = (prefix, ctx.guild.id)
+            cursor.execute("""UPDATE guild SET prefix = ? WHERE ID = ?""", (prefix, ctx.guild.id))
+            self.conn.commit()
             eeembed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.succerfully'),
                 description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
                 color=0x42F56C
             ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
             await ctx.send(embed=eeembed)
-        cursor.execute(sql, val)
-        self.conn.commit()
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
     @commands.command(
         name="setlang",
@@ -77,30 +75,22 @@ class main(commands.Cog, name="main"):
         view = SetLangButton(ctx.author.id)
         await ctx.send(embed=embed, view=view)
         if view.value:
-            cursor.execute(f"SELECT lang FROM guild WHERE ID = {ctx.guild.id}")
+            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id))
             result = cursor.fetchone()
             if result is None:
-                sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-                val = (ctx.guild.id, "en")
-                cursor.execute(sql, val)
+                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "en"))
                 self.conn.commit()
             if result is not None:
-                sql = ("UPDATE guild SET lang = ? WHERE ID = ?")
-                val = ("en", ctx.guild.id)
-                cursor.execute(sql, val)
+                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("en", ctx.guild.id))
                 self.conn.commit()
         else:
-            cursor.execute(f"SELECT lang FROM guild WHERE ID = {ctx.guild.id}")
+            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id))
             result = cursor.fetchone()
             if result is None:
-                sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-                val = (ctx.guild.id, "ru")
-                cursor.execute(sql, val)
+                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id), "ru")
                 self.conn.commit()
             if result is not None:
-                sql = ("UPDATE guild SET lang = ? WHERE ID = ?")
-                val = ("ru", ctx.guild.id)
-                cursor.execute(sql, val)
+                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("ru", ctx.guild.id))
                 self.conn.commit()
     @commands.command(
         name="ping",
