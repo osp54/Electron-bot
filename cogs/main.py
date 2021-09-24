@@ -40,7 +40,7 @@ class main(commands.Cog, name="main"):
         cursor.execute("""SELECT prefix FROM guild WHERE ID = ?""", (ctx.guild.id))
         result =  cursor.fetchone()
         if result is None:
-            cursor.execute("""INSERT INTO guild(ID, prefix) VALUES(?,?)""", (ctx.guild.id, prefix))
+            cursor.execute("""INSERT INTO guild(ID, prefix) VALUES(?,?)""", (ctx.guild.id, prefix,))
             self.conn.commit()
             eembed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.succerfully'),
@@ -49,11 +49,11 @@ class main(commands.Cog, name="main"):
             ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
             await ctx.send(embed=eembed)
         elif result is not None:
-            cursor.execute("""UPDATE guild SET prefix = ? WHERE ID = ?""", (prefix, ctx.guild.id))
+            cursor.execute("""UPDATE guild SET prefix = ? WHERE ID = ?""", (prefix, ctx.guild.id,))
             self.conn.commit()
             eeembed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.succerfully'),
-                description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
+                description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix,),
                 color=0x42F56C
             ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
             await ctx.send(embed=eeembed)
@@ -75,22 +75,22 @@ class main(commands.Cog, name="main"):
         view = SetLangButton(ctx.author.id)
         await ctx.send(embed=embed, view=view)
         if view.value:
-            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id))
+            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id,))
             result = cursor.fetchone()
             if result is None:
-                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "en"))
+                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "en",))
                 self.conn.commit()
             if result is not None:
-                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("en", ctx.guild.id))
+                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("en", ctx.guild.id,))
                 self.conn.commit()
         else:
-            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id))
+            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id,))
             result = cursor.fetchone()
             if result is None:
-                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id), "ru")
+                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "ru",))
                 self.conn.commit()
             if result is not None:
-                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("ru", ctx.guild.id))
+                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("ru", ctx.guild.id,))
                 self.conn.commit()
     @commands.command(
         name="ping",
