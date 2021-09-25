@@ -80,18 +80,22 @@ class main(commands.Cog, name="main"):
             if result is None:
                 cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "en",))
                 self.conn.commit()
-            if result is not None:
+            elif result is not None:
                 cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("en", ctx.guild.id,))
                 self.conn.commit()
+            eembed = nextcord.Embed(description="The language of my messages has been successfully set to English!", color=0x42F56C)
+            await embed.edit(embed=eembed)
         else:
             cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id,))
             result = cursor.fetchone()
             if result is None:
                 cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "ru",))
                 self.conn.commit()
-            if result is not None:
+            elif result is not None:
                 cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("ru", ctx.guild.id,))
                 self.conn.commit()
+            eeembed = nextcord.Embed(description="Язык моих сообщений успешно установлен на русский!", color=0x42F56C)
+            await embed.edit(embed=eeembed)
     @commands.command(
         name="ping",
         aliases=['пинг']
