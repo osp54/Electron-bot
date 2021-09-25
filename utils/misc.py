@@ -26,7 +26,10 @@ def get_prefix2(client, message):
 def get_lang(message):
     cur.execute("""SELECT lang FROM guild WHERE ID = ?""", (message.guild.id,))
     result = cur.fetchone()
-    return result[0] or "en"
+    if result is not None:
+       return result[0]
+    else:
+        return "en"
 def localize(ctx, self, to_local, bundle="Bundle"):
     self.b.read(f"locales/{get_lang( ctx.message)}.ini")
     try:
