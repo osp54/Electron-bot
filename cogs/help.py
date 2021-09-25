@@ -26,7 +26,7 @@ class help(commands.Cog, name="help"):
                 text += prefix + cmd.name + " **[**" + self.b.get('Bundle', f'{cmd}.usage') + "**]**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.main"), value=text)
             for cmd in modcog:
-                text += prefix + cmd.name + " **[**" + self.b.get('Bundle', f'{cmd}.usage') + "**]**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n"
+                text2 += prefix + cmd.name + " **[**" + self.b.get('Bundle', f'{cmd}.usage') + "**]**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.moderation"), value=text2)
             await ctx.send(embed=embed) 
         if command is not None:
