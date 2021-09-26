@@ -6,7 +6,7 @@ import platform
 import logging
 import asyncio
 import pymongo
-from utils.misc import error, info, get_prefix2
+from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 
@@ -24,28 +24,6 @@ client.remove_command('help')
 
 logger = logging.getLogger('nextcord')
 logger.setLevel(logging.WARNING)
-
-#загрузить все расширения из папки
-def load_extensions(dir):
-    for file in os.listdir(dir):
-        if file.endswith(".py"):
-            extension = file[:-3]
-            try:
-                client.load_extension(f"{dir[2:]}.{extension}")
-                info(f"Loaded extension {Fore.BLUE}{extension}")
-            except Exception as e:
-                exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to load extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
-def unload_extensions(dir):
-    for file in os.listdir(dir):
-        if file.endswith(".py"):
-            extension = file[:-3]
-            try:
-                client.unload_extension(f"{dir[2:]}.{extension}")
-                info(f"Unloaded extension {Fore.BLUE}{extension}")
-            except Exception as e:
-                exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to unload extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 
 @client.event
 async def on_ready():
