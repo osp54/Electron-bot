@@ -5,12 +5,17 @@ import platform
 #import colorama
 import logging
 import asyncio
+import pymongo
 import sqlite3
 from utils.misc import error, info, get_prefix2
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 
 tStart = time.time()
+
+mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = mclient.electron
+collg = db.guilds
 
 init(autoreset=True)
 try:
@@ -60,6 +65,8 @@ def unload_extensions(dir):
 
 @client.event
 async def on_ready():
+    for guild in client.guilds:
+        collg.insert_one({_id: guild.id, lang: "en", prefix: "$"})
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
