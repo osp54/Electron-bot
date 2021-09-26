@@ -29,23 +29,23 @@ def localize(ctx, self, to_local, bundle="Bundle"):
         return self.b.get(bundle, to_local)
 
 #загрузить все расширения из папки
-def load_extensions(dir):
+def load_extensions(bot, dir):
     for file in os.listdir(dir):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                client.load_extension(f"{dir[2:]}.{extension}")
+                bot.load_extension(f"{dir[2:]}.{extension}")
                 info(f"Loaded extension {Fore.BLUE}{extension}")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 error(f"Failed to load extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 
-def unload_extensions(dir):
+def unload_extensions(bot, dir):
     for file in os.listdir(dir):
         if file.endswith(".py"):
             extension = file[:-3]
             try:
-                client.unload_extension(f"{dir[2:]}.{extension}")
+                bot.unload_extension(f"{dir[2:]}.{extension}")
                 info(f"Unloaded extension {Fore.BLUE}{extension}")
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
