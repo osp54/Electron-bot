@@ -1,8 +1,6 @@
 import nextcord
 import traceback
 import json
-import sqlite3
-from utils.Button import SetLangButton
 from utils.misc import get_prefix2, info
 from nextcord.ext import commands
 
@@ -11,7 +9,8 @@ electron = ['electron', 'электрон']
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.conn = sqlite3.connect(r'db/electron.db')
+        self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.collg = mclient.electron.guilds
     @commands.Cog.listener('on_message')
     async def on_bot_mention(self, message):
         if '<@861541287161102376>' == message.content:
@@ -32,38 +31,22 @@ class events(commands.Cog):
         if guild.id in blackguilds["ids"]:
             for channel in guild.text_channels:
                 if channel.permissions_for(guild.me).send_messages:
-                    channel = channel
+                    cchannel = channel
                 break
-            await channel.send("This guild is blacklisted. Bye!")
+            await cchannel.send("This guild is blacklisted. Bye!")
             return await guild.leave()
-        cursor = self.conn.cursor()
-        cursor.execute(f"SELECT lang FROM guild WHERE ID = {guild.id}")
-        result =  cursor.fetchone()
+        
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
         for channel in guild.text_channels:
             if channel.permissions_for(guild.me).send_messages:
                 embed = nextcord.Embed(
                     title="Hey!",
-                    description="Thanks you for adding me to your server! If your server is in Russian, you can change the language of my messages with the command `$setlang Russian`, to view other my commands write $help.",
+                    description="Thanks you for adding me to your server! If your server is in Russian, you can change the language of my messages with the command `$language`, to view other my commands write $help.",
                     color=0x006EEF
                 ).add_field(
                     name="Features",
-                    value="Auto remove scam links like 'free nitro'! Music! And much more.")
-                if result is not None:
-                    await channel.send(embed=embed)
-                if result is None:
-                    view = SetLangButton(guild.owner_id)
-                    await channel.send(content="<@{guild.owner_id}> Read this", embed=embed, view=view)
-                    if view.value:
-                        sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-                        val = (guild.id, "en")
-                        cursor.execute(sql, val)
-                        self.conn.commit()
-                    else:
-                        sql = ("INSERT INTO guild(ID, lang) VALUES(?,?)")
-                        val = (guild.id, "ru")
-                        cursor.execute(sql, val)
-                        self.conn.commit()
+                    value="Auto remove scam links like 'free nitro'! And much more.")
+                await channel.send(embed=embed)
             break
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
@@ -133,7 +116,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, old, new):
         try:
-            if new.content.startswith(get_prefix(self.bot, new)):
+            if new.content.startswith(get_prefix2(self.bot, new)):
                 await self.bot.process_commands(new)
         except:
             return
