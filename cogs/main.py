@@ -15,8 +15,7 @@ class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
         self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.db = self.mclient.electron
-        self.collg = db.guilds
+        self.collg = self.mclient.electrong.uilds
         self.b = ConfigParser() # b - bundle
         self.maxcharsprefix = 4
     @commands.command(aliases=['префикс'])
