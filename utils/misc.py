@@ -16,7 +16,7 @@ def get_prefix2(client, message):
     return res["prefix"]
     
 def get_lang(message):
-    res = collg.find_one("_id": message.guild.id)
+    res = collg.find_one({"_id": message.guild.id})
     return res["lang"]
 
 def localize(ctx, self, to_local, bundle="Bundle"):
