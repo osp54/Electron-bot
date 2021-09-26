@@ -3,7 +3,6 @@ import json
 import datetime
 import pymongo
 import humanize
-import sqlite3
 from nextcord.ext import commands
 from utils.Button import SetLangButton
 from utils.misc import format_name, get_lang, get_prefix2
@@ -18,7 +17,6 @@ class main(commands.Cog, name="main"):
         self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
         self.db = mclient.electron
         self.collg = db.guilds
-        self.conn = sqlite3.connect(r'db/electron.db')
         self.b = ConfigParser() # b - bundle
         self.maxcharsprefix = 4
     @commands.command(aliases=['префикс'])
@@ -55,7 +53,6 @@ class main(commands.Cog, name="main"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def language(self, ctx):
-        cursor = self.conn.cursor()
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         embed = nextcord.Embed( 
             title=self.b.get('Bundle', 'embed.setlang.title'),
