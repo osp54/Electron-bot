@@ -2,41 +2,22 @@ import colorama
 import pendulum
 import pymongo
 import nextcord
-import sqlite3
 import json
 from nextcord.ext.commands import when_mentioned_or
 from configparser import ConfigParser
 from colorama import init, Fore, Back, Style
 
-conn = sqlite3.connect(r'db/electron.db')
-cur = conn.cursor()
-
 mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = mclient.electron
 collg = db.guilds
 
-
-#def get_prefix(client, message):
-#    with open("prefixes.json", "r") as f:
-#        prefixes = json.load(f)
-#    return prefixes[str(message.guild.id)]
-
 def get_prefix2(client, message):
-    prefix = collg.find_one({"_id": message.guild.id})
-    return prefix["prefix"]
-    #cur.execute("""SELECT prefix FROM guild WHERE ID = ?""", (message.guild.id,))
-    #result = cur.fetchone()
-    #if result is not None:
-       # return result[0]
-   # else:
-       # return "$"
+    res = collg.find_one({"_id": message.guild.id})
+    return res["prefix"]
+    
 def get_lang(message):
-    cur.execute("""SELECT lang FROM guild WHERE ID = ?""", (message.guild.id,))
-    result = cur.fetchone()
-    if result is not None:
-       return result[0]
-    else:
-        return "en"
+    res = collg.find_one("_id": message.guild.id)
+    return res["lang"]
 def localize(ctx, self, to_local, bundle="Bundle"):
     self.b.read(f"locales/{get_lang( ctx.message)}.ini")
     try:
