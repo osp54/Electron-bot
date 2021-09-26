@@ -1,6 +1,7 @@
 import nextcord
 import json
 import datetime
+import pymongo
 import humanize
 import sqlite3
 from nextcord.ext import commands
@@ -14,6 +15,9 @@ from configparser import ConfigParser
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
+        self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.db = mclient.electron
+        self.collg = db.guilds
         self.conn = sqlite3.connect(r'db/electron.db')
         self.b = ConfigParser() # b - bundle
         self.maxcharsprefix = 4
@@ -36,35 +40,21 @@ class main(commands.Cog, name="main"):
                 color=0xE02B2B
             )
             return await ctx.send(embed=eeembed)
-        cursor = self.conn.cursor()
-        cursor.execute("""SELECT prefix FROM guild WHERE ID = ?""", (ctx.guild.id,))
-        result =  cursor.fetchone()
-        if result is None:
-            cursor.execute("""INSERT INTO guild(ID, prefix) VALUES(?,?)""", (ctx.guild.id, prefix,))
-            self.conn.commit()
-            eembed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.succerfully'),
-                description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix),
-                color=0x42F56C
-            ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
-            await ctx.send(embed=eembed)
-        elif result is not None:
-            cursor.execute("""UPDATE guild SET prefix = ? WHERE ID = ?""", (prefix, ctx.guild.id,))
-            self.conn.commit()
-            eeembed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.succerfully'),
-                description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix,),
-                color=0x42F56C
-            ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
-            await ctx.send(embed=eeembed)
+        self.collg.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
+        eeembed = nextcord.Embed(
+            title=self.b.get('Bundle', 'embed.succerfully'),
+            description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix,),
+            color=0x42F56C
+        ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
+        await ctx.send(embed=eeembed)
         await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
     @commands.command(
         name="setlang",
-        aliases=['язык', 'lang']
+        aliases=['lang']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
-    async def setlang(self, ctx):
+    async def language(self, ctx):
         cursor = self.conn.cursor()
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         embed = nextcord.Embed( 
@@ -75,27 +65,9 @@ class main(commands.Cog, name="main"):
         view = SetLangButton(ctx.author.id)
         await ctx.send(embed=embed, view=view)
         if view.value:
-            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id,))
-            result = cursor.fetchone()
-            if result is None:
-                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "en",))
-                self.conn.commit()
-            elif result is not None:
-                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("en", ctx.guild.id,))
-                self.conn.commit()
-            eembed = nextcord.Embed(description="The language of my messages has been successfully set to English!", color=0x42F56C)
-            await embed.edit(embed=eembed)
+            self.collg.update_one({"_id": ctx.guild.id}, {"$set": {"lang": "en"}})
         else:
-            cursor.execute("""SELECT lang FROM guild WHERE ID = ?""", (ctx.guild.id,))
-            result = cursor.fetchone()
-            if result is None:
-                cursor.execute("""INSERT INTO guild(ID, lang) VALUES(?,?)""", (ctx.guild.id, "ru",))
-                self.conn.commit()
-            elif result is not None:
-                cursor.execute("""UPDATE guild SET lang = ? WHERE ID = ?""", ("ru", ctx.guild.id,))
-                self.conn.commit()
-            eeembed = nextcord.Embed(description="Язык моих сообщений успешно установлен на русский!", color=0x42F56C)
-            await embed.edit(embed=eeembed)
+            self.collg.update_one({"_id": ctx.guild.id}, {"$set": {"lang": "ru"}})
     @commands.command(
         name="ping",
         aliases=['пинг']
