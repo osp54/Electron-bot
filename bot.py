@@ -66,7 +66,7 @@ def unload_extensions(dir):
 @client.event
 async def on_ready():
     for guild in client.guilds:
-        collg.insert_one({_id: guild.id, lang: "en", prefix: "$"})
+        collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
