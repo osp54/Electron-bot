@@ -6,7 +6,6 @@ import platform
 import logging
 import asyncio
 import pymongo
-import sqlite3
 from utils.misc import error, info, get_prefix2
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
@@ -18,21 +17,6 @@ db = mclient.electron
 collg = db.guilds
 
 init(autoreset=True)
-try:
-  conn = sqlite3.connect(r'db/electron.db')
-  cur = conn.cursor()
-  conn.execute("""CREATE TABLE IF NOT EXISTS guild (
-     ID INTEGER,
-     Lang TEXT,
-     Prefix TEXT,
-     WelcomeChannel INTEGER,
-     WelcomeMsg TEXT,
-     LogChannel INTEGER
-    )""")
-except Exception as e:
-  info("SQL not loaded")
-  exception = f"{type(e).__name__}: {e}"
-  info(exception)
 
 intents = nextcord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix2, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
