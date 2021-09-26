@@ -1,6 +1,7 @@
 import colorama
 import pendulum
 import pymongo
+import os
 import nextcord
 import json
 from nextcord.ext.commands import when_mentioned_or
