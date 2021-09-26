@@ -1,5 +1,6 @@
 import colorama
 import pendulum
+import pymongo
 import nextcord
 import sqlite3
 import json
@@ -10,6 +11,10 @@ from colorama import init, Fore, Back, Style
 conn = sqlite3.connect(r'db/electron.db')
 cur = conn.cursor()
 
+mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = mclient.electron
+collg = db.guilds
+
 
 #def get_prefix(client, message):
 #    with open("prefixes.json", "r") as f:
@@ -17,12 +22,14 @@ cur = conn.cursor()
 #    return prefixes[str(message.guild.id)]
 
 def get_prefix2(client, message):
-    cur.execute("""SELECT prefix FROM guild WHERE ID = ?""", (message.guild.id,))
-    result = cur.fetchone()
-    if result is not None:
-        return result[0]
-    else:
-        return "$"
+    prefix = collg.find_one({"_id": message.guild.id})
+    return prefix["prefix"]
+    #cur.execute("""SELECT prefix FROM guild WHERE ID = ?""", (message.guild.id,))
+    #result = cur.fetchone()
+    #if result is not None:
+       # return result[0]
+   # else:
+       # return "$"
 def get_lang(message):
     cur.execute("""SELECT lang FROM guild WHERE ID = ?""", (message.guild.id,))
     result = cur.fetchone()
