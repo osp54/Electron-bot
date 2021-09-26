@@ -37,7 +37,7 @@ class main(commands.Cog, name="main"):
                 color=0xE02B2B
             )
             return await ctx.send(embed=eeembed)
-        self.collg.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
+        self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'prefix': prefix}})
         eeembed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix,),
@@ -61,9 +61,9 @@ class main(commands.Cog, name="main"):
         view = SetLangButton(ctx.author.id)
         await ctx.send(embed=embed, view=view)
         if view.value:
-            self.collg.update_one({"_id": ctx.guild.id}, {"$set": {"lang": "en"}})
+            self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'lang': 'en'}})
         else:
-            self.collg.update_one({"_id": ctx.guild.id}, {"$set": {"lang": "ru"}})
+            self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'lang': 'ru'}})
     @commands.command(
         name="ping",
         aliases=['пинг']
