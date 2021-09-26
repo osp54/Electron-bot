@@ -1,6 +1,7 @@
 import nextcord
 import traceback
 import json
+import pymongo
 from utils.misc import get_prefix2, info
 from nextcord.ext import commands
 
@@ -10,7 +11,7 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = mclient.electron.guilds
+        self.collg = self.mclient.electron.guilds
     @commands.Cog.listener('on_message')
     async def on_bot_mention(self, message):
         if '<@861541287161102376>' == message.content:
