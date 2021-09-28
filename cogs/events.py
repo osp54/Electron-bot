@@ -20,13 +20,9 @@ class events(commands.Cog):
         for i in electron:
             if i in message.content.lower():
                 await message.add_reaction("⚡")
-    @commands.Cog.listener()
-    async def on_command(self, ctx):
-        cmd = ctx.command.qualified_name
-        info(f"Executed {cmd} command in {ctx.guild.name} (ID: {ctx.message.guild.id}) by {ctx.message.author} (ID: {ctx.message.author.id})")
+        await channel.send(f"Executed {cmd} command in {ctx.guild.name} (ID: {ctx.message.guild.id}) by {ctx.message.author} (ID: {ctx.message.author.id})")
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-
         with open("blackguilds.json") as file:
             blackguilds = json.load(file)
         if guild.id in blackguilds["ids"]:
@@ -36,7 +32,10 @@ class events(commands.Cog):
                 break
             await cchannel.send("This guild is blacklisted. Bye!")
             return await guild.leave()
-        
+        try:
+            self.collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
+        except pymongo.errors.DuplicateKeyError:
+            pass
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
         for channel in guild.text_channels:
             if channel.permissions_for(guild.me).send_messages:
