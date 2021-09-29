@@ -22,7 +22,7 @@ class status(commands.Cog):
             color = 0x00A725
         )
         emb.add_field( name = "CPU", value = f"Нагрузка на процессор: {psutil.cpu_percent()}%", inline = False)
-        emb.add_field( name = "RAM", value = f"ОЗУ: {used_m}MB/{tot_m}MB Bot: {psutil.Process(os.getpid().memory_info()).rss / 1024 ** 2}", inline = True)
+        emb.add_field( name = "RAM", value = f"ОЗУ: {used_m}MB/{tot_m}MB", inline = True)
         emb.add_field( name = "Потоки", value = threading.active_count(), inline = False)
         await msg.edit(embed = emb)
 
