@@ -27,14 +27,17 @@ logger.setLevel(logging.WARNING)
 
 @client.event
 async def on_ready():
+    modcount = 0
     for guild in client.guilds:
         try:
-            collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
+            res = collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
+            modcount += res.modified_count
         except pymongo.errors.DuplicateKeyError:
             pass
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
+    info(f"Added new {modcount} guilds to database")
     info(f"Logged in as {Fore.BLUE}{client.user.name}{Fore.RESET}, Guilds: {Fore.BLUE}{len(client.guilds)}")
     info(f"NextCord.py version: {Fore.BLUE}{nextcord.__version__}")
     info(f"Python version: {Fore.BLUE}{platform.python_version()}")
