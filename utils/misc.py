@@ -14,7 +14,7 @@ collg = db.guilds
 
 def get_prefix2(client, message, isInfo = False):
     res = collg.find_one({"_id": message.guild.id})
-    return when_mentioned_or(res["prefix"])
+    return res["prefix"]
     
 def get_lang(message):
     res = collg.find_one({"_id": message.guild.id})
