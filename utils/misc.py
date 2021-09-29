@@ -13,8 +13,6 @@ db = mclient.electron
 collg = db.guilds
 
 def get_prefix2(client, message, isInfo = False):
-    if message.guild is None:
-        return "$"
     res = collg.find_one({"_id": message.guild.id})
     return when_mentioned_or(res["prefix"])
     
