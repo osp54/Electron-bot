@@ -21,8 +21,8 @@ class status(commands.Cog):
             description = f"Статистика нагрузки на хостинг бота.\nПоследнее обновление статуса: {discord.utils.format_dt(now, 'R')}",
             color = 0x00A725
         )
-        emb.add_field( name = "CPU", value = f"Нагрузка на процессор: {psutil.cpu_percent()}% (Bot: {psutil.Process(os.getpid()).cpu_percent().rss)", inline = False)
-        emb.add_field( name = "RAM", value = f"ОЗУ: {used_m}MB/{tot_m}MB (Bot: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2}", inline = True)
+        emb.add_field( name = "CPU", value = f"Нагрузка на процессор: {psutil.cpu_percent()}% (Bot: {psutil.Process(os.getpid().cpu_percent()).rss)", inline = False)
+        emb.add_field( name = "RAM", value = f"ОЗУ: {used_m}MB/{tot_m}MB (Bot: {psutil.Process(os.getpid().memory_info()).rss / 1024 ** 2}", inline = True)
         emb.add_field( name = "Потоки", value = threading.active_count(), inline = False)
         await msg.edit(embed = emb)
 
