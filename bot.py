@@ -31,7 +31,7 @@ async def on_ready():
     for guild in client.guilds:
         try:
             res = collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
-            modcount += res.modified_count
+            modcount += res.matched_count
         except pymongo.errors.DuplicateKeyError:
             pass
     tEnd = time.time()
