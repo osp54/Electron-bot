@@ -16,10 +16,7 @@ def get_prefix2(client, message, isInfo = False):
     if message.guild is None:
         return "$"
     res = collg.find_one({"_id": message.guild.id})
-    if not isInfo:
-        return when_mentioned_or(res["prefix"])
-    if isInfo:
-        return res["prefix"]
+    return when_mentioned_or(res["prefix"])
     
 def get_lang(message):
     res = collg.find_one({"_id": message.guild.id})
