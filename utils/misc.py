@@ -12,9 +12,14 @@ mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster
 db = mclient.electron
 collg = db.guilds
 
-def get_prefix2(client, message):
+def get_prefix2(client, message, isInfo = false):
+    if message.guild is None:
+        return "$"
     res = collg.find_one({"_id": message.guild.id})
-    return res["prefix"]
+    if not isInfo:
+        return when_mentioned_or(res["prefix"])
+    if isInfo:
+        return res["prefix"]
     
 def get_lang(message):
     res = collg.find_one({"_id": message.guild.id})
