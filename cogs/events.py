@@ -20,7 +20,6 @@ class events(commands.Cog):
         for i in electron:
             if i in message.content.lower():
                 await message.add_reaction("⚡")
-        await channel.send(f"Executed {cmd} command in {ctx.guild.name} (ID: {ctx.message.guild.id}) by {ctx.message.author} (ID: {ctx.message.author.id})")
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         with open("blackguilds.json") as file:
