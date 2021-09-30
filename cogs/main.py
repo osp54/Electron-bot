@@ -173,9 +173,10 @@ class main(commands.Cog, name="main"):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         arg = args.split()
         title = title.replace("_", " ")
+        counter = 0
+        text = ""
         for i in arg:
-            counter = 0
-            text = str(counter) + ". " + i + "\n"
+            text += str(counter) + ". " + i + "\n"
             counter += 1
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.poll.newpoll.title'),
