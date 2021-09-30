@@ -169,19 +169,25 @@ class main(commands.Cog, name="main"):
        aliases=['опрос']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def poll(self, ctx, *, title):
+    async def poll(self, ctx, title, *, args):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        arg = args.split()
+        title = title.replace("_", " ")
+        for i in arg:
+            counter = 0
+            text = counter + ". " + i + "\n"
+            counter += 1
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.poll.newpoll.title'),
-            description=f"{title}",
+            description=f"{title}\n{text}",
             color=0x42F56C
         )
         embed.set_footer(
             text=self.b.get('Bundle', 'embed.poll.footer').format(ctx.author)
         )
         embed_message = await ctx.send(embed=embed)
-        await embed_message.add_reaction("👍")
-        await embed_message.add_reaction("👎")
-        await embed_message.add_reaction("🤷")
+        await embed_message.add_reaction("1️⃣")
+        await embed_message.add_reaction("2️⃣")
+        await embed_message.add_reaction("3️⃣")
 def setup(bot):
     bot.add_cog(main(bot))
