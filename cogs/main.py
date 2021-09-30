@@ -175,7 +175,7 @@ class main(commands.Cog, name="main"):
         title = title.replace("_", " ")
         for i in arg:
             counter = 0
-            text = counter + ". " + i + "\n"
+            text = str(counter) + ". " + i + "\n"
             counter += 1
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.poll.newpoll.title'),
