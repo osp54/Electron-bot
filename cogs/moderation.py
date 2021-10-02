@@ -69,7 +69,7 @@ class moderation(commands.Cog, name="moderation"):
         embed.add_field(name=self.b.get('Bundle', 'embed.reason'), value=reason, inline=False)
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
-        await member.send(self.b.get('Bundle', 'mute.pm-message'))
+        await member.send(self.b.get('Bundle', 'mute.pm-message').format(ctx.message.guild, ctx.author))
     @commands.command(
         name="unmute",
         aliases=['размьют', 'размут']
