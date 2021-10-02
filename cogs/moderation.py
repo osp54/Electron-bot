@@ -178,7 +178,7 @@ class moderation(commands.Cog, name="moderation"):
         if member.guild_permissions > ctx.author.guild_permissions:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'embed.error.ban.role-above',
+                description=self.b.get('Bundle', 'embed.error.ban.role-above'),
                 color=0xE02B2B
             )
             await ctx.message.add_reaction('❌')
