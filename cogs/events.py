@@ -2,7 +2,8 @@ import nextcord
 import traceback
 import json
 import pymongo
-from utils.misc import get_prefix2, info, cmdInfo
+from configparser import ConfigParser
+from utils.misc import get_prefix2, info, cmdInfo, get_lang
 from nextcord.ext import commands
 
 electron = ['electron', 'электрон']
@@ -10,13 +11,15 @@ electron = ['electron', 'электрон']
 class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.b = ConfigParser()
         self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
         self.collg = self.mclient.electron.guilds
     @commands.Cog.listener('on_message')
     async def on_bot_mention(self, message):
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if '<@861541287161102376>' == message.content:
             prefix = get_prefix2(self.bot, message, True)
-            await message.reply(f"Привет! Мой префикс: `{prefix}`", mention_author=True)
+            await message.reply(self.b.get('Bundle', 'HelloMessage').format(prefix), mention_author=True)
         for i in electron:
             if i in message.content.lower():
                 await message.add_reaction("⚡")
@@ -52,6 +55,7 @@ class events(commands.Cog):
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if isinstance(error, commands.CommandNotFound):
             pass
         elif isinstance(error, commands.MissingPermissions):
@@ -61,13 +65,13 @@ class events(commands.Cog):
             missingperms = missingperms.upper()
             return await ctx.send(
                 embed = nextcord.Embed(
-                    title='Ошибка',
-                    description=f'**{ctx.author.name}**, У вас нет прав для использования этой команды.',
+                    title=self.b.get('Bundle', 'embed.error'),
+                    description=self.b.get('Bundle', 'embed.error.missing-perms').format(ctx.author),
                     color=0xFF0000
-                ).add_field(name="Необходимые права", value=f"```\n{missingperms}\n```")
+                ).add_field(name=self.b.get('Bundle', 'embed.required-rights'), value=f"```\n{missingperms}\n```")
             )
         elif isinstance(error, commands.CommandOnCooldown):
-            await ctx.send(embed = nextcord.Embed(title='Ошибка', description=f'У этой команды кулдавн! Пожалуйста подождите {error.retry_after:.2f}s', color=0xFF0000))
+            await ctx.send(embed = nextcord.Embed(title=self.b.get('Bundle', 'embed.error'), description=self.b.get('Bundle', 'embed.error.command-in-cooldown').format(error.retry_after:.2f), color=0xFF0000))
         elif isinstance(error, commands.BotMissingPermissions):
             botmissingperms = ""
             for x in range(len(error.missing_permissions)):
@@ -75,13 +79,13 @@ class events(commands.Cog):
             botmissingperms = botmissingperms.upper()
             return await ctx.send(
                 embed = nextcord.Embed(
-                    title='Ошибка',
-                    description=f'У бота нет прав для исполнения этой команды.',
+                    title=self.b.get('Bundle', 'embed.error'),
+                    description=self.b.get('Bundle', 'embed.error.bot-missing-perms'),
                     color=0xFF0000
-                ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
+                ).add_field(name=self.b.get('Bundle', 'embed.required-rights'), value=f"```\n{botmissingperms}\n```")
             )
         elif isinstance(error, commands.BadArgument) or isinstance(error, commands.MissingRequiredArgument):
-            await cmdInfo(ctx, self, ctx.command)
+            await cmdInfo(ctx, self, ctx.command.name)
         else:
            channel = self.bot.get_channel(872078345137979434)
            if hasattr(ctx.command, 'on_error'):
