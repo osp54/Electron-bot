@@ -30,15 +30,7 @@ def localize(ctx, to_local, bundle="Bundle"):
         return self.b.get(bundle, to_local)
 async def cmdInfo(ctx, self, cmd):
         cp.read(f"locales/{get_lang(ctx.message)}.ini")
-        try:
-            cmd = self.bot.get_command(cmd)
-        except:
-            eembed = nextcord.Embed(
-                title=cp.get("Bundle", "embed.error"),
-                description=cp.get("Bundle", "error.embed.command.not.found"),
-                color=0xFF0000
-            )
-            return await ctx.send(embed=eembed)
+        cmd = self.bot.get_command(cmd)
         embed = nextcord.Embed(
             title=cmd.name.capitalize(),
             description=cp.get("Bundle", f"{cmd}.description"),
