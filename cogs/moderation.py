@@ -321,7 +321,7 @@ class moderation(commands.Cog, name="moderation"):
         slowmode = max(min(slowmode, 21600), 0)
         await channel.edit(slowmode_delay=slowmode)
         embed = nextcord.Embed(
-            title=,
+            title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.slowmode.done').format(slowmode),
             color=0x00ff82
         )
