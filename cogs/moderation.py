@@ -7,7 +7,6 @@ from nextcord.ext.commands import cooldown, BucketType
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
-        self.conn = sqlite3.connect(r'db/electron.db')
         self.b = ConfigParser() # b - bundle
     @commands.command(
         name="mute",
@@ -16,7 +15,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
-    async def mute(self,ctx, member: nextcord.Member, *, reason=None):
+    async def mute(self,ctx, member: nextcord.Member, *, reason="Not Specified"):
         guild = ctx.guild
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         mutedRole = nextcord.utils.get(guild.roles, name="Muted")
@@ -109,7 +108,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: nextcord.Member, *, reason="None"):
+    async def kick(self, ctx, member: nextcord.Member, *, reason="Not Specified"):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
@@ -157,36 +156,29 @@ class moderation(commands.Cog, name="moderation"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: nextcord.Member, *, reason="Причина не написана."):
+    async def ban(self, ctx, member: nextcord.Member, *, reason="Not Specified"):
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
-                title="Ошибка",
-                description="Зачем? Зачем ты хочешь забанить самого себя?",
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.ban.why-ban-myself'),
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
             return
-        if member.guild_permissions.administrator:
-            embed = nextcord.Embed(
-                title="Ошибка",
-                description="У пользователя есть права администратора.",
-                color=0xE02B2B
-            )
-            await ctx.message.add_reaction('❌')
-            return await ctx.send(embed=embed)
         if member.top_role.position >= ctx.author.top_role.position:
             embed = nextcord.Embed(
-                title='Ошибка',
-                description='Вы не можете забанить этого пользователя, так как его роль выше или на равне с вашей.',
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.error.ban.role-above-or-equal'),
                 color=0xE02B2B
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
         if member.guild_permissions > ctx.author.guild_permissions:
             embed = nextcord.Embed(
-                title='Ошибка',
-                description='Вы не можете забанить этого пользователя, так как его права выше чем ваши',
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.error.ban.role-above',
                 color=pxE02B2B
             )
             await ctx.message.add_reaction('❌')
@@ -196,33 +188,32 @@ class moderation(commands.Cog, name="moderation"):
         except:
             return
         embed = nextcord.Embed(
-            title="Успешно!",
-            description=f"**{member}** был забанен модератором **{ctx.message.author}**!",
+            title=self.b.get('Bundle', 'embed.succerfully'),
+            description=self.b.get('Bundle', 'embed.ban.baned').format(member),
             color=0x42F56C
-        )
-        embed.add_field(
-            name="Причина:",
+        ).add_field(
+            name=self.b.get('Bundle', 'embed.reason'),
             value=reason
+        ).add_field(
+            name=self.b.get('Bundle', 'embed.moderator'),
+            value=ctx.author
         )
         await context.send(embed=embed)
         await ctx.message.add_reaction('✅')
-        await member.send(f"Вас забанил **{context.message.author}**!\nПричина: {reason}")
+        await member.send(self.b.get('Bundle', 'embed.ban.pm-message').format(ctx.guild, ctx.author))
     @commands.command(
         name="idban",
-        usage="`idban [участник] <причина>`",
         aliases=['идбан', 'айдибан', 'idбан']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def idban(self, ctx, user_id: int, *, reason=None):
-        """
-        Забанить пользователя по айди.
-        """
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if ctx.author.id == user_id:
             embed = nextcord.Embed(
-                title="Ошибка",
-                description="Зачем? Зачем ты хочешь забанить самого себя?",
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.ban.why-ban-myself'),
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
@@ -233,118 +224,105 @@ class moderation(commands.Cog, name="moderation"):
         except:
             return
         embed = nextcord.Embed(
-              title="Успешно!",
-              description=f"**{self.bot.get_user(user_id)}** был забанен модератором **{ctx.message.author}**!",
+              title=self.b.get('Bundle', 'embed.succerfully'),
+              description=self.b.get('Bundle', 'embed.ban.baned').format(self.bot.get_user(user_id).name),
               color=0x42F56C
-        )
-        embed.add_field(
-            name="Причина:",
+        ).add_field(
+            name=self.b.get('Bundle', 'embed.reason'),
             value=reason
+        ).add_field(
+            name=self.b.get('Bundle', 'embed.moderator'),
+            value=ctx.author
         )
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
     @commands.command(
         name="unban",
-        usage="`unban [id забаненого]`",
         aliases=['разбан']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, name_or_id, *, reason=None):
-        """
-        Разбанить пользователя на сервере.
-        """
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         ban = await ctx.get_ban(name_or_id)
         if not ban:
-            return await ctx.send('Пользователь не найден.')
+            return await ctx.send(self.b.get('Bundle', 'embed.user-not-found'))
         try:
             await ctx.guild.unban(ban.user, reason=reason)
         except:
             return
-        await ctx.send(embed = nextcord.Embed(title='Успешно!', description=f'Разбанен **{ban.user}** с сервера.', color=0x42F56C))
+        await ctx.send(embed = nextcord.Embed(
+            title=self.bot.get('Bundle', 'embed.succerfully'),
+            description=self.b.get('Bundle', 'embed.user-was-unbaned').format(ban.user),
+            color=0x42F56C
+            )
+        )
         await ctx.message.add_reaction('✅')
     @commands.command(
         name="clear",
-        usage="`clear [число сообщений для удаления]`",
         aliases=['очистить']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_messages=True)
     @commands.has_permissions(manage_messages=True, manage_channels=True)
     async def clear(self, ctx, amount):
-        """
-        Удалить несколько сообщений.
-        """
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         try:
             amount = int(amount)
         except:
             embed = nextcord.Embed(
-                title="Ошибка",
-                description=f"`{amount}` не действительное число.",
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.clear.not-amount').format(amount),
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
-            await ctx.message.add_reaction('❌')
-            return
+            return await ctx.message.add_reaction('❌')
         if amount < 1:
             embed = nextcord.Embed(
-                title="Ошибка",
-                description=f"`{amount}` не действительное число.",
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.clear.not-amount').format(amount),
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
-            await ctx.message.add_reaction('❌')
-            return
+            return await ctx.message.add_reaction('❌')
         purged_messages = await ctx.message.channel.purge(limit=amount)
         embed = nextcord.Embed(
-            title="Чат очищен!",
-            description=f"**{ctx.message.author}** очищено **{len(purged_messages)}** сообщений!",
+            title=self.b.get('Bundle', 'embed.succerfully'),
+            description=self.b.get('Bundle', 'embed.clear.purged').format(ctx.author, len(purged_messages)),
             color=0x42F56C
         )
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
     @commands.command(
         name="clone",
-        usage="`clone <канал>`",
         aliases=["клон"]
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def clone(self, ctx, channel: nextcord.TextChannel = None):
-        """
-        Клонировать текущий/другой текстовый канал.
-        """
-        await channel.clone(reason=f"{channel.name}({ctx.author})")
-        await ctx.send("Канал <#{channel.id}> клонирован!")
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        if channel is None:
+            channel = ctx.channel
+        await channel.clone(reason=ctx.author)
+        await ctx.send(self.b.get('Bundle', 'embed.clone.cloned').format(channel.mention)
     @commands.command(
         name="slowmode",
-        usage="`slowmode [частота слоумода] <канал>`",
         alias=['слоумод']
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def slowmode(self, ctx, slowmode: int=None, channel:nextcord.TextChannel = None):
-        """
-        Установить слоумод текущему/другому каналу.
-        """
+        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         if channel is None:
             channel = ctx.channel
         slowmode = max(min(slowmode, 21600), 0)
-        if slowmode is None:
-            embed = nextcord.Embed(
-                title="Ошибка",
-                description="Вам нужно упомянуть текстовый канал, чтобы установить слоумод!",
-                color=0xE02B2B
-            )
-            await ctx.message.add_reaction('❌')
-            return await ctx.send(embed=embed)
         await channel.edit(slowmode_delay=slowmode)
         embed = nextcord.Embed(
-            title="Успешно!",
-            description=f"Установлен слоумод {slowmode}с.",
+            title=,
+            description=self.b.get('Bundle', 'embed.slowmode.done').format(slowmode),
             color=0x00ff82
         )
         await ctx.send(embed=embed)
