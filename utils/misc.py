@@ -27,7 +27,32 @@ def localize(ctx, self, to_local, bundle="Bundle"):
     except:
         self.b.read(f"locales/en.ini")
         return self.b.get(bundle, to_local)
-
+async def cmdInfo(ctx, self, cmd):
+        try:
+            cmd = self.bot.get_command(cmd)
+        except:
+            eembed = nextcord.Embed(
+                title=self.b.get("Bundle", "embed.error"),
+                description=self.b.get("Bundle", "error.embed.command.not.found"),
+                color=0xFF0000
+            )
+            return await ctx.send(embed=eembed)
+        embed = nextcord.Embed(
+            title=cmd.name.capitalize(),
+            description=self.b.get("Bundle", f"{cmd}.description"),
+            color=0x2B95FF
+        ).add_field(
+            name=self.b.get("Bundle", "embed.help.usage"),
+            value=self.b.get("Bundle", f"{cmd}.usage")
+        )
+        aliase = '('
+        for alias in cmd.aliases:
+            aliase += f" `{alias}` "
+        embed.add_field(
+            name=self.b.get("Bundle", "embed.help.aliases"),
+            value=f"{aliase})"
+        )
+        await ctx.send(embed=embed)
 #загрузить все расширения из папки
 def load_extensions(bot, dir):
     for file in os.listdir(dir):
