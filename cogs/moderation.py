@@ -306,7 +306,7 @@ class moderation(commands.Cog, name="moderation"):
         if channel is None:
             channel = ctx.channel
         await channel.clone(reason=ctx.author)
-        await ctx.send(self.b.get('Bundle', 'embed.clone.cloned').format(channel.mention)
+        await ctx.send(self.b.get('Bundle', 'embed.clone.cloned').format(channel.mention))
     @commands.command(
         name="slowmode",
         alias=['слоумод']
