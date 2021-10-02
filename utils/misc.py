@@ -8,7 +8,7 @@ from nextcord.ext.commands import when_mentioned_or
 from configparser import ConfigParser
 from colorama import init, Fore, Back, Style
 
-cp
+cp = ConfigParser()
 mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = mclient.electron
 collg = db.guilds
