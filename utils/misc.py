@@ -28,6 +28,7 @@ def localize(ctx, self, to_local, bundle="Bundle"):
         self.b.read(f"locales/en.ini")
         return self.b.get(bundle, to_local)
 async def cmdInfo(ctx, self, cmd):
+        ConfigParser().read(f"locales/{get_lang(ctx.message)}.ini")
         try:
             cmd = self.bot.get_command(cmd)
         except:
