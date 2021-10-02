@@ -71,10 +71,11 @@ class events(commands.Cog):
                 ).add_field(name=self.b.get('Bundle', 'embed.required-rights'), value=f"```\n{missingperms}\n```")
             )
         elif isinstance(error, commands.CommandOnCooldown):
-            await ctx.send(embed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.error')
-                description=self.b.get('Bundle', 'embed.error.command-in-cooldown').format(error.retry_after:.2f), 
-                color=0xFF0000
+            await ctx.send(
+                embed = nextcord.Embed(
+                    title=self.b.get('Bundle', 'embed.error'),
+                    description=self.b.get('Bundle', 'embed.error.command-in-cooldown').format(error.retry_after:.2f), 
+                    color=0xFF0000
                 )
             )
         elif isinstance(error, commands.BotMissingPermissions):
