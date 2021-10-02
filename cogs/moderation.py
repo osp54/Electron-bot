@@ -179,7 +179,7 @@ class moderation(commands.Cog, name="moderation"):
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
                 description=self.b.get('Bundle', 'embed.error.ban.role-above',
-                color=pxE02B2B
+                color=0xE02B2B
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
