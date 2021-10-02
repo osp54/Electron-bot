@@ -2,7 +2,7 @@ import nextcord
 import traceback
 import json
 import pymongo
-from utils.misc import get_prefix2, info
+from utils.misc import get_prefix2, info, cmdInfo
 from nextcord.ext import commands
 
 electron = ['electron', 'электрон']
@@ -81,21 +81,7 @@ class events(commands.Cog):
                 ).add_field(name="Необходимые права", value=f"```\n{botmissingperms}\n```")
             )
         elif isinstance(error, commands.BadArgument) or isinstance(error, commands.MissingRequiredArgument):
-            embed = nextcord.Embed(
-                title=ctx.command.name.capitalize(),
-                color=0xFF0000
-            ).add_field(
-                name="Использование",
-                value=ctx.command.usage
-            )
-            aliase = '('
-            for alias in ctx.command.aliases:
-                aliase += f" `{alias}` "
-            embed.add_field(
-                name="Алиасы(под-имена)",
-                value=f"{aliase})"
-            )
-            return await ctx.send(embed=embed)
+            await cmdInfo(ctx, self, ctx.command)
         else:
            channel = self.bot.get_channel(872078345137979434)
            if hasattr(ctx.command, 'on_error'):
