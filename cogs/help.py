@@ -1,5 +1,5 @@
 import nextcord
-from utils.misc import get_lang, get_prefix2
+from utils.misc import get_lang, get_prefix2, cmdInfo
 from configparser import ConfigParser
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
@@ -30,30 +30,6 @@ class help(commands.Cog, name="help"):
             embed.add_field(name=self.b.get("Bundle", "embed.help.moderation"), value=text2)
             await ctx.send(embed=embed) 
         if command is not None:
-            try:
-                cmd = self.bot.get_command(command)
-            except:
-                eembed = nextcord.Embed(
-                    title=self.b.get("Bundle", "embed.error"),
-                    description=self.b.get("Bundle", "error.embed.command.not.found"),
-                    color=0xFF0000
-                )
-                return await ctx.send(embed=eembed)
-            cembed = nextcord.Embed(
-                title=cmd.name.capitalize(),
-                description=self.b.get("Bundle", f"{cmd}.description"),
-                color=0x2B95FF
-            ).add_field(
-                name=self.b.get("Bundle", "embed.help.usage"),
-                value=self.b.get("Bundle", f"{cmd}.usage")
-            )
-            aliase = '('
-            for alias in cmd.aliases:
-                aliase += f" `{alias}` "
-            cembed.add_field(
-                name=self.b.get("Bundle", "embed.help.aliases"),
-                value=f"{aliase})"
-            )
-            await ctx.send(embed=cembed)
+            await cmdInfo(ctx, self, command)
 def setup(bot):
     bot.add_cog(help(bot))
