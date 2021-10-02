@@ -173,14 +173,14 @@ class main(commands.Cog, name="main"):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         arg = args.split()
         title = title.replace("_", " ")
-        counter = 0
+        counter = 1
         text = ""
         for i in arg:
             text += str(counter) + ". " + i + "\n"
             counter += 1
         embed = nextcord.Embed(
-            title=self.b.get('Bundle', 'embed.poll.newpoll.title'),
-            description=f"{title}\n{text}",
+            title=title,
+            description=text,
             color=0x42F56C
         )
         embed.set_footer(
@@ -190,5 +190,12 @@ class main(commands.Cog, name="main"):
         await embed_message.add_reaction("1️⃣")
         await embed_message.add_reaction("2️⃣")
         await embed_message.add_reaction("3️⃣")
+        await embed_message.add_reaction("4️⃣")
+        await embed_message.add_reaction("5️⃣")
+        await embed_message.add_reaction("6️⃣")
+        await embed_message.add_reaction("7️⃣")
+        await embed_message.add_reaction("8️⃣")
+        await embed_message.add_reaction("9️⃣")
+
 def setup(bot):
     bot.add_cog(main(bot))
