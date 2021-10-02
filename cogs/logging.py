@@ -15,6 +15,6 @@ class logging(commands.Cog):
     async def on_command(self, ctx):
         channel = self.bot.get_channel(888113288586625064)
         cmd = ctx.command.qualified_name
-        channel.send(f"Executed command {cmd}\nUser: {ctx.author}\nGuild: {ctx.guild.name} | (ctx.guild.id)")
+        await channel.send(f"Executed command {cmd}\nUser: {ctx.author}\nGuild: {ctx.guild.name} | (ctx.guild.id)")
 def setup(bot):
     bot.add_cog(logging(bot))
