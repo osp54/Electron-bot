@@ -72,8 +72,8 @@ class events(commands.Cog):
             )
         elif isinstance(error, commands.CommandOnCooldown):
             await ctx.send(embed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'embed.error.command-in-cooldown').format(error.retry_after:.2f), 
+                title=self.b.get('Bundle', 'embed.error')
+                description=self.b.get('Bundle', 'embed.error.command-in-cooldown').format(error.retry_after), 
                 color=0xFF0000
             )
         )
