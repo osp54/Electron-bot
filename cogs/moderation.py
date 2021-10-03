@@ -1,5 +1,6 @@
 import nextcord
 import sqlite3
+from utils.misc import get_lang
 from configparser import ConfigParser
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
