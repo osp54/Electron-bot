@@ -34,7 +34,7 @@ class SetLangButton(nextcord.ui.View):
     async def english(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         if interaction.user.id != self.user:
             return
-        self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'lang': 'en'}})
+        self.collg.update_one({"_id": interaction.guild.id}, {"$set": {'lang': 'en'}})
         await interaction.response.send_message('The language of my messages has been successfully set to English!')
         self.stop()
 
@@ -42,6 +42,6 @@ class SetLangButton(nextcord.ui.View):
     async def russian(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         if interaction.user.id != self.user:
             return
-        self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'lang': 'ru'}})
+        self.collg.update_one({"_id": interaction.guild.id}, {"$set": {'lang': 'ru'}})
         await interaction.response.send_message('Язык моих сообщений успешно установлен на Русский!')
         self.stop()
