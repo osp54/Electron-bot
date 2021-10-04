@@ -1,4 +1,4 @@
-import 
+import nextcord
 import pymongo
 
 class ConfirmButton(nextcord.ui.View):
