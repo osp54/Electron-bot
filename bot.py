@@ -15,7 +15,6 @@ tStart = time.time()
 mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = mclient.electron
 collg = db.guilds
-collg.createIndex({"_id": 1})
 
 init(autoreset=True)
 
