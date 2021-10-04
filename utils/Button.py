@@ -33,7 +33,7 @@ class SetLangButton(nextcord.ui.View):
         if interaction.user.id != self.user:
             return
         await interaction.response.send_message('The language of my messages has been successfully set to English!')
-        self.value = True
+        self.value = "Eng"
         self.stop()
 
     @nextcord.ui.button(label="Русский", style=nextcord.ButtonStyle.gray)
@@ -41,5 +41,5 @@ class SetLangButton(nextcord.ui.View):
         if interaction.user.id != self.user:
             return
         await interaction.response.send_message('Язык моих сообщений успешно установлен на Русский!')
-        self.value = False
+        self.value = "Rus"
         self.stop()
