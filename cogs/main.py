@@ -62,7 +62,7 @@ class main(commands.Cog, name="main"):
         await ctx.send(embed=embed, view=view)
         if view.value == "Eng":
             self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'lang': 'en'}})
-        elif view.value == "Rus"::
+        elif view.value == "Rus":
             self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'lang': 'ru'}})
     @commands.command(
         name="ping",
