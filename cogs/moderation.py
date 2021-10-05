@@ -8,6 +8,8 @@ from nextcord.ext.commands import cooldown, BucketType
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
+        self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.collg = self.mclient.electron.guilds
         self.b = ConfigParser() # b - bundle
     @commands.command(
         name="mute",
@@ -19,7 +21,15 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, *, reason="Not Specified"):
         guild = ctx.guild
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        mutedRole = nextcord.utils.get(guild.roles, name="Muted")
+        res = self.collg.find_one({"_id": guild.id})
+        try:
+            mutedRole = nextcord.utils.get(guild.roles, id=res[mute_role])
+        except:
+            mutedRole = nextcord.utils.get(guild.roles, name="Electron Mute")
+        if not mutedRole:
+            mutedRole = await guild.create_role(name="Electron Mute")
+            for channel in guild.channels:
+                await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
