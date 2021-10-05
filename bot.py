@@ -29,11 +29,9 @@ logger.setLevel(logging.WARNING)
 async def on_ready():
     modcount = 0
     for guild in client.guilds:
-        try:
+        if collg.count_documents({"_id": guild.id}) == 0:
             res = collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
             modcount += res.matched_count
-        except pymongo.errors.DuplicateKeyError:
-            pass
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
