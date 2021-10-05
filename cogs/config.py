@@ -11,6 +11,7 @@ class config(commands.Cog, name="config"):
         self.collg = self.mclient.electron.guilds
         self.b = ConfigParser() # b - bundle
    @commands.group(name="config", invoke_without_command=True)
+   @commands.has_permissions(manage_guild=True)
    async def config(self, ctx):
        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
        embed = discord.Embed(
@@ -20,6 +21,7 @@ class config(commands.Cog, name="config"):
        )
        await ctx.send(embed=embed)
    @config.command(name="mute_role")
+   @commands.has_permissions(manage_roles=True)
    async def mute_role(self, ctx, role: nextcord.Role):
        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
        self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'mute_role': role.id}})
