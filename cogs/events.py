@@ -34,10 +34,8 @@ class events(commands.Cog):
                 break
             await cchannel.send("This guild is blacklisted. Bye!")
             return await guild.leave()
-        try:
+        if self.collg.count_documents({"_id": guild.id}) == 0:
             self.collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
-        except pymongo.errors.DuplicateKeyError:
-            pass
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
         for channel in guild.text_channels:
             if channel.permissions_for(guild.me).send_messages:
