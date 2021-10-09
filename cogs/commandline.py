@@ -1,5 +1,5 @@
 import nextcord
-from utils.misc import info
+from utils.misc import info, error, unload_extensions
 from nextcord.ext import commands
 
 class commandline(commands.Cog, name="commandline"):
@@ -13,6 +13,11 @@ class commandline(commands.Cog, name="commandline"):
         while True:
             conl = input()
             if conl.startswith("eval"):
-                eval(conl.replace("eval", ""))
+                exec(conl.replace("eval", ""))
+            elif conl.startswith("exit"):
+                unload_extensions("./cogs")
+                await self.bot.logout()
+            else:
+                error("Command not found")
 def setup(bot):
     bot.add_cog(commandline(bot))
