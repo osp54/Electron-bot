@@ -12,7 +12,7 @@ class commandline(commands.Cog, name="commandline"):
         info("Console commands has started")
         while True:
             conl = input().split()
-            if conl[1] = "eval"
+            if conl[1] == "eval":
                 eval("".join(conl))
 def setup(bot):
     bot.add_cog(commandline(bot))
