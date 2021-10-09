@@ -50,7 +50,7 @@ async def cmdInfo(ctx, self, cmd):
 #загрузить все расширения из папки
 def load_extensions(bot, dir):
     for file in os.listdir(dir):
-        if file.endswith(".py"):
+        if file.endswith(".py") and not file.endswith("_.py"):
             extension = file[:-3]
             try:
                 bot.load_extension(f"{dir[2:]}.{extension}")
@@ -61,7 +61,7 @@ def load_extensions(bot, dir):
 
 def unload_extensions(bot, dir):
     for file in os.listdir(dir):
-        if file.endswith(".py"):
+        if file.endswith(".py") and not file.endswith("_.py"):
             extension = file[:-3]
             try:
                 bot.unload_extension(f"{dir[2:]}.{extension}")
