@@ -30,7 +30,7 @@ async def on_ready():
     modcount = 0
     for guild in client.guilds:
         if collg.count_documents({"_id": guild.id}) == 0:
-            res = collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
+            collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
             modcount += 1
     tEnd = time.time()
     tElapsed = tEnd - tStart
