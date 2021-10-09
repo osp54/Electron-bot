@@ -21,7 +21,7 @@ class commandline(commands.Cog, name="commandline"):
         while True:
             conl = input()
             if conl.startswith("eval"):
-                code = prepare(conl.replace("eval ", "").format("/nl"="\n"))
+                code = prepare(conl.replace("eval ", "").format("\n"))
                 try:
                     exec(f"async def func():{code}", args)
                     a = time()
