@@ -1,5 +1,4 @@
 import nextcord
-import getsource
 import sys, os
 from utils.misc import info, error, unload_extensions
 from nextcord.ext import commands
@@ -13,7 +12,6 @@ class commandline(commands.Cog, name="commandline"):
         await ctx.message.add_reaction("✅")
         args = {
             "nextcord": nextcord,
-            "sauce": getsource,
             "sys": sys,
             "os": os,
             "imp": __import__,
