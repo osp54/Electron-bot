@@ -21,6 +21,8 @@ class commandline(commands.Cog, name="commandline"):
                 i = 0
             elif conl == "" or conl is None:
                 pass
+            elif conl.startswith("#"):
+                print(r"{0}".format(conl))
             else:
                 error("Command not found")
 def setup(bot):
