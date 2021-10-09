@@ -15,7 +15,7 @@ class commandline(commands.Cog, name="commandline"):
             if conl.startswith("eval"):
                 exec(conl.replace("eval", ""))
             elif conl.startswith("exit"):
-                unload_extensions("./cogs")
+                unload_extensions(self.bot, "./cogs")
                 await self.bot.logout()
             else:
                 error("Command not found")
