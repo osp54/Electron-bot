@@ -11,8 +11,8 @@ class commandline(commands.Cog, name="commandline"):
         await ctx.message.add_reaction("✅")
         info("Console commands has started")
         while True:
-            conl = input().split()
-            if conl[1] == "eval":
-                eval("".join(conl))
+            conl = input()
+            if conl.startswith("eval"):
+                eval(conl.replace("eval", ""))
 def setup(bot):
     bot.add_cog(commandline(bot))
