@@ -1,4 +1,4 @@
- def resolve_variable(variable):
+def resolve_variable(variable):
     if hasattr(variable, "__iter__"):
         var_length = len(list(variable))
         if (var_length > 100) and (not isinstance(variable, str)):
