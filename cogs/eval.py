@@ -18,7 +18,7 @@ class EvalCommand(commands.Cog):
     async def _eval(self, ctx, *, code: str):
         silent = ("-s" in code)
         
-        code = self.prepare(code.replace("-s", ""))
+        code = prepare(code.replace("-s", ""))
         args = {
             "nextcord": discord,
             "sauce": getsource,
