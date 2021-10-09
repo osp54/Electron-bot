@@ -1,15 +1,9 @@
 import nextcord
+import getsource
+import sys, os
 from utils.misc import info, error, unload_extensions
 from nextcord.ext import commands
-args = {
-        "nextcord": nextcord,
-        "sauce": getsource,
-        "sys": sys,
-        "os": os,
-        "imp": __import__,
-        "this": self,
-        "ctx": ctx
-}
+
 class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
@@ -17,6 +11,15 @@ class commandline(commands.Cog, name="commandline"):
     @commands.is_owner()
     async def start_console(self, ctx):
         await ctx.message.add_reaction("✅")
+        args = {
+            "nextcord": nextcord,
+            "sauce": getsource,
+            "sys": sys,
+            "os": os,
+            "imp": __import__,
+            "self": self,
+            "ctx": ctx
+        }
         info("Console commands has started")
         while True:
             conl = input()
