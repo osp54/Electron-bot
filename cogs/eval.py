@@ -4,6 +4,7 @@ from inspect import getsource
 import nextcord as discord
 import sys
 import os
+from utils.eval_helper import resolve_variable, prepare
 from inspect import getsource
 
 #Не мой код.
