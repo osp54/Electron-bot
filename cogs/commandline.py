@@ -1,6 +1,5 @@
 import nextcord
-import sys, os
-from utils.misc import info, error, unload_extensions
+from utils.misc import info, error
 from nextcord.ext import commands
 
 class commandline(commands.Cog, name="commandline"):
@@ -9,30 +8,17 @@ class commandline(commands.Cog, name="commandline"):
     @commands.command()
     @commands.is_owner()
     async def start_console(self, ctx):
+        i = 1
         await ctx.message.add_reaction("✅")
-        args = {
-            "nextcord": nextcord,
-            "sys": sys,
-            "os": os,
-            "imp": __import__,
-            "self": self,
-            "ctx": ctx
-        }
         info("Console commands has started")
-        while True:
-            conl = input()
-            if conl.startswith("eval"):
-                code = prepare(conl.replace("eval ", "").format("\n"))
-                try:
-                    exec(f"async def func():{code}", args)
-                    a = time()
-                    response = await eval("func()", args)
-                    print(f"{self.resolve_variable(response)}{type(response).__name__} | {(time() - a) / 1000} ms`")
-                except Exception as e:
-                    error(e)
-            elif conl.startswith("exit"):
+        while i != 0:
+            conl = input(">")
+            if conl.startswith("exit"):
                 unload_extensions(self.bot, "./cogs")
                 await self.bot.close()
+            elif conl.startswith("stop"):
+                info("Stopped commands.")
+                i = 0
             else:
                 error("Command not found")
 def setup(bot):
