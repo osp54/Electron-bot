@@ -5,12 +5,12 @@ from colorama import Fore
 from utils.misc import info, error, unload_extensions, load_extensions
 from nextcord.ext import commands
 
-async def reload(bot, ctx):
+async def reload(bot, ctx, text):
     info("Reloading cogs...")
     unload_extensions(bot, "./cogs")
     load_extensions(bot, "./cogs")
 
-async def exit(bot, ctx):
+async def exit(bot, ctx, text):
     unload_extensions(bot, "./cogs")
     info("Closing bot...")
     await bot.close()
