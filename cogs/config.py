@@ -10,16 +10,17 @@ class config(commands.Cog, name="config"):
         self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
         self.collg = self.mclient.electron.guilds
         self.b = ConfigParser() # b - bundle
-    @commands.group(name="config", invoke_without_command=True)
+    @commands.group(name="config")
     @commands.has_permissions(manage_guild=True)
     async def config(self, ctx):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        embed = nextcord.Embed(
-            title=self.b.get('Bundle', 'embed.config.info.title'),
-            description=self.b.get('Bundle', 'embed.config.info.desc').format("\n"),
-            color=0x42F56C
-        )
-        await ctx.send(embed=embed)
+        if ctx.invoked_subcommand is None:
+            self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+            embed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.config.info.title'),
+                description=self.b.get('Bundle', 'embed.config.info.desc').format("\n"),
+                color=0x42F56C
+            )
+            await ctx.send(embed=embed)
     @config.command(name="config mute_role")
     @commands.has_permissions(manage_roles=True)
     async def mute_role(self, ctx, role: nextcord.Role):
