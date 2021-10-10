@@ -47,7 +47,7 @@ async def cmdInfo(ctx, self, cmd):
         )
         await ctx.send(embed=embed)
 #загрузить все расширения из папки
-def load_extensions(bot, dir):
+async def load_extensions(bot, dir):
     for file in os.listdir(dir):
         if file.endswith(".py") and not file.endswith("_.py"):
             extension = file[:-3]
@@ -58,7 +58,7 @@ def load_extensions(bot, dir):
                 exception = f"{type(e).__name__}: {e}"
                 error(f"Failed to load extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 
-def unload_extensions(bot, dir):
+async def unload_extensions(bot, dir):
     for file in os.listdir(dir):
         if file.endswith(".py") and not file.endswith("_.py"):
             extension = file[:-3]
