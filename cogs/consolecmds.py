@@ -5,10 +5,10 @@ from colorama import Fore
 from utils.misc import info, error
 from nextcord.ext import commands
 
-async def exit(self=None):
-    unload_extensions(self.bot, "./cogs")
+async def exit(bot, ctx):
+    unload_extensions(bot, "./cogs")
     info("Closing bot...")
-    await self.bot.close()
+    await bot.close()
 
 class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
@@ -26,7 +26,7 @@ class commandline(commands.Cog, name="commandline"):
             conl = await ainput(Fore.WHITE + ">" + Fore.RESET)
             for cmd in self.cmds:
                 if conl.startswith(cmd):
-                    await cmd["func"](self)
+                    await cmd["func"](self.bot, ctx)
             if conl.startswith("stop"):
                 info("Stopped commands.")
                 i = 0
