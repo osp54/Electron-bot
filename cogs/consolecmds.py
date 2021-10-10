@@ -5,7 +5,7 @@ from colorama import Fore
 from utils.misc import info, error, unload_extensions, load_extensions
 from nextcord.ext import commands
 
-async def exit(bot, ctx):
+async def reload(bot, ctx):
     info("Reloading cogs...")
     unload_extensions(bot, "./cogs")
     load_extensions(bot, "./cogs")
@@ -19,7 +19,8 @@ class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
         self.cmds = {
-             "exit": {"func": exit, "desc": "Shutdown the bot"}
+             "exit": {"func": exit, "desc": "Shutdown the bot"},
+             "reload": {"func": reload, "desc": "Reload cogs."}
         }
     @commands.command()
     @commands.is_owner()
@@ -31,7 +32,7 @@ class commandline(commands.Cog, name="commandline"):
             conl = await ainput(Fore.WHITE + ">" + Fore.RESET)
             for cmd in self.cmds:
                 if conl.startswith(cmd):
-                    await self.cmds[cmd]["func"](self.bot, ctx)
+                    await self.cmds[cmd]["func"](self.bot, ctx, conl.replace(cmd, ""))
             if conl.startswith("stop"):
                 info("Stopped commands.")
                 i = 0
