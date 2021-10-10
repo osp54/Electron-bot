@@ -1,5 +1,4 @@
 import colorama
-import pendulum
 import pymongo
 import os
 import nextcord
@@ -71,10 +70,10 @@ def unload_extensions(bot, dir):
                 error(f"Failed to unload extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 
 def info(desc):
-    now = pendulum.now('Europe/Moscow')
+    now = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
     print(f"{Fore.WHITE}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
-    now = pendulum.now('Europe/Moscow')
+    now = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
     print(f"{Fore.WHITE}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.RED + f"[E] " + desc)
 
 def format_name(name: str) -> str:
