@@ -22,7 +22,6 @@ class commandline(commands.Cog, name="commandline"):
             elif conl.startswith("stop"):
                 info("Stopped commands.")
                 i = 0
-            elif conl.startswith("
             elif conl == "" or conl is None:
                 pass
             elif conl.startswith("#"):
