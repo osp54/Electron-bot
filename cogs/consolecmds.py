@@ -15,7 +15,7 @@ class commandline(commands.Cog, name="commandline"):
         await ctx.message.add_reaction("✅")
         info("Console commands has started")
         while i != 0:
-            conl = await aioconsole.ainput(">")
+            conl = await aioconsole.ainput(Fore.WHITE + ">" + Fore.RESET)
             if conl.startswith("exit"):
                 unload_extensions(self.bot, "./cogs")
                 await self.bot.close()
@@ -25,7 +25,7 @@ class commandline(commands.Cog, name="commandline"):
             elif conl == "" or conl is None:
                 pass
             elif conl.startswith("#"):
-                os.system(f"printf '\r{Fore.YELLOW}{conl}'")
+                pass
             else:
                 error("Command not found")
 def setup(bot):
