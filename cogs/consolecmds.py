@@ -2,8 +2,13 @@ import nextcord
 import os
 from aioconsole import ainput
 from colorama import Fore
-from utils.misc import info, error
+from utils.misc import info, error, unload_extensions, load_extensions
 from nextcord.ext import commands
+
+async def exit(bot, ctx):
+    info("Reloading cogs...")
+    unload_extensions(bot, "./cogs")
+    load_extensions(bot, "./cogs")
 
 async def exit(bot, ctx):
     unload_extensions(bot, "./cogs")
