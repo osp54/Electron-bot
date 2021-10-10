@@ -24,7 +24,7 @@ class commandline(commands.Cog, name="commandline"):
             elif conl == "" or conl is None:
                 pass
             elif conl.startswith("#"):
-                os.system(f"printf "\r{Fore.YELLOW}{conl}"")
+                os.system(f"printf '\r{Fore.YELLOW}{conl}'")
             else:
                 error("Command not found")
 def setup(bot):
