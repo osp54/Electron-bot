@@ -20,14 +20,19 @@ class help(commands.Cog, name="help"):
             prefix = get_prefix2(self.bot, ctx.message, True)
             text = ""
             text2 = ""
+            text3 = ""
             maincog = self.bot.get_cog("main").get_commands()
             modcog = self.bot.get_cog("moderation").get_commands()
+            configcog = self.bot.get_cog("config").get_commands()
             for cmd in maincog:
                 text += prefix + cmd.name + " **| **`" + self.b.get('Bundle', f'{cmd}.usage') + "`** |**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.main"), value=text)
             for cmd in modcog:
                 text2 += prefix + cmd.name + " **| **`" + self.b.get('Bundle', f'{cmd}.usage') + "`** |**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.moderation"), value=text2)
+            for cmd in configcog:
+                text3 += prefix + cmd.name + " **| **`" + self.b.get('Bundle', f'{cmd}.usage') + "`** |**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n\n"
+            embed.add_field(name=self.b.get("Bundle", "embed.help.config"), value=text3)
             await ctx.send(embed=embed) 
         if command is not None:
             await cmdInfo(ctx, self, command)
