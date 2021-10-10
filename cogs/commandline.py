@@ -21,7 +21,7 @@ class commandline(commands.Cog, name="commandline"):
                 info("Stopped commands.")
                 i = 0
             elif conl == "" or conl is None:
-                print(Fore.GREY)
+                print(Fore.WHITE)
             elif conl.startswith("#"):
                 print(Fore.RESET)
             else:
