@@ -6,20 +6,11 @@ from nextcord.ext import commands
 from utils.json import rm_guild_from_BL, add_guild_to_BL
 from utils.misc import error, info, localize
 from utils.Button import ConfirmButton
+
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
         self.b = ConfigParser()
-    @commands.command(name='load')
-    @commands.is_owner()
-    async def load(self, ctx, dir, cog):
-        try:
-            self.bot.load_extension(f"{dir[2:]}.{cog}")
-            info(f"Loaded extension {cog}")
-            await ctx.send("Готово!")
-        except Exception as e:
-            exception = f"{type(e).__name__}: {e}"
-            error(f"Failed to load extension {cog}\n{exception}")
     @commands.group(aliases=['bl'])
     @commands.is_owner()
     async def blacklist(self, ctx):
@@ -93,11 +84,11 @@ class owner(commands.Cog, name="owner"):
     @commands.is_owner()
     async def shutdown(self, ctx):
         view = ConfirmButton(ctx.message.author)
-        await ctx.send('Точно?!', view=view)
+        await ctx.send('Вы точно хотите выключить бота?', view=view)
         await view.wait()
         if view.value:
-            info(f'{ctx.message.author} off the bot!')
-            await exit()
+            info(f'{ctx.message.author} выключил бота.')
+            await self.bot.close()
     @commands.command()
     @commands.is_owner()
     async def ttest(self, ctx):
