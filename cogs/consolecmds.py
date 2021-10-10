@@ -25,7 +25,7 @@ class commandline(commands.Cog, name="commandline"):
             conl = await ainput(Fore.WHITE + ">" + Fore.RESET)
             for cmd in self.cmds:
                 if conl.startswith(cmd):
-                    cmd["func"]
+                    cmd["func"]()
             if conl.startswith("stop"):
                 info("Stopped commands.")
                 i = 0
