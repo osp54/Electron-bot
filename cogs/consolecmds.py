@@ -27,6 +27,6 @@ class commandline(commands.Cog, name="commandline"):
             elif conl.startswith("#"):
                 pass
             else:
-                error(f"Command with name '{conl.split()[1]}' not found.")
+                error(f"Command with name '{conl}' not found.")
 def setup(bot):
     bot.add_cog(commandline(bot))
