@@ -23,13 +23,13 @@ class moderation(commands.Cog, name="moderation"):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
         res = self.collg.find_one({"_id": guild.id})
         try:
-            mutedRole = nextcord.utils.get(guild.roles, id=res[mute_role])
+            mutedRole = ctx.guild.get_role(res[mute_role])
         except:
             mutedRole = nextcord.utils.get(guild.roles, name="Electron Mute")
-        if not mutedRole:
-            mutedRole = await guild.create_role(name="Electron Mute")
-            for channel in guild.channels:
-                await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
+            if not mutedRole:
+                mutedRole = await guild.create_role(name="Electron Mute")
+                for channel in guild.channels:
+                    await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=True)
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
