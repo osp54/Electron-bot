@@ -21,7 +21,7 @@ class config(commands.Cog, name="config"):
                 color=0x42F56C
             )
             await ctx.send(embed=embed)
-    @config.command(name="config mute_role")
+    @config.command(name="mute_role")
     @commands.has_permissions(manage_roles=True)
     async def mute_role(self, ctx, role: nextcord.Role):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
