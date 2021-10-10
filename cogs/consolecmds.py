@@ -14,7 +14,7 @@ class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
         self.cmds = {
-             "exit": {"func": exit, "desc": 0}
+             "exit": {"func": exit, "desc": "Shutdown the bot"}
         }
     @commands.command()
     @commands.is_owner()
