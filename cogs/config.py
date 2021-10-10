@@ -14,7 +14,7 @@ class config(commands.Cog, name="config"):
     @commands.has_permissions(manage_guild=True)
     async def config(self, ctx):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        embed = discord.Embed(
+        embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.config.info.title'),
             description=self.b.get('Bundle', 'embed.config.info.desc').format("\n"),
             color=0x42F56C
