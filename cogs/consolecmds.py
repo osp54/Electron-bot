@@ -7,11 +7,11 @@ from nextcord.ext import commands
 
 async def reload(bot, ctx, text):
     info("Reloading cogs...")
-    unload_extensions(bot, "./cogs")
-    load_extensions(bot, "./cogs")
+    await unload_extensions(bot, "./cogs")
+    await load_extensions(bot, "./cogs")
 
 async def exit(bot, ctx, text):
-    unload_extensions(bot, "./cogs")
+    await unload_extensions(bot, "./cogs")
     info("Closing bot...")
     await bot.close()
 
