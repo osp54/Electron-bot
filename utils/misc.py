@@ -71,10 +71,10 @@ def unload_extensions(bot, dir):
 
 def info(desc):
     now = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
-    print(f"{Fore.WHITE}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
+    print(f"{Fore.WHITE}[{now}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
 def error(desc):
     now = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
-    print(f"{Fore.WHITE}[{now.day}:{now.hour}:{now.minute}:{now.second}] " + Fore.RED + f"[E] " + desc)
+    print(f"{Fore.WHITE}[{now}] " + Fore.RED + f"[E] " + desc)
 
 def format_name(name: str) -> str:
     return name.replace("_", " ").title().strip()
