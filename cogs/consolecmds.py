@@ -5,16 +5,17 @@ from colorama import Fore
 from utils.misc import info, error
 from nextcord.ext import commands
 
+async def exit(self):
+    unload_extensions(self.bot, "./cogs")
+    info("Closing bot...")
+    await self.bot.close()
+
 class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
         self.cmds = {
              "exit": {"func": exit(), "desc": 0}
         }
-    async def exit(self):
-        unload_extensions(self.bot, "./cogs")
-        info("Closing bot...")
-        await self.bot.close()
     @commands.command()
     @commands.is_owner()
     async def start_console(self, ctx):
@@ -25,7 +26,7 @@ class commandline(commands.Cog, name="commandline"):
             conl = await ainput(Fore.WHITE + ">" + Fore.RESET)
             for cmd in self.cmds:
                 if conl.startswith(cmd):
-                    cmd["func"]()
+                    cmd["func"](self)
             if conl.startswith("stop"):
                 info("Stopped commands.")
                 i = 0
