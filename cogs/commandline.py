@@ -1,4 +1,5 @@
 import nextcord
+import os
 from colorama import Fore
 from utils.misc import info, error
 from nextcord.ext import commands
@@ -21,9 +22,9 @@ class commandline(commands.Cog, name="commandline"):
                 info("Stopped commands.")
                 i = 0
             elif conl == "" or conl is None:
-                print(Fore.WHITE)
+                pass
             elif conl.startswith("#"):
-                print(Fore.RESET)
+                os.system(f"printf "\r{Fore.YELLOW}{conl}"")
             else:
                 error("Command not found")
 def setup(bot):
