@@ -1,5 +1,5 @@
 import colorama
-import pymongo
+import motor
 import os
 import nextcord
 import json
@@ -8,16 +8,15 @@ from configparser import ConfigParser
 from colorama import init, Fore, Back, Style
 
 cp = ConfigParser()
-mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-db = mclient.electron
-collg = db.guilds
+client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+collg = client.electron.guilds
 
 def get_prefix2(client, message, isInfo = False):
-    res = collg.find_one({"_id": message.guild.id})
+    res = await collg.find_one({"_id": message.guild.id})
     return res["prefix"]
     
 def get_lang(message):
-    res = collg.find_one({"_id": message.guild.id})
+    res = await collg.find_one({"_id": message.guild.id})
     return res["lang"]
 
 def localize(ctx, to_local, bundle="Bundle"):

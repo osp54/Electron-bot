@@ -1,7 +1,7 @@
 import nextcord
 import json
 import datetime
-import pymongo
+import motor
 import humanize
 from nextcord.ext import commands
 from utils.Button import SetLangButton
@@ -14,8 +14,8 @@ from configparser import ConfigParser
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-        self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = self.mclient.electron.guilds
+        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.collg = self.client.electron.guilds
         self.b = ConfigParser() # b - bundle
         self.maxcharsprefix = 4
     @commands.command(aliases=['префикс'])
@@ -37,7 +37,7 @@ class main(commands.Cog, name="main"):
                 color=0xE02B2B
             )
             return await ctx.send(embed=eeembed)
-        self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'prefix': prefix}})
+        await self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'prefix': prefix}})
         eeembed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix,),

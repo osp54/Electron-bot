@@ -4,17 +4,16 @@ import os
 import platform
 #import colorama
 import logging
+import motor
 import asyncio
-import pymongo
 from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 
 tStart = time.time()
 
-mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-db = mclient.electron
-collg = db.guilds
+mclient = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+collg = mclient.electron.guilds
 
 init(autoreset=True)
 
@@ -29,8 +28,8 @@ logger.setLevel(logging.WARNING)
 async def on_ready():
     modcount = 0
     for guild in client.guilds:
-        if collg.count_documents({"_id": guild.id}) == 0:
-            collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
+        if await collg.count_documents({"_id": guild.id}) == 0:
+            await collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
             modcount += 1
     tEnd = time.time()
     tElapsed = tEnd - tStart

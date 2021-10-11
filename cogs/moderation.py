@@ -1,5 +1,5 @@
 import nextcord
-import pymongo
+import motor
 from utils.misc import get_lang
 from configparser import ConfigParser
 from nextcord.ext import commands
@@ -8,8 +8,8 @@ from nextcord.ext.commands import cooldown, BucketType
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
-        self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = self.mclient.electron.guilds
+        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.collg = self.client.electron.guilds
         self.b = ConfigParser() # b - bundle
     @commands.command(
         name="mute",
@@ -21,7 +21,7 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, *, reason="Not Specified"):
         guild = ctx.guild
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        res = self.collg.find_one({"_id": guild.id})
+        res = await self.collg.find_one({"_id": guild.id})
         try:
             mutedRole = ctx.guild.get_role(res[mute_role])
         except:

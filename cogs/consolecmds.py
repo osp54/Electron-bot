@@ -33,6 +33,8 @@ class commandline(commands.Cog, name="commandline"):
             for cmd in self.cmds:
                 if conl.startswith(cmd):
                     await self.cmds[cmd]["func"](self.bot, ctx, conl.replace(cmd, ""))
+                else:
+                    error(f"Command with name '{conl}' not found.")
             if conl.startswith("stop"):
                 info("Stopped commands.")
                 i = 0
@@ -40,7 +42,5 @@ class commandline(commands.Cog, name="commandline"):
                 pass
             elif conl.startswith("#"):
                 pass
-            else:
-                error(f"Command with name '{conl}' not found.")
 def setup(bot):
     bot.add_cog(commandline(bot))
