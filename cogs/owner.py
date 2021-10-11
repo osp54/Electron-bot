@@ -22,7 +22,7 @@ class owner(commands.Cog, name="owner"):
             blackguilds = json.load(file)
         if gguild.id in blackguilds['ids']:
             return await ctx.send(f"Сервер {gguild.name} уже в черном списке!")
-        add_guild_to_BL(gguild.id)
+        await add_guild_to_BL(gguild.id)
         if gguild in self.bot.guilds:
             await gguild.leave()
             for channel in gguild.text_channels:
@@ -37,7 +37,7 @@ class owner(commands.Cog, name="owner"):
             blackguilds = json.load(file)
        if guild.id not in blackguilds['ids']:
            return await ctx.send(f"Сервера с id `{id}` нету в черном списке.")
-       rm_guild_from_BL(guild.id)
+       await rm_guild_from_BL(guild.id)
        await ctx.send("Сервер с id `{id}` удалён из черного списка.")
     @blacklist.command()
     @commands.is_owner()
