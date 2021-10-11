@@ -1,6 +1,7 @@
 import colorama
 import motor
 import os
+import asyncio
 import nextcord
 import json
 from datetime import datetime
@@ -12,11 +13,11 @@ client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$
 collg = client.electron.guilds
 
 def get_prefix2(client, message, isInfo = False):
-    res = await collg.find_one({"_id": message.guild.id})
+    res = asyncio.run(collg.find_one({"_id": message.guild.id}))
     return res["prefix"]
     
 def get_lang(message):
-    res = await collg.find_one({"_id": message.guild.id})
+    res = asyncio.run(collg.find_one({"_id": message.guild.id}))
     return res["lang"]
 
 def localize(ctx, to_local, bundle="Bundle"):
@@ -36,7 +37,7 @@ async def cmdInfo(ctx, self, cmd):
         ).add_field(
             name=cp.get("Bundle", "embed.help.usage"),
             value=cp.get("Bundle", f"{cmd}.usage")
-        )
+        )print()
         aliase = '('
         for alias in cmd.aliases:
             aliase += f" `{alias}` "
