@@ -11,12 +11,12 @@ cp = ConfigParser()
 client = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 collg = client.electron.guilds
 
-async def get_prefix2(client, message, isInfo = False):
-    res = await collg.find_one({"_id": message.guild.id})
+def get_prefix2(client, message, isInfo = False):
+    res = collg.find_one({"_id": message.guild.id})
     return res["prefix"]
     
-async def get_lang(message):
-    res = await collg.find_one({"_id": message.guild.id})
+def get_lang(message):
+    res = collg.find_one({"_id": message.guild.id})
     return res["lang"]
 
 def localize(ctx, to_local, bundle="Bundle"):
