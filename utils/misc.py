@@ -37,7 +37,7 @@ async def cmdInfo(ctx, self, cmd):
         ).add_field(
             name=cp.get("Bundle", "embed.help.usage"),
             value=cp.get("Bundle", f"{cmd}.usage")
-        )print()
+        )
         aliase = '('
         for alias in cmd.aliases:
             aliase += f" `{alias}` "
