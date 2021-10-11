@@ -1,5 +1,5 @@
 import nextcord
-import motor
+import motor.motor_asyncio.motor_asyncio
 from utils.misc import get_lang
 from configparser import ConfigParser
 from nextcord.ext import commands

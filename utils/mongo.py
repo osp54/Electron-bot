@@ -1,4 +1,4 @@
-import motor
+import motor.motor_asyncio.motor_asyncio
 
 class mongo_Menager():
   def __init__(self):
