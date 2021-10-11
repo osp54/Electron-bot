@@ -1,7 +1,6 @@
 import colorama
 import motor.motor_asyncio
 import os
-import asyncio
 import nextcord
 import json
 from datetime import datetime
@@ -12,14 +11,12 @@ cp = ConfigParser()
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 collg = client.electron.guilds
 
-def get_prefix2(client, message, isInfo = False):
-    loop = asyncio.get_event_loop()
-    res = loop.run_until_complete(collg.find_one({"_id": message.guild.id}))
+async def get_prefix2(client, message, isInfo = False):
+    res = await collg.find_one({"_id": message.guild.id})
     return res["prefix"]
     
-def get_lang(message):
-    loop = asyncio.get_event_loop()
-    res = loop.run_until_complete(collg.find_one({"_id": message.guild.id}))
+async def get_lang(message):
+    res = await collg.find_one({"_id": message.guild.id})
     return res["lang"]
 
 def localize(ctx, to_local, bundle="Bundle"):
