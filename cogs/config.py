@@ -1,4 +1,4 @@
-import pymongo
+import import motor.motor_asyncio
 import nextcord
 from utils.misc import get_lang
 from nextcord.ext import commands

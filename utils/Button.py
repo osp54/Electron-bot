@@ -27,7 +27,7 @@ class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
         super().__init__()
         self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = .self.client.electron.guilds
+        self.collg = self.client.electron.guilds
         self.user = user
 
     @nextcord.ui.button(label="English", style=nextcord.ButtonStyle.green)

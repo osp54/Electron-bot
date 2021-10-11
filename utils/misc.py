@@ -13,11 +13,13 @@ client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$
 collg = client.electron.guilds
 
 def get_prefix2(client, message, isInfo = False):
-    res = asyncio.run(collg.find_one({"_id": message.guild.id}))
+    loop = asyncio.get_event_loop()
+    res = loop.run_until_complete(collg.find_one({"_id": message.guild.id}))
     return res["prefix"]
     
 def get_lang(message):
-    res = asyncio.run(collg.find_one({"_id": message.guild.id}))
+    loop = asyncio.get_event_loop()
+    res = loop.run_until_complete(collg.find_one({"_id": message.guild.id}))
     return res["lang"]
 
 def localize(ctx, to_local, bundle="Bundle"):
