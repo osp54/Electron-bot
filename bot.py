@@ -4,7 +4,7 @@ import os
 import platform
 #import colorama
 import logging
-import motor.motor_asyncio.motor_asyncio
+import motor.motor_asyncio
 import asyncio
 from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style

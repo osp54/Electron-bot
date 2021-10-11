@@ -1,5 +1,5 @@
 import colorama
-import motor.motor_asyncio.motor_asyncio
+import motor.motor_asyncio
 import os
 import asyncio
 import nextcord

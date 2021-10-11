@@ -1,7 +1,7 @@
 import nextcord
 import json
 import datetime
-import motor.motor_asyncio.motor_asyncio
+import motor.motor_asyncio
 import humanize
 from nextcord.ext import commands
 from utils.Button import SetLangButton

@@ -1,5 +1,5 @@
 import nextcord
-import motor.motor_asyncio.motor_asyncio
+import motor.motor_asyncio
 
 class ConfirmButton(nextcord.ui.View):
     def __init__(self, user):
