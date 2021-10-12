@@ -1,7 +1,7 @@
 import motor.motor_asyncio
 from utils.misc import info, error
 
-class MongoM():
+class MongoM:
   def __init__(self, coll = "guilds"):
       self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
       self.coll = self.client.electron[coll]
