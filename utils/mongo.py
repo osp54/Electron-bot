@@ -7,10 +7,10 @@ class MongoM():
     self.coll = self.client.electron[coll]
   async def connect(self):
     try:
-      await self.admin.command('ismaster')
+      await self.client.admin.command('ismaster')
       info("Succerfully connected to database.")
     except Exception as e:
-      error("Failed to connect to database. Error: {e}")
+      error(f"Failed connect to database. Error: {e}")
   async def setPrefix(self, ctx, prefix: str):
     self.coll = self.client.electron.guilds
     return await self.coll.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})

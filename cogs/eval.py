@@ -28,7 +28,6 @@ class EvalCommand(commands.Cog):
             "this": self,
             "ctx": ctx
         }
-        
         try:
             exec(f"async def func():{code}", args)
             a = time()
