@@ -45,4 +45,4 @@ async def on_ready():
 if __name__ == "__main__":
     asyncio.run(load_extensions(client, "./cogs"))
     client.load_extension("jishaku")
-client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ylwKDaLJE4BypVzaLB6Hwai9GHw')
+    client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ylwKDaLJE4BypVzaLB6Hwai9GHw')
