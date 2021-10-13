@@ -19,7 +19,7 @@ class MongoM:
       return await self.coll.update_one({"_id": guild_id}, {"$set": {"lang": lang}})
   async def setMuteRole(self, guild_id, role_id):
       self.coll = self.client.electron.guilds
-      returnawait self.coll.update_one({"_id": guild_id}, {"$set": {'mute_role': role_id}})
+      return await self.coll.update_one({"_id": guild_id}, {"$set": {'mute_role': role_id}})
   async def getMuteRole(self, guild_id):
       self.coll = self.client.electron.guilds
       res = await self.coll.find_one({"_id": guild_id})
