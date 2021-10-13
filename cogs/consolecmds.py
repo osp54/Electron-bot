@@ -5,23 +5,25 @@ from colorama import Fore
 from utils.misc import info, error, unload_extensions, load_extensions
 from nextcord.ext import commands
 
-async def reload(bot, ctx, text):
-    info("Reloading cogs...")
-    await unload_extensions(bot, "./cogs")
-    await load_extensions(bot, "./cogs")
-
-async def exit(bot, ctx, text):
-    await unload_extensions(bot, "./cogs")
-    info("Closing bot...")
-    await bot.close()
-
 class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
-        self.cmds = {
-             "exit": {"func": exit, "desc": "Shutdown the bot"},
-             "reload": {"func": reload, "desc": "Reload cogs."}
-        }
+        self.cmds = {}
+    def console_command(self, name, desc, usage="Not arguments..."):
+        def decorator(func):
+            self.cmds[name] = {"func": func, "desc": desc, "usage": usage}
+            return func
+        return decorator
+    @console_command(name="reload", desc="Reload all cogs")
+    async def reload(self, bot, ctx, text):
+        info("Reloading cogs...")
+        await unload_extensions(bot, "./cogs")
+        await load_extensions(bot, "./cogs")
+        
+    async def exit(self, bot, ctx, text):
+        await unload_extensions(bot, "./cogs")
+        info("Closing bot...")
+        await bot.close()
     @commands.command()
     @commands.is_owner()
     async def start_console(self, ctx):
