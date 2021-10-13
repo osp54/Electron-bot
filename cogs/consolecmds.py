@@ -9,8 +9,8 @@ class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
         self.cmds = {}
-    def console_command(self, name, desc, usage="Not arguments..."):
-        def decorator(func):
+    def console_command(name, desc, usage="Not arguments..."):
+        def decorator(self, func):
             self.cmds[name] = {"func": func, "desc": desc, "usage": usage}
             return func
         return decorator
