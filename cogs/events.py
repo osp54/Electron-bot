@@ -14,7 +14,7 @@ class events(commands.Cog):
         self.b = ConfigParser()
     @commands.Cog.listener('on_message')
     async def on_bot_mention(self, message):
-        self.b.read(f"locales/{get_lang(message)}.ini")
+        self.b.read(f"locales/{await get_lang(message)}.ini")
         if '<@861541287161102376>' == message.content:
             prefix = get_prefix2(self.bot, message, True)
             await message.reply(self.b.get('Bundle', 'HelloMessage').format(prefix), mention_author=True)
@@ -50,7 +50,7 @@ class events(commands.Cog):
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if isinstance(error, commands.CommandNotFound):
             pass
         elif isinstance(error, commands.MissingPermissions):

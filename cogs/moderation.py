@@ -18,7 +18,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.has_permissions(manage_roles=True)
     async def mute(self,ctx, member: nextcord.Member, *, reason="Not Specified"):
         guild = ctx.guild
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         res = await MongoM().getMuteRole(ctx.guild.id)
         try:
             mutedRole = ctx.guild.get_role(res)
@@ -87,7 +87,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
     async def unmute(self,ctx, member: nextcord.Member):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -121,7 +121,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: nextcord.Member, *, reason="Not Specified"):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -169,7 +169,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: nextcord.Member, *, reason="Not Specified"):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -221,7 +221,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def idban(self, ctx, user_id: int, *, reason=None):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if ctx.author.id == user_id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -256,7 +256,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, name_or_id, *, reason=None):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         ban = await ctx.get_ban(name_or_id)
         if not ban:
             return await ctx.send(self.b.get('Bundle', 'embed.user-not-found'))
@@ -279,7 +279,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.bot_has_permissions(manage_messages=True)
     @commands.has_permissions(manage_messages=True, manage_channels=True)
     async def clear(self, ctx, amount):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         try:
             amount = int(amount)
         except:
@@ -314,7 +314,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def clone(self, ctx, channel: nextcord.TextChannel = None):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if channel is None:
             channel = ctx.channel
         await channel.clone(reason=ctx.author)
@@ -327,7 +327,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
     async def slowmode(self, ctx, slowmode: int=None, channel:nextcord.TextChannel = None):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if channel is None:
             channel = ctx.channel
         slowmode = max(min(slowmode, 21600), 0)
