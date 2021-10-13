@@ -4,7 +4,6 @@ import os
 import platform
 #import colorama
 import logging
-import motor.motor_asyncio
 import asyncio
 from utils.mongo import MongoM
 from utils.misc import error, info, get_prefix2, load_extensions
@@ -29,14 +28,10 @@ async def on_ready():
     await MongoM().connect()
     modcount = 0
     for guild in client.guilds:
-        if await collg.count_documents({"_id": guild.id}) == 0:
-            await collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
-            modcount += 1
+        await MongoM.addGuild(guild.id)
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
-    if modcount != 0:
-        info(f"Added new {Fore.BLUE}{modcount}{Fore.RESET} guilds to database")
     info(f"Logged in as {Fore.BLUE}{client.user.name}{Fore.RESET}, Guilds: {Fore.BLUE}{len(client.guilds)}")
     info(f"NextCord.py version: {Fore.BLUE}{nextcord.__version__}")
     info(f"Python version: {Fore.BLUE}{platform.python_version()}")
@@ -44,6 +39,7 @@ async def on_ready():
     info(f"Time elapsed: {Fore.BLUE}{tElapsed}")
 
 if __name__ == "__main__":
-    asyncio.run(load_extensions(client, "./cogs"))
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(load_extensions(client, "./cogs"))
     client.load_extension("jishaku")
     client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ylwKDaLJE4BypVzaLB6Hwai9GHw')

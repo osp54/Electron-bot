@@ -1,5 +1,5 @@
-import motor.motor_asyncio
 import nextcord
+from utils.mongo import MongoM
 from utils.misc import get_lang
 from nextcord.ext import commands
 from configparser import ConfigParser
@@ -7,8 +7,6 @@ from configparser import ConfigParser
 class config(commands.Cog, name="config"):
     def __init__(self, bot):
         self.bot = bot
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = self.client.electron.guilds
         self.b = ConfigParser() # b - bundle
     @commands.group(name="config")
     @commands.has_permissions(manage_guild=True)
@@ -25,7 +23,7 @@ class config(commands.Cog, name="config"):
     @commands.has_permissions(manage_roles=True)
     async def mute_role(self, ctx, role: nextcord.Role):
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        await self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'mute_role': role.id}})
+        await MongoM().setMuteRole(ctx.guild.id, role.id)
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.mute-role-changed').format(role.mention),

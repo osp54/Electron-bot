@@ -1,7 +1,7 @@
 import nextcord
 import traceback
 import json
-import pymongo
+from utils.mongo import MongoM
 from configparser import ConfigParser
 from utils.misc import get_prefix2, info, cmdInfo, get_lang
 from nextcord.ext import commands
@@ -12,8 +12,6 @@ class events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.b = ConfigParser()
-        self.mclient = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = self.mclient.electron.guilds
     @commands.Cog.listener('on_message')
     async def on_bot_mention(self, message):
         self.b.read(f"locales/{get_lang(message)}.ini")
@@ -34,8 +32,7 @@ class events(commands.Cog):
                 break
             await cchannel.send("This guild is blacklisted. Bye!")
             return await guild.leave()
-        if self.collg.count_documents({"_id": guild.id}) == 0:
-            self.collg.insert_one({"_id": guild.id, "lang": "en", "prefix": "$"})
+        await MongoM().addGuild(guild.id)
         await self.bot.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(self.bot.guilds)}"))
         for channel in guild.text_channels:
             if channel.permissions_for(guild.me).send_messages:
@@ -107,8 +104,5 @@ class events(commands.Cog):
                 await self.bot.process_commands(new)
         except:
             return
-    @commands.Cog.listener()
-    async def on_command_completion(self, ctx):
-        pass #TODO: Подсчёт вызванных команд.
 def setup(bot):
     bot.add_cog(events(bot))

@@ -1,5 +1,5 @@
 import nextcord
-import motor.motor_asyncio
+from utils.mongo import MongoM
 from utils.misc import get_lang
 from configparser import ConfigParser
 from nextcord.ext import commands
@@ -8,8 +8,6 @@ from nextcord.ext.commands import cooldown, BucketType
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
         self.bot = bot
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = self.client.electron.guilds
         self.b = ConfigParser() # b - bundle
     @commands.command(
         name="mute",
@@ -21,9 +19,9 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, *, reason="Not Specified"):
         guild = ctx.guild
         self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        res = await self.collg.find_one({"_id": guild.id})
+        res = await MongoM().getMuteRole(ctx.guild.id)
         try:
-            mutedRole = ctx.guild.get_role(res[mute_role])
+            mutedRole = ctx.guild.get_role(res)
         except:
             mutedRole = nextcord.utils.get(guild.roles, name="Electron Mute")
             if not mutedRole:
@@ -99,7 +97,10 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('❌')
             return
-        mutedRole = nextcord.utils.get(ctx.guild.roles, name="Electron Mute")
+        try:
+            mutedRole = ctx.guild.get_role(await MongoM().getMuteRole(ctx.guild.id))
+        except:
+            mutedRole = nextcord.utils.get(ctx.guild.roles, name="Electron Mute")
         try:
             await member.remove_roles(mutedRole)
         except:

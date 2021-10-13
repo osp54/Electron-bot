@@ -1,23 +1,19 @@
 import nextcord
 import json
 import datetime
-import motor.motor_asyncio
 import humanize
 from nextcord.ext import commands
+from utils.mongo import MongoM
 from utils.Button import SetLangButton
 from utils.misc import format_name, get_lang, get_prefix2
 from nextcord.ext.commands import cooldown, BucketType
 from configparser import ConfigParser
 
-#print(bundle.get("RU", title))
-
 class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = self.client.electron.guilds
         self.b = ConfigParser() # b - bundle
-        self.maxcharsprefix = 4
+        self.maxcharsprefix = 8
     @commands.command(aliases=['префикс'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
@@ -37,7 +33,7 @@ class main(commands.Cog, name="main"):
                 color=0xE02B2B
             )
             return await ctx.send(embed=eeembed)
-        await self.collg.update_one({"_id": ctx.guild.id}, {"$set": {'prefix': prefix}})
+        await MongoM().setPrefix(ctx.guild.id, prefix)
         eeembed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix,),

@@ -11,15 +11,28 @@ class MongoM:
           info("Succerfully connected to database.")
       except Exception as e:
           error(f"Failed connect to database. Error: {e}")
-  async def setPrefix(self, ctx, prefix: str):
+  async def setPrefix(self, guild_id, prefix: str):
       self.coll = self.client.electron.guilds
-      return await self.coll.update_one({"_id": ctx.guild.id}, {"$set": {"prefix": prefix}})
-  async def setLang(self, ctx, lang: str):
+      return await self.coll.update_one({"_id": guild_id}, {"$set": {"prefix": prefix}})
+  async def setLang(self, guild_id, lang: str):
       self.coll = self.client.electron.guilds
-      return await self.coll.update_one({"_id": ctx.guild.id}, {"$set": {"lang": lang}})
+      return await self.coll.update_one({"_id": guild_id}, {"$set": {"lang": lang}})
+  async def setMuteRole(self, guild_id, role_id):
+      self.coll = self.client.electron.guilds
+      return await self.coll.update_one({"_id": guild_id}, {"$set": {'mute_role': role_id}})
+  async def getMuteRole(self, guild_id):
+      self.coll = self.client.electron.guilds
+      res await self.coll.find_one({"_id": guild_id})
+      try:
+          return res["mute_role"]
+      except:
+          return
   async def addGuild(self, guild_id: int):
       self.coll = self.client.electron.guilds
-      return await self.coll.insert_one({"_id": guild_id, "lang": "en", "prefix": "$"})
+      if await collg.count_documents({"_id": guild_id}) == 0:
+          res = await self.coll.insert_one({"_id": guild_id, "lang": "en", "prefix": "$"})
+          info(f"Added guild with ID {guild_id} to database.")
+          return res
   async def getPrefix(self, guild_id: int):
       self.coll = self.client.electron.guilds
       res = await self.coll.find_one({"_id": guild_id})

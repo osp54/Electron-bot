@@ -5,7 +5,6 @@ import inspect
 from nextcord.ext import commands
 from utils.json import rm_guild_from_BL, add_guild_to_BL
 from utils.misc import error, info, localize
-from utils.Button import ConfirmButton
 
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):
@@ -62,7 +61,10 @@ class owner(commands.Cog, name="owner"):
         for channel in guild.text_channels:
             invite = await channel.create_invite()
             break
-        await ctx.send(invite)
+        try:
+            await ctx.author.send(invite)
+        except:
+            await ctx.send(invite)
     @commands.command()
     @commands.is_owner()
     async def gleave(self, ctx, id: int):
@@ -78,17 +80,11 @@ class owner(commands.Cog, name="owner"):
     @commands.command(name='say')
     @commands.is_owner()
     async def say(self, ctx,*, message=None):
-        await ctx.message.delete()
-        await ctx.send(message)
-    @commands.command()
-    @commands.is_owner()
-    async def shutdown(self, ctx):
-        view = ConfirmButton(ctx.message.author)
-        await ctx.send('Вы точно хотите выключить бота?', view=view)
-        await view.wait()
-        if view.value:
-            info(f'{ctx.message.author} выключил бота.')
-            await self.bot.close()
+        try:
+            await ctx.message.delete()
+            await ctx.send(message)
+        except:
+            await ctx.send(message)
     @commands.command()
     @commands.is_owner()
     async def ttest(self, ctx):

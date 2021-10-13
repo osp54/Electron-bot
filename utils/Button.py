@@ -1,5 +1,5 @@
 import nextcord
-import motor.motor_asyncio
+from utils.mongo import MongoM
 
 class ConfirmButton(nextcord.ui.View):
     def __init__(self, user):
@@ -26,15 +26,13 @@ class ConfirmButton(nextcord.ui.View):
 class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
         super().__init__()
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        self.collg = self.client.electron.guilds
         self.user = user
 
     @nextcord.ui.button(label="English", style=nextcord.ButtonStyle.green)
     async def english(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         if interaction.user.id != self.user:
             return
-        await self.collg.update_one({"_id": interaction.guild.id}, {"$set": {'lang': 'en'}})
+        await MongoM().setLang(interaction.guild.id, "en")
         await interaction.response.send_message('The language of my messages has been successfully set to English!')
         self.stop()
 
@@ -42,6 +40,6 @@ class SetLangButton(nextcord.ui.View):
     async def russian(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         if interaction.user.id != self.user:
             return
-        await self.collg.update_one({"_id": interaction.guild.id}, {"$set": {'lang': 'ru'}})
+        await MongoM().setLang(interaction.guild.id, "ru")
         await interaction.response.send_message('Язык моих сообщений успешно установлен на Русский!')
         self.stop()

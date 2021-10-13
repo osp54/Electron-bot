@@ -1,23 +1,19 @@
 import colorama
-import pymongo
 import os
 import nextcord
 import json
+from utils.mongo import MongoM
 from datetime import datetime
 from configparser import ConfigParser
 from colorama import init, Fore, Back, Style
 
 cp = ConfigParser()
-client = pymongo.MongoClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-collg = client.electron.guilds
 
-def get_prefix2(client, message, isInfo = False):
-    res = collg.find_one({"_id": message.guild.id})
-    return res["prefix"]
+async def get_prefix2(client, message, isInfo = False):
+    return await MongoM().getPrefix(message.guild.id)
     
-def get_lang(message):
-    res = collg.find_one({"_id": message.guild.id})
-    return res["lang"]
+async def get_lang(message):
+    return await MongoM().getLang(message.guild.id)
 
 def localize(ctx, to_local, bundle="Bundle"):
     cp.read(f"locales/{get_lang(ctx.message)}.ini")
