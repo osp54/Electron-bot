@@ -12,7 +12,7 @@ class config(commands.Cog, name="config"):
     @commands.has_permissions(manage_guild=True)
     async def config(self, ctx):
         if ctx.invoked_subcommand is None:
-            self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+            self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.config.info.title'),
                 description=self.b.get('Bundle', 'embed.config.info.desc').format("\n"),
@@ -22,7 +22,7 @@ class config(commands.Cog, name="config"):
     @config.command(name="mute_role")
     @commands.has_permissions(manage_roles=True)
     async def mute_role(self, ctx, role: nextcord.Role):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         await MongoM().setMuteRole(ctx.guild.id, role.id)
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),

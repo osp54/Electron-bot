@@ -12,18 +12,18 @@ cp = ConfigParser()
 async def get_prefix2(client, message, isInfo = False):
     return await MongoM().getPrefix(message.guild.id)
     
-async def get_lang(message):
+async def await get_lang(message):
     return await MongoM().getLang(message.guild.id)
 
 def localize(ctx, to_local, bundle="Bundle"):
-    cp.read(f"locales/{get_lang(ctx.message)}.ini")
+    cp.read(f"locales/{await get_lang(ctx.message)}.ini")
     try:
         return cp.get(bundle, to_local)
     except:
         cp.read(f"locales/en.ini")
         return self.b.get(bundle, to_local)
 async def cmdInfo(ctx, self, cmd):
-        cp.read(f"locales/{get_lang(ctx.message)}.ini")
+        cp.read(f"locales/{await get_lang(ctx.message)}.ini")
         cmd = self.bot.get_command(cmd)
         embed = nextcord.Embed(
             title=cmd.name.capitalize(),

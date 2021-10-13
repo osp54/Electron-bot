@@ -18,8 +18,8 @@ class main(commands.Cog, name="main"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def setprefix(self, ctx, prefix):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
-        if get_prefix2(self.bot, ctx.message) == prefix:
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
+        if await get_prefix2(self.bot, ctx.message) == prefix:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
                 description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
@@ -48,7 +48,7 @@ class main(commands.Cog, name="main"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(administrator=True)
     async def language(self, ctx):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         embed = nextcord.Embed( 
             title=self.b.get('Bundle', 'embed.setlang.title'),
             description=self.b.get('Bundle', 'embed.choose-lang'),
@@ -70,7 +70,7 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def avatar(self, ctx, member: nextcord.Member = None):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if not member:
             member = ctx.message.author
         embed = nextcord.Embed(
@@ -85,7 +85,7 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def emoji(self, ctx, emoji: nextcord.Emoji):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         embed = nextcord.Embed(title=self.b.get('Bundle', 'embed.emoji.title').format(emoji.name), color=0x42F56C)
         embed.set_thumbnail(url=emoji.url)
         embed.set_image(url=emoji.url)
@@ -105,7 +105,7 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def guild(self, ctx):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         guild = ctx.guild
         guild_owner = self.bot.get_user(guild.owner_id)
 
@@ -139,7 +139,7 @@ class main(commands.Cog, name="main"):
         aliases=['канал', 'channelinfo']
     )
     async def channel(self, ctx, channel: nextcord.TextChannel = None):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         channel = channel or ctx.channel
         embed = nextcord.Embed(title=self.b.get('Bundle', 'embed.channel').format(channel), color=0x42F56C)
         if channel.topic:
@@ -165,7 +165,7 @@ class main(commands.Cog, name="main"):
     )
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def poll(self, ctx, title, *, args):
-        self.b.read(f"locales/{get_lang(ctx.message)}.ini")
+        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         arg = args.split()
         title = title.replace("_", " ")
         counter = 1
