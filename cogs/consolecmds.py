@@ -12,7 +12,7 @@ class commandline(commands.Cog, name="commandline"):
     def console_command(func, name, desc, usage="Not arguments..."):
         def inner(self) : 
             self.cmds[name] = {"func": func, "desc": desc, "usage": usage}
-            return func
+            return func(self)
         return inner 
     @console_command(name="reload", desc="Reload all cogs")
     async def reload(self, bot, ctx, text):
