@@ -10,10 +10,10 @@ class commandline(commands.Cog, name="commandline"):
         self.bot = bot
         self.cmds = {}
     def console_command(name, desc, usage="Not arguments..."):
-        def decorator(self, func):
-            self.cmds[name] = {"func": func, "desc": desc, "usage": usage}
-            return func
-        return decorator
+        def decorator(func):
+            def wrap(self):
+                self.cmds[name] = {"func": func, "desc": desc, "usage": usage}
+        return wrap
     @console_command(name="reload", desc="Reload all cogs")
     async def reload(self, bot, ctx, text):
         info("Reloading cogs...")
