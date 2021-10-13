@@ -9,6 +9,7 @@ class MongoM():
             await self.client.admin.command('ismaster')
             #info("Succerfully connected to database.")
         except Exception as e:
+            pass
             #error(f"Failed connect to database. Error: {e}")
     async def setPrefix(self, guild_id, prefix: str):
         self.coll = self.client.electron.guilds
