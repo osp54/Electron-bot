@@ -16,7 +16,7 @@ class events(commands.Cog):
     async def on_bot_mention(self, message):
         self.b.read(f"locales/{await get_lang(message)}.ini")
         if '<@861541287161102376>' == message.content:
-            prefix = get_prefix2(self.bot, message, True)
+            prefix = await get_prefix2(self.bot, message, True)
             await message.reply(self.b.get('Bundle', 'HelloMessage').format(prefix), mention_author=True)
         for i in electron:
             if i in message.content.lower():
@@ -100,7 +100,7 @@ class events(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, old, new):
         try:
-            if new.content.startswith(get_prefix2(self.bot, new)):
+            if new.content.startswith(await get_prefix2(self.bot, new)):
                 await self.bot.process_commands(new)
         except:
             return
