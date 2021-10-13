@@ -13,7 +13,7 @@ class commandline(commands.Cog, name="commandline"):
         def decorator(func):
             def wrap(self):
                 self.cmds[name] = {"func": func, "desc": desc, "usage": usage}
-        return wrap
+            return wrap
     @console_command(name="reload", desc="Reload all cogs")
     async def reload(self, bot, ctx, text):
         info("Reloading cogs...")
