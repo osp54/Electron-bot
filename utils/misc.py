@@ -12,7 +12,7 @@ cp = ConfigParser()
 async def get_prefix2(client, message, isInfo = False):
     return await MongoM().getPrefix(message.guild.id)
     
-async def await get_lang(message):
+async def get_lang(message):
     return await MongoM().getLang(message.guild.id)
 
 def localize(ctx, to_local, bundle="Bundle"):
