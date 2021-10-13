@@ -29,7 +29,7 @@ class MongoM():
             return
     async def addGuild(self, guild_id: int):
         self.coll = self.client.electron.guilds
-        if await collg.count_documents({"_id": guild_id}) == 0:
+        if await self.coll.count_documents({"_id": guild_id}) == 0:
             res = await self.coll.insert_one({"_id": guild_id, "lang": "en", "prefix": "$"})
             #info(f"Added guild with ID {guild_id} to database.")
             return res
