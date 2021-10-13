@@ -2,7 +2,6 @@ import time
 import nextcord
 import os
 import platform
-#import colorama
 import logging
 import asyncio
 from utils.mongo import MongoM
@@ -11,9 +10,6 @@ from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 
 tStart = time.time()
-
-mclient = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-collg = mclient.electron.guilds
 
 init(autoreset=True)
 
