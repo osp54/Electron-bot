@@ -6,6 +6,7 @@ import platform
 import logging
 import motor.motor_asyncio
 import asyncio
+from utils.mongo import MongoM
 from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
@@ -21,11 +22,11 @@ intents = nextcord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix2, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
 client.remove_command('help')
 
-logger = logging.getLogger('nextcord')
-logger.setLevel(logging.WARNING)
+logger = logging.getLogger('nextcord').setLevel(logging.WARNING)
 
 @client.event
 async def on_ready():
+    await MongoM().connect()
     modcount = 0
     for guild in client.guilds:
         if await collg.count_documents({"_id": guild.id}) == 0:
