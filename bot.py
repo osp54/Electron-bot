@@ -24,7 +24,7 @@ async def on_ready():
     await mongo.MongoM().connect()
     modcount = 0
     for guild in client.guilds:
-        await mongo.MongoM.addGuild(guild.id)
+        await mongo.MongoM().addGuild(guild.id)
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
