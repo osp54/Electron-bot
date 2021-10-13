@@ -4,7 +4,7 @@ import os
 import platform
 import logging
 import asyncio
-from utils.mongo import MongoM
+from utils import mongo
 from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
@@ -21,10 +21,10 @@ logger = logging.getLogger('nextcord').setLevel(logging.WARNING)
 
 @client.event
 async def on_ready():
-    await MongoM().connect()
+    await mongo.MongoM().connect()
     modcount = 0
     for guild in client.guilds:
-        await MongoM.addGuild(guild.id)
+        await mongo.MongoM.addGuild(guild.id)
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
