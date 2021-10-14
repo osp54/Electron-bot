@@ -4,10 +4,10 @@ import os
 import platform
 import logging
 import asyncio
-from utils import mongo
 from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
+from utils import mongo
 
 tStart = time.time()
 

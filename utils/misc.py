@@ -10,9 +10,13 @@ from colorama import init, Fore, Back, Style
 cp = ConfigParser()
 
 async def get_prefix2(client, message, isInfo = False):
+    if message.guild is None:
+        return "$"
     return await MongoM().getPrefix(message.guild.id)
     
 async def get_lang(message):
+    if message.guild is None:
+        return "en"
     return await MongoM().getLang(message.guild.id)
 
 async def localize(ctx, to_local, bundle="Bundle"):
