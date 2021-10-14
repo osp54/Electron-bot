@@ -11,7 +11,7 @@ from nextcord.ext import commands
 from utils import mongo
 
 if "config.ini" not in os.listdir(r"/root/bot"):
-    error("config.ini not found. Create it and configure.")
+    error("config.ini file not found. Create it and configure.")
     os.exit()
 
 tStart = time.time()
