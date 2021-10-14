@@ -4,13 +4,20 @@ import os
 import platform
 import logging
 import asyncio
+from configparser import ConfigParser
 from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 from utils import mongo
 
-tStart = time.time()
+if "config.ini" not in os.listdir(r"/root/bot"):
+    error("config.ini not found. Create it and configure.")
+    os.exit()
 
+tStart = time.time()
+cp = ConfigParser()
+cp.read("/root/bot")
+token = cp.get("BOT", "token")
 init(autoreset=True)
 
 intents = nextcord.Intents.all()
@@ -38,4 +45,8 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(load_extensions(client, "./cogs"))
     client.load_extension("jishaku")
-    client.run('ODYxNTQxMjg3MTYxMTAyMzc2.YOLS2Q.ylwKDaLJE4BypVzaLB6Hwai9GHw')
+    try:
+        client.run(token)
+    except:
+        error("Invalid token.")
+        os.exit()
