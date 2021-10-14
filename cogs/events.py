@@ -52,7 +52,11 @@ class events(commands.Cog):
     async def on_command_error(self, ctx, error):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if isinstance(error, commands.CommandNotFound):
-            pass
+            return
+        elif isinstance(error, commands.NotOwner):
+            return
+        elif isinstance(error, commands.Forbidden):
+            return
         elif isinstance(error, commands.MissingPermissions):
             missingperms = ""
             for x in range(len(error.missing_permissions)):
