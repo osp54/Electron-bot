@@ -11,7 +11,7 @@ class anti_scam(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         for word in bad_words:
-            if word in message.lower() and "https" in message.lower() or "http:" in message.lower():
+            if word in message.content.lower() and "https" in message.content.lower() or "http:" in message.content.lower():
                 await message.reply(f"WARNING! Scam detected! Ban this member or give punishment! Member: {message.author}, id: {message.author.id}")
         for link in scam_links:
             if link in message.content.lower():
