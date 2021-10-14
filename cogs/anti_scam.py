@@ -17,7 +17,7 @@ class anti_scam(commands.Cog):
         msg = message.content.split()
         for m in msg:
             for d in bad_domains:
-                if m.startswith("https://disc") or m.startswith("http://disc") and m.endswith(d):
+                if m.startswith("disc") and m.endswith(d):
                      return await message.reply(f"WARNING! Scam detected! Ban this member or give punishment! Member: {message.author}, id: {message.author.id}")
         for link in scam_links:
             if link in message.content.lower():
