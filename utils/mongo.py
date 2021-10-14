@@ -2,7 +2,7 @@ import motor.motor_asyncio
 
 class MongoM():
     def __init__(self, coll = "guilds"):
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:W$2ov3b$Fff58ludgg@cluster.xyknx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        self.client = motor.motor_asyncio.AsyncIOMotorClient("localhost", 27017)
         self.coll = self.client.electron[coll]
     async def connect(self):
         try:
