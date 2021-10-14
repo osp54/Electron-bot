@@ -37,10 +37,11 @@ async def cmdInfo(ctx, self, cmd):
             name=cp.get("Bundle", "embed.help.usage"),
             value=cp.get("Bundle", f"{cmd}.usage")
         )
-        embed.add_field(
-            name=cp.get("Bundle", "embed.help.aliases"),
-            value=",".join(cmd.aliases)
-        )
+        if cmd.aliases is not None:
+           embed.add_field(
+                name=cp.get("Bundle", "embed.help.aliases"),
+                value=", ".join(cmd.aliases)
+            )
         await ctx.send(embed=embed)
 #загрузить все расширения из папки
 async def load_extensions(bot, dir):

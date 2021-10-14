@@ -55,8 +55,6 @@ class events(commands.Cog):
             return
         elif isinstance(error, commands.NotOwner):
             return
-        elif isinstance(error, commands.Forbidden):
-            return
         elif isinstance(error, commands.MissingPermissions):
             missingperms = ""
             for x in range(len(error.missing_permissions)):
