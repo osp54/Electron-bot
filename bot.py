@@ -16,8 +16,8 @@ if "config.ini" not in os.listdir(r"/root/bot"):
 
 tStart = time.time()
 cp = ConfigParser()
-cp.read("/root/bot")
-token = cp.get("BOT", "token")
+cp.read("/root/bot/config.ini")
+token = cp.get("Bot", "token")
 init(autoreset=True)
 
 intents = nextcord.Intents.all()
