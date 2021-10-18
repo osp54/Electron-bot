@@ -20,14 +20,12 @@ class moderation(commands.Cog, name="moderation"):
         guild = ctx.guild
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         res = await MongoM().getMuteRole(ctx.guild.id)
-        try:
-            mutedRole = ctx.guild.get_role(res)
-        except:
-            mutedRole = nextcord.utils.get(guild.roles, name="Electron Mute")
-            if not mutedRole:
-                mutedRole = await guild.create_role(name="Electron Mute")
-                for channel in guild.channels:
-                    await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=True)
+        mutedRole = guild.get_role(res)
+        if mutedRole is None:
+            mutedRole = await guild.create_role(name="Electron Mute")
+            await MongoM().setMuteRole(guild.id, mutedRole.id)
+            for channel in guild.channels:
+                await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=True)
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -60,13 +58,8 @@ class moderation(commands.Cog, name="moderation"):
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
-        if not mutedRole:
-            mutedRole = await guild.create_role(name="Electron Mute")
-
-            for channel in guild.channels:
-                await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=False)
         try:
-            await member.add_roles(mutedRole, reason=reason)
+            await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
         except:
             return
         embed = nextcord.Embed(
@@ -95,14 +88,10 @@ class moderation(commands.Cog, name="moderation"):
                 color=0xE02B2B
             )
             await ctx.send(embed=embed)
-            await ctx.message.add_reaction('❌')
-            return
+            return await ctx.message.add_reaction('❌')
+        mutedRole = ctx.guild.get_role(await MongoM().getMuteRole(ctx.guild.id))
         try:
-            mutedRole = ctx.guild.get_role(await MongoM().getMuteRole(ctx.guild.id))
-        except:
-            mutedRole = nextcord.utils.get(ctx.guild.roles, name="Electron Mute")
-        try:
-            await member.remove_roles(mutedRole)
+            await member.remove_roles(mutedRole, reason=ctx.author)
         except:
             return
         embed = nextcord.Embed(

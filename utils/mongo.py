@@ -42,3 +42,13 @@ class MongoM():
         self.coll = self.client.electron.guilds
         res = await self.coll.find_one({"_id": guild_id})
         return res["lang"]
+    async def setAntiScam(self, guild_id: int, value: bool):
+        self.coll = self.client.electron.guilds
+        return await self.coll.update_one({"_id": guild_id}, {"$set": {"anti_scam": value}})
+    async def checkAntiScam(self, guild_id: int):
+        self.coll = self.client.electron.guilds
+        res = await self.coll.find_one({"_id": guild_id})
+        try:
+            return bool(res["anti_scam"])
+        except:
+            return False

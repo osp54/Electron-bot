@@ -10,13 +10,18 @@ from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 from utils import mongo
 
-if "config.ini" not in os.listdir(r"/root/bot"):
-    error("config.ini file not found. Create it and configure.")
-    os.exit()
+cdir = os.path.realpath(__file__).replace("/bot.py", "")
+
+if "config.ini" not in os.listdir(cdir):
+    error("config.ini file not found. Creating this file...")
+    with open("config.ini", "w") as config:
+        config.write("[Bot]\ntoken = Bot's token.")
+        config.close()
+        exit()
 
 tStart = time.time()
 cp = ConfigParser()
-cp.read("/root/bot/config.ini")
+cp.read(cdir + "/config.ini")
 token = cp.get("Bot", "token")
 init(autoreset=True)
 

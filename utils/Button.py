@@ -27,19 +27,32 @@ class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
         super().__init__()
         self.user = user
+        self.value = None
 
     @nextcord.ui.button(label="English", style=nextcord.ButtonStyle.green)
     async def english(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        self.value = True
         if interaction.user.id != self.user:
             return
         await MongoM().setLang(interaction.guild.id, "en")
-        await interaction.response.send_message('The language of my messages has been successfully set to English!')
+        embed = nextcord.Embed(
+            title="Successfully",
+            description="The language of my messages is set to English",
+            color=0x42F56C
+        )
+        await interaction.edit_original_message(embed=embed)
         self.stop()
 
     @nextcord.ui.button(label="Русский", style=nextcord.ButtonStyle.gray)
     async def russian(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        self.value = True
         if interaction.user.id != self.user:
             return
         await MongoM().setLang(interaction.guild.id, "ru")
-        await interaction.response.send_message('Язык моих сообщений успешно установлен на Русский!')
+        embed = nextcord.Embed(
+            title="Успешно!",
+            description=""Язык моих сообщений установлен на английский",
+            color=0x42F56C
+        )
+        await interaction.edit_original_message(embed=embed)
         self.stop()

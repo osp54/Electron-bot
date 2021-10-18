@@ -13,49 +13,6 @@ class main(commands.Cog, name="main"):
     def __init__(self, bot):
         self.bot = bot
         self.b = ConfigParser() # b - bundle
-        self.maxcharsprefix = 8
-    @commands.command(aliases=['префикс'])
-    @commands.cooldown(1, 2, commands.BucketType.user)
-    @commands.has_permissions(manage_messages=True)
-    async def setprefix(self, ctx, prefix):
-        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
-        if await get_prefix2(self.bot, ctx.message) == prefix:
-            embed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
-                color=0xE02B2B
-            )
-            return await ctx.send(embed=embed)
-        if len(prefix) >= self.maxcharsprefix:
-            eeembed = nextcord.Embed(
-                title=self.b.get('Bundle', 'embed.error'),
-                description=self.b.get('Bundle', 'error.embed.max.num.of.chars.in.prefix.description').format(self.maxcharsprefix),
-                color=0xE02B2B
-            )
-            return await ctx.send(embed=eeembed)
-        await MongoM().setPrefix(ctx.guild.id, prefix)
-        eeembed = nextcord.Embed(
-            title=self.b.get('Bundle', 'embed.succerfully'),
-            description=self.b.get('Bundle', 'embed.prefixchanged.description').format(prefix,),
-            color=0x42F56C
-        ).set_footer(text=self.b.get('Bundle', 'embed.prefix.prompt'))
-        await ctx.send(embed=eeembed)
-        await ctx.guild.me.edit(nick=f"[{prefix}] Electron Bot")
-    @commands.command(
-        name="setlang",
-        aliases=['lang']
-    )
-    @commands.cooldown(1, 2, commands.BucketType.user)
-    @commands.has_permissions(administrator=True)
-    async def language(self, ctx):
-        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
-        embed = nextcord.Embed( 
-            title=self.b.get('Bundle', 'embed.setlang.title'),
-            description=self.b.get('Bundle', 'embed.choose-lang'),
-            color=0x42F56C
-        )
-        view = SetLangButton(ctx.author.id)
-        await ctx.send(embed=embed, view=view)
     @commands.command(
         name="ping",
         aliases=['пинг']
