@@ -19,7 +19,7 @@ class config(commands.Cog, name = "config"):
             prefix = await MongoM().getPrefix(ctx.guild.id)
             lang = await MongoM().getLang(ctx.guild.id)
             anti_scam = await MongoM().checkAntiScam(ctx.guild.id)
-            self.b.read(f"lpcales/{await get_lang(ctx.message)}.ini")
+            self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
             embed = nextcord.Embed(
                 title = self.b.get('Bundle', 'embed.config.info.title'),
                 description = self.b.get('Bundle', 'embed.config.info.desc').format(prefix, lang, f"<@&{mute_role}>", anti_scam, "\n"),

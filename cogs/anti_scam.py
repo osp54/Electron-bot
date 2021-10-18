@@ -22,8 +22,8 @@ class anti_scam(commands.Cog):
             if word in message.content.lower():
                 return await message.reply(f"WARNING! Scam detected! Ban this member or give punishment! Member: {message.author}, id: {message.author.id}")
         msg = message.content.split()
-        async for m in msg:
-            async for d in discord_domains:
+        for m in msg:
+            for d in discord_domains:
                 if m.startswith("disc") and not m.endswith(d):
                      embed = nextcord.Embed(
                         title=self.b.get('Bundle', 'embed.warning'),
@@ -32,7 +32,7 @@ class anti_scam(commands.Cog):
                      )
                      return await message.reply(embed=embed)
                      #return await message.reply(f"WARNING! Scam detected! Ban this member or give punishment! Member: {message.author}, id: {message.author.id}")
-        async for link in scam_links:
+        for link in scam_links:
             if link in message.content.lower():
                 try:
                     await message.delete()
