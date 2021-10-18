@@ -21,6 +21,7 @@ class ConfirmButton(nextcord.ui.View):
             return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
         await interaction.response.send_message('Отклонено.', ephemeral=True)
         self.value = False
+        button.view.clear_items()
         self.stop()
 
 class SetLangButton(nextcord.ui.View):
@@ -38,6 +39,7 @@ class SetLangButton(nextcord.ui.View):
             description="The language of my messages is set to English",
             color=0x42F56C
         )
+        button.view.clear_items()
         await interaction.message.edit(embed=embed)
         self.stop()
 
@@ -51,5 +53,6 @@ class SetLangButton(nextcord.ui.View):
             description="Язык моих сообщений установлен на английский",
             color=0x42F56C
         )
+        button.view.clear_items()
         await interaction.message.edit(embed=embed)
         self.stop()
