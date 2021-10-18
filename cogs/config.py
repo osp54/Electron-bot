@@ -95,4 +95,4 @@ class config(commands.Cog, name = "config"):
         )
         await ctx.send(embed = embed)
 def setup(bot):
-bot.add_cog(config(bot))
+    bot.add_cog(config(bot))
