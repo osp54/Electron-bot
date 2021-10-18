@@ -27,11 +27,9 @@ class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
         super().__init__()
         self.user = user
-        self.value = None
 
     @nextcord.ui.button(label="English", style=nextcord.ButtonStyle.green)
     async def english(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        self.value = True
         if interaction.user.id != self.user:
             return
         await MongoM().setLang(interaction.guild.id, "en")
@@ -45,7 +43,6 @@ class SetLangButton(nextcord.ui.View):
 
     @nextcord.ui.button(label="Русский", style=nextcord.ButtonStyle.gray)
     async def russian(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        self.value = True
         if interaction.user.id != self.user:
             return
         await MongoM().setLang(interaction.guild.id, "ru")

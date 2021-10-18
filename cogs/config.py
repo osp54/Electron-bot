@@ -22,7 +22,7 @@ class config(commands.Cog, name = "config"):
             self.b.read(f"lpcales/{await get_lang(ctx.message)}.ini")
             embed = nextcord.Embed(
                 title = self.b.get('Bundle', 'embed.config.info.title'),
-                description = self.b.get('Bundle', 'embed.config.info.desc').format(prefix, lang, f"<@{mute_role}>", anti_scam, "\n"),
+                description = self.b.get('Bundle', 'embed.config.info.desc').format(prefix, lang, f"<@&{mute_role}>", anti_scam, "\n"),
                 color = 0x42F56C
             )
             await ctx.send(embed = embed)
@@ -68,8 +68,6 @@ class config(commands.Cog, name = "config"):
         )
         view = SetLangButton(ctx.author.id)
         await ctx.send(embed=embed, view=view)
-        if view.value is None:
-            await view.clear_items()
     @config.command(name = "mute_role")
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.has_permissions(manage_guild = True)
