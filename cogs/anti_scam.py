@@ -18,7 +18,7 @@ class anti_scam(commands.Cog):
         if not await MongoM().checkAntiScam(message.guild.id):
             return
         self.b.read(f"locales/{await get_lang(message)}.ini")
-        async for word in bad_words:
+        for word in bad_words:
             if word in message.content.lower():
                 return await message.reply(f"WARNING! Scam detected! Ban this member or give punishment! Member: {message.author}, id: {message.author.id}")
         msg = message.content.split()

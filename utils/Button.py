@@ -38,7 +38,7 @@ class SetLangButton(nextcord.ui.View):
             description="The language of my messages is set to English",
             color=0x42F56C
         )
-        await interaction.edit_original_message(embed=embed)
+        await interaction.message.edit(embed=embed)
         self.stop()
 
     @nextcord.ui.button(label="Русский", style=nextcord.ButtonStyle.gray)
@@ -51,5 +51,5 @@ class SetLangButton(nextcord.ui.View):
             description="Язык моих сообщений установлен на английский",
             color=0x42F56C
         )
-        await interaction.edit_original_message(embed=embed)
+        await interaction.message.edit(embed=embed)
         self.stop()
