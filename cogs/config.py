@@ -22,7 +22,7 @@ class config(commands.Cog, name = "config"):
             self.b.read(f"lpcales/{await get_lang(ctx.message)}.ini")
             embed = nextcord.Embed(
                 title = self.b.get('Bundle', 'embed.config.info.title'),
-                description = self.b.get('Bundle', 'embed.config.info.desc').format(prefix, lang, f"<@ {mute_role}>" if mute_role  not None else "Default(@Electron Mute)", anti_scam, "\n"),
+                description = self.b.get('Bundle', 'embed.config.info.desc').format(prefix, lang, f"<@{mute_role}>", anti_scam, "\n"),
                 color = 0x42F56C
             )
             await ctx.send(embed = embed)

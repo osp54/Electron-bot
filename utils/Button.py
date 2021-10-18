@@ -51,7 +51,7 @@ class SetLangButton(nextcord.ui.View):
         await MongoM().setLang(interaction.guild.id, "ru")
         embed = nextcord.Embed(
             title="Успешно!",
-            description=""Язык моих сообщений установлен на английский",
+            description="Язык моих сообщений установлен на английский",
             color=0x42F56C
         )
         await interaction.edit_original_message(embed=embed)

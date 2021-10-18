@@ -15,7 +15,7 @@ class anti_scam(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(self, message):
-        if not MongoM().checkAntiScam(message.guild.id):
+        if not await MongoM().checkAntiScam(message.guild.id):
             return
         self.b.read(f"locales/{await get_lang(message)}.ini")
         if not "https://" in message.content.lower() or not "http://" in message.content.lower():
