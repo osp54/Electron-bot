@@ -1,29 +1,25 @@
 import nextcord
 from utils.mongo import MongoM
 
-class ConfirmButton(nextcord.ui.View):
-    def __init__(self, user):
+class DarkdustryFAQButtons(nextcord.ui.View):
+    def __init__(self):
         super().__init__()
-        self.value = None
-        self.user = user
-
-    @nextcord.ui.button(emoji='✅', style=nextcord.ButtonStyle.green)
-    async def confirm(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        if interaction.user.id != self.user.id:
-            return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
-        await interaction.response.send_message('Готово.', ephemeral=True)
-        self.value = True
-        self.stop()
-
-    @nextcord.ui.button(emoji='❌', style=nextcord.ButtonStyle.gray)
-    async def cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        if interaction.user.id != self.user.id:
-            return await interaction.response.send_message('Ты не автор команды!', ephemeral=True)
-        await interaction.response.send_message('Отклонено.', ephemeral=True)
-        self.value = False
-        button.view.clear_items()
-        self.stop()
-
+    @nextcord.ui.button(label="1", style=nextcord.ButtonStyle.green)
+    async def f1(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        embed = nextcord.Embed(
+            title="1",
+            description="хз",
+            color=0x3F00FF
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+    @nextcord.ui.button(label="2", style=nextcord.ButtonStyle.green)
+    async def f2(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        embed = nextcord.Embed(
+            title="1",
+            description="хз",
+            color=0x3F00FF
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True)
 class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
         super().__init__()
@@ -39,7 +35,7 @@ class SetLangButton(nextcord.ui.View):
             description="The language of my messages is set to English",
             color=0x42F56C
         )
-        button.view.clear_items()
+        self.clear_items()
         await interaction.message.edit(embed=embed)
         self.stop()
 
@@ -50,9 +46,9 @@ class SetLangButton(nextcord.ui.View):
         await MongoM().setLang(interaction.guild.id, "ru")
         embed = nextcord.Embed(
             title="Успешно!",
-            description="Язык моих сообщений установлен на английский",
+            description="Язык моих сообщений установлен на русский",
             color=0x42F56C
         )
-        button.view.clear_items()
+        self.clear_items()
         await interaction.message.edit(embed=embed)
         self.stop()
