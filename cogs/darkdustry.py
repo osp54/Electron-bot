@@ -13,7 +13,7 @@ class darkdustry(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def faq_start(self, ctx):
-        await ctx.send(embed=self.embed, view=darkdustryFAQButtons())
+        await ctx.send(embed=self.embed, view=DarkdustryFAQButtons())
     @commands.Cog.listener()
     async def on_ready(self):
         pass
