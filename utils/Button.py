@@ -3,12 +3,13 @@ from utils.mongo import MongoM
 
 class DarkdustryFAQButtons(nextcord.ui.View):
     def __init__(self):
-        super().__init__()
+        super().__init__(timeout=None)
+        
     @nextcord.ui.button(label="1", style=nextcord.ButtonStyle.green)
     async def f1(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         embed = nextcord.Embed(
-            title="1",
-            description="хз",
+            title="1. IP серверов",
+            description="test",
             color=0x3F00FF
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)

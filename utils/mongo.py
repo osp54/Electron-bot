@@ -52,3 +52,6 @@ class MongoM():
             return bool(res["anti_scam"])
         except:
             return False
+    async def getExecutedCmds(self):
+        self.coll = self.client.electron.guilds
+        return await self.coll.find_one({"_id": 872078273553764372})["executed_cmds"]

@@ -22,6 +22,9 @@ class events(commands.Cog):
             if i in message.content.lower():
                 await message.add_reaction("⚡")
     @commands.Cog.listener()
+    async def on_command(self, ctx):
+        await MongoM().coll.update_one({"_id": 872078273553764372}, {"$inc": {"executed_cmds": 1}})
+    @commands.Cog.listener()
     async def on_guild_join(self, guild):
         with open("blackguilds.json") as file:
             blackguilds = json.load(file)
