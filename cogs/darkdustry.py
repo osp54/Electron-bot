@@ -7,8 +7,7 @@ class darkdustry(commands.Cog):
         self.bot = bot
         self.embed = nextcord.Embed(
             title="Часто задаваемые вопросы",
-            description="1. IP серверов" /
-            ,
+            description="1. IP серверов,
             color=0x3F00FF
         )
     @commands.command()
