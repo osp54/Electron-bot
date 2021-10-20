@@ -13,6 +13,6 @@ class darkdustry(commands.Cog):
             description="1. хз\n2.хзхз",
             color=0x3F00FF
         )
-        await ctx.send(embed=embed, view=DarkdustryFAQButtons)
+        await ctx.send(embed=embed, view=DarkdustryFAQButtons())
 def setup(bot):
     bot.add_cog(darkdustry(bot))
