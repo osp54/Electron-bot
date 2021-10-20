@@ -9,7 +9,19 @@ class DarkdustryFAQButtons(nextcord.ui.View):
     async def f1(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         embed = nextcord.Embed(
             title="1. IP серверов",
-            description="test",
+            description="IP адреса серверов:\n```\n" \
+                "Хаб - darkdustry.ml\n" \
+                "Атака - darkdustry.ml:1500\n" \
+                "Песочница - darkdustry.ml:2000\n" \
+                "Выживание - darkdustry.ml:3000\n" \
+                "PvP - darkdustry.ml:5000\n" \
+                "HexPvP - darkdustry.ml:6000\n" \
+                "TowerDefense - darkdustry.ml:7000\n" \
+                "Siege - darkdustry.ml:8000\n" \
+                "CastleWars - darkdustry.ml:9000\n```\n" \
+                "Если вы не знаете, куда вводить IP адрес, спросите об этом в #👋┃помощь, вам помогут.\n" \
+                "Так же сервера есть в глобальном списке серверов.\n" \
+                "Версия - V7 build 133",
             color=0x3F00FF
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
