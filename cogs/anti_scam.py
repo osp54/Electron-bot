@@ -15,6 +15,8 @@ class anti_scam(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.guild is None:
+            return
         if not await MongoM().checkAntiScam(message.guild.id):
             return
         self.b.read(f"locales/{await get_lang(message)}.ini")
