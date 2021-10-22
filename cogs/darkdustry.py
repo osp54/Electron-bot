@@ -16,8 +16,7 @@ class darkdustry(commands.Cog):
         await ctx.send(embed=self.embed, view=DarkdustryFAQButtons())
     @commands.Cog.listener()
     async def on_ready(self):
-        guild = self.bot.get_guild(810758118442663936)
-        channel = guild.fetch_channel(897760744572063785)
+        channel = self.bot.fetch_channel(897760744572063785)
         message = await channel.fetch_message(901168820285210674)
         await message.edit(embed=self.embed, view=DarkdustryFAQButtons())
 def setup(bot):
