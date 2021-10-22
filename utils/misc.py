@@ -11,7 +11,7 @@ cp = ConfigParser()
 
 async def get_prefix2(client, message, isInfo = False):
     if message.guild is None:
-        return "$"
+        return ""
     return await MongoM().getPrefix(message.guild.id)
     
 async def get_lang(message):
