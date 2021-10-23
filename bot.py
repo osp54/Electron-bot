@@ -4,6 +4,7 @@ import os
 import platform
 import logging
 import asyncio
+import topgg
 from configparser import ConfigParser
 from utils.misc import error, info, get_prefix2, load_extensions
 from colorama import init, Fore, Back, Style
@@ -28,6 +29,7 @@ init(autoreset=True)
 intents = nextcord.Intents.all()
 client = commands.Bot(command_prefix = get_prefix2, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
 client.remove_command('help')
+client.topggpy = topgg.DBLClient(client, "https://top.gg/bot/861541287161102376/webhooks")
 
 logger = logging.getLogger('nextcord').setLevel(logging.WARNING)
 
