@@ -13,6 +13,8 @@ class _topgg(commands.Cog):
             info(f"[Topgg]Posted server count ({self.bot.topggpy.guild_count})")
         except Exception as e:
             error(f"[Topgg]Failed to post server count\n{e.__class__.__name__}: {e}")
-
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.update_stats.start()
 def setup(bot):
     bot.add_cog(_topgg(bot))
