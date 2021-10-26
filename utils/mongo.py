@@ -1,5 +1,5 @@
-import motor.motor_asyncio
 from utils import misc
+import motor.motor_asyncio
 
 class MongoM():
     def __init__(self, coll = "guilds"):
