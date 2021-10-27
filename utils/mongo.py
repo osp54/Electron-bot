@@ -1,9 +1,6 @@
 from utils.misc import error, info
 import motor.motor_asyncio
-<<<<<<< HEAD
 from utils.console import error, info
-=======
->>>>>>> f2eb9bce561d9981cb0714848820395f77852303
 
 class MongoM():
     def __init__(self, coll = "guilds"):
