@@ -1,7 +1,7 @@
 import nextcord
 from configparser import ConfigParser
 from utils.mongo import MongoM
-from utils.misc import get_lang
+from utils.bot import get_lang
 from nextcord.ext import commands
 
 scam_links = ["steamcommunity.link", "discorcl.link", "steamcommunity.com.ru", "steamcommunnity.ru", "steamccommunity.com.ru", "steamcommuunity.com.ru", "surl.li", "stearncornmrunity.ru.com", "fustcup.ru", "steamcommrunity.com", "brapo.space", "steamcommunutiy.com", "discord.giveawey.com"]

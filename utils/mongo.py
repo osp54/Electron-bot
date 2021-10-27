@@ -3,7 +3,7 @@ from utils.console import error, info
 
 class MongoM():
     def __init__(self, coll = "guilds"):
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("localhost", 27017)
+        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://host:BmnP4NEpht8wQFqv@darkdustry.aztzv.mongodb.net")
         self.coll = self.client.electron[coll]
     async def connect(self):
         try:

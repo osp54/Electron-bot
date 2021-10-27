@@ -59,5 +59,5 @@ class error_handler(commands.Cog):
            __error = getattr(error, 'original', error)
            eembed.add_field(name="Более короткая ошибка", value=__error)
            await channel.send(embed=eembed)
-  def setup(bot):
-      bot.add_cog(error_handler(bot))
+def setup(bot):
+    bot.add_cog(error_handler(bot))
