@@ -1,6 +1,6 @@
 import nextcord
 from utils.mongo import MongoM
-from utils.bot import get_lang
+from utils.bot import get_lang, get_prefix
 from utils.Button import SetLangButton
 from nextcord.ext import commands
 from configparser import ConfigParser
@@ -31,7 +31,7 @@ class config(commands.Cog, name = "config"):
     @commands.has_permissions(manage_messages=True)
     async def prefix(self, ctx, prefix):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
-        if await get_prefix2(self.bot, ctx.message) == prefix:
+        if await get_prefix(self.bot, ctx.message) == prefix:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
                 description=self.b.get('Bundle', 'error.embed.same.prefix.description'),
