@@ -19,5 +19,6 @@ class tasks(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         #self.update_stats.start()
+        
 def setup(bot):
     bot.add_cog(tasks(bot))
