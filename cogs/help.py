@@ -1,5 +1,5 @@
 import nextcord
-from utils.misc import get_lang, get_prefix2, cmdInfo
+from utils.bot import get_lang, get_prefix, cmdInfo
 from configparser import ConfigParser
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
@@ -17,7 +17,7 @@ class help(commands.Cog, name="help"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if command is None:
             embed = nextcord.Embed(title=self.b.get("Bundle", "embed.help.title"), description=self.b.get("Bundle", "embed.help.description"), color=0x2B95FF)
-            prefix = await get_prefix2(self.bot, ctx.message, True)
+            prefix = await get_prefix(self.bot, ctx.message, True)
             text = ""
             text2 = ""
             text3 = prefix + "config **| **`" + self.b.get('Bundle', 'config.usage') + "`** |**\n" + self.b.get('Bundle', f'config.description') + "\n\n"

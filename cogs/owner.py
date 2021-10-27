@@ -4,7 +4,8 @@ from configparser import ConfigParser
 import inspect
 from nextcord.ext import commands
 from utils.json import rm_guild_from_BL, add_guild_to_BL
-from utils.misc import error, info, localize
+from utils.bot import localize
+from utils.console import error, info
 
 class owner(commands.Cog, name="owner"):
     def __init__(self, bot):

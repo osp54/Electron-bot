@@ -5,7 +5,8 @@ import humanize
 from nextcord.ext import commands
 from utils.mongo import MongoM
 from utils.Button import SetLangButton
-from utils.misc import format_name, get_lang, get_prefix2
+from utils.other import format_name
+from utils.bot import get_lang, get_prefix
 from nextcord.ext.commands import cooldown, BucketType
 from configparser import ConfigParser
 

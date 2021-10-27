@@ -1,15 +1,12 @@
-import colorama
 import os
 import nextcord
-import json
+from util.console import info, error
 from utils.mongo import MongoM
-from datetime import datetime
 from configparser import ConfigParser
-from colorama import init, Fore, Back, Style
 
 cp = ConfigParser()
 
-async def get_prefix2(client, message, isInfo = False):
+async def get_prefix(client, message, isInfo = False):
     if message.guild is None:
         return ""
     return await MongoM().getPrefix(message.guild.id)
@@ -26,24 +23,7 @@ async def localize(ctx, to_local, bundle="Bundle"):
     except:
         cp.read(f"locales/en.ini")
         return self.b.get(bundle, to_local)
-async def cmdInfo(ctx, self, cmd):
-        cp.read(f"locales/{await get_lang(ctx.message)}.ini")
-        cmd = self.bot.get_command(cmd)
-        embed = nextcord.Embed(
-            title=cmd.name.capitalize(),
-            description=cp.get("Bundle", f"{cmd}.description"),
-            color=0x2B95FF
-        ).add_field(
-            name=cp.get("Bundle", "embed.help.usage"),
-            value=cp.get("Bundle", f"{cmd}.usage")
-        )
-        if cmd.aliases is not None:
-           embed.add_field(
-                name=cp.get("Bundle", "embed.help.aliases"),
-                value=", ".join(cmd.aliases)
-            )
-        await ctx.send(embed=embed)
-#загрузить все расширения из папки
+
 async def load_extensions(bot, dir):
     for file in os.listdir(dir):
         if file.endswith(".py") and not file.endswith("_.py"):
@@ -66,12 +46,20 @@ async def unload_extensions(bot, dir):
                 exception = f"{type(e).__name__}: {e}"
                 error(f"Failed to unload extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
 
-def info(desc):
-    now = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
-    print(f"{Fore.WHITE}[{now}] " + Fore.BLUE + f"[I] {Fore.RESET}" + desc)
-def error(desc):
-    now = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
-    print(f"{Fore.WHITE}[{now}] " + Fore.RED + f"[E] " + desc)
-
-def format_name(name: str) -> str:
-    return name.replace("_", " ").title().strip()
+async def cmdInfo(ctx, self, cmd):
+        cp.read(f"locales/{await get_lang(ctx.message)}.ini")
+        cmd = self.bot.get_command(cmd)
+        embed = nextcord.Embed(
+            title=cmd.name.capitalize(),
+            description=cp.get("Bundle", f"{cmd}.description"),
+            color=0x2B95FF
+        ).add_field(
+            name=cp.get("Bundle", "embed.help.usage"),
+            value=cp.get("Bundle", f"{cmd}.usage")
+        )
+        if cmd.aliases is not None:
+           embed.add_field(
+                name=cp.get("Bundle", "embed.help.aliases"),
+                value=", ".join(cmd.aliases)
+            )
+        await ctx.send(embed=embed)

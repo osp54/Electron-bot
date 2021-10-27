@@ -5,7 +5,8 @@ import platform
 import logging
 import asyncio
 from configparser import ConfigParser
-from utils.misc import error, info, get_prefix2, load_extensions
+from utils.console import info, error
+from utils.bot import get_prefix, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 from utils import mongo
@@ -41,7 +42,7 @@ async def on_ready():
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
     info(f"Logged in as {Fore.BLUE}{client.user.name}{Fore.RESET}, Guilds: {Fore.BLUE}{len(client.guilds)}")
-    info(f"NextCord.py version: {Fore.BLUE}{nextcord.__version__}")
+    info(f"NextCord version: {Fore.BLUE}{nextcord.__version__}")
     info(f"Python version: {Fore.BLUE}{platform.python_version()}")
     info(f"Running on: {Fore.BLUE}{platform.system()} {platform.release()} ({os.name})")
     info(f"Time elapsed: {Fore.BLUE}{tElapsed}")

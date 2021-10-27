@@ -1,6 +1,6 @@
 import nextcord
 from utils.mongo import MongoM
-from utils.misc import get_lang
+from utils.bot import get_lang
 from utils.Button import SetLangButton
 from nextcord.ext import commands
 from configparser import ConfigParser

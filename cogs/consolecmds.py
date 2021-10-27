@@ -2,7 +2,8 @@ import nextcord
 import os
 from aioconsole import ainput
 from colorama import Fore
-from utils.misc import info, error, unload_extensions, load_extensions
+from utils.console import info, error
+from utils.bot import unload_extensions, load_extensions
 from nextcord.ext import commands
 
 class commandline(commands.Cog, name="commandline"):
