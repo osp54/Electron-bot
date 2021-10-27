@@ -1,6 +1,6 @@
 import os
 import nextcord
-from util.console import info, error
+from utils.console import info, error
 from utils.mongo import MongoM
 from configparser import ConfigParser
 
