@@ -1,4 +1,5 @@
 import nextcord
+import traceback
 from utils.bot import get_prefix, cmdInfo, get_lang
 from nextcord.ext import commands
 from configparser import ConfigParser
