@@ -8,4 +8,4 @@ def error(desc):
     now = datetime.now().strftime("%Y:%m:%d %H:%M:%S")
     print(f"{Fore.WHITE}[{now}] " + Fore.RED + f"[E] " + desc)
 def colored(to_sketch):
-    return Fore.BLUE + str(to_scetch) + Fore.RESET
+    return Fore.BLUE + str(to_sketch) + Fore.RESET

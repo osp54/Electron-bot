@@ -25,7 +25,7 @@ class MongoM():
         res = await self.coll.find_one({"_id": guild_id})
         try:
             return res["mute_role"]
-        except TypeError:
+        except KeyError or TypeError:
             return
     async def addGuild(self, guild_id: int):
         self.coll = self.client.electron.guilds
@@ -49,7 +49,7 @@ class MongoM():
         res = await self.coll.find_one({"_id": guild_id})
         try:
             return bool(res["anti_scam"])
-        except TypeError:
+        except KeyError or TypeError:
             return False
     async def getExecutedCmds(self):
         self.coll = self.client.electron.guilds
