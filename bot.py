@@ -5,7 +5,7 @@ import platform
 import logging
 import asyncio
 from configparser import ConfigParser
-from utils.console import info, error
+from utils.console import info, error, colored
 from utils.bot import get_prefix, load_extensions
 from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
@@ -41,11 +41,11 @@ async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
-    info(f"Logged in as {Fore.BLUE}{client.user.name}{Fore.RESET}, Guilds: {Fore.BLUE}{len(client.guilds)}")
-    info(f"NextCord version: {Fore.BLUE}{nextcord.__version__}")
-    info(f"Python version: {Fore.BLUE}{platform.python_version()}")
-    info(f"Running on: {Fore.BLUE}{platform.system()} {platform.release()} ({os.name})")
-    info(f"Time elapsed: {Fore.BLUE}{tElapsed}")
+    info(f"Logged in as {colored(client.user.name)}, Guilds: {colored(len(client.guilds))}")
+    info(f"NextCord version: {colored(nextcord.__version__)}")
+    info(f"Python version: {colored(platform.python_version())}")
+    info(f"Running on: {colored(platform.system())} {colored(platform.release())} ({colored(os.name)})")
+    info(f"Time elapsed: {colored(tElapsed)}")
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
@@ -55,4 +55,4 @@ if __name__ == "__main__":
         client.run(token)
     except:
         error("Invalid token.")
-        os.exit()
+        exit()

@@ -25,14 +25,14 @@ class help(commands.Cog, name="help"):
             modcog = self.bot.get_cog("moderation").get_commands()
             configcog = self.bot.get_cog("config").get_commands()
             for cmd in maincog:
-                text += prefix + cmd.name + " **| **`" + self.b.get('Bundle', f'{cmd}.usage') + "`** |**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n\n"
+                text += prefix + cmd.name + " [ `" + self.b.get('Bundle', f'{cmd}.usage') + "` ]\n> " + self.b.get('Bundle', f'{cmd}.description') + "\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.main"), value=text)
             for cmd in modcog:
-                text2 += prefix + cmd.name + " **| **`" + self.b.get('Bundle', f'{cmd}.usage') + "`** |**\n" + self.b.get('Bundle', f'{cmd}.description') + "\n\n"
+                text2 += prefix + cmd.name + " [ `" + self.b.get('Bundle', f'{cmd}.usage') + "` ]\n> " + self.b.get('Bundle', f'{cmd}.description') + "\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.moderation"), value=text2)
             for cmd in configcog:
                 for i in cmd.commands:
-                    text3 += prefix + i.qualified_name + " **| **`" + self.b.get('Bundle', f'{i.name}.usage') + "`** |**\n" + self.b.get('Bundle', f'{i.name}.description') + "\n\n"
+                    text3 += prefix + i.qualified_name + " [ `" + self.b.get('Bundle', f'{i.name}.usage') + "` ]\n> " + self.b.get('Bundle', f'{i.name}.description') + "\n\n"
             embed.add_field(name=self.b.get("Bundle", "embed.help.config"), value=text3)
             await ctx.send(embed=embed) 
         if command is not None:

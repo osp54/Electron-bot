@@ -7,9 +7,9 @@ class darkdustry(commands.Cog):
         self.bot = bot
         self.embed = nextcord.Embed(
             title="FAQ - Часто задаваемые вопросы",
-            description="1. Какой  IP у серверов?\n2. Скоро",
+            description="1. Какой  IP у серверов?\n2. Как получить разбан?",
             color=0x3F00FF
-        )
+        ).set_footer(text="Нажимайте на кнопки ниже что бы получить ответ на вопрос.")
     @commands.command()
     @commands.is_owner()
     async def faq_start(self, ctx):

@@ -28,8 +28,8 @@ class DarkdustryFAQButtons(nextcord.ui.View):
     @nextcord.ui.button(label="2", style=nextcord.ButtonStyle.green)
     async def f2(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         embed = nextcord.Embed(
-            title="Скоро",
-            description="Скоро",
+            title="Как получить разбан?",
+            description="Soon",
             color=0x3F00FF
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
