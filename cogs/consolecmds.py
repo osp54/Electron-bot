@@ -9,38 +9,33 @@ from nextcord.ext import commands
 class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
-        self.cmds = {}
-    def console_command(func, name, desc, usage="Not arguments..."):
-        def inner(self) : 
-            self.cmds[name] = {"func": func, "desc": desc, "usage": usage}
-            return func(self)
-        return inner 
+        self.cmds = {
+            "reload-all": {"func": reload_all, "desc": "Reload all cogs"},
+            "exit": {"func": exit_bot, "desc": "Shutdown."}
+        }
     @console_command(name="reload", desc="Reload all cogs")
-    async def reload(self, bot, ctx, text):
+    async def reload_all(self, text):
         info("Reloading cogs...")
         await unload_extensions(bot, "./cogs")
         await load_extensions(bot, "./cogs")
         
-    async def exit(self, bot, ctx, text):
+    async def exit_bot(self, text):
         await unload_extensions(bot, "./cogs")
         info("Closing bot...")
         await bot.close()
-    @commands.command()
-    @commands.is_owner()
-    async def start_console(self, ctx):
-        i = 1
-        await ctx.message.add_reaction("✅")
+    @commands.Cog.listener()
+    async def on_ready(self, ctx):
         info("Console commands has started")
-        while i != 0:
+        while True:
             conl = await ainput(Fore.WHITE + ">" + Fore.RESET)
             for cmd in self.cmds:
                 if conl.startswith(cmd):
-                    await self.cmds[cmd]["func"](self.bot, ctx, conl.replace(cmd, ""))
+                    await self.cmds[cmd]["func"](conl.replace(cmd, ""))
                 else:
                     error(f"Command with name '{conl}' not found.")
             if conl.startswith("stop"):
                 info("Stopped commands.")
-                i = 0
+                break
             elif conl == "" or conl is None:
                 pass
             elif conl.startswith("#"):
