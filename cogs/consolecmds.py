@@ -13,7 +13,6 @@ class commandline(commands.Cog, name="commandline"):
             "reload-all": {"func": reload_all, "desc": "Reload all cogs"},
             "exit": {"func": exit_bot, "desc": "Shutdown."}
         }
-    @console_command(name="reload", desc="Reload all cogs")
     async def reload_all(self, text):
         info("Reloading cogs...")
         await unload_extensions(bot, "./cogs")
