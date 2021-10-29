@@ -6,6 +6,16 @@ from utils.console import info, error
 from utils.bot import unload_extensions, load_extensions
 from nextcord.ext import commands
 
+async def reload_all(bot, text):
+    info("Reloading cogs...")
+    await unload_extensions(bot, "./cogs")
+    await load_extensions(bot, "./cogs")
+        
+ async def exit_bot(bot, text):
+    await unload_extensions(bot, "./cogs")
+    info("Closing bot...")
+    await bot.close()
+
 class commandline(commands.Cog, name="commandline"):
     def __init__(self, bot):
         self.bot = bot
@@ -13,15 +23,6 @@ class commandline(commands.Cog, name="commandline"):
             "reload-all": {"func": reload_all, "desc": "Reload all cogs"},
             "exit": {"func": exit_bot, "desc": "Shutdown."}
         }
-    async def reload_all(self, text):
-        info("Reloading cogs...")
-        await unload_extensions(bot, "./cogs")
-        await load_extensions(bot, "./cogs")
-        
-    async def exit_bot(self, text):
-        await unload_extensions(bot, "./cogs")
-        info("Closing bot...")
-        await bot.close()
     @commands.Cog.listener()
     async def on_ready(self, ctx):
         info("Console commands has started")
@@ -29,7 +30,7 @@ class commandline(commands.Cog, name="commandline"):
             conl = await ainput(Fore.WHITE + ">" + Fore.RESET)
             for cmd in self.cmds:
                 if conl.startswith(cmd):
-                    await self.cmds[cmd]["func"](conl.replace(cmd, ""))
+                    await self.cmds[cmd]["func"](self.bot, conl.replace(cmd, ""))
                 else:
                     error(f"Command with name '{conl}' not found.")
             if conl.startswith("stop"):
