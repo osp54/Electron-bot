@@ -35,16 +35,16 @@ class DarkdustryFAQButtons(nextcord.ui.View):
         await interaction.response.send_message(embed=embed, ephemeral=True)
 class notifyMemberBan(nextcord.ui.View):
      def __init__(self, member):
-         super().__init__()
+         super().__init__(timeout=None)
          self.member = member
      @nextcord.ui.button(label="Да", style=nextcord.ButtonStyle.red)
      async def yes(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-         if Interaction.user.guild_permissions.ban_members:
+         if interaction.user.guild_permissions.ban_members:
              await interaction.guild.ban(nextcord.Object(id=self.member.id), reason=interaction.user.name)
              await interaction.message.edit(content=f"{interaction.user.name} забанил вышедшего участника {member.name}")
      @nextcord.ui.button(label="Нет", style=nextcord.ButtonStyle.green)
      async def no(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-         if Interaction.user.guild_permissions.ban_members:
+         if interaction.user.guild_permissions.ban_members:
              await interaction.message.edit(content=f"{interaction.user.name} отменил бан вышедшего участника.")
 class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
