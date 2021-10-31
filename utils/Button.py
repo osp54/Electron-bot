@@ -35,7 +35,7 @@ class DarkdustryFAQButtons(nextcord.ui.View):
         await interaction.response.send_message(embed=embed, ephemeral=True)
 class notifyMemberBan(nextcord.ui.View):
      def __init__(self, member):
-         super().init()
+         super().__init__()
          self.member = member
      @nextcord.ui.button(label="Да", style=nextcord.ButtonStyle.red)
      async def yes(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
