@@ -42,10 +42,12 @@ class notifyMemberBan(nextcord.ui.View):
          if interaction.user.guild_permissions.ban_members:
              await interaction.guild.ban(nextcord.Object(id=self.member.id), reason=interaction.user.name)
              await interaction.message.edit(content=f"{interaction.user.name} забанил вышедшего участника {member.name}")
+             self.stop()
      @nextcord.ui.button(label="Нет", style=nextcord.ButtonStyle.green)
      async def no(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
          if interaction.user.guild_permissions.ban_members:
              await interaction.message.edit(content=f"{interaction.user.name} отменил бан вышедшего участника.")
+             self.stop()
 class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
         super().__init__()
