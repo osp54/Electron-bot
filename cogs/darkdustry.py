@@ -20,7 +20,7 @@ class darkdustry(commands.Cog):
             return
         channel = self.bot.get_channel(844215222784753664)
         await channel.send(
-            content=member.name + " Вышел из сервера, желаете его забанить?"
+            content=member.name + " Вышел из сервера, желаете его забанить?",
             view=notifyMemberBan(member)
         )
     @commands.Cog.listener()
