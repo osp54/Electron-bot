@@ -26,7 +26,7 @@ if "config.ini" not in os.listdir(cdir):
 
 tStart = time.time()
 cp = ConfigParser()
-cp.read(cdir + "/config.ini")
+cp.read("./config.ini")
 token = cp.get("Bot", "token")
 init(autoreset=True)
 
@@ -52,7 +52,7 @@ async def on_ready():
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(load_extensions(client, cdir.replace("/", ".") + ".cogs"))
+    loop.run_until_complete(load_extensions(client, "./cogs"))
     client.load_extension("jishaku")
     try:
         client.run(token)

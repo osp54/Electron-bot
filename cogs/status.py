@@ -1,7 +1,7 @@
 import nextcord as discord
 import threading
-import psutil
 import os
+import psutil
 from utils.mongo import MongoM
 from datetime import datetime
 from nextcord.ext import commands, tasks
