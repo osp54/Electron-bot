@@ -52,7 +52,7 @@ async def on_ready():
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(load_extensions(client, cdir + "/cogs"))
+    loop.run_until_complete(load_extensions(client, cdir.replace("/", ".") + ".cogs"))
     client.load_extension("jishaku")
     try:
         client.run(token)
