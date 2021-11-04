@@ -11,6 +11,10 @@ from colorama import init, Fore, Back, Style
 from nextcord.ext import commands
 from utils import mongo
 
+if os.name != "nt":
+    import uvloop
+    uvloop.install()
+
 cdir = os.path.realpath(__file__).replace("/bot.py", "")
 
 if "config.ini" not in os.listdir(cdir):
@@ -35,7 +39,6 @@ logger = logging.getLogger('nextcord').setLevel(logging.WARNING)
 @client.event
 async def on_ready():
     await mongo.MongoM().connect()
-    modcount = 0
     for guild in client.guilds:
         await mongo.MongoM().addGuild(guild.id)
     tEnd = time.time()
@@ -49,7 +52,7 @@ async def on_ready():
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(load_extensions(client, "./cogs"))
+    loop.run_until_complete(load_extensions(client, cdir + "/cogs"))
     client.load_extension("jishaku")
     try:
         client.run(token)

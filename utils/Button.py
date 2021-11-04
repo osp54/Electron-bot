@@ -41,12 +41,14 @@ class notifyMemberBan(nextcord.ui.View):
      async def yes(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
          if interaction.user.guild_permissions.ban_members:
              await interaction.guild.ban(nextcord.Object(id=self.member.id), reason=interaction.user.name)
-             await interaction.message.edit(content=f"{interaction.user.name} забанил вышедшего участника {member.name}")
+             await interaction.message.edit(content=f"{interaction.user} забанил вышедшего участника {self.member}.")
+             self.clear_items()
              self.stop()
      @nextcord.ui.button(label="Нет", style=nextcord.ButtonStyle.green)
      async def no(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
          if interaction.user.guild_permissions.ban_members:
-             await interaction.message.edit(content=f"{interaction.user.name} отменил бан вышедшего участника.")
+             await interaction.message.edit(content=f"{interaction.user} отменил бан вышедшего участника {self.member}.")
+             self.clear_items()
              self.stop()
 class SetLangButton(nextcord.ui.View):
     def __init__(self, user):
@@ -63,10 +65,9 @@ class SetLangButton(nextcord.ui.View):
             description="The language of my messages is set to English",
             color=0x42F56C
         )
-        self.clear_items()
         await interaction.message.edit(embed=embed)
+        self.clear_items()
         self.stop()
-
     @nextcord.ui.button(label="Русский", style=nextcord.ButtonStyle.gray)
     async def russian(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         if interaction.user.id != self.user:
@@ -77,6 +78,6 @@ class SetLangButton(nextcord.ui.View):
             description="Язык моих сообщений установлен на русский",
             color=0x42F56C
         )
-        self.clear_items()
         await interaction.message.edit(embed=embed)
+        self.clear_items()
         self.stop()
