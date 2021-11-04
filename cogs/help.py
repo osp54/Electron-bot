@@ -16,7 +16,7 @@ class help(commands.Cog, name="help"):
         """
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         if command is None:
-            embed = nextcord.Embed(title=self.b.get("Bundle", "embed.help.title"), description=self.b.get("Bundle", "embed.help.description"), color=0x2B95FF)
+            embed = nextcord.Embed(title=self.b.get("Bundle", "embed.help.title"), description=self.b.get("Bundle", "embed.help.description"), color=0x)
             prefix = await get_prefix(self.bot, ctx.message, True)
             text = ""
             text2 = ""
