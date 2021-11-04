@@ -1,3 +1,4 @@
+import psutil
 import nextcord as discord
 import threading
 import os

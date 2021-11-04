@@ -34,7 +34,7 @@ class commandline(commands.Cog):
             }
         }
     @commands.Cog.listener()
-    async def on_ready(self, ctx):
+    async def on_ready(self):
         info("Console commands has started")
         while True:
             conl = await ainput(Fore.WHITE + ">" + Fore.RESET)
