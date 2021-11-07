@@ -19,7 +19,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
-    async def mute(self,ctx, member: nextcord.Member, duration = 0, *, reason="Not Specified"):
+    async def mute(self,ctx, member: nextcord.Member, duration = "0", *, reason="Not Specified"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         guild = ctx.guild
         if ctx.author.id == member.id:
@@ -54,7 +54,7 @@ class moderation(commands.Cog, name="moderation"):
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
-        if duration != 0:
+        if duration != 0 or duration != "0":
             if format_duration_to_sec(duration) is None:
                 embed = nextcord.Embed(
                     title=self.b.get('Bundle', 'embed.error'),
@@ -74,7 +74,7 @@ class moderation(commands.Cog, name="moderation"):
             await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
         except:
             return
-        duration_in_sec = format_duration_to_sec(duration)
+        duration_in_sec = format_duration_to_sec(str(duration))
         now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
         unix_duration = round(time.mktime(now_plus_duration.timetuple()))
         await MongoM().tempmute(guild.id, member.id, unix_duration)
