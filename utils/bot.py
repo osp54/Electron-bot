@@ -1,4 +1,4 @@
-import os
+import os, re
 import nextcord
 from utils.console import info, error
 from utils.mongo import MongoM
@@ -25,6 +25,18 @@ async def localize(ctx, to_local, bundle="Bundle"):
         cp.read(f"locales/en.ini")
         return self.b.get(bundle, to_local)
 
+def format_duration_to_sec(time):
+    time_list = re.split('(\d+)',time)
+    time_in_s = None
+    if time_list[2] == "s":
+        time_in_s = int(time_list[1])
+    if time_list[2] == "min":
+        time_in_s = int(time_list[1]) * 60
+    if time_list[2] == "h":
+        time_in_s = int(time_list[1]) * 60 * 60
+    if time_list[2] == "d":
+        time_in_s = int(time_list[1]) * 60 * 60 * 24
+    return time_in_s
 async def load_extensions(bot, dir):
     for file in os.listdir(dir):
         if file.endswith(".py") and not file.endswith("_.py"):

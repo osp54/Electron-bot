@@ -1,6 +1,9 @@
 import nextcord
+import time
+import asyncio
 from utils.mongo import MongoM
-from utils.bot import get_lang
+from utils.bot import get_lang, format_duration
+from datetime import datetime, timedelta
 from configparser import ConfigParser
 from nextcord.ext import commands
 from nextcord.ext.commands import cooldown, BucketType
@@ -16,16 +19,9 @@ class moderation(commands.Cog, name="moderation"):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.bot_has_permissions(manage_roles=True)
     @commands.has_permissions(manage_roles=True)
-    async def mute(self,ctx, member: nextcord.Member, *, reason="Not Specified"):
-        guild = ctx.guild
+    async def mute(self,ctx, member: nextcord.Member, duration = 0, *, reason="Not Specified"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
-        res = await MongoM().getMuteRole(ctx.guild.id)
-        mutedRole = guild.get_role(res)
-        if mutedRole is None:
-            mutedRole = await guild.create_role(name="Electron Mute")
-            await MongoM().setMuteRole(guild.id, mutedRole.id)
-            for channel in guild.channels:
-                await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=True)
+        guild = ctx.guild
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -58,20 +54,60 @@ class moderation(commands.Cog, name="moderation"):
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
+        if duration != 0:
+            if format_duration(duration) is None:
+                embed = nextcord.Embed(
+                    title=self.b.get('Bundle', 'embed.error'),
+                    description=self.b.get('Bundle', 'embed.error.mute.invalid-duration'),
+                    color=0xE02B2B
+                )
+                await ctx.message.add_reaction('❌')
+                return ctx.send(embed=embed)
+        mute_role_id = await MongoM().getMuteRole(ctx.guild.id)
+        mutedRole = guild.get_role(mute_role_id)
+        if mutedRole is None:
+            mutedRole = await guild.create_role(name="Electron Mute")
+            await MongoM().setMuteRole(guild.id, mutedRole.id)
+            for channel in guild.channels:
+                await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=True)
         try:
             await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
         except:
             return
+        duration_in_sec = format_duration(duration)
+        now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
+        unix_duration = round(time.mktime(now_plus_duration.timetuple()))
+        await MongoM().tempmute(guild.id, member.id, unix_duration)
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.mute.description').format(member.name),
             color=0x42F56C
         )
-        embed.add_field(name=self.b.get('Bundle', 'embed.moderator'), value=ctx.message.author)
-        embed.add_field(name=self.b.get('Bundle', 'embed.reason'), value=reason, inline=False)
+        embed.add_field(
+            name=self.b.get('Bundle', 'embed.moderator'),
+            value=ctx.message.author,
+            inline=False
+        )
+        embed.add_field(
+            name=self.b.get('Bundle', 'embed.reason'),
+            value=reason,
+            inline=False
+        )
+        if duration != 0:
+            embed.add_field(
+                name=self.b.get('Bundle', 'embed.duration'),
+                value=str(timedelta(seconds=duration_in_sec)),
+                inline=False
+            )
         await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
         await member.send(self.b.get('Bundle', 'mute.pm-message').format(ctx.message.guild, ctx.author))
+        await asyncio.sleep(duration_in_sec)
+        try:
+            await member.remove_roles(mutedRole)
+        except:
+            return await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
+        await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
     @commands.command(
         name="unmute",
         aliases=['размьют', 'размут']
@@ -90,6 +126,7 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             return await ctx.message.add_reaction('❌')
         mutedRole = ctx.guild.get_role(await MongoM().getMuteRole(ctx.guild.id))
+        await MongoM('muted_users').coll.delete_one({"guild_id": ctx.guild.id, "user_id": member.id})
         try:
             await member.remove_roles(mutedRole, reason=ctx.author)
         except:
