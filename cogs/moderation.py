@@ -2,7 +2,7 @@ import nextcord
 import time
 import asyncio
 from utils.mongo import MongoM
-from utils.bot import get_lang, format_duration
+from utils.bot import get_lang, format_duration_to_sec
 from datetime import datetime, timedelta
 from configparser import ConfigParser
 from nextcord.ext import commands
@@ -55,7 +55,7 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
         if duration != 0:
-            if format_duration(duration) is None:
+            if format_duration_to_sec(duration) is None:
                 embed = nextcord.Embed(
                     title=self.b.get('Bundle', 'embed.error'),
                     description=self.b.get('Bundle', 'embed.error.mute.invalid-duration'),
@@ -74,7 +74,7 @@ class moderation(commands.Cog, name="moderation"):
             await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
         except:
             return
-        duration_in_sec = format_duration(duration)
+        duration_in_sec = format_duration_to_sec(duration)
         now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
         unix_duration = round(time.mktime(now_plus_duration.timetuple()))
         await MongoM().tempmute(guild.id, member.id, unix_duration)
