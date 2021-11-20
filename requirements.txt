@@ -1,4 +1,5 @@
 nextcord
+uvloop
 motor
 pymongo
 dnspython
