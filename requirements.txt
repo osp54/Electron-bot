@@ -1,0 +1,8 @@
+nextcord
+motor
+pymongo
+dnspython
+humanize
+asyncio
+colorama
+https://github.com/osp54/jishaku-nextcord/archive/refs/heads/master.zip
