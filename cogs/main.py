@@ -75,7 +75,6 @@ class main(commands.Cog, name="main"):
             embed.add_field(name=self.b.get('Bundle', 'embed.guild.owner'), value=guild_owner)
         if guild.icon.url is not None:
             embed.add_field(name="Icon URL", value=f"[here]({guild.icon.url})")
-        embed.add_field(name=self.b.get('Bundle', 'embed.guild.region'), value=str(guild.region))
         embed.add_field(name=self.b.get('Bundle', 'embed.guild.verefication.lvl'), value=str(guild.verification_level))
         embed.add_field(name=self.b.get('Bundle', 'embed.guild.members'), value=len(guild.members))
         if guild.premium_subscription_count is not None:
