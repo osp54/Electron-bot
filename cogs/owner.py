@@ -80,11 +80,11 @@ class owner(commands.Cog, name="owner"):
         await ctx.send(embed=embed)
     @commands.command(name='say')
     @commands.is_owner()
-    async def say(self, ctx,*, message=None):
-        try:
-            await ctx.message.delete()
-            await ctx.send(message)
-        except:
+    async def say(self, ctx,*, message):
+        if ctx.message.reference is not None:
+            ref_msg = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+            await ref_msg.reply(message)
+        else:
             await ctx.send(message)
     @commands.command()
     @commands.is_owner()
