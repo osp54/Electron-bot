@@ -83,9 +83,16 @@ class owner(commands.Cog, name="owner"):
     async def say(self, ctx,*, message):
         if ctx.message.reference is not None:
             ref_msg = await ctx.channel.fetch_message(ctx.message.reference.message_id)
-            await ref_msg.reply(message)
-        else:
-            await ctx.send(message)
+            try:
+                await ctx.message.delete()
+            except:
+                pass
+            return await ref_msg.reply(message)
+        try:
+            await ctx.message.delete()
+        except:
+            pass
+        await ctx.send(message)
     @commands.command()
     @commands.is_owner()
     async def ttest(self, ctx):
