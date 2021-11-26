@@ -18,8 +18,7 @@ class logger(commands.Cog):
         logem.add_field(name="Guild",value=g_name+" \n"+g_id)
         logem.add_field(name="Author",value=au_name+" \n"+au_id)
         logem.add_field(name="Channel",value=ch_name+" \n"+ch_id)
-        logem.add_field(name="Command",value=command)
-        logem.add_field(name="Content",value=ctx.message.content, inline=False)
+        logem.add_field(name="Command",value=ctx.message.content, inline=False)
         await cch.send(embed=logem)
 def setup(bot):
     bot.add_cog(logger(bot))
