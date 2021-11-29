@@ -4,7 +4,7 @@ from utils.console import error, info
 
 class MongoM():
     def __init__(self, coll = "guilds"):
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://admin:aPh55word@176.9.200.230:5832/electron")
+        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:g50BnWQNdvRrIA6D@cluster.xyknx.mongodb.net/electron?retryWrites=true&w=majority")
         self.coll = self.client["electron"][coll]
     async def connect(self):
         try:
