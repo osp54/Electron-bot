@@ -77,7 +77,7 @@ class moderation(commands.Cog, name="moderation"):
         duration_in_sec = format_duration_to_sec(str(duration))
         now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
         unix_duration = round(time.mktime(now_plus_duration.timetuple()))
-        await MongoM().tempmute(guild.id, member.id, unix_duration)
+        await MongoM().tempmute(member.id, unix_duration)
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.mute.description').format(member.name),
