@@ -168,7 +168,7 @@ class moderation(commands.Cog, name="moderation"):
             embed = nextcord.Embed(
                 title='Ошибка',
                 description=self.b.get('Bundle', 'embed.error.kick.role-above'),
-                color=pxE02B2B
+                color=0xE02B2B
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
@@ -236,7 +236,7 @@ class moderation(commands.Cog, name="moderation"):
             name=self.b.get('Bundle', 'embed.moderator'),
             value=ctx.author
         )
-        await context.send(embed=embed)
+        await ctx.send(embed=embed)
         await ctx.message.add_reaction('✅')
         await member.send(self.b.get('Bundle', 'embed.ban.pm-message').format(ctx.guild, ctx.author))
     @commands.command(
