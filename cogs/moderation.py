@@ -22,6 +22,7 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, duration = "0", *, reason="Not Specified"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         guild = ctx.guild
+        muted = False
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -73,35 +74,39 @@ class moderation(commands.Cog, name="moderation"):
         try:
             await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
         except:
-            return
+            muted = False
         duration_in_sec = format_duration_to_sec(str(duration))
         now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
         unix_duration = round(time.mktime(now_plus_duration.timetuple()))
         await MongoM().tempmute(guild.id, member.id, unix_duration)
-        embed = nextcord.Embed(
-            title=self.b.get('Bundle', 'embed.succerfully'),
-            description=self.b.get('Bundle', 'embed.mute.description').format(member.name),
-            color=0x42F56C
-        )
-        embed.add_field(
-            name=self.b.get('Bundle', 'embed.moderator'),
-            value=ctx.message.author,
-            inline=False
-        )
-        embed.add_field(
-            name=self.b.get('Bundle', 'embed.reason'),
-            value=reason,
-            inline=False
-        )
-        if duration != 0:
+        if muted:
+            embed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.succerfully'),
+                description=self.b.get('Bundle', 'embed.mute.description').format(member.name),
+                color=0x42F56C
+            )
             embed.add_field(
-                name=self.b.get('Bundle', 'embed.duration'),
-                value=str(timedelta(seconds=duration_in_sec)),
+                name=self.b.get('Bundle', 'embed.moderator'),
+                value=ctx.message.author,
                 inline=False
             )
-        await ctx.send(embed=embed)
-        await ctx.message.add_reaction('✅')
-        await member.send(self.b.get('Bundle', 'mute.pm-message').format(ctx.message.guild, ctx.author))
+            embed.add_field(
+                name=self.b.get('Bundle', 'embed.reason'),
+                value=reason,
+                inline=False
+           )
+            if duration != 0:
+                embed.add_field(
+                    name=self.b.get('Bundle', 'embed.duration'),
+                    value=str(timedelta(seconds=duration_in_sec)),
+                    inline=False
+                )
+            await ctx.send(embed=embed)
+            await ctx.message.add_reaction('✅')
+        try:
+            await member.send(self.b.get('Bundle', 'mute.pm-message').format(ctx.message.guild, ctx.author))
+        except:
+            pass
         await asyncio.sleep(duration_in_sec)
         try:
             await member.remove_roles(mutedRole)
