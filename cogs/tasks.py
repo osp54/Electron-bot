@@ -26,6 +26,5 @@ class tasks(commands.Cog):
     async def on_ready(self):
         self.check_unmutes.start()
         #self.update_stats.start()
-        await check_unmutes()
 def setup(bot):
     bot.add_cog(tasks(bot))

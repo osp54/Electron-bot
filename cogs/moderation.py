@@ -38,7 +38,7 @@ class moderation(commands.Cog, name="moderation"):
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
-        if member.top_role.position >= ctx.author.top_role.position:
+        if member.top_role.position > ctx.author.top_role.position or ctx.author.id != ctx.guild.owner.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
                 description=self.b.get('Bundle', 'embed.error.mute.role-above-or-equal'),
@@ -62,7 +62,7 @@ class moderation(commands.Cog, name="moderation"):
                     color=0xE02B2B
                 )
                 await ctx.message.add_reaction('❌')
-                return ctx.send(embed=embed)
+                return await ctx.send(embed=embed)
         mute_role_id = await MongoM().getMuteRole(ctx.guild.id)
         mutedRole = guild.get_role(mute_role_id)
         if mutedRole is None:
@@ -126,11 +126,11 @@ class moderation(commands.Cog, name="moderation"):
             await ctx.send(embed=embed)
             return await ctx.message.add_reaction('❌')
         mutedRole = ctx.guild.get_role(await MongoM().getMuteRole(ctx.guild.id))
-        await MongoM('muted_users').coll.delete_one({"guild_id": ctx.guild.id, "user_id": member.id})
         try:
             await member.remove_roles(mutedRole, reason=ctx.author)
         except:
-            return
+            pass
+        await MongoM('muted_users').coll.delete_one({"guild_id": ctx.guild.id, "user_id": member.id})
         embed = nextcord.Embed(
             title=self.b.get('Bundle', 'embed.succerfully'),
             description=self.b.get('Bundle', 'embed.unmute.unmuted').format(member),
