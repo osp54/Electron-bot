@@ -5,28 +5,21 @@ from utils.Button import DarkdustryFAQButtons, notifyMemberBan
 class darkdustry(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.embed = nextcord.Embed(
-            title="FAQ - Часто задаваемые вопросы",
-            description="1. Какой  IP у серверов?\n2. Как получить разбан?",
-            color=0x3F00FF
-        ).set_footer(text="Нажимайте на кнопки ниже что бы получить ответ на вопрос.")
-    @commands.command()
-    @commands.is_owner()
-    async def faq_start(self, ctx):
-        await ctx.send(embed=self.embed, view=DarkdustryFAQButtons())
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         if member.guild.id != 810758118442663936:
             return
         channel = self.bot.get_channel(844215222784753664)
         await channel.send(
-            content=member.name + " Вышел из сервера, желаете его забанить?",
+            content= member + " Вышел из сервера, желаете его забанить?",
             view=notifyMemberBan(member)
         )
     @commands.Cog.listener()
-    async def on_ready(self):
-        channel = self.bot.get_channel(897760744572063785)
-        message = await channel.fetch_message(901168820285210674)
-        await message.edit(embed=self.embed, view=DarkdustryFAQButtons())
+    async def on_message(self, message):
+        if message.channel.id != 878928850657112065:
+            return
+        if int(message.content.split()[1]) >=10:
+            await message.pin()
+
 def setup(bot):
     bot.add_cog(darkdustry(bot))
