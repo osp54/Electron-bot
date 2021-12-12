@@ -15,11 +15,11 @@ class darkdustry(commands.Cog):
             view=notifyMemberBan(member)
         )
     @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.channel.id != 878928850657112065:
+    async def on_message_edit(self, before, after):
+        if after.channel.id != 878928850657112065:
             return
-        if int(message.content.split()[1]) >=10:
-            await message.pin()
+        if int(after.content.split()[1]) >=10:
+            await after.pin()
 
 def setup(bot):
     bot.add_cog(darkdustry(bot))
