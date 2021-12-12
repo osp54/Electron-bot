@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from utils.Button import DarkdustryFAQButtons, notifyMemberBan
+from utils.Button import notifyMemberBan
 
 class darkdustry(commands.Cog):
     def __init__(self, bot):
