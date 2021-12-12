@@ -22,7 +22,7 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, duration = "0", *, reason="Not Specified"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         guild = ctx.guild
-        muted = False
+        muted = True
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -122,6 +122,7 @@ class moderation(commands.Cog, name="moderation"):
     @commands.has_permissions(manage_roles=True)
     async def unmute(self,ctx, member: nextcord.Member):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
+        unmuted = True
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.error'),
@@ -134,16 +135,17 @@ class moderation(commands.Cog, name="moderation"):
         try:
             await member.remove_roles(mutedRole, reason=ctx.author)
         except:
-            pass
+            unmuted = False
         await MongoM('muted_users').coll.delete_one({"guild_id": ctx.guild.id, "user_id": member.id})
-        embed = nextcord.Embed(
-            title=self.b.get('Bundle', 'embed.succerfully'),
-            description=self.b.get('Bundle', 'embed.unmute.unmuted').format(member),
-            color=0x42F56C
-        ).add_field(name=self.b.get('Bundle', 'embed.moderator'), value=ctx.message.author)
-        await ctx.send(embed=embed)
-        await member.send(self.b.get('Bundle', 'embed.unmute.pm-message').format(ctx.message.guild))
-        await ctx.message.add_reaction('✅')
+        if unmuted:
+            embed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.succerfully'),
+                description=self.b.get('Bundle', 'embed.unmute.unmuted').format(member),
+                color=0x42F56C
+            ).add_field(name=self.b.get('Bundle', 'embed.moderator'), value=ctx.message.author)
+            await ctx.send(embed=embed)
+            await member.send(self.b.get('Bundle', 'embed.unmute.pm-message').format(ctx.message.guild))
+            await ctx.message.add_reaction('✅')
     @commands.command(
         name='kick',
         aliases=['кикнуть', 'кик', 'вигнать']
