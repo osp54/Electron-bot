@@ -22,6 +22,7 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, duration = "0", *, reason="Not Specified"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         guild = ctx.guild
+        duration_in_sec = format_duration_to_sec(str(duration))
         muted = True
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
@@ -103,16 +104,16 @@ class moderation(commands.Cog, name="moderation"):
         except:
             pass
         if format_duration_to_sec(duration) != "ND":
-            duration_in_sec = format_duration_to_sec(str(duration))
             now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
             unix_duration = round(time.mktime(now_plus_duration.timetuple()))
+
             await MongoM().tempmute(guild.id, member.id, unix_duration)
             await asyncio.sleep(duration_in_sec)
             try:
                 await member.remove_roles(mutedRole)
             except:
                 return await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
-        await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
+
     @commands.command(
         name="unmute",
         aliases=['размьют', 'размут']
