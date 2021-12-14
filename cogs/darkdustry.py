@@ -18,7 +18,7 @@ class darkdustry(commands.Cog):
     async def on_message_edit(self, before, after):
         if after.channel.id != 878928850657112065:
             return
-        if int(after.content.split()[1].replace("*", )) >=10:
+        if int(after.content.split()[1].replace("*", "")) >=10:
             await after.pin()
 
 def setup(bot):
