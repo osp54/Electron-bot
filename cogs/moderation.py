@@ -74,10 +74,6 @@ class moderation(commands.Cog, name="moderation"):
             await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
         except:
             muted = False
-        duration_in_sec = format_duration_to_sec(str(duration))
-        now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
-        unix_duration = round(time.mktime(now_plus_duration.timetuple()))
-        await MongoM().tempmute(guild.id, member.id, unix_duration)
         if muted:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.succerfully'),
@@ -107,6 +103,10 @@ class moderation(commands.Cog, name="moderation"):
         except:
             pass
         if format_duration_to_sec(duration) != "ND":
+            duration_in_sec = format_duration_to_sec(str(duration))
+            now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
+            unix_duration = round(time.mktime(now_plus_duration.timetuple()))
+            await MongoM().tempmute(guild.id, member.id, unix_duration)
             await asyncio.sleep(duration_in_sec)
             try:
                 await member.remove_roles(mutedRole)
