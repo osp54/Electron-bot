@@ -11,14 +11,14 @@ class darkdustry(commands.Cog):
             return
         channel = self.bot.get_channel(844215222784753664)
         await channel.send(
-            content= member + " Вышел из сервера, желаете его забанить?",
+            content= str(member) + " Вышел из сервера, желаете его забанить?",
             view=notifyMemberBan(member)
         )
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         if after.channel.id != 878928850657112065:
             return
-        if int(after.content.split()[1].replace("*", "")) >=10:
+        if int(after.content.split()[1].replace("*", )) >=10:
             await after.pin()
 
 def setup(bot):

@@ -36,6 +36,8 @@ def format_duration_to_sec(time):
         time_in_s = int(time_list[1]) * 60 * 60
     if time_list[2] == "d":
         time_in_s = int(time_list[1]) * 60 * 60 * 24
+    if time == 0 or time == "0":
+        return "ND"
     return time_in_s
 async def load_extensions(bot, dir):
     for file in os.listdir(dir):

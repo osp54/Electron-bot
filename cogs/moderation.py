@@ -55,15 +55,14 @@ class moderation(commands.Cog, name="moderation"):
             )
             await ctx.message.add_reaction('❌')
             return await ctx.send(embed=embed)
-        if duration != 0 or duration != "0":
-            if format_duration_to_sec(duration) is None:
-                embed = nextcord.Embed(
-                    title=self.b.get('Bundle', 'embed.error'),
-                    description=self.b.get('Bundle', 'embed.error.mute.invalid-duration'),
-                    color=0xE02B2B
-                )
-                await ctx.message.add_reaction('❌')
-                return await ctx.send(embed=embed)
+        if format_duration_to_sec(duration) is None:
+            embed = nextcord.Embed(
+                title=self.b.get('Bundle', 'embed.error'),
+                description=self.b.get('Bundle', 'embed.error.mute.invalid-duration'),
+                color=0xE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
         mute_role_id = await MongoM().getMuteRole(ctx.guild.id)
         mutedRole = guild.get_role(mute_role_id)
         if mutedRole is None:
@@ -107,11 +106,12 @@ class moderation(commands.Cog, name="moderation"):
             await member.send(self.b.get('Bundle', 'mute.pm-message').format(ctx.message.guild, ctx.author))
         except:
             pass
-        await asyncio.sleep(duration_in_sec)
-        try:
-            await member.remove_roles(mutedRole)
-        except:
-            return await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
+        if format_duration_to_sec(duration) != "ND":
+            await asyncio.sleep(duration_in_sec)
+            try:
+                await member.remove_roles(mutedRole)
+            except:
+                return await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
         await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
     @commands.command(
         name="unmute",
