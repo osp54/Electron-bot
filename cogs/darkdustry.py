@@ -11,7 +11,7 @@ class darkdustry(commands.Cog):
             return
         channel = self.bot.get_channel(844215222784753664)
         await channel.send(
-            embed=nextcord.Enbed(
+            embed=nextcord.Embed(
                 name="AntiUserBot",
                 description=str(member) + " Вышел из сервера, желаете его забанить?",
                 color=0xFF0000

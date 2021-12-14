@@ -22,7 +22,7 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, duration = "0", *, reason="Not Specified"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         guild = ctx.guild
-        duration_in_sec = format_duration_to_sec(str(duration))
+        
         muted = True
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
@@ -94,7 +94,7 @@ class moderation(commands.Cog, name="moderation"):
             if duration != 0:
                 embed.add_field(
                     name=self.b.get('Bundle', 'embed.duration'),
-                    value=str(timedelta(seconds=duration_in_sec)),
+                    value=str(timedelta(seconds=int(duration_in_sec))),
                     inline=False
                 )
             await ctx.send(embed=embed)
