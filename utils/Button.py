@@ -10,18 +10,18 @@ class notifyMemberBan(nextcord.ui.View):
          if interaction.user.guild_permissions.ban_members:
              await interaction.guild.ban(nextcord.Object(id=self.member.id), reason=interaction.user.name)
              embed=nextcord.Embed(
-                 name="AntiUserBot",
+                 title="AntiUserBot",
                  description=str(interaction.user) + " забанил вышедшего участника " + str(self.member),
                  color=0xFF0000
              )
              await interaction.message.edit(embed=embed)
-             
+             button.disabled = True
              self.stop()
      @nextcord.ui.button(label="Нет", style=nextcord.ButtonStyle.green)
      async def no(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
          if interaction.user.guild_permissions.ban_members:
              embed=nextcord.Embed(
-                name="AntiUserBot",
+                title="AntiUserBot",
                 description=str(interaction.user) + " отменил бан вышедшего участника " + str(self.member),
                 color=0xFF0000
             )

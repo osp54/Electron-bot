@@ -10,14 +10,12 @@ class darkdustry(commands.Cog):
         if member.guild.id != 810758118442663936:
             return
         channel = self.bot.get_channel(844215222784753664)
-        await channel.send(
-            embed=nextcord.Embed(
-                name="AntiUserBot",
-                description=str(member) + " Вышел из сервера, желаете его забанить?",
-                color=0xFF0000
-            ),
-            view=notifyMemberBan(member)
+        embed = nextcord.Embed(
+            title="AntiUserBot",
+            description=str(member) + " Вышел из сервера, желаете его забанить?",
+            color=0xFF0000
         )
+        await channel.send(embed=embed, view=notifyMemberBan(member))
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         if after.channel.id != 878928850657112065:
