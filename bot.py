@@ -7,13 +7,9 @@ import asyncio
 from configparser import ConfigParser
 from utils.console import info, error, colored
 from utils.bot import get_prefix, load_extensions
-from colorama import init, Fore, Back, Style
+from colorama import init
 from nextcord.ext import commands
 from utils import mongo
-
-if os.name != "nt":
-    import uvloop
-    uvloop.install()
 
 cdir = os.path.realpath(__file__).replace("/bot.py", "")
 
@@ -21,7 +17,6 @@ if "config.ini" not in os.listdir(cdir):
     error("config.ini file not found. Creating this file...")
     with open("config.ini", "w") as config:
         config.write("[Bot]\ntoken = Bot's token.")
-        config.close()
         exit()
 
 tStart = time.time()
@@ -31,7 +26,8 @@ token = cp.get("Bot", "token")
 init(autoreset=True)
 
 intents = nextcord.Intents.all()
-client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids = [580631356485402639, 530103444946812929, 674647047831420975])
+owner_ids = [580631356485402639, 530103444946812929, 674647047831420975]
+client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids=owner_ids)
 client.remove_command('help')
 
 logger = logging.getLogger('nextcord').setLevel(logging.WARNING)
