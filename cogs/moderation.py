@@ -1,7 +1,7 @@
 import nextcord
 import time
 import asyncio
-from utils.mongo import MongoM
+from utils import MongoM
 from utils.bot import get_lang, format_duration_to_sec
 from datetime import datetime, timedelta
 from configparser import ConfigParser

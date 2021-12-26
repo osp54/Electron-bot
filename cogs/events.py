@@ -1,7 +1,7 @@
 import nextcord
 import traceback
 import json
-from utils.mongo import MongoM
+from utils import MongoM
 from configparser import ConfigParser
 from utils.bot import get_prefix, get_lang
 from utils.console import info, error

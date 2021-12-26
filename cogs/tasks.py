@@ -1,7 +1,7 @@
 import nextcord
 import time
 from nextcord.ext import commands, tasks
-from utils.mongo import MongoM
+from utils import MongoM
 from utils.console import info, error
 from datetime import datetime
 
@@ -24,7 +24,7 @@ class tasks(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.check_unmutes.start()
-        #self.update_stats.start()
+        await self.check_unmutes()
+        
 def setup(bot):
     bot.add_cog(tasks(bot))

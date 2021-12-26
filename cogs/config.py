@@ -1,5 +1,5 @@
 import nextcord
-from utils.mongo import MongoM
+from utils import MongoM
 from utils.bot import get_lang, get_prefix
 from utils.Button import SetLangButton
 from nextcord.ext import commands

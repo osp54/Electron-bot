@@ -2,6 +2,7 @@ nextcord
 motor
 pymongo
 dnspython
+psutil
 humanize
 asyncio
 colorama

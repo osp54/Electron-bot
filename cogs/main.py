@@ -3,7 +3,7 @@ import json
 import datetime
 import humanize
 from nextcord.ext import commands
-from utils.mongo import MongoM
+from utils import MongoM
 from utils.Button import SetLangButton
 from utils.other import format_name
 from utils.bot import get_lang, get_prefix
