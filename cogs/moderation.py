@@ -1,12 +1,10 @@
 import nextcord
-import time
-import asyncio
 from utils import MongoM
 from utils.bot import get_lang, format_duration_to_sec
 from datetime import datetime, timedelta
 from configparser import ConfigParser
 from nextcord.ext import commands
-from nextcord.ext.commands import cooldown, BucketType
+from nextcord.ext.commands import BucketType
 
 class moderation(commands.Cog, name="moderation"):
     def __init__(self, bot):
@@ -22,7 +20,6 @@ class moderation(commands.Cog, name="moderation"):
     async def mute(self,ctx, member: nextcord.Member, duration = "0", *, reason="Not Specified"):
         self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
         guild = ctx.guild
-        
         muted = True
         if ctx.author.id == member.id:
             embed = nextcord.Embed(
@@ -71,10 +68,16 @@ class moderation(commands.Cog, name="moderation"):
             await MongoM().setMuteRole(guild.id, mutedRole.id)
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=True)
-        try:
-            await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
-        except:
-            muted = False
+        if  format_duration_to_sec(duration) != "ND":
+            try:
+               await member.edit(timeout=datetime.utcnow() + timedelta(seconds=int(format_duration_to_sec(duration))))
+            except:
+                muted = False
+        else:
+           try:
+               await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
+           except:
+               muted = False
         if muted:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.succerfully'),
@@ -91,28 +94,14 @@ class moderation(commands.Cog, name="moderation"):
                 value=reason,
                 inline=False
            )
-            if duration != 0:
+            if format_duration_to_sec(duration) != "ND":
                 embed.add_field(
                     name=self.b.get('Bundle', 'embed.duration'),
-                    value=str(timedelta(seconds=int(duration_in_sec))),
+                    value=str(timedelta(seconds=int(format_duration_to_sec(duration)))),
                     inline=False
                 )
             await ctx.send(embed=embed)
             await ctx.message.add_reaction('✅')
-        try:
-            await member.send(self.b.get('Bundle', 'mute.pm-message').format(ctx.message.guild, ctx.author))
-        except:
-            pass
-        if format_duration_to_sec(duration) != "ND":
-            now_plus_duration = datetime.utcnow() + timedelta(seconds=duration_in_sec)
-            unix_duration = round(time.mktime(now_plus_duration.timetuple()))
-
-            await MongoM().tempmute(guild.id, member.id, unix_duration)
-            await asyncio.sleep(duration_in_sec)
-            try:
-                await member.remove_roles(mutedRole)
-            except:
-                return await MongoM('muted_users').coll.delete_one({"guild_id": guild.id, "user_id": member.id})
 
     @commands.command(
         name="unmute",
@@ -137,7 +126,10 @@ class moderation(commands.Cog, name="moderation"):
             await member.remove_roles(mutedRole, reason=ctx.author)
         except:
             unmuted = False
-        await MongoM('muted_users').coll.delete_one({"guild_id": ctx.guild.id, "user_id": member.id})
+        try:
+            await member.edit(timeout=None)
+        except:
+            unmuted = False
         if unmuted:
             embed = nextcord.Embed(
                 title=self.b.get('Bundle', 'embed.succerfully'),
@@ -145,8 +137,6 @@ class moderation(commands.Cog, name="moderation"):
                 color=0x42F56C
             ).add_field(name=self.b.get('Bundle', 'embed.moderator'), value=ctx.message.author)
             await ctx.send(embed=embed)
-            await member.send(self.b.get('Bundle', 'embed.unmute.pm-message').format(ctx.message.guild))
-            await ctx.message.add_reaction('✅')
     @commands.command(
         name='kick',
         aliases=['кикнуть', 'кик', 'вигнать']

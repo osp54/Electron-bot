@@ -9,14 +9,14 @@ from utils.console import info, error, colored
 from utils.bot import get_prefix, load_extensions
 from colorama import init
 from nextcord.ext import commands
-from utils import mongo
+from utils import MongoM
 
 cdir = os.path.realpath(__file__).replace("/bot.py", "")
 
 if "config.ini" not in os.listdir(cdir):
     error("config.ini file not found. Creating this file...")
     with open("config.ini", "w") as config:
-        config.write("[Bot]\ntoken = Bot's token.")
+        config.write("[Bot]\ntoken = Bot token.")
         exit()
 
 tStart = time.time()
@@ -27,16 +27,16 @@ init(autoreset=True)
 
 intents = nextcord.Intents.all()
 owner_ids = [580631356485402639, 530103444946812929, 674647047831420975]
-client = commands.Bot(command_prefix = get_prefix, intents=intents, owner_ids=owner_ids)
+client = commands.Bot(command_prefix=get_prefix, intents=intents, owner_ids=owner_ids)
 client.remove_command('help')
 
-logger = logging.getLogger('nextcord').setLevel(logging.WARNING)
+logging.getLogger('nextcord').setLevel(logging.WARNING)
 
 @client.event
 async def on_ready():
-    await mongo.MongoM().connect()
+    await MongoM().connect()
     for guild in client.guilds:
-        await mongo.MongoM().addGuild(guild.id)
+        await MongoM().addGuild(guild.id)
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
@@ -50,8 +50,4 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(load_extensions(client, "./cogs"))
     client.load_extension("jishaku")
-    try:
-        client.run(token)
-    except:
-        error("Invalid token.")
-        exit()
+    client.run(token)

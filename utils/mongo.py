@@ -47,9 +47,3 @@ class MongoM():
     async def getExecutedCmds(self):
         res = await self.coll.find_one({"_id": 872078273553764372})
         return res["executed_cmds"]
-    async def tempmute(self,guild_id: int, user_id: int, mute_up_to: int):
-         self.coll = self.client["electron"]["muted_users"]
-         if await self.coll.count_documents({"guild_id": guild_id, "user_id": user_id}) == 0:
-             await self.coll.insert_one({"guild_id": guild_id, "user_id": user_id, "muted_up": mute_up_to})
-         else:
-             await self.coll.update_one({"guild_id": guild_id, "user_id": user_id}, {"$set": {"muted_up": mute_up_to}})
