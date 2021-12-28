@@ -1,7 +1,8 @@
 import nextcord
+import datetime
 from utils import MongoM
 from utils.bot import get_lang, format_duration_to_sec
-from datetime import datetime, timedelta
+from datetime import timedelta
 from configparser import ConfigParser
 from nextcord.ext import commands
 from nextcord.ext.commands import BucketType
@@ -69,10 +70,7 @@ class moderation(commands.Cog, name="moderation"):
             for channel in guild.channels:
                 await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True, read_messages=True)
         if  format_duration_to_sec(duration) != "ND":
-            try:
-               await member.edit(timeout=datetime.utcnow() + timedelta(seconds=int(format_duration_to_sec(duration))))
-            except:
-                muted = False
+            await member.edit(timeout=datetime.utcnow() + timedelta(seconds=int(format_duration_to_sec(duration))))
         else:
            try:
                await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
