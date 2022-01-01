@@ -18,11 +18,10 @@ class config(commands.Cog, name = "config"):
             mute_role = await MongoM().getMuteRole(ctx.guild.id)
             prefix = await MongoM().getPrefix(ctx.guild.id)
             lang = await MongoM().getLang(ctx.guild.id)
-            anti_scam = await MongoM().checkAntiScam(ctx.guild.id)
             self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
             embed = nextcord.Embed(
                 title = self.b.get('Bundle', 'embed.config.info.title'),
-                description = self.b.get('Bundle', 'embed.config.info.desc').format(prefix, lang, f"<@&{mute_role}>", anti_scam, "\n"),
+                description = self.b.get('Bundle', 'embed.config.info.desc').format(prefix, lang, f"<@&{mute_role}>", "\n"),
                 color = 0x42F56C
             )
             await ctx.send(embed = embed)
@@ -80,17 +79,6 @@ class config(commands.Cog, name = "config"):
             color = 0x42F56C
         )
         await ctx.send(embed = embed)
-    @config.command(name = "anti_scam")
-    @commands.cooldown(1, 2, commands.BucketType.user)
-    @commands.has_permissions(manage_guild = True)
-    async def anti_scam(self, ctx, value: bool):
-        self.b.read(f"locales/{await get_lang(ctx.message)}.ini")
-        await MongoM().setAntiScam(ctx.guild.id, value)
-        embed = nextcord.Embed(
-            title = self.b.get('Bundle', 'embed.succerfully'),
-            description = self.b.get('Bundle', 'embed.anti_scam-changed').format(value),
-            color = 0x42F56C
-        )
-        await ctx.send(embed = embed)
+
 def setup(bot):
     bot.add_cog(config(bot))
