@@ -39,7 +39,6 @@ async def poll(ctx, title, *, args):
     await embed_message.add_reaction("8️⃣")
     await embed_message.add_reaction("9️⃣")
 
-
 def setup(_bot):
     global bot
     bot = _bot
