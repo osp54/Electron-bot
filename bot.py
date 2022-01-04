@@ -13,12 +13,6 @@ from utils import MongoM
 
 cdir = os.path.realpath(__file__).replace("/bot.py", "")
 
-#for "config.ini" not in os.listdir(cdir):
-#    error("config.ini file not found. Creating this file...")
-#    with open("config.ini", "w") as config:
-#        config.write("[Bot]\ntoken = Bot token.")
-#        exit()
-
 tStart = time.time()
 cp = ConfigParser()
 cp.read("./config.ini")

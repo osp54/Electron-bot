@@ -16,6 +16,7 @@ async def help(ctx, command=None):
                                description=b.get("Bundle", "embed.help.description"), color=0xE4B400)
         for dir in os.listdir("commands"):
             if dir != "owner":
+                os.rmdir("commands/" + dir + "/__pycache__")
                 cmds = ", ".join(os.listdir("commands/" + dir)).replace(".py", "")
                 embed.add_field(name=b.get("Bundle", "embed.help." + dir), value=cmds, inline=False)
         await ctx.send(embed=embed)
