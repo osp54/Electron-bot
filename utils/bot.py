@@ -1,8 +1,6 @@
 import os, re
 import nextcord
-from utils.console import info, error
 from utils.mongo import MongoM
-from colorama import Fore
 from configparser import ConfigParser
 
 cp = ConfigParser()
@@ -23,7 +21,7 @@ async def localize(ctx, to_local, bundle="Bundle"):
         return cp.get(bundle, to_local)
     except:
         cp.read(f"locales/en.ini")
-        return self.b.get(bundle, to_local)
+        return cp.get(bundle, to_local)
 
 def format_duration_to_sec(time):
     time_list = re.split('(\d+)',time)
@@ -39,31 +37,9 @@ def format_duration_to_sec(time):
     if time == 0 or time == "0":
         return "ND"
     return time_in_s
-async def load_extensions(bot, dir):
-    for file in os.listdir(dir):
-        if file.endswith(".py") and not file.endswith("_.py"):
-            extension = file[:-3]
-            try:
-                bot.load_extension(f"{dir[2:]}.{extension}")
-                info(f"Loaded extension {Fore.BLUE}{extension}")
-            except Exception as e:
-                exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to load extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
-
-async def unload_extensions(bot, dir):
-    for file in os.listdir(dir):
-        if file.endswith(".py") and not file.endswith("_.py"):
-            extension = file[:-3]
-            try:
-                bot.unload_extension(f"{dir[2:]}.{extension}")
-                info(f"Unloaded extension {Fore.BLUE}{extension}")
-            except Exception as e:
-                exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to unload extension {Fore.BLUE}{extension}{Fore.RESET}\n{exception}")
-
-async def cmdInfo(ctx, self, cmd):
+async def cmdInfo(ctx, bot, cmd):
         cp.read(f"locales/{await get_lang(ctx.message)}.ini")
-        cmd = self.bot.get_command(cmd)
+        cmd = bot.get_command(cmd)
         embed = nextcord.Embed(
             title=cmd.name.capitalize(),
             description=cp.get("Bundle", f"{cmd}.description"),

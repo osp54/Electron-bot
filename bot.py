@@ -49,7 +49,7 @@ for file in os.listdir("events"):
             client.add_listener(event.setup(client))
         except Exception as e:
             exception = f"{type(e).__name__}: {e}"
-            error(f"Failed to load command {file}")
+            error(f"Failed to load event {file}")
 
 @client.event
 async def on_ready():
@@ -66,7 +66,5 @@ async def on_ready():
     info(f"Time elapsed: {colored(tElapsed)}")
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(load_extensions(client, "./cogs"))
     client.load_extension("jishaku")
     client.run(token)
