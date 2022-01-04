@@ -13,7 +13,7 @@ bot: commands.Bot = ""
 @commands.cooldown(1, 2, commands.BucketType.user)
 @commands.has_permissions(manage_channels=True)
 @commands.bot_has_permissions(manage_channels=True)
-async def command(ctx, slowmode: int = None, channel: nextcord.TextChannel = None):
+async def slowmode(ctx, slowmode: int = None, channel: nextcord.TextChannel = None):
     b.read(f"locales/{await get_lang(ctx.message)}.ini")
     if channel is None:
         channel = ctx.channel
@@ -27,3 +27,7 @@ async def command(ctx, slowmode: int = None, channel: nextcord.TextChannel = Non
     await ctx.send(embed=embed)
     await ctx.message.add_reaction('✅')
 
+def setup(_bot):
+    global bot
+    bot = _bot
+    return slowmode

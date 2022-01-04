@@ -7,6 +7,7 @@ from nextcord.ext import commands
 b = ConfigParser()
 bot: commands.Bot = ""
 
+
 @commands.command(
     name="unmute",
     aliases=['размьют', 'размут']

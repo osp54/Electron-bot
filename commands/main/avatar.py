@@ -6,6 +6,7 @@ from nextcord.ext import commands
 b = ConfigParser
 bot: commands.Bot = ""
 
+@commands.command(name="avatar")
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def avatar(ctx, member: nextcord.Member = None):
     b.read(f"locales/{await get_lang(ctx.message)}.ini")

@@ -13,7 +13,7 @@ async def on_command(ctx):
     embed = nextcord.Embed(title="Console log", color=0xE4B400)
     embed.add_field(name="Guild", value=ctx.guild.name + " \n" + str(ctx.guild.id))
     embed.add_field(name="Author", value=str(ctx.author) + " \n" + str(ctx.author.id))
-    embed.add_field(name="Channel", value=ctx.channel.name + " \n" + ctx.channel.id)
+    embed.add_field(name="Channel", value=ctx.channel.name + " \n" + str(ctx.channel.id))
     embed.add_field(name="Command", value=ctx.message.content, inline=False)
     await channel.send(embed=embed)
 

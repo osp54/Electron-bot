@@ -5,6 +5,7 @@ from nextcord.ext import commands
 b = ConfigParser()
 bot: commands.Bot = ""
 
+@commands.command(name="ping")
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def ping(ctx):
     b.read(f"locales/{await get_lang(ctx.message)}.ini")

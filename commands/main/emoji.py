@@ -6,7 +6,7 @@ from nextcord.ext import commands
 b = ConfigParser()
 bot: commands.Bot = ""
 
-
+@commands.command(name="emoji")
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def emoji( ctx, emoji: nextcord.Emoji):
     b.read(f"locales/{await get_lang(ctx.message)}.ini")

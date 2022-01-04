@@ -6,6 +6,7 @@ from nextcord.ext import commands
 b = ConfigParser()
 bot: commands.Bot = ""
 
+@commands.command(name="unban")
 @commands.cooldown(1, 2, commands.BucketType.user)
 @commands.bot_has_permissions(ban_members=True)
 @commands.has_permissions(ban_members=True)

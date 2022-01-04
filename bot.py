@@ -6,18 +6,18 @@ import logging
 import asyncio
 from configparser import ConfigParser
 from utils.console import info, error, colored
-from utils.bot import get_prefix, load_extensions
+from utils.bot import get_prefix
 from colorama import init
 from nextcord.ext import commands
 from utils import MongoM
 
 cdir = os.path.realpath(__file__).replace("/bot.py", "")
 
-if "config.ini" not in os.listdir(cdir):
-    error("config.ini file not found. Creating this file...")
-    with open("config.ini", "w") as config:
-        config.write("[Bot]\ntoken = Bot token.")
-        exit()
+#for "config.ini" not in os.listdir(cdir):
+#    error("config.ini file not found. Creating this file...")
+#    with open("config.ini", "w") as config:
+#        config.write("[Bot]\ntoken = Bot token.")
+#        exit()
 
 tStart = time.time()
 cp = ConfigParser()
@@ -40,7 +40,7 @@ for dir in os.listdir("commands"):
                 client.add_command(command.setup(client))
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to load command {file}")
+                error(f"Failed to load command {file}: {exception}")
 #добавление ивентов
 for file in os.listdir("events"):
     if file.endswith(".py"):
@@ -49,7 +49,7 @@ for file in os.listdir("events"):
             client.add_listener(event.setup(client))
         except Exception as e:
             exception = f"{type(e).__name__}: {e}"
-            error(f"Failed to load event {file}")
+            error(f"Failed to load event {file}: {exception}")
 
 @client.event
 async def on_ready():

@@ -6,6 +6,7 @@ from nextcord.ext import commands
 b = ConfigParser()
 bot = ""
 
+@commands.command(name="clone")
 @commands.cooldown(1, 2, commands.BucketType.user)
 @commands.has_permissions(manage_channels=True)
 @commands.bot_has_permissions(manage_channels=True)
