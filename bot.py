@@ -6,18 +6,12 @@ import logging
 import asyncio
 from configparser import ConfigParser
 from utils.console import info, error, colored
-from utils.bot import get_prefix, load_extensions
+from utils.bot import get_prefix
 from colorama import init
 from nextcord.ext import commands
 from utils import MongoM
 
 cdir = os.path.realpath(__file__).replace("/bot.py", "")
-
-if "config.ini" not in os.listdir(cdir):
-    error("config.ini file not found. Creating this file...")
-    with open("config.ini", "w") as config:
-        config.write("[Bot]\ntoken = Bot token.")
-        exit()
 
 tStart = time.time()
 cp = ConfigParser()
@@ -29,8 +23,27 @@ intents = nextcord.Intents.all()
 owner_ids = [580631356485402639, 530103444946812929, 674647047831420975]
 client = commands.Bot(command_prefix=get_prefix, intents=intents, owner_ids=owner_ids)
 client.remove_command('help')
-
 logging.getLogger('nextcord').setLevel(logging.WARNING)
+
+#добавление команд
+for dir in os.listdir("commands"):
+    for file in os.listdir("commands/" + dir):
+        if file.endswith(".py"):
+            exec("from commands." + dir + " import " + file.replace(".py", "") + " as command")
+            try:
+                client.add_command(command.setup(client))
+            except Exception as e:
+                exception = f"{type(e).__name__}: {e}"
+                error(f"Failed to load command {file}: {exception}")
+#добавление ивентов
+for file in os.listdir("events"):
+    if file.endswith(".py"):
+        exec("from events import " + file.replace(".py", "") + " as event")
+        try:
+            client.add_listener(event.setup(client))
+        except Exception as e:
+            exception = f"{type(e).__name__}: {e}"
+            error(f"Failed to load event {file}: {exception}")
 
 @client.event
 async def on_ready():
@@ -47,7 +60,5 @@ async def on_ready():
     info(f"Time elapsed: {colored(tElapsed)}")
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(load_extensions(client, "./cogs"))
     client.load_extension("jishaku")
     client.run(token)
