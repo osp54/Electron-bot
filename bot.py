@@ -3,7 +3,6 @@ import nextcord
 import os
 import platform
 import logging
-import asyncio
 from configparser import ConfigParser
 from utils.console import info, error, colored
 from utils.bot import get_prefix
