@@ -24,8 +24,8 @@ client = commands.Bot(command_prefix=get_prefix, intents=intents, owner_ids=owne
 client.remove_command('help')
 logging.getLogger('nextcord').setLevel(logging.WARNING)
 
-add_all_commands()
-add_all_events()
+add_all_commands(client)
+add_all_events(client)
 
 @client.event
 async def on_ready():
