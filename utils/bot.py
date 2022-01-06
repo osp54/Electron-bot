@@ -6,25 +6,6 @@ from configparser import ConfigParser
 
 cp = ConfigParser()
 
-def add_all_commands(bot):
-    for dir in os.listdir("commands"):
-        for file in os.listdir("commands/" + dir):
-            if file.endswith(".py"):
-                exec("from commands." + dir + " import " + file.replace(".py", "") + " as command")
-                try:
-                    bot.add_command(command.setup(bot))
-                except Exception as e:
-                    exception = f"{type(e).__name__}: {e}"
-                    error(f"Failed to load command {file}: {exception}")
-def add_all_events(bot):
-    for file in os.listdir("events"):
-        if file.endswith(".py"):
-            exec("from events import " + file.replace(".py", "") + " as event")
-            try:
-                bot.add_listener(event.setup(bot))
-            except Exception as e:
-                exception = f"{type(e).__name__}: {e}"
-                error(f"Failed to load event {file}: {exception}")
 async def get_prefix(client, message, isInfo = False):
     if message.guild is None:
         return ""
