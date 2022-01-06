@@ -79,7 +79,7 @@ async def mute(ctx, member: nextcord.Member, duration="0", *, reason="Not Specif
     if muted:
         embed = nextcord.Embed(
             title=b.get('Bundle', 'embed.succerfully'),
-            descripion=b.get('Bundle', 'embed.mute.description').format(member.name),
+            description=b.get('Bundle', 'embed.mute.description').format(member.name),
             color=0x42F56C
         )
         embed.add_field(
