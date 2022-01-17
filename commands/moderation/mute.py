@@ -29,14 +29,6 @@ async def mute(ctx, member: nextcord.Member, duration="0", *, reason="Not Specif
         )
         await ctx.message.add_reaction('❌')
         return await ctx.send(embed=embed)
-    if member.guild_permissions.administrator:
-        embed = nextcord.Embed(
-            title=b.get('Bundle', 'embed.error'),
-            description=b.get('Bundle', 'embed.error.mute.user-has-admin-perm'),
-            color=0xE02B2B
-        )
-        await ctx.message.add_reaction('❌')
-        return await ctx.send(embed=embed)
     if member.top_role.position > ctx.author.top_role.position or ctx.author.id != ctx.guild.owner.id:
         embed = nextcord.Embed(
             title=b.get('Bundle', 'embed.error'),
