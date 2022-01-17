@@ -3,7 +3,7 @@ from utils.bot import get_lang
 from configparser import ConfigParser
 from nextcord.ext import commands
 
-b = ConfigParser
+b = ConfigParser()
 bot: commands.Bot = ""
 
 @commands.command(name="avatar")
