@@ -1,6 +1,7 @@
 import os
 os.system("git pull")
 import time
+import sys
 import nextcord
 import platform
 import logging
@@ -55,6 +56,9 @@ async def on_ready():
     info(f"Running on: {colored(platform.system())} {colored(platform.release())} ({colored(os.name)})")
     info(f"Time elapsed: {colored(tElapsed)}")
 
-if __name__ == "__main__":
+if __name__ == "__main__" or __name__ == "ssetup":
     client.load_extension("jishaku")
     client.run(token)
+
+
+
