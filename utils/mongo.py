@@ -1,9 +1,10 @@
 import motor.motor_asyncio
+from utils import config
 from utils.console import error, info
 
 class MongoM():
     def __init__(self, coll = "guilds"):
-        self.client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://electron:g50BnWQNdvRrIA6D@cluster.xyknx.mongodb.net/electron?retryWrites=true&w=majority")
+        self.client = motor.motor_asyncio.AsyncIOMotorClient(config.get("mongodb-con-string"))
         self.coll = self.client["electron"][coll]
     async def connect(self):
         try:

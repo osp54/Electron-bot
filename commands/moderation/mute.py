@@ -53,19 +53,26 @@ async def mute(ctx, member: nextcord.Member, duration="0", *, reason="Not Specif
         )
         await ctx.message.add_reaction('❌')
         return await ctx.send(embed=embed)
-    mute_role_id = await MongoM().getMuteRole(ctx.guild.id)
-    mutedRole = guild.get_role(mute_role_id)
-    if mutedRole is None:
-        mutedRole = await guild.create_role(name="Electron Mute")
-        await MongoM().setMuteRole(guild.id, mutedRole.id)
-        for channel in guild.channels:
-            await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_message_history=True,
-                                          read_messages=True)
-    if format_duration_to_sec(duration) != "ND":
-        await member.edit(timeout=datetime.datetime.utcnow() + timedelta(seconds=int(format_duration_to_sec(duration))))
+    if format_duration_to_sec(duration) == "ND":
+        mute_role_id = await MongoM().getMuteRole(ctx.guild.id)
+        muted_role = guild.get_role(mute_role_id)
+        if muted_role is None:
+            embed =  nextcord.Embed(
+                title=b.get('Bundle', 'embed.error'),
+                description=b.get('Bundle', 'embed.error.invalid-mute-role'),
+                color=0xE02B2B
+            )
+            await ctx.message.add_reaction('❌')
+            return await ctx.send(embed=embed)
+        try:
+            await member.add_roles(muted_role, reason=f"{reason}({ctx.author})")
+        except:
+            muted = False
     else:
         try:
-            await member.add_roles(mutedRole, reason=f"{reason}({ctx.author})")
+            await member.edit(
+                timeout=datetime.datetime.utcnow() + timedelta(seconds=int(format_duration_to_sec(duration))),
+                reason=f"{reason}({ctx.author})")
         except:
             muted = False
     if muted:

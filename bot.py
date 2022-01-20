@@ -1,11 +1,10 @@
 import os
 os.system("git pull")
 import time
-import sys
 import nextcord
 import platform
 import logging
-from configparser import ConfigParser
+from utils import config
 from utils.console import info, error, colored
 from utils.bot import get_prefix
 from colorama import init
@@ -13,9 +12,7 @@ from nextcord.ext import commands
 from utils import MongoM
 
 tStart = time.time()
-cp = ConfigParser()
-cp.read("./config.ini")
-token = cp.get("Bot", "token")
+token = config.get("token")
 init(autoreset=True)
 
 intents = nextcord.Intents.all()
