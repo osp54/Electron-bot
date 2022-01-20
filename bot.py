@@ -1,6 +1,7 @@
+import os
+os.system("git pull")
 import time
 import nextcord
-import os
 import platform
 import logging
 from configparser import ConfigParser
@@ -9,8 +10,6 @@ from utils.bot import get_prefix
 from colorama import init
 from nextcord.ext import commands
 from utils import MongoM
-
-cdir = os.path.realpath(__file__).replace("/bot.py", "")
 
 tStart = time.time()
 cp = ConfigParser()
