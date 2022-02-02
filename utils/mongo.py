@@ -1,11 +1,17 @@
 import motor.motor_asyncio
+import sys
 from utils import config
-from utils.console import error, info
+from utils.log import error, info
 
 class MongoM():
     def __init__(self, coll = "guilds"):
-        self.client = motor.motor_asyncio.AsyncIOMotorClient(config.get("mongodb-con-string"))
-        self.coll = self.client["electron"][coll]
+        try:
+            self.client = motor.motor_asyncio.AsyncIOMotorClient(config.get("mongodb-con-string"))
+            self.coll = self.client["electron"][coll]
+            self.connect()
+        except Exception as e:
+            error(f"Connect to database failed. Error: {e}")
+            sys.exit()
     async def connect(self):
         try:
             await self.client.admin.command('ismaster')

@@ -11,7 +11,7 @@ async def on_mention(message):
     electron = ['electron', 'электрон']
     b.read(f"locales/{await get_lang(message)}.ini")
     if '<@861541287161102376>' == message.content:
-        prefix = await get_prefix(bot, message, True)
+        prefix = await get_prefix(bot, message)
         await message.reply(b.get('Bundle', 'HelloMessage').format(prefix), mention_author=False)
     for i in electron:
         if i in message.content.lower():

@@ -5,7 +5,7 @@ import nextcord
 import platform
 import logging
 from utils import config
-from utils.console import info, error, colored
+from utils.log import info, error
 from utils.bot import get_prefix
 from colorama import init
 from nextcord.ext import commands
@@ -47,13 +47,13 @@ async def on_ready():
     tEnd = time.time()
     tElapsed = tEnd - tStart
     await client.change_presence(activity=nextcord.Game(name=f"$help | Guilds: {len(client.guilds)}"))
-    info(f"Logged in as {colored(client.user.name)}, Guilds: {colored(len(client.guilds))}")
-    info(f"NextCord version: {colored(nextcord.__version__)}")
-    info(f"Python version: {colored(platform.python_version())}")
-    info(f"Running on: {colored(platform.system())} {colored(platform.release())} ({colored(os.name)})")
-    info(f"Time elapsed: {colored(tElapsed)}")
+    info(f"Logged in as client.user.name, Guilds: b({len(client.guilds)}b)")
+    info(f"NextCord version: b({nextcord.__version__}b)")
+    info(f"Python version: b({platform.python_version()}b)")
+    info(f"Running on: b({platform.system()} {platform.release()}b)")
+    info(f"Time elapsed: b({tElapsed}b)")
 
-if __name__ == "__main__" or __name__ == "ssetup":
+if __name__ in ["__main__", "ssetup"]:
     client.load_extension("jishaku")
     client.run(token)
 
