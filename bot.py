@@ -1,5 +1,4 @@
 import os
-os.system("git pull")
 import time
 import nextcord
 import platform
