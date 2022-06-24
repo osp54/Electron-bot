@@ -53,7 +53,7 @@ async def on_ready():
     info(f"Running on: b({platform.system()} {platform.release()}b)")
     info(f"Time elapsed: b({tElapsed}b)")
 
-if __name__ in ["__main__", "ssetup"]:
+if __name__ in ["__main__"]:
     client.load_extension("jishaku")
     client.run(token)
 
